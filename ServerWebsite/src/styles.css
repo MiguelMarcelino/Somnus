@@ -1,1 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
+html, body { 
+    height: 100%; 
+}
+
+body { 
+    margin: 0; 
+    font-family: 'Montserrat', sans-serif;
+    background-color: rgb(41, 41, 41); 
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+html::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE and Edge */
+html {
+  -ms-overflow-style: none;
+}
+
+h1 {
+  color: white;
+}
+
+p {
+  color: white;
+}

@@ -1,4 +1,4 @@
-import { Component, Renderer2, ElementRef } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -6,18 +6,5 @@ import { Component, Renderer2, ElementRef } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-
-  constructor(
-    private el: ElementRef
-  ) { }
-
   title = 'ServerWebsite';
-
-  ngAfterViewInit(){
-    this.el.nativeElement.ownerDocument.body.style.backgroundColor = 'rgb(53, 53, 53)';
-  }
-
-
 }
-
-
