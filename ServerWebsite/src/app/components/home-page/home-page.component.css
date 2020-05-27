@@ -1,0 +1,53 @@
+.floating_div {
+    color: rgb(0, 0, 0);
+    box-shadow: 1pt 1pt;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    margin: 30pt;
+    box-shadow: 0pt;
+    border-radius: 4pt;
+    background: #525252;
+
+    transition: 0.5s ease;
+}
+
+h2 {
+  color: white;
+}
+
+p {
+  color: white;
+}
+
+.floating_div:hover {
+    box-shadow: 2pt 2pt;
+    transform: scale(1.02,1.02);
+    background: #5e5e5e;
+}
+
+.title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    margin: 30pt;
+}
+
+h1 {
+    color: #ffffff; 
+    font-family: 'Raleway',sans-serif;
+    font-weight: 800; 
+    line-height: 72px;
+}
+
+/* .background {
+  width: 120%;
+  height: 200%;
+  object-fit: cover;
+  background-position: center center;
+  background-position-x: center;
+  background-position-y: center;
+} */
