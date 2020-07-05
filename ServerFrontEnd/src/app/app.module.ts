@@ -8,6 +8,12 @@ import { HomeComponent } from './components/home/home.component';
 import { ContactsComponent } from './components/contacts/contacts.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { CvTemplateComponent } from './components/cvs/cv-template/cv-template.component';
+import { GamesComponent } from './components/games/games.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from '../shared/material.module';
+import { AddGameEventComponent } from './components/add-game-event/add-game-event.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ServerStatsComponent } from './components/server-stats/server-stats.component';
 
 @NgModule({
   declarations: [
@@ -15,13 +21,19 @@ import { CvTemplateComponent } from './components/cvs/cv-template/cv-template.co
     HomeComponent,
     ContactsComponent,
     HomePageComponent,
-    CvTemplateComponent
+    CvTemplateComponent,
+    GamesComponent,
+    AddGameEventComponent,
+    ServerStatsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MaterialModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

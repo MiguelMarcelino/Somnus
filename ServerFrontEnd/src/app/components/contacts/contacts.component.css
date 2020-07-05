@@ -1,3 +1,11 @@
 .contact {
     margin: 10pt;
 }
+
+label {
+    color: white;
+}
+
+#feedback {
+    height: 200pt;
+}

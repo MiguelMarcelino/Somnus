@@ -4,6 +4,8 @@ import { HomeComponent } from './components/home/home.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { ContactsComponent } from './components/contacts/contacts.component';
 import { CvTemplateComponent } from './components/cvs/cv-template/cv-template.component';
+import { GamesComponent } from './components/games/games.component';
+import { ServerStatsComponent } from './components/server-stats/server-stats.component';
 
 
 const routes: Routes = [
@@ -28,6 +30,14 @@ const routes: Routes = [
     path: "cvTesting",
     component: CvTemplateComponent
   },
+  {
+    path: "games",
+    component: GamesComponent
+  },
+  {
+    path: 'server_stats',
+    component: ServerStatsComponent
+  }
 ];
 
 @NgModule({
