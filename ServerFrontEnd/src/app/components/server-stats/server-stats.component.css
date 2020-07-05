@@ -1,0 +1,40 @@
+h2 {
+    color: white;
+    font-size: 20pt;
+}
+
+#server-specs {
+    color: white;
+    font-size: 15pt;
+}
+
+.spec_table {
+    color: white;
+    width: 100%;
+}
+
+.spec_table th,
+td {
+    padding: 10pt 10pt 10pt 0pt;
+    text-align: left;
+}
+
+.img-style {
+    width: 50pt;
+    filter: invert(1);
+}
+
+.left {
+    width: 50%;
+    float: left;
+}
+
+.right {
+    width: 50%;
+    float: right;
+}
+
+
+/* #spec_table tr:nth-child(even) {
+    background-color: #535353;
+} */

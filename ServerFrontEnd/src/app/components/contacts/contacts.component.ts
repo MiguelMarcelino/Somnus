@@ -11,7 +11,7 @@ export class ContactsComponent implements OnInit {
   contactForm: FormGroup;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
@@ -22,8 +22,9 @@ export class ContactsComponent implements OnInit {
     })
   }
 
+  // TODO
   onSubmit() {
-    
+    //send feedback 
   }
 
 }

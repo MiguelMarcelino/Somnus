@@ -1,39 +1,36 @@
 .floating_div {
     color: rgb(0, 0, 0);
     box-shadow: 1pt 1pt;
-    
+    padding: 20pt;
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    margin: 30pt;
+    margin-bottom: 15pt;
+    margin-top: 15pt;
     box-shadow: 0pt;
     border-radius: 4pt;
-    background: #525252;
-
+    background: #3b3b3b;
     transition: 0.5s ease;
+}
+
+.floating_div:hover {
+  box-shadow: 2pt 2pt;
+  transform: scale(1.02,1.02);
+  background: #4b4b4b;
+  cursor: pointer;
 }
 
 h2 {
   color: white;
+  font-size: 20pt;
 }
 
 p {
   color: white;
-}
-
-.floating_div:hover {
-    box-shadow: 2pt 2pt;
-    transform: scale(1.02,1.02);
-    background: #5e5e5e;
-}
-
-.title {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    margin: 30pt;
+  font-size: 16pt;
+  /* padding: 2pt; */
+  line-height: 20pt;
 }
 
 h1 {
@@ -42,12 +39,3 @@ h1 {
     font-weight: 800; 
     line-height: 72px;
 }
-
-/* .background {
-  width: 120%;
-  height: 200%;
-  object-fit: cover;
-  background-position: center center;
-  background-position-x: center;
-  background-position-y: center;
-} */
