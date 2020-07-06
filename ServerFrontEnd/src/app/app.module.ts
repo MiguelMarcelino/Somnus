@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MglTimelineModule } from 'angular-mgl-timeline';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,6 +16,7 @@ import { AddGameEventComponent } from './components/add-game-event/add-game-even
 import { HttpClientModule } from '@angular/common/http';
 import { ServerStatsComponent } from './components/server-stats/server-stats.component';
 import { TeamMemberPageComponent } from './components/team-member-page/team-member-page.component';
+import { AboutPageComponent } from './components/about-page/about-page.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import { TeamMemberPageComponent } from './components/team-member-page/team-memb
     GamesComponent,
     AddGameEventComponent,
     ServerStatsComponent,
-    TeamMemberPageComponent
+    TeamMemberPageComponent,
+    AboutPageComponent
   ],
   imports: [
     BrowserModule,
@@ -34,8 +37,9 @@ import { TeamMemberPageComponent } from './components/team-member-page/team-memb
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
+    MglTimelineModule,
     MaterialModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

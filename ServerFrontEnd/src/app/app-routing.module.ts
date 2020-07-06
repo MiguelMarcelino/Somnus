@@ -7,6 +7,7 @@ import { CvTemplateComponent } from './components/cvs/cv-template/cv-template.co
 import { GamesComponent } from './components/games/games.component';
 import { ServerStatsComponent } from './components/server-stats/server-stats.component';
 import { TeamMemberPageComponent } from './components/team-member-page/team-member-page.component';
+import { AboutPageComponent } from './components/about-page/about-page.component';
 
 
 const routes: Routes = [
@@ -42,6 +43,10 @@ const routes: Routes = [
   {
     path: 'team',
     component: TeamMemberPageComponent
+  },
+  {
+    path: 'about',
+    component: AboutPageComponent
   }
 ];
 
