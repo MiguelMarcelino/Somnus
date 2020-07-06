@@ -1,0 +1,63 @@
+
+p {
+    font-size: 16pt;
+    line-height: 30pt;
+}
+
+h2 {
+    font-size: 20pt;
+    color: white;
+    text-align: center;
+}
+
+.page-style {
+    margin: 0 auto;
+    width: 100%;
+    text-align: center;
+}
+
+.about-content {
+    margin: 0 auto;
+    padding-bottom: 40pt;
+    text-align: justify;
+    max-width: 1000pt;
+}
+
+.milestone-wrapper {
+    display: flex;
+}
+
+.year-left{
+    float: left;
+    width: 30%;
+    padding-bottom: 20pt;
+    padding-left: 10pt;
+}
+
+.info-right{
+    float: right;
+    width: 70%;
+    padding-bottom: 20pt;
+}
+
+.progress-line {
+    float: left;
+    width: 12%;
+    overflow: hidden;
+}
+
+.rounded-dot {
+    height: 10pt;
+    width: 10pt;
+    background-color: white;
+    border-radius: 50%;
+    margin: 0 auto;
+    margin-top: 10pt;
+}
+
+.line {
+    width: 100%;
+    overflow: hidden;
+    transform: rotateZ(90deg);
+    border: 1px solid white;
+}
