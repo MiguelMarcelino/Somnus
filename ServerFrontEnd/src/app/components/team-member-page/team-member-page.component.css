@@ -1,0 +1,60 @@
+h2 {
+    font-size: 20pt;
+    color: white;
+}
+
+h3 {
+    font-size: 15pt;
+    color: white;
+}
+
+p {
+    font-size: 12pt;
+}
+
+hr {
+    height: 5pt;
+    border: 10pt solid white;
+}
+
+.page-style {
+    margin: 0 auto;
+    text-align: center;
+    width: 100%;
+}
+
+.photo-above {
+    overflow: hidden;
+    width: auto;
+}
+
+.grid-container {
+    width: 100%;
+}
+
+.grid-element {
+    float: inline-start;
+    text-align: center;
+    width: 25%;
+    height: 300pt;
+    margin: auto;
+}
+
+.teamMemberPhoto {
+    height: 200pt;
+    width: 200pt;
+    object-fit: cover;
+}
+
+.info-div {
+    width: 100%;
+    float: inline-end;
+    margin-bottom: 30pt;
+}
+
+.feedback-text {
+    margin: 0 auto;
+    font-size: 16pt;
+    max-width: 1000pt;
+    line-height: 30pt;
+}

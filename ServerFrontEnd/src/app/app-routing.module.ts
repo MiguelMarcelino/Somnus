@@ -6,6 +6,7 @@ import { ContactsComponent } from './components/contacts/contacts.component';
 import { CvTemplateComponent } from './components/cvs/cv-template/cv-template.component';
 import { GamesComponent } from './components/games/games.component';
 import { ServerStatsComponent } from './components/server-stats/server-stats.component';
+import { TeamMemberPageComponent } from './components/team-member-page/team-member-page.component';
 
 
 const routes: Routes = [
@@ -37,6 +38,10 @@ const routes: Routes = [
   {
     path: 'server_stats',
     component: ServerStatsComponent
+  },
+  {
+    path: 'team',
+    component: TeamMemberPageComponent
   }
 ];
 

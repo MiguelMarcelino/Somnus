@@ -14,6 +14,7 @@ import { MaterialModule } from '../shared/material.module';
 import { AddGameEventComponent } from './components/add-game-event/add-game-event.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ServerStatsComponent } from './components/server-stats/server-stats.component';
+import { TeamMemberPageComponent } from './components/team-member-page/team-member-page.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ServerStatsComponent } from './components/server-stats/server-stats.com
     CvTemplateComponent,
     GamesComponent,
     AddGameEventComponent,
-    ServerStatsComponent
+    ServerStatsComponent,
+    TeamMemberPageComponent
   ],
   imports: [
     BrowserModule,
