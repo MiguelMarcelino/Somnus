@@ -1,7 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MglTimelineModule } from 'angular-mgl-timeline';
+import { MglTimelineModule } from 'angular-mgl-timeline'; // still not in use
+import { environment } from '../environments/environment'; 
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ServerStatsComponent } from './components/server-stats/server-stats.component';
 import { TeamMemberPageComponent } from './components/team-member-page/team-member-page.component';
 import { AboutPageComponent } from './components/about-page/about-page.component';
+import { LoginPageComponent } from './components/login-page/login-page.component';
 
 @NgModule({
   declarations: [
@@ -29,17 +33,20 @@ import { AboutPageComponent } from './components/about-page/about-page.component
     AddGameEventComponent,
     ServerStatsComponent,
     TeamMemberPageComponent,
-    AboutPageComponent
+    AboutPageComponent,
+    LoginPageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    MaterialModule,
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
     MglTimelineModule,
-    MaterialModule,
     HttpClientModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]

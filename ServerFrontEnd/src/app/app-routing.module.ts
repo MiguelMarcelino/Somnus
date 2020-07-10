@@ -8,6 +8,7 @@ import { GamesComponent } from './components/games/games.component';
 import { ServerStatsComponent } from './components/server-stats/server-stats.component';
 import { TeamMemberPageComponent } from './components/team-member-page/team-member-page.component';
 import { AboutPageComponent } from './components/about-page/about-page.component';
+import { LoginPageComponent } from './components/login-page/login-page.component';
 
 
 const routes: Routes = [
@@ -47,6 +48,10 @@ const routes: Routes = [
   {
     path: 'about',
     component: AboutPageComponent
+  },
+  {
+    path: 'login',
+    component: LoginPageComponent
   }
 ];
 

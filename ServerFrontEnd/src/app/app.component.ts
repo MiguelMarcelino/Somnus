@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AppSettings } from './appSettings';
 
 @Component({
@@ -9,4 +9,7 @@ import { AppSettings } from './appSettings';
 
 export class AppComponent {
   title = AppSettings.SERVER_NAME;
+
+  constructor() {}
+
 }

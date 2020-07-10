@@ -10,17 +10,10 @@ h2 {
     text-align: center;
 }
 
-.page-style {
-    margin: 0 auto;
-    width: 100%;
-    text-align: center;
-}
-
 .about-content {
     margin: 0 auto;
     padding-bottom: 40pt;
     text-align: justify;
-    max-width: 1000pt;
 }
 
 .milestone-wrapper {

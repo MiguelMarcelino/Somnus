@@ -1,0 +1,28 @@
+h2{
+    color: white;
+    font-size: 20pt;
+}
+
+p {
+    color: white;
+    font-size: 15pt;
+}
+
+.page-style {
+    margin: 20pt auto;
+    vertical-align: middle;
+    width: 30%;
+}
+
+.other-accounts {
+    margin-top: 30pt;
+    margin-bottom: 30pt;
+}
+
+.account-button {
+    background-size: cover;
+}
+
+.google-icon{
+    
+}
