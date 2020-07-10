@@ -6,3 +6,8 @@ https://www.namecheap.com/domains/registration/gtld/com/
 
 icons
 https://material.io/resources/icons/?icon=anchor&style=baseline
+
+Firebase Login with google
+
+Firebase Login with email and password
+https://www.youtube.com/watch?v=6TRv1xT3Y-E
