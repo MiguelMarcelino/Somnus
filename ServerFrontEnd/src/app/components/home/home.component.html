@@ -27,9 +27,34 @@
     </div>
 
     <!-- Search -->
-    <form class="form-inline">
+    <form class="form-inline ">
         <div class="md-form my-0">
             <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
         </div>
+        <!-- Login Button -->
+        <button *ngIf="!user" mat-button class="login-button" routerLink="/login">
+            Login
+        </button>
+
+        <!-- Avatar Button -->
+        <button 
+            *ngIf="user" 
+            [matMenuTriggerFor]="avatarMenuDropDown"
+            mat-mini-fab class="user-avatar" 
+            [ngStyle]="{ 'background-image': 'url(' + user?.photoURL +')' }">
+        </button>
+        <!-- Avatar Menu -->
+        <mat-menu #avatarMenuDropDown="matMenu">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>{{user?.displayName}}</mat-card-title>
+                    <mat-card-subtitle>{{user?.email}}</mat-card-subtitle>
+                </mat-card-header>
+            </mat-card>
+            <button mat-menu-item (click)="logout()">
+                <mat-icon>exit_to_app</mat-icon>
+                <span>Sign out</span>
+            </button>
+        </mat-menu>
     </form>
 </nav>

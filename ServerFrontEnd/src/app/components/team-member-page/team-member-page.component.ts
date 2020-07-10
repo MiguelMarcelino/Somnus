@@ -20,7 +20,7 @@ export class TeamMemberPageComponent implements OnInit {
 
   populateTeamMembers(): void {
     this.teamMembers = [];
-    this.teamMembers.push({memberName: "David Binaire", photoPath: "../../assets/testImgs/mine.png",
+    this.teamMembers.push({memberName: "David Binaire 1", photoPath: "../../assets/testImgs/mine.png",
       dateJoined: new Date(), contributions: 100}, 
       {memberName: "David Binaire 2", photoPath: "../../assets/testImgs/mine.png",
       dateJoined: new Date(), contributions: 110},

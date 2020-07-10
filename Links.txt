@@ -3,3 +3,6 @@ https://search.amen.pt/search
 
 other .com domain site
 https://www.namecheap.com/domains/registration/gtld/com/
+
+icons
+https://material.io/resources/icons/?icon=anchor&style=baseline

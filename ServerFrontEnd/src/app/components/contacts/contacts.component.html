@@ -1,5 +1,6 @@
+
+<h2>Feel Free to contact us!</h2>
 <div class="row-fluid contact-form">
-    <a id="contact_text">Anything you want to tell us? Feel free to send us a message!</a>
     <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" method="post">
         <div class="form-group">
             <!-- First Name -->
@@ -24,4 +25,20 @@
             <button type="submit" class="btn btn-primary">Send Feedback</button>
         </div>
     </form>
+</div>
+
+<div class="row-fluid">
+    <h2>Join our platforms</h2>
+    <div class="img-left">
+        <a class="link" href="https://discord.gg/J2UMjK">
+            <img class="img-inverted" src="../../../assets/icons/discord.png"> 
+        </a>
+    </div>
+    <div class="description-right">
+        <p>
+            Feel free to join our discord channel. There you can see what services are available and also
+            receive notifications when updates to the website are made. You can become part of a very small community
+            of programmers and also share your knowledge with them.
+        </p>
+    </div>
 </div>

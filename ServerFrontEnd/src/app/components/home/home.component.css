@@ -1,0 +1,10 @@
+.login-button {
+    background-color: rgba(0, 132, 255, 0.952);
+    color: white;
+    margin-right: 10pt;
+    padding: 1pt;
+}
+
+.user-avatar {
+    background-size: cover;
+}

@@ -55,4 +55,3 @@ $ServerWebsite-theme: mat-light-theme($ServerWebsite-primary, $ServerWebsite-acc
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include angular-material-theme($ServerWebsite-theme);
-
