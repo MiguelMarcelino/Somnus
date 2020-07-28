@@ -1,0 +1,13 @@
+
+<h2>Start Writing your own article</h2>
+<div class="container">
+    <form [formGroup]="editorForm" (ngSubmit)="onSubmit">
+        <div class="form-group">
+            <label for="editor"></label>
+            <quill-editor formControlName="editor"></quill-editor>
+        </div>
+        
+        <button class="btn btn-primary mt-5">Submit</button>
+    </form>
+
+</div>

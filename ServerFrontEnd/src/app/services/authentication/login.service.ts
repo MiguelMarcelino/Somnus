@@ -7,7 +7,6 @@ import { auth } from 'firebase';
 })
 export class LoginService  {
 
-
   constructor(
     private angularFireAuth: AngularFireAuth,
   ) { }

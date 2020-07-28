@@ -1,15 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { trigger, transition, style, animate } from '@angular/animations';
 import { GameAchievementModel } from 'src/app/models/gameAchievement.model';
-import { MatButtonModule } from '@angular/material/button'; //this import should not be necessary
 import { GamesService } from 'src/app/services/controllers/game-achievements-controller.service';
-import { transition, animate, trigger, state, style } from '@angular/animations';
-
-// import { DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-games',
-  templateUrl: './games.component.html',
-  styleUrls: ['./games.component.css'],
+  selector: 'app-gaming-section',
+  templateUrl: './gaming-section.component.html',
+  styleUrls: ['./gaming-section.component.css'],
   animations: [
     trigger(
       'inOutAnimation',
@@ -34,10 +31,9 @@ import { transition, animate, trigger, state, style } from '@angular/animations'
     )
 
   ]
-
-
 })
-export class GamesComponent implements OnInit {
+
+export class GamingSectionComponent implements OnInit {
 
   listAchievements: GameAchievementModel[];
   showAddGames = false;
@@ -70,4 +66,5 @@ export class GamesComponent implements OnInit {
     this.gamesApi.getAll().subscribe((achievementList) =>
       this.listAchievements = achievementList)
   }
+
 }
