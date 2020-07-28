@@ -4,11 +4,10 @@ import { HomeComponent } from './components/home/home.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { ContactsComponent } from './components/contacts/contacts.component';
 import { CvTemplateComponent } from './components/cvs/cv-template/cv-template.component';
-import { GamesComponent } from './components/games/games.component';
 import { ServerStatsComponent } from './components/server-stats/server-stats.component';
 import { TeamMemberPageComponent } from './components/team-member-page/team-member-page.component';
-import { AboutPageComponent } from './components/about-page/about-page.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
+import { CreateArticlesSectionComponent } from './components/create-articles-section/create-articles-section.component';
 
 
 const routes: Routes = [
@@ -34,10 +33,6 @@ const routes: Routes = [
     component: CvTemplateComponent
   },
   {
-    path: "games",
-    component: GamesComponent
-  },
-  {
     path: 'server_stats',
     component: ServerStatsComponent
   },
@@ -46,12 +41,12 @@ const routes: Routes = [
     component: TeamMemberPageComponent
   },
   {
-    path: 'about',
-    component: AboutPageComponent
-  },
-  {
     path: 'login',
     component: LoginPageComponent
+  },
+  {
+    path: 'createArticle',
+    component: CreateArticlesSectionComponent
   }
 ];
 
