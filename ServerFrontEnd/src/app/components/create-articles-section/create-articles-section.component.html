@@ -1,13 +1,35 @@
 
 <h2>Start Writing your own article</h2>
 <div class="container">
-    <form [formGroup]="editorForm" (ngSubmit)="onSubmit">
-        <div class="form-group">
-            <label for="editor"></label>
-            <quill-editor formControlName="editor"></quill-editor>
+    <div>
+        <form [formGroup]="editorForm" (ngSubmit)="onSubmitPreview()" method="post">
+            <div class="form-group">
+                <label for="editor"></label>
+                <quill-editor 
+                    class="editor" 
+                    [styles]="editorStyle" 
+                    [modules]="editorConfig" 
+                    formControlName="editor" 
+                    (onContentChanged)="maxLength($event)">
+                </quill-editor>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary mt-5">Preview</button>
+            </div>
+        </form>    
+    </div>
+    
+    <div>
+        <div *ngIf="editorContent">
+            <h2>Here's the result</h2>
+            <div [innerHTML]="editorContent" class="show-content"></div>
         </div>
-        
-        <button class="btn btn-primary mt-5">Submit</button>
-    </form>
+        <div *ngIf="!editorContent">
+            <h2>Click Preview to check out your article</h2>
+        </div>
+    </div>
 
+    <div class="publish-article" *ngIf="editorContent">
+        <button class="btn btn-primary">Publish your article</button>
+    </div>
 </div>
