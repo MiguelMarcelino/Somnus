@@ -24,7 +24,7 @@ export class ContactsComponent implements OnInit {
 
   // TODO
   onSubmit() {
-    //send feedback 
+    //send feedback to backend
   }
 
 }

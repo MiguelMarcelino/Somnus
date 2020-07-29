@@ -17,25 +17,6 @@ export class GamesService extends TemplateControllerService<GameAchievementModel
     super(http);
   }
 
-  // TODO review --> Check if abstract class is correct
-  // getAll(): Observable<any> {
-  //   return this.http.get(this.gameAchievementsURL);
-  // }
-
-  // getGameAchievement(id: string): Observable<any> {
-  //   let url = `${this.gameAchievementURL}/${id}`;
-  //   return this.http.get(url);
-  // }
-
-  // addGameAchievement(gameAchievement: GameAchievementModel): Observable<any> {
-  //   return this.http.post(this.gameAchievementCreateURL, gameAchievement);
-  // }
-
-  // deleteGameAchievement(id: string): Observable<any> {
-  //   let url = `${this.gameAchievementURL}/${id}/delete`;
-  //   return this.http.post(url, {"id": id});
-  // }
-
   protected getApiUrlAll() {
     return this.gameAchievementsURL;
   }

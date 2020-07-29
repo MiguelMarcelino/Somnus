@@ -1,10 +1,21 @@
+
+h2{
+    color: white;
+    font-size: 20pt;
+}
+
 .container {
     /* width: 800pt;
     height: 800pt; */
 }
 
-.ql-snow .ql-editor pre.ql-syntax {
-    background-color: #ffffff;
-    color: #f8f8f2;
-    overflow: visible;
+/* Preview content */
+
+.show-content {
+    color: white;
+    text-align: justify;
+}
+
+.publish-article {
+    margin-top: 50pt;
 }
