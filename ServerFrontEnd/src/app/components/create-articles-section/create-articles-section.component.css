@@ -19,3 +19,16 @@ h2{
 .publish-article {
     margin-top: 50pt;
 }
+
+#article-container {
+    margin-top: 30pt;
+    padding: 5pt;
+    text-align: justify;
+    border: 2pt solid white;
+    border-radius: 4pt;
+}
+
+.control-label {
+    color: white;
+    float: left;
+}

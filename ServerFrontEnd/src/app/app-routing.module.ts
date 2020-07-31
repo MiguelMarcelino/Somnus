@@ -3,12 +3,11 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { ContactsComponent } from './components/contacts/contacts.component';
-import { CvTemplateComponent } from './components/cvs/cv-template/cv-template.component';
 import { ServerStatsComponent } from './components/server-stats/server-stats.component';
 import { TeamMemberPageComponent } from './components/team-member-page/team-member-page.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { CreateArticlesSectionComponent } from './components/create-articles-section/create-articles-section.component';
-
+import { ArticlesSectionComponent } from './components/articles-section/articles-section.component';
 
 const routes: Routes = [
   {
@@ -29,10 +28,6 @@ const routes: Routes = [
     component: ContactsComponent
   },
   {
-    path: "cvTesting",
-    component: CvTemplateComponent
-  },
-  {
     path: 'server_stats',
     component: ServerStatsComponent
   },
@@ -47,6 +42,10 @@ const routes: Routes = [
   {
     path: 'createArticle',
     component: CreateArticlesSectionComponent
+  },
+  {
+    path: 'articles',
+    component: ArticlesSectionComponent
   }
 ];
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, Output } from '@angular/core';
-import { LoginService } from 'src/app/services/authentication/login.service';
+import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 
@@ -18,7 +18,7 @@ export class LoginPageComponent implements OnInit {
   loginForm: FormGroup;
 
   constructor(
-    private service: LoginService,
+    private service: AuthenticationService,
     private angularFireAuth: AngularFireAuth,
     private formBuilder: FormBuilder
   ) { }
