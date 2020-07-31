@@ -1,0 +1,67 @@
+h2{
+    font-size: 20pt;
+}
+
+h3 {
+    font-size: 17pt;
+    text-align: justify;
+}
+
+p {
+    color: white;
+}
+
+/* .custom-button {
+    margin
+} */
+
+.content{
+    width: 100%;
+    color: white;
+}
+
+.article-container {
+    transition: 0.5s ease;
+    border-radius: 4pt;
+}
+
+.article-container:hover {
+    cursor: pointer;
+}
+
+.article-img {
+    filter: invert(1);
+    width: 200pt;
+    height: 200pt;
+}
+
+.left-article-img{
+    float: left;
+    width: 20%;
+}
+
+.right-article-data {
+    float: right;
+    width: 80%;
+    padding-left: 20pt;
+}
+
+.article-info{
+    padding-top: 10pt;
+}
+
+.author-name {
+    color: rgb(173, 0, 0);
+}
+
+.description{
+    font-size: 14pt;
+    padding-top: 20pt;
+    text-align: justify;
+    max-height: inherit;
+}
+
+.article-author{
+    font-size: 15pt;
+    text-align: justify;
+}
