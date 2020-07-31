@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppSettings } from './../../appSettings';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { LoginService } from 'src/app/services/authentication/login.service';
+import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 
 @Component({
   selector: 'home',
@@ -16,19 +16,19 @@ export class HomeComponent implements OnInit {
   title = AppSettings.SERVER_NAME;
 
   constructor(
-    private service: LoginService,
+    private authenticationService: AuthenticationService,
     private angularFireAuth: AngularFireAuth,
   ) { }
 
   ngOnInit(): void {
-    this.service.getLoggedInUser()
+    this.authenticationService.getLoggedInUser()
       .subscribe (user => {
         this.user = user;
-      })
+    })
   }
 
   logout(): void {
-    this.service.logout();
+    this.authenticationService.logout();
   }
 
 }

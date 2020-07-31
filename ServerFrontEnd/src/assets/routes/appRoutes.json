@@ -1,0 +1,5 @@
+{
+    "apiEndPoint": "http://localhost:3000",
+    "apiArticlesEndPoint": "http://localhost:3000/articlesAPI/articles",
+    "apiArticleEndPoint": "http://localhost:3000/articlesAPI/article"
+}

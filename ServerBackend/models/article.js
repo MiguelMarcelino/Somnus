@@ -4,6 +4,7 @@ var Schema = mongoose.Schema;
 var ArticleSchema = new Schema({
     articleName: { type: String, required: true },
     authorUserName: { type: String, required: true },
+    description: { type: String, required: true },
     content: { type: String, required: true },
 })
 
