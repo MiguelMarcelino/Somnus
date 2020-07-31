@@ -1,0 +1,28 @@
+.not-found-section {
+    padding-top: 50pt;
+}
+
+.no-articles-placeholder {
+    padding-top: 40pt;
+    text-align: center;
+}
+
+.not-found-img {
+    filter: invert(1);
+    width: 200pt;
+    height: 200pt;
+    animation: float 6s ease-in-out infinite;
+}
+
+/* Shamelessly copied from: https://codepen.io/MarioDesigns/pen/woJgeo */
+@keyframes float {
+	0% {
+		transform: translatey(0pt);
+	}
+	50% {
+		transform: translatey(-20pt);
+	}
+	100% {
+		transform: translatey(0pt);
+	}
+}
