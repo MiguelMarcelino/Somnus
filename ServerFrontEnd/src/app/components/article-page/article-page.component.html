@@ -1,0 +1,8 @@
+
+<div class="content-wrapper">
+    <h2>{{article.articleName}}</h2>
+    <h3 class="article-author">Written by <span class="author-name">{{article.authorUserName}}</span></h3>
+    <div class="article-text">
+        <p [innerHTML]="article.content"></p>
+    </div>
+</div>

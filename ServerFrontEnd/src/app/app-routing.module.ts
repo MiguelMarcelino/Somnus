@@ -8,6 +8,7 @@ import { TeamMemberPageComponent } from './components/team-member-page/team-memb
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { CreateArticlesSectionComponent } from './components/create-articles-section/create-articles-section.component';
 import { ArticlesSectionComponent } from './components/articles-section/articles-section.component';
+import { ArticlePageComponent } from './components/article-page/article-page.component';
 
 const routes: Routes = [
   {
@@ -46,6 +47,10 @@ const routes: Routes = [
   {
     path: 'articles',
     component: ArticlesSectionComponent
+  },
+  {
+    path: 'article/:id',
+    component: ArticlePageComponent
   }
 ];
 

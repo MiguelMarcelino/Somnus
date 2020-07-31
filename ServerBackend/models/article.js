@@ -10,8 +10,8 @@ var ArticleSchema = new Schema({
 
 // Virtual to get a given article
 ArticleSchema.virtual("url").get(function () {
-    return "/articles/article/" + this._id;
- });
+    return "/articlesAPI/article/" + this._id;
+});
  
  // Export model
  module.exports = mongoose.model("Article", ArticleSchema);

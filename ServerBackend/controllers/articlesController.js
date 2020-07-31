@@ -11,6 +11,7 @@ exports.article_list = function (req, res, next) {
         res.json({
             article_list: articles.map((article) => {
                 return {
+                    _id: article._id,
                     articleName: article.articleName,
                     authorUserName: article.authorUserName,
                     description: article.description,
@@ -20,6 +21,17 @@ exports.article_list = function (req, res, next) {
             }),
         });
     });
+};
+
+exports.article_detail = function (req, res, next) {
+    Article.findOne()
+       .where({ _id: req.params.id })
+       .exec(function (err, article) {
+          if (err) {
+             return next(err);
+          }
+          res.json({ article: article });
+       });
 };
 
 exports.article_create = [

@@ -1,17 +1,20 @@
 <div class="content">
     <h2>Check out our Articles</h2>
-    <button class="custom-button btn btn-primary">Create new article</button>
-    <div *ngFor="let article of articles" class="article-container">
-        <div class="left-article-img">
-            <img src="../../../assets/icons/article.png" class="article-img">
-        </div>
-        <div class="right-article-data">
-            <div class="article-info">
-                <h3>{{article.articleName}}</h3>
-                <p class="article-author">Written by <span class="author-name">{{article.authorUserName}}</span></p>
+    <button class="btn btn-primary" routerLink="/createArticle">Create new article</button>
+    <div *ngFor="let article of articles" class="article-container" >
+        <div routerLink="/article/{{article._id}}">
+            <div class="left-article-img">
+                <img src="../../../assets/icons/article.png" class="article-img">
             </div>
-            <div class="description">
-                {{article.description}}
+            <div class="right-article-data">
+                <div class="article-info">
+                    <h3>{{article.articleName}}</h3>
+    
+                    <p class="article-author">Written by <span class="author-name">{{article.authorUserName}}</span></p>
+                </div>
+                <div class="description">
+                    {{article.description}}
+                </div>
             </div>
         </div>
     </div>
