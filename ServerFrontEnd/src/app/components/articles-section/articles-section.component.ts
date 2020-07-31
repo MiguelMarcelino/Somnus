@@ -25,4 +25,8 @@ export class ArticlesSectionComponent implements OnInit {
     })
   }
 
+  getArticleLink(article: ArticleModel) {
+    return "/article/" + article._id;
+  }
+
 }

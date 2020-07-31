@@ -23,6 +23,7 @@ import { GamingSectionComponent } from './components/gaming-section/gaming-secti
 import { ArticlesSectionComponent } from './components/articles-section/articles-section.component';
 import { CreateArticlesSectionComponent } from './components/create-articles-section/create-articles-section.component';
 import { AppRoutesService } from './services/routes/app-routes.service';
+import { ArticlePageComponent } from './components/article-page/article-page.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { AppRoutesService } from './services/routes/app-routes.service';
     GamingSectionComponent,
     ArticlesSectionComponent,
     CreateArticlesSectionComponent,
+    ArticlePageComponent,
   ],
   imports: [
     BrowserModule,
