@@ -43,8 +43,8 @@ hr {
 }
 
 .team-member-photo {
-    max-height: 20vw;
-    max-width: 20vw;
+    max-height: 10vw;
+    max-width: 10vw;
     object-fit: cover;
 }
 
@@ -64,8 +64,8 @@ hr {
 
 @media only screen and (max-width: 1400px) {
     .team-member-photo {
-        max-height: 28vw;
-        max-width: 28vw;
+        max-height: 15vw;
+        max-width: 15vw;
     }
 
     .grid-element {
@@ -75,8 +75,8 @@ hr {
 
 @media only screen and (max-width: 1000px) {
     .team-member-photo {
-        max-height: 30vw;
-        max-width: 30vw;
+        max-height: 18vw;
+        max-width: 18vw;
     }
 
     .grid-element {
@@ -86,8 +86,8 @@ hr {
 
 @media only screen and (max-width: 600px) {
     .team-member-photo {
-        max-height: 35vw;
-        max-width: 35vw;
+        max-height: 25vw;
+        max-width: 25vw;
     }
 
 }

@@ -11,6 +11,7 @@ import { ArticlesSectionComponent } from './components/articles-section/articles
 import { ArticlePageComponent } from './components/article-page/article-page.component';
 import { AuthGuard } from './services/authentication/auth-guard.service';
 import { RegisterComponent } from './components/register/register.component';
+import { GamingSectionComponent } from './components/gaming-section/gaming-section.component';
 
 const routes: Routes = [
   {
@@ -58,6 +59,10 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent,
+  },
+  {
+    path: 'gaming',
+    component: GamingSectionComponent
   }
 ];
 

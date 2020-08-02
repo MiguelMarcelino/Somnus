@@ -7,8 +7,8 @@ var cors = require("cors");
 const mongoose = require('mongoose');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var articlesRouter = require('./routes/articles')
+var articlesRouter = require('./routes/articles');
+var teamMembersRouter = require('./routes/team-members');
 
 var app = express();
 
@@ -74,6 +74,8 @@ app.use('/', indexRouter);
 
 // Articles
 app.use('/articlesAPI', articlesRouter)
+// Team-Members
+app.use('/teamMembersApi', teamMembersRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
