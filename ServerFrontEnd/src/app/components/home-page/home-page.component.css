@@ -33,7 +33,7 @@ h1 {
   float: inline-start;
   text-align: center;
   width: 20%;
-  height: 220pt;
+  height: 250pt;
   margin: 0% 2.5% auto;
   padding: 10pt;
   border-radius: 4pt;
@@ -49,8 +49,10 @@ h1 {
 }
 
 .photo-above {
-  overflow: hidden;
-  width: auto;
+  /* overflow: hidden; */
+  max-width: 150pt;
+  max-height: 150pt;
+  margin: 0 auto;
 }
 
 .content-below {
@@ -58,9 +60,9 @@ h1 {
 }
 
 .section-photo {
-  height: 150pt;
-  width: 150pt;
-  object-fit: scale-down;
+  max-height: 11vw;
+  max-width: 11vw;
+  /* object-fit: scale-down; */
   filter: invert(1);
 }
 
@@ -86,4 +88,23 @@ h1 {
 .typed-cursor{
   opacity: 0;
   display: none;
+}
+
+@media only screen and (max-width: 1500px) {
+
+  .section-photo {
+    max-height: 15vw;
+    max-width: 15vw;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .grid-element {
+    width: 40%;
+  }
+
+  .section-photo {
+    max-height: 20vw;
+    max-width: 20vw;
+  }
 }

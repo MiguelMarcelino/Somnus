@@ -9,6 +9,8 @@ import { LoginPageComponent } from './components/login-page/login-page.component
 import { CreateArticlesSectionComponent } from './components/create-articles-section/create-articles-section.component';
 import { ArticlesSectionComponent } from './components/articles-section/articles-section.component';
 import { ArticlePageComponent } from './components/article-page/article-page.component';
+import { AuthGuard } from './services/authentication/auth-guard.service';
+import { RegisterComponent } from './components/register/register.component';
 
 const routes: Routes = [
   {
@@ -42,7 +44,8 @@ const routes: Routes = [
   },
   {
     path: 'createArticle',
-    component: CreateArticlesSectionComponent
+    component: CreateArticlesSectionComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'articles',
@@ -51,6 +54,10 @@ const routes: Routes = [
   {
     path: 'article/:id',
     component: ArticlePageComponent
+  },
+  {
+    path: 'register',
+    component: RegisterComponent,
   }
 ];
 

@@ -25,6 +25,7 @@ import { CreateArticlesSectionComponent } from './components/create-articles-sec
 import { AppRoutesService } from './services/routes/app-routes.service';
 import { ArticlePageComponent } from './components/article-page/article-page.component';
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { NotFoundPageComponent } from './components/not-found-page/not-found-pag
     CreateArticlesSectionComponent,
     ArticlePageComponent,
     NotFoundPageComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
