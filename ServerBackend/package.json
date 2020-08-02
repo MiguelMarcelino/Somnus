@@ -12,6 +12,7 @@
     "express": "^4.16.4",
     "express-validator": "^6.6.0",
     "firebase": "^7.17.1",
+    "firebase-admin": "^9.0.0",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "mongoose": "^5.9.27",

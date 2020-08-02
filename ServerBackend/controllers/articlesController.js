@@ -1,4 +1,8 @@
-var Article = require("../models/article");
+
+var admin = require("../firebase/firebase-data").getAdmin();
+
+var db = admin.database();
+var articlesRef = db.ref("articles");
 
 const { body, sanitizeBody, validationResult } = require('express-validator');
 
@@ -66,19 +70,25 @@ exports.article_create = [
         } else {
             // Data from form is valid.
 
-            // Create an Article object with escaped and trimmed data.
-            var article = new Article({
+            var newUser = articlesRef.child(articles).set({
                 articleName: req.body.articleName,
                 authorUserName: req.body.authorUserName,
                 description: req.body.description,
                 content: req.body.content
-            });
-            article.save(function (err) {
-                if (err) { return next(err); }
-                // Successful - redirect to new author record.
-                // res.redirect(author.url);
-                res.json(article._id);
-            });
+            })
+            // Create an Article object with escaped and trimmed data.
+            // var article = new Article({
+            //     articleName: req.body.articleName,
+            //     authorUserName: req.body.authorUserName,
+            //     description: req.body.description,
+            //     content: req.body.content
+            // });
+            // article.save(function (err) {
+            //     if (err) { return next(err); }
+            //     // Successful - redirect to new author record.
+            //     // res.redirect(author.url);
+            //     res.json(article._id);
+            // });
         }
     }
 ];
