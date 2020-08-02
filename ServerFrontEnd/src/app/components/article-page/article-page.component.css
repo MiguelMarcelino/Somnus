@@ -12,7 +12,8 @@ h3 {
 
 p {
     text-align: justify;
-    font-size: 13pt;
+    line-height: 22pt;
+    font-size: 15pt;
 }
 
 .content-wrapper {

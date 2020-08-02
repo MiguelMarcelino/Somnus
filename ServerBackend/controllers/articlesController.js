@@ -37,8 +37,7 @@ exports.article_detail = function (req, res, next) {
 exports.article_create = [
     // Validate fields.
     // Validate Article Name
-    body('articleName').isLength({ min: 1 }).trim().withMessage('An article name must be specified.')
-        .isAlphanumeric().withMessage('The article name has non-alphanumeric characters.'),
+    body('articleName').isLength({ min: 1 }).trim().withMessage('An article name must be specified.'),
     // Validate Article Author Name
     body('authorUserName').isLength({ min: 1 }).trim().withMessage('An author name must be specified.'),
     //Validate Article Content
