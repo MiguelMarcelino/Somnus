@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TeamMemberModel } from 'src/app/models/teamMember.model';
 import { AppSettings } from 'src/app/appSettings';
+import { TeamMemberControllerService } from 'src/app/services/controllers/team-member-controller.service';
 
 @Component({
   selector: 'app-team-member-page',
@@ -12,24 +13,19 @@ export class TeamMemberPageComponent implements OnInit {
   title = AppSettings.SERVER_NAME;
   teamMembers: TeamMemberModel[];
 
-  constructor() { }
+  constructor(
+    private teamMemberService: TeamMemberControllerService
+  ) { }
 
   ngOnInit(): void {
-    this.populateTeamMembers();
+    this.getTeamMembers();
+    // this.populateTeamMembers();
   }
 
-  populateTeamMembers(): void {
-    this.teamMembers = [];
-    this.teamMembers.push({memberName: "David Binaire 1", photoPath: "../../assets/testImgs/mine.png",
-      dateJoined: new Date(), contributions: 100}, 
-      {memberName: "David Binaire 2", photoPath: "../../assets/testImgs/mine.png",
-      dateJoined: new Date(), contributions: 110},
-      {memberName: "David Binaire 3", photoPath: "../../assets/testImgs/mine.png",
-      dateJoined: new Date(), contributions: 110},
-      {memberName: "David Binaire 4", photoPath: "../../assets/testImgs/mine.png",
-      dateJoined: new Date(), contributions: 110},
-      {memberName: "David Binaire 5", photoPath: "../../assets/testImgs/mine.png",
-      dateJoined: new Date(), contributions: 110});
+  getTeamMembers(): void {
+    this.teamMemberService.getAll().subscribe( teamMembers => {
+      this.teamMembers = teamMembers.team_member_list;
+    })
   }
 
 }

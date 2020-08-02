@@ -29,4 +29,15 @@ export class ArticlesSectionComponent implements OnInit {
     return "/article/" + article._id;
   }
 
+  noArticlesFound(): boolean  {
+    if(!this.articles) {
+      return true;
+    }
+    if(this.articles.length == 0) {
+      return true;
+    }
+
+    return false;
+  }
+
 }

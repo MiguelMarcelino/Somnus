@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { OnInit, Injectable } from '@angular/core';
+import { MatGridTileHeaderCssMatStyler } from '@angular/material/grid-list';
 
 @Injectable({
     providedIn: 'root'
@@ -35,6 +36,11 @@ export class AppRoutesService {
     get apiArticleEndPoint(): string {
         this.isLoaded();
         return this.appRoutes.apiArticleEndPoint;
+    }
+
+    get apiTeamMembersEndPoint(): string {
+        this.isLoaded();
+        return this.appRoutes.apiTeamMembersEndPoint;
     }
 
     // check if routes file was loaded

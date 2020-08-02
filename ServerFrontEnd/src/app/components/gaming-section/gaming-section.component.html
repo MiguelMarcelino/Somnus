@@ -1,5 +1,5 @@
 
-<div class="add-element">
+<!-- <div class="add-element">
     <button mat-fab color="primary" aria-label="Add story button" id="add-button" (click)="showAddGameEvent()">+</button>
     <div *ngIf="showAddGames" [@inOutAnimation] id="show-add-games">
         <app-add-game-event></app-add-game-event>
@@ -9,16 +9,14 @@
 <div id="content-wrapper">
     <div class="floating-box" *ngFor="let gameAchievement of listAchievements">
         <div class="box-left">
-            <!-- left div -->
+            
             <img class="img-style" src="{{gameAchievement.photoPath}}">
         </div>
         <div class="box-right">
-            <!-- right div -->
             <h2>{{gameAchievement.title}}</h2>
 
             <div>
                 <div>
-                    <!-- align div to left -->
                     <a class="author-name">{{gameAchievement.author}} </a>
                     <a>{{gameAchievement.dateAdded | date:'mediumDate'}}</a>
                 </div>
@@ -26,4 +24,7 @@
             <p>{{gameAchievement.description}}</p>
         </div>
     </div>
-</div>
+</div> -->
+
+<h1>Coming soon!</h1>
+<app-not-found-page></app-not-found-page>
