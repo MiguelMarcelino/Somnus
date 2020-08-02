@@ -29,13 +29,14 @@
         </ul>
     </div>
 
-    <!-- Search -->
+    
     <form class="form-inline ">
+        <!-- Search -->
         <div class="md-form my-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+            <input class="form-control mr-sm-2 custom-search" type="text" placeholder="Search" aria-label="Search">
         </div>
         <!-- Login Button -->
-        <button *ngIf="!user" mat-button class="login-button" routerLink="/login">
+        <button *ngIf="!user" mat-button class="login-button login-component" routerLink="/login">
             Login
         </button>
 
@@ -44,7 +45,8 @@
             *ngIf="user" 
             [matMenuTriggerFor]="avatarMenuDropDown"
             mat-mini-fab class="user-avatar" 
-            [ngStyle]="{ 'background-image': 'url(' + user?.photoURL +')' }">
+            [ngStyle]="{ 'background-image': 'url(' + user?.photoURL +')' }"
+            class="login-component">
         </button>
         <!-- Avatar Menu -->
         <mat-menu #avatarMenuDropDown="matMenu">

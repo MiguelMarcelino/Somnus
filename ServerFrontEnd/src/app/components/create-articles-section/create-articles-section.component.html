@@ -1,6 +1,11 @@
 
 <h2>Start Writing your own article</h2>
 <div class="container">
+    <div class="row" *ngIf="publishError">
+        <div class="col-12 alert alert-danger">
+          {{ publishError?.message }}
+        </div>
+      </div>
     <div>
         <form [formGroup]="editorForm" (ngSubmit)="onSubmitPreview()" method="post">
             <!-- Article Name -->

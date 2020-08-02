@@ -28,6 +28,7 @@ export class CreateArticlesSectionComponent implements OnInit {
     ]
   }
   maxContentLength = 4000;
+  publishError: any;
 
   // for preview section
   articleName: string;
@@ -70,6 +71,11 @@ export class CreateArticlesSectionComponent implements OnInit {
     let articleModel = {"articleName": artName, "authorUserName": this.currentUser.displayName, "description": description, "content": content};
     this.articlesController.addObject(articleModel).subscribe(id => {
       this.router.navigateByUrl("/articles");
-    });
+    },
+    (error) => {
+      // Template message
+      this.publishError = "Something went wrong!";
+    }
+    );
   }
 }

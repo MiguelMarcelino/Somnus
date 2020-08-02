@@ -5,6 +5,20 @@
     padding: 1pt;
 }
 
+.login-component {
+    margin-left: 10pt;
+}
+
 .user-avatar {
     background-size: cover;
+}
+
+.custom-search {
+    max-width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+    .login-component {
+        float: right;
+    }
 }

@@ -62,6 +62,17 @@ hr {
     line-height: 30pt;
 }
 
+@media only screen and (max-width: 1600px) {
+    .team-member-photo {
+        max-height: 15vw;
+        max-width: 15vw;
+    }
+
+    .grid-element {
+        height: 270pt;
+    }
+}
+
 @media only screen and (max-width: 1400px) {
     .team-member-photo {
         max-height: 15vw;
@@ -70,6 +81,7 @@ hr {
 
     .grid-element {
         width: 33%;
+        height: 250pt;
     }
 }
 
@@ -82,12 +94,20 @@ hr {
     .grid-element {
         width: 50%;
     }
+
+    .info-div {
+        margin-top: 5pt;
+    }
 }
 
 @media only screen and (max-width: 600px) {
     .team-member-photo {
         max-height: 25vw;
         max-width: 25vw;
+    }
+
+    .info-div {
+        margin-top: 5pt;
     }
 
 }
