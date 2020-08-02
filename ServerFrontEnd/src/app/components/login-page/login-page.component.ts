@@ -2,6 +2,7 @@ import { Component, OnInit, Output } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-page',
@@ -10,41 +11,53 @@ import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 })
 export class LoginPageComponent implements OnInit {
 
-  // app user
-  user: firebase.User;
   //google Icon
   googlePhoto = "https://cdn.freebiesupply.com/logos/large/2x/google-icon-logo-png-transparent.png"
   //login form
   loginForm: FormGroup;
+  authError: any;
+  isLoaded: boolean = false;
 
   constructor(
-    private service: AuthenticationService,
+    private authService: AuthenticationService,
     private angularFireAuth: AngularFireAuth,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router: Router
   ) { }
 
   loginGoogle(): void {
-    this.service.loginWithGoogle();
+    this.authService.loginWithGoogle();
   }
 
   logout(): void {
-    this.service.logout();
+    this.authService.logout();
   }
 
   ngOnInit() {
     this.angularFireAuth.authState
-      .subscribe (user => {
-        this.user = user;
-      });
+    .subscribe (user => {
+      // if user is already logged in, it does not need to login again
+      if(user) {
+        this.router.navigate(['/']);
+      } else {
+        this.isLoaded = true;
+      }
+    });
+
     this.loginForm = this.formBuilder.group({
       email: new FormControl(''),
       password: new FormControl(''),
     });
+
+    // Check if there are any errors in inserted data
+    this.authService.eventAuthError$.subscribe( error => {
+      this.authError = error;
+    })
   }
 
   onSubmit() {
-    this.service.loginWithEmail(this.loginForm.get('email').value,
-      this.loginForm.get('password').value)
+    this.authService.loginWithEmail(this.loginForm.get('email').value,
+      this.loginForm.get('password').value);
   }
 
 }

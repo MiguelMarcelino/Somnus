@@ -3,6 +3,10 @@ h2 {
     font-size: 20pt;
 }
 
+p {
+    color: white;
+}
+
 #server-specs {
     color: white;
     font-size: 15pt;

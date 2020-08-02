@@ -10,6 +10,7 @@ h3 {
 
 p {
     font-size: 12pt;
+    color: white;
 }
 
 hr {
@@ -41,9 +42,9 @@ hr {
     padding: 10pt;
 }
 
-.teamMemberPhoto {
-    height: 200pt;
-    width: 200pt;
+.team-member-photo {
+    max-height: 20vw;
+    max-width: 20vw;
     object-fit: cover;
 }
 
@@ -59,4 +60,34 @@ hr {
     font-size: 16pt;
     max-width: 1000pt;
     line-height: 30pt;
+}
+
+@media only screen and (max-width: 1400px) {
+    .team-member-photo {
+        max-height: 28vw;
+        max-width: 28vw;
+    }
+
+    .grid-element {
+        width: 33%;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .team-member-photo {
+        max-height: 30vw;
+        max-width: 30vw;
+    }
+
+    .grid-element {
+        width: 50%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .team-member-photo {
+        max-height: 35vw;
+        max-width: 35vw;
+    }
+
 }
