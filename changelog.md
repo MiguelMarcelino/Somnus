@@ -3,6 +3,51 @@ All changes made to this project will be documented in this file
 
 ## [Unreleased]
 
+## [0.1.3] - 2020-07-03
+### Added
+- Gaming list page
+- Gaming story page
+- Create gaming article page
+
+### Changed
+- Interface reviewed
+- Bootstrap errors where fixed
+- Unnecessary files where deleted from backend
+
+---------------------------------------------------------
+
+## [0.1.3] - 2020-07-02
+### Added
+- Added new branch for working on firebase integration for backend
+- Started creating new classes for firebase database usage
+  (on branch mig-firebase-database-swap)
+
+### Changed
+- Interface changes where made for deployment
+- Started preparing smaller screen app integration
+
+---------------------------------------------------------
+
+## [0.1.3] - 2020-07-31
+### Added
+- Quill text Editor integration for adding articles
+- Created new router structure in frontend
+- Created routers in backend
+- Created controllers in backend
+
+---------------------------------------------------------
+
+## [0.1.3] - 2020-07-30
+### Added
+- Massive Interface change
+- Started creating new page for articles
+- Created writing animation for home page
+
+### Changed
+- Redesigned some pages interfaces
+
+---------------------------------------------------------
+
 ## [0.1.2] - 2020-07-29
 ### Added
 - New page to create articles

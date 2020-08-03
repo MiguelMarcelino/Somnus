@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
   user: firebase.User;
   // app title
   title = AppSettings.SERVER_NAME;
+  navbarCollapsed = false; 
 
   constructor(
     private authenticationService: AuthenticationService,

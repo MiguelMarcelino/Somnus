@@ -1,0 +1,55 @@
+
+<h2>Start Writing your own Game Story</h2>
+<div class="container">
+    <div class="row" *ngIf="publishError">
+        <div class="col-12 alert alert-danger">
+          {{ publishError?.message }}
+        </div>
+      </div>
+    <div>
+        <form [formGroup]="editorForm" (ngSubmit)="onSubmitPreview()" method="post">
+            <!-- Game Story Name -->
+            <div class="form-group">
+                <label for="article_name" class="control-label">Game Story Name</label>
+                <input type="text" class="form-control" id="article_name" formControlName="article_name" placeholder="Name of your Story">
+            </div>
+            <div class="form-group">
+                <label for="description" class="control-label">Game Story Description</label>
+                <input type="text" class="form-control description-input" id="description" formControlName="description" placeholder="Describe your Story">
+            </div>
+            <!-- Editor content -->
+            <br>
+            <div class="form-group">
+                <quill-editor 
+                    class="editor" 
+                    [styles]="editorStyle" 
+                    [modules]="editorConfig" 
+                    formControlName="editor" 
+                    (onContentChanged)="maxLength($event)">
+                </quill-editor>
+            </div>
+            <!-- Preview -->
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary mt-5">Preview</button>
+            </div>
+        </form>    
+    </div>
+    
+    <div>
+        <div *ngIf="!editorContent">
+            <h2>Click the Preview button to check out your article</h2>
+        </div>
+        <div *ngIf="editorContent">
+            <h2>Here's the result</h2>
+            <div id="article-container">
+                <h2>{{articleName}}</h2>
+                <div [innerHTML]="editorContent" class="show-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Publish -->
+    <div class="publish-article" *ngIf="editorContent">
+        <button class="btn btn-primary" (click)="sendArticleData()">Publish your article</button>
+    </div>
+</div>

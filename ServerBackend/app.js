@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 
 var indexRouter = require('./routes/index');
 var articlesRouter = require('./routes/articles');
+var gamesRouter = require('./routes/games');
 var teamMembersRouter = require('./routes/team-members');
 
 var app = express();
@@ -73,9 +74,11 @@ app.use(cors());
 app.use('/', indexRouter);
 
 // Articles
-app.use('/articlesAPI', articlesRouter)
+app.use('/articlesApi', articlesRouter);
+// Game-Articles-Api
+app.use('/gamesApi', gamesRouter);
 // Team-Members
-app.use('/teamMembersApi', teamMembersRouter)
+app.use('/teamMembersApi', teamMembersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

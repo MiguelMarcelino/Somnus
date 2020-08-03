@@ -2,10 +2,12 @@
     background-color: rgba(0, 132, 255, 0.952);
     color: white;
     margin-right: 10pt;
+    margin-left: 10pt;
     padding: 1pt;
 }
 
-.login-component {
+.user-button {
+    margin-right: 10pt;
     margin-left: 10pt;
 }
 
@@ -13,12 +15,26 @@
     background-size: cover;
 }
 
-.custom-search {
-    max-width: 100%;
+.navbar-toggler{
+    float: right;
 }
 
-@media only screen and (max-width: 600px) {
-    .login-component {
-        float: right;
+.somnus-img {
+    max-height: 30pt;
+    max-width: 30pt;
+}
+
+
+@media only screen and (max-width: 575px) {
+    .login-button {
+        margin-left: 0pt;
+        margin-right: 0pt;
+        width: 100%;
     }
+
+    .user-button {
+        margin-left: 0pt;
+        margin-right: 0pt;
+    }
+
 }

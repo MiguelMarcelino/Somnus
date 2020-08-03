@@ -40,6 +40,10 @@ exports.article_create = [
     body('articleName').isLength({ min: 1 }).trim().withMessage('An article name must be specified.'),
     // Validate Article Author Name
     body('authorUserName').isLength({ min: 1 }).trim().withMessage('An author name must be specified.'),
+    // Validate Article description
+    body('description').isLength({ min: 1 }).trim().withMessage('A description must be specified.'),
+    //Validate Article publish date
+    body('datePublished').isLength({ min: 1 }).trim().withMessage('A date of publication must be specified.'),
     //Validate Article Content
     body('content').isLength({ min: 1 }).trim().withMessage('Content must not be empty.'),
 
@@ -70,6 +74,7 @@ exports.article_create = [
                 articleName: req.body.articleName,
                 authorUserName: req.body.authorUserName,
                 description: req.body.description,
+                datePublished: req.body.datePublished,
                 content: req.body.content
             });
             article.save(function (err) {

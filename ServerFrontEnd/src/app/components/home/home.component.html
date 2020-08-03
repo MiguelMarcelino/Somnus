@@ -1,11 +1,14 @@
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-    <a class="navbar-brand" routerLink="/homePage">{{ title }}</a>
+    <a class="navbar-brand" routerLink="/homePage">
+        <img src="../../../assets/icons/Somnus.png" class="somnus-img">
+    </a>
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+        aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarCollapse">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
 
             <li class="nav-item active">
@@ -27,26 +30,26 @@
                 <a class="nav-link" routerLink="contacts">Contacts</a>
             </li>
         </ul>
-    </div>
 
-    
-    <form class="form-inline ">
-        <!-- Search -->
-        <div class="md-form my-0">
-            <input class="form-control mr-sm-2 custom-search" type="text" placeholder="Search" aria-label="Search">
-        </div>
+        <form class="my-2 my-lg-0 search">
+            <!-- Search -->
+            <div class="md-form my-0">
+                <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+            </div>
+        </form>
+
         <!-- Login Button -->
-        <button *ngIf="!user" mat-button class="login-button login-component" routerLink="/login">
+        <button *ngIf="!user" mat-button class="login-button" routerLink="/login">
             Login
         </button>
-
+    
         <!-- Avatar Button -->
         <button 
             *ngIf="user" 
             [matMenuTriggerFor]="avatarMenuDropDown"
             mat-mini-fab class="user-avatar" 
             [ngStyle]="{ 'background-image': 'url(' + user?.photoURL +')' }"
-            class="login-component">
+            class="user-button">
         </button>
         <!-- Avatar Menu -->
         <mat-menu #avatarMenuDropDown="matMenu">
@@ -61,5 +64,6 @@
                 <span>Sign out</span>
             </button>
         </mat-menu>
-    </form>
+    </div>
+
 </nav>
