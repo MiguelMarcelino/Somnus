@@ -15,6 +15,8 @@ exports.game_article_list = function (req, res, next) {
                     articleName: article.articleName,
                     authorUserName: article.authorUserName,
                     description: article.description,
+                    datePublished: req.body.datePublished,
+                    type: req.body.type,
                     content: article.content,
 
                 };
@@ -44,6 +46,8 @@ exports.game_article_create = [
     body('description').isLength({ min: 1 }).trim().withMessage('A description must be specified.'),
     //Validate Article publish date
     body('datePublished').isLength({ min: 1 }).trim().withMessage('A date of publication must be specified.'),
+    //Validate Article type
+    body('type').isLength({ min: 1 }).trim().withMessage('A date of publication must be specified.'),
     //Validate Article Content
     body('content').isLength({ min: 1 }).trim().withMessage('Content must not be empty.'),
 
@@ -75,6 +79,7 @@ exports.game_article_create = [
                 authorUserName: req.body.authorUserName,
                 description: req.body.description,
                 datePublished: req.body.datePublished,
+                type: req.body.type,
                 content: req.body.content
             });
             article.save(function (err) {

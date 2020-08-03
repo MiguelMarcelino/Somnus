@@ -19,27 +19,20 @@ export class ArticlesSectionComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.checkForArticles();
     this.getArticles();
   }
 
   getArticles(): void {
     this.articleService.getAll().subscribe(allArticles => {
       this.articles = allArticles.article_list;
+      if(!allArticles || allArticles.article_list.length == 0) {
+        this.noArticles = true;
+      }
     })
   }
 
   getArticleLink(article: ArticleModel) {
     return "/article/" + article._id;
-  }
-
-  checkForArticles()  {
-    if(!this.articles) {
-      this.noArticles = true;
-    }
-    else if(this.articles.length == 0) {
-      this.noArticles = true;
-    }
   }
 
 }
