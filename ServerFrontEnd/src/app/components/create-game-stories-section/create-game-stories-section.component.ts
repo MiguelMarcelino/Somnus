@@ -24,7 +24,7 @@ export class CreateGameStoriesSectionComponent implements OnInit {
       ['blockquote','code-block'],
       [{ 'list': 'ordered'}, { 'list': 'bullet' }],
       [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-      ['link'],
+      ['link', 'image', 'video'],
     ]
   }
   maxContentLength = 4000;
@@ -68,8 +68,9 @@ export class CreateGameStoriesSectionComponent implements OnInit {
     let artName = this.editorForm.get('article_name').value;
     let content = this.editorForm.get('editor').value;
     let description = this.editorForm.get('description').value;
+    let type = "Gaming";
     let articleModel = {"articleName": artName, "authorUserName": this.currentUser.displayName, "description": description, 
-      datePublished: new Date(),"content": content};
+      'datePublished': new Date(), 'type': type,'content': content};
     this.gamesController.addObject(articleModel).subscribe(id => {
       this.router.navigateByUrl("/gaming");
     },

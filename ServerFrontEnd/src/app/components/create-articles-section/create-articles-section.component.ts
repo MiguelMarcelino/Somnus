@@ -24,15 +24,17 @@ export class CreateArticlesSectionComponent implements OnInit {
       ['blockquote','code-block'],
       [{ 'list': 'ordered'}, { 'list': 'bullet' }],
       [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-      ['link'],
+      ['link', 'image', 'video'],
     ]
   }
-  maxContentLength = 4000;
+  maxContentLength = 40000;
   publishError: any;
 
   // for preview section
   articleName: string;
   editorContent: string;
+
+  articleTypes: string[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -45,12 +47,14 @@ export class CreateArticlesSectionComponent implements OnInit {
     this.editorForm = this.formBuilder.group({
       'article_name': new FormControl(''),
       'description': new FormControl(''),
+      'type': new FormControl(''),
       'editor': new FormControl(''),
     }),
     this.authenticationService.getLoggedInUser()
       .subscribe (user => {
         this.currentUser = user;
-    })
+    });
+    this.createArticleTypes();
   }
 
   onSubmitPreview(): void {
@@ -64,12 +68,19 @@ export class CreateArticlesSectionComponent implements OnInit {
     }
   }
 
+  // Temporary
+  createArticleTypes(): void {
+    this.articleTypes = [];
+    this.articleTypes.push("Physics", "Chemistry", "Mathematics", "Computer Science");
+  }
+
   sendArticleData(): void {
     let artName = this.editorForm.get('article_name').value;
     let content = this.editorForm.get('editor').value;
     let description = this.editorForm.get('description').value;
+    let type = this.editorForm.get('type').value;
     let articleModel = {"articleName": artName, "authorUserName": this.currentUser.displayName, "description": description, 
-      datePublished: new Date(),"content": content};
+      datePublished: new Date(), 'type': type, 'content': content};
     this.articlesController.addObject(articleModel).subscribe(id => {
       this.router.navigateByUrl("/articles");
     },

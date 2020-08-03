@@ -21,17 +21,12 @@ export class GamingSectionComponent implements OnInit {
   }
 
   getGameArticlesList(): void {
-    this.gamesApi.getAll().subscribe((gamesList) =>
-      this.gameArticles = gamesList.article_list)
-  }
-
-  checkForArticles()  {
-    if(!this.gameArticles) {
-      this.noArticles = true;
-    }
-    else if(this.gameArticles.length == 0) {
-      this.noArticles = true;
-    }
+    this.gamesApi.getAll().subscribe((gamesList) => {
+      this.gameArticles = gamesList.article_list;
+      if(!gamesList || gamesList.article_list.length == 0) {
+        this.noArticles = true;
+      }
+    })
   }
 
 }

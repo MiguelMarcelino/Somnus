@@ -6,6 +6,7 @@ var ArticleSchema = new Schema({
     authorUserName: { type: String, required: true },
     description: { type: String, required: true },
     datePublished: { type: Date, required: true },
+    type: { type: String, required: true },
     content: { type: String, required: true },
 })
 

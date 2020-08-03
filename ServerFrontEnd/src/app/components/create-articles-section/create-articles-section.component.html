@@ -17,6 +17,12 @@
                 <label for="description" class="control-label">Article Description</label>
                 <input type="text" class="form-control description-input" id="description" formControlName="description" placeholder="Describe your article">
             </div>
+            <div class="form-group">
+                <label for="description" class="control-label">Select Article Type</label>
+                <select class="custom-select" formControlName="type">
+                    <option *ngFor="let type of articleTypes" [ngValue]="type">{{type}}</option>
+                 </select>
+            </div>
             <br>
             <!-- Editor content -->
             <div class="form-group">
