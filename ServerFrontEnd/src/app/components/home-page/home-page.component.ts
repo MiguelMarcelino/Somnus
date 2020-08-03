@@ -19,7 +19,7 @@ export class HomePageComponent implements OnInit {
 
   createOptions() {
     let options = {
-      strings: ['Projects', 'Research', 'Achievements'],
+      strings: ['Projects', 'Research', 'Work'],
       typeSpeed: 120,
       backSpeed: 120,
       backDelay: 2500,

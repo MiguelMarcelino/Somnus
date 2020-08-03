@@ -12,6 +12,8 @@ import { ArticlePageComponent } from './components/article-page/article-page.com
 import { AuthGuard } from './services/authentication/auth-guard.service';
 import { RegisterComponent } from './components/register/register.component';
 import { GamingSectionComponent } from './components/gaming-section/gaming-section.component';
+import { GamePageComponent } from './components/game-page/game-page.component';
+import { CreateGameStoriesSectionComponent } from './components/create-game-stories-section/create-game-stories-section.component';
 
 const routes: Routes = [
   {
@@ -63,7 +65,16 @@ const routes: Routes = [
   {
     path: 'gaming',
     component: GamingSectionComponent
-  }
+  },
+  {
+    path: 'createGameStory',
+    component: CreateGameStoriesSectionComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'gameStory/:id',
+    component: GamePageComponent
+  },
 ];
 
 @NgModule({

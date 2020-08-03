@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ArticleModel } from 'src/app/models/article.model';
 import { ArticlesService } from 'src/app/services/controllers/articles-controller.service';
+import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 
 @Component({
   selector: 'app-articles-section',
@@ -10,12 +11,15 @@ import { ArticlesService } from 'src/app/services/controllers/articles-controlle
 export class ArticlesSectionComponent implements OnInit {
 
   articles: ArticleModel[];
+  noArticles: boolean = false;
 
   constructor(
-    private articleService: ArticlesService
+    private articleService: ArticlesService,
+    private authenticationService: AuthenticationService
   ) { }
 
   ngOnInit(): void {
+    this.checkForArticles();
     this.getArticles();
   }
 
@@ -29,15 +33,13 @@ export class ArticlesSectionComponent implements OnInit {
     return "/article/" + article._id;
   }
 
-  noArticlesFound(): boolean  {
+  checkForArticles()  {
     if(!this.articles) {
-      return true;
+      this.noArticles = true;
     }
-    if(this.articles.length == 0) {
-      return true;
+    else if(this.articles.length == 0) {
+      this.noArticles = true;
     }
-
-    return false;
   }
 
 }

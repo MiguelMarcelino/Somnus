@@ -5,12 +5,13 @@ var ArticleSchema = new Schema({
     articleName: { type: String, required: true },
     authorUserName: { type: String, required: true },
     description: { type: String, required: true },
+    datePublished: { type: Date, required: true },
     content: { type: String, required: true },
 })
 
 // Virtual to get a given article
 ArticleSchema.virtual("url").get(function () {
-    return "/articlesAPI/article/" + this._id;
+    return "/articlesApi/article/" + this._id;
 });
  
  // Export model

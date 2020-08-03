@@ -38,12 +38,24 @@ export class AppRoutesService {
         return this.appRoutes.apiArticleEndPoint;
     }
 
+    // Games
+    get apiGamesEndPoint(): string {
+        this.isLoaded();
+        return this.appRoutes.apiGamesEndPoint;
+    }
+
+    get apiGameEndPoint(): string {
+        this.isLoaded();
+        return this.appRoutes.apiGameEndPoint;
+    }
+
+    // Team Members
     get apiTeamMembersEndPoint(): string {
         this.isLoaded();
         return this.appRoutes.apiTeamMembersEndPoint;
     }
 
-    // check if routes file was loaded
+    // Check if routes file was loaded
     private isLoaded() {
         if (!this.appRoutes) {
             throw Error('No routes where loaded.');

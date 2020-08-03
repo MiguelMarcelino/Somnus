@@ -21,12 +21,13 @@ h1 {
 #intro-text {
   margin-top: 30pt;
   margin-bottom: 100pt;
+  max-height: 40pt;
 }
 
 .grid-container {
   width: 100%;
   margin-bottom: 200pt;
-  /* margin: 0 auto; */
+  margin: 0 auto;
 }
 
 .grid-element {
@@ -35,7 +36,7 @@ h1 {
   width: 20%;
   height: 250pt;
   margin: 0% 2.5% auto;
-  padding: 10pt;
+  /* padding: 10pt; */
   border-radius: 4pt;
   /* background: #3b3b3b; */
   transition: 0.5s ease;
@@ -100,7 +101,8 @@ h1 {
 
 @media only screen and (max-width: 1000px) {
   .grid-element {
-    width: 40%;
+    width: 50%;
+    margin: 0% 0% auto;
   }
 
   .section-photo {

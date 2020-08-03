@@ -31,3 +31,15 @@ label {
 .sign-up-component-access {
     padding-top: 30pt;
 }
+
+@media only screen and (max-width: 1200px) {
+    .page-style {
+        width: 50%;
+    }
+}
+
+@media only screen and (max-width: 750px) {
+    .page-style {
+        width: 100%;
+    }
+}

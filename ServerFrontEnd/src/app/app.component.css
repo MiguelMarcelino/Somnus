@@ -6,6 +6,13 @@
 .main-content {
     margin: 0 auto;
     text-align: center;
-    width: 90%; 
+    width: 90%;
     padding: 10pt;
 }
+
+@media only screen and (max-width: 700) {
+    .main-content {
+        width: 100%;
+    }
+}
+

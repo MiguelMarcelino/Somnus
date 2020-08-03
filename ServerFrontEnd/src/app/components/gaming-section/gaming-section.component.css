@@ -1,69 +1,70 @@
-.floating-box {
-    width: 100%;
-    height: 280pt;
-    z-index: 10;
-    position: relative;
-    margin: 10pt; 
-    box-shadow: 5pt;
-    overflow: hidden;
-    transition: 0.5s ease;
-    background-color: #292929;
+h2{
+    font-size: 20pt;
 }
 
-.floating-box:hover {
-    box-shadow: 2pt 2pt;
-    transform: scale(1.02,1.02);
-    background: #4b4b4b;
+h3 {
+    font-size: 17pt;
+    text-align: justify;
 }
 
-.box-left {
-    width: 30%;
-    float: left;
-    overflow: hidden;
-}
-
-.box-right {
-    width: 70%;
-    padding: 10pt;
-    padding-left: 10pt;
-    float: right;
-}
-
-a {
+p {
     color: white;
 }
 
-.author-name {
-    color: rgb(189, 0, 0);
+.content{
+    width: 100%;
+    color: white;
 }
 
-.img-style {
-    overflow: hidden;
-}
-
-#add-button {
+.article-container {
     transition: 0.5s ease;
+    border-radius: 4pt;
+    margin-top: 20pt;
+    height: 200pt;
+    overflow: hidden;
+    background-color: rgb(71, 71, 71);
 }
 
-#add-button:hover {
-    transform: scale(1.05,1.05);
+.article-container:hover {
+    cursor: pointer;
 }
 
-.add-element {
-    margin: 10pt;
+.article-img {
+    filter: invert(1);
+    margin: 0 auto;
+    max-width: 200%;
+    height: 200pt;
 }
 
-#content-wrapper {
-    background-color: #292929;
-    z-index: 2pt;
-    position: relative;
+.left-article-img{
+    overflow: hidden;
+    float: left;
+    width: 20%;
 }
 
-@media only screen and (max-width: 700px) {
+.right-article-data {
+    float: right;
+    width: 80%;
+    overflow: hidden;
+    padding-left: 20pt;
+}
 
-    .floating-box {
-        width: 100%;
-        height: 150pt;
-    }
+.article-info{
+    padding-top: 10pt;
+}
 
+.author-name {
+    color: rgb(173, 0, 0);
+}
+
+.description{
+    font-size: 14pt;
+    padding-top: 10pt;
+    text-align: justify;
+    max-height: inherit;
+}
+
+.article-author{
+    font-size: 15pt;
+    text-align: justify;
 }

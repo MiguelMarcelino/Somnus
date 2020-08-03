@@ -1,30 +1,30 @@
+<div class="content">
+    <h2>Check out our Game Stories</h2>
+    <button class="btn btn-primary" routerLink="/createGameStory">
+        Create new Game Story
+    </button>
 
-<!-- <div class="add-element">
-    <button mat-fab color="primary" aria-label="Add story button" id="add-button" (click)="showAddGameEvent()">+</button>
-    <div *ngIf="showAddGames" [@inOutAnimation] id="show-add-games">
-        <app-add-game-event></app-add-game-event>
-    </div>
-</div>
-
-<div id="content-wrapper">
-    <div class="floating-box" *ngFor="let gameAchievement of listAchievements">
-        <div class="box-left">
-            
-            <img class="img-style" src="{{gameAchievement.photoPath}}">
-        </div>
-        <div class="box-right">
-            <h2>{{gameAchievement.title}}</h2>
-
-            <div>
-                <div>
-                    <a class="author-name">{{gameAchievement.author}} </a>
-                    <a>{{gameAchievement.dateAdded | date:'mediumDate'}}</a>
+    <div *ngIf="gameArticles">
+        <div *ngFor="let article of gameArticles" class="article-container" >
+            <div routerLink="/gameStory/{{article._id}}">
+                <div class="left-article-img">
+                    <img src="../../../assets/icons/Document-lines.png" class="article-img">
+                </div>
+                <div class="right-article-data">
+                    <div class="article-info">
+                        <h3>{{article.articleName}}</h3>
+                        <h3>Published on {{article.datePublished | date:'mediumDate'}}</h3>
+                        <p class="article-author">Written by <span class="author-name">{{article.authorUserName}}</span></p>
+                    </div>
+                    <div class="description">
+                        {{article.description}}
+                    </div>
                 </div>
             </div>
-            <p>{{gameAchievement.description}}</p>
         </div>
     </div>
-</div> -->
 
-<h1>Coming soon!</h1>
-<app-not-found-page></app-not-found-page>
+    <div class="not-found-section" *ngIf="noArticles">
+        <app-not-found-page></app-not-found-page>
+    </div>
+</div>
