@@ -12,7 +12,7 @@ var GameArticleSchema = new Schema({
 
 // Virtual to get a given article
 GameArticleSchema.virtual("url").get(function () {
-    return "/gamesApi/article/" + this._id;
+    return "/gamesApi/game/" + this._id;
 });
  
  // Export model
