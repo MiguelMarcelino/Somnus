@@ -1,8 +1,8 @@
 {
-    "apiEndPoint": "http://localhost:3000",
-    "apiArticlesEndPoint": "http://localhost:3000/articlesApi/articles",
-    "apiArticleEndPoint": "http://localhost:3000/articlesApi/article",
-    "apiGamesEndPoint": "http://localhost:3000/gamesApi/games",
-    "apiGameEndPoint": "http://localhost:3000/gamesApi/game",
-    "apiTeamMembersEndPoint": "http://localhost:3000/teamMembersApi/teamMembers"
+    "apiEndPoint": "somnus.ddns.net:3000",
+    "apiArticlesEndPoint": "http://somnus.ddns.net/articlesApi/articles",
+    "apiArticleEndPoint": "http://somnus.ddns.net/articlesApi/article",
+    "apiGamesEndPoint": "http://somnus.ddns.net/gamesApi/games",
+    "apiGameEndPoint": "http://somnus.ddns.net/gamesApi/game",
+    "apiTeamMembersEndPoint": "http://somnus.ddns.net/teamMembersApi/teamMembers"
 }
