@@ -34,7 +34,7 @@ hr {
 }
 
 .grid-element {
-    float: inline-start;
+    float: left;
     text-align: center;
     width: 25%;
     height: 300pt;
