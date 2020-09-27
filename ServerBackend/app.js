@@ -11,6 +11,13 @@ var articlesRouter = require('./routes/articles');
 var gamesRouter = require('./routes/games');
 var teamMembersRouter = require('./routes/team-members');
 
+// For SSL
+var fs = require('fs');
+var privateKey  = fs.readFileSync('sslcert/server.key', 'utf8');
+var certificate = fs.readFileSync('sslcert/server.crt', 'utf8');
+var credentials = {key: privateKey, cert: certificate};
+var https = require('https');
+
 var app = express();
 
 //////////////////////////////////////////////
@@ -96,4 +103,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+var httpsServer = https.createServer(credentials, app);
+httpsServer.listen(app.get('port'));
+
+// module.exports = app;

@@ -31,26 +31,21 @@ h1 {
 }
 
 .grid-element {
-  float: inline-start;
+  float: left;
+  /* float: inline-start;  */ /*Not supported on Chrome*/
   text-align: center;
   width: 20%;
   height: 250pt;
   margin: 0% 2.5% auto;
-  /* padding: 10pt; */
   border-radius: 4pt;
-  /* background: #3b3b3b; */
   transition: 0.5s ease;
 }
 
 .grid-element:hover {
-  /* box-shadow: 2pt 2pt; */
   transform: scale(1.02,1.02);
-  /* background: #333333; */
-  /* cursor: pointer; */
 }
 
 .photo-above {
-  /* overflow: hidden; */
   max-width: 150pt;
   max-height: 150pt;
   margin: 0 auto;

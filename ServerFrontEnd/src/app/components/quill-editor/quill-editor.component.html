@@ -1,0 +1,9 @@
+<form [formGroup]="quillForm">
+    <quill-editor 
+        class="editor" 
+        [styles]="editorStyle" 
+        [modules]="editorConfig" 
+        formControlName="editor" 
+        (onContentChanged)="checkContent($event)">
+    </quill-editor>
+</form>

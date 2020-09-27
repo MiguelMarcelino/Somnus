@@ -13,26 +13,12 @@ export class CreateGameStoriesSectionComponent implements OnInit {
 
   currentUser: firebase.User;
   editorForm: FormGroup;
-  editorStyle = {
-    height: '400pt',
-    backgroundColor: 'white',
-    borderRadius: '4pt',
-  };
-  editorConfig = {
-    toolbar: [
-      ['bold', 'italic', 'underline', 'strike'],
-      ['blockquote','code-block'],
-      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-      ['link', 'image', 'video'],
-    ]
-  }
-  maxContentLength = 4000;
   publishError: any;
+  loading = false;
+  submitted = false;
 
-  // for preview section
-  articleName: string;
-  editorContent: string;
+  // from quill-editor
+  editorContent: String;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -53,22 +39,48 @@ export class CreateGameStoriesSectionComponent implements OnInit {
     })
   }
 
-  onSubmitPreview(): void {
-    this.articleName = this.editorForm.get('article_name').value;
-    this.editorContent = this.editorForm.get('editor').value;
+  get form() {
+    return this.editorForm.controls;
   }
 
-  maxLength(e: any):void {
-    if(e.editor.getLength() > this.maxContentLength) {
-      e.editor.deleteText(this.maxContentLength, e.editor.getLength());
+  checkContent(): boolean {
+    return (this.editorContent || this.editorForm.get('article_name').value);
+  }
+
+  setEditorContent(editorContent: String) {
+    this.editorContent = editorContent;
+  }
+
+  canPublish() {
+    let artName = this.editorForm.get('article_name').value;
+    let content = this.editorContent;
+    let description = this.editorForm.get('description').value;
+
+    if(!artName || !content || !description ) {
+      return false;
     }
+
+    return true;
   }
 
   sendArticleData(): void {
+    this.submitted = true;
+
+    if(this.editorForm.invalid) {
+      return;
+    }
+
+    this.loading = true;
+
     let artName = this.editorForm.get('article_name').value;
-    let content = this.editorForm.get('editor').value;
+    let content = this.editorContent;
     let description = this.editorForm.get('description').value;
     let type = "Gaming";
+
+    if(!artName || !content || !description) {
+      this.publishError="Please fill in all the necessary fields"
+    }
+
     let articleModel = {"articleName": artName, "authorUserName": this.currentUser.displayName, "description": description, 
       'datePublished': new Date(), 'type': type,'content': content};
     this.gamesController.addObject(articleModel).subscribe(id => {
@@ -80,4 +92,5 @@ export class CreateGameStoriesSectionComponent implements OnInit {
     }
     );
   }
+  
 }

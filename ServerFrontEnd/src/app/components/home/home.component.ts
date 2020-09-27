@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppSettings } from './../../appSettings';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'home',
@@ -14,22 +15,27 @@ export class HomeComponent implements OnInit {
   user: firebase.User;
   // app title
   title = AppSettings.SERVER_NAME;
-  navbarCollapsed = false; 
+  navbarCollapsed = false;
 
   constructor(
     private authenticationService: AuthenticationService,
-    private angularFireAuth: AngularFireAuth,
-  ) { }
+    private router: Router
+  ) { 
+  }
 
   ngOnInit(): void {
     this.authenticationService.getLoggedInUser()
       .subscribe (user => {
         this.user = user;
-    })
+    });
   }
 
   logout(): void {
     this.authenticationService.logout();
+  }
+
+  isActive(button: String): boolean {
+    return (this.router.url == button);
   }
 
 }
