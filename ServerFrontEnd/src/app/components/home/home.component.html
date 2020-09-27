@@ -11,22 +11,22 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
 
-            <li class="nav-item active">
+            <li class="nav-item" [ngClass]="{'active': isActive('/homePage')}">
                 <a class="nav-link" routerLink="/">Home</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" [ngClass]="{'active': isActive('/articles')}">
                 <a class="nav-link" routerLink="articles">Articles</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" [ngClass]="{'active': isActive('/gaming')}">
                 <a class="nav-link" routerLink="gaming">Gaming</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" [ngClass]="{'active': isActive('/server_stats')}">
                 <a class="nav-link" routerLink="server_stats">Server Stats</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" [ngClass]="{'active': isActive('/team')}">
                 <a class="nav-link" routerLink="team">Team</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" [ngClass]="{'active': isActive('/contacts')}">
                 <a class="nav-link" routerLink="contacts">Contacts</a>
             </li>
         </ul>

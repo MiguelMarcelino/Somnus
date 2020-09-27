@@ -28,6 +28,7 @@ import { NotFoundPageComponent } from './components/not-found-page/not-found-pag
 import { RegisterComponent } from './components/register/register.component';
 import { CreateGameStoriesSectionComponent } from './components/create-game-stories-section/create-game-stories-section.component';
 import { GamePageComponent } from './components/game-page/game-page.component';
+import { QuillEditorComponent } from './components/quill-editor/quill-editor.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { GamePageComponent } from './components/game-page/game-page.component';
     RegisterComponent,
     CreateGameStoriesSectionComponent,
     GamePageComponent,
+    QuillEditorComponent,
   ],
   imports: [
     BrowserModule,

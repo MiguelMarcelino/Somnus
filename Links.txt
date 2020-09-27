@@ -11,3 +11,14 @@ Firebase Login with google
 
 Firebase Login with email and password
 https://www.youtube.com/watch?v=6TRv1xT3Y-E
+
+Configure SSL
+https://serverfault.com/questions/967275/what-is-the-difference-between-default-ssl-conf-and-what-is-000-default-le-ssl-c
+https://zerossl.com/help/installation/apache/
+https://app.zerossl.com/certificate/
+
+Barrel files
+https://adrianfaciu.dev/posts/barrel-files/
+
+JWTs
+https://dzone.com/articles/add-secure-token-authentication-to-your-java-app
