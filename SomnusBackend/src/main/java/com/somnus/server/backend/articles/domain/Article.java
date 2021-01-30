@@ -1,15 +1,28 @@
 package com.somnus.server.backend.articles.domain;
 
 import com.somnus.server.backend.config.DateHandler;
+import org.bson.codecs.pojo.annotations.BsonProperty;
 
 import java.time.LocalDateTime;
 
 public class Article {
+
+    @BsonProperty(value = "article_name")
     private String articleName;
+
+    @BsonProperty(value = "author_user_name")
     private String authorUserName;
+
+    @BsonProperty(value = "description")
     private String description;
+
+    @BsonProperty(value = "date_published")
     private LocalDateTime datePublished;
+
+    @BsonProperty(value = "topic")
     private ArticleTopic topic;
+
+    @BsonProperty(value = "content")
     private String content;
 
     public Article () {}
@@ -24,7 +37,7 @@ public class Article {
      * @param content
      */
     public Article(String articleName, String authorUserName, String description,
-                   LocalDateTime datePublished, ArticleTopic topic, String content) {
+                   ArticleTopic topic, String content) {
         this.articleName = articleName;
         this.authorUserName = authorUserName;
         this.description = description;

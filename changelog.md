@@ -3,6 +3,26 @@ All changes made to this project will be documented in this file
 
 ## [Unreleased]
 
+## [0.2.0] - 2021-01-30
+### Added
+- New Database connection method
+- New Article database connection
+
+###Changed
+- Finished Articles API
+- Fixed application properties database connection strings
+
+
+---------------------------------------------------------
+
+## [0.2.0] - 2021-01-29
+### Added
+- Start of new java backend for Somnus website
+- Custom Exception handler
+- Start of Articles API
+
+---------------------------------------------------------
+
 ## [0.1.3] - 2020-07-03
 ### Added
 - Gaming list page

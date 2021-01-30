@@ -16,18 +16,27 @@ public class ArticleController {
     private ArticleService articleService;
 
     @PostMapping(value = "/articleList")
-    public List<ArticleDto> getArticles(@RequestBody ArticlesRequestDto articlesRequest) {
-        return articleService.getArticles(articlesRequest.getArticleTopicStringToObject());
+    public List<ArticleDto> getAllArticles() {
+        return articleService.getAllArticles();
+    }
+
+    @PostMapping(value = "/topicArticles")
+    public List<ArticleDto> getArticlesOfTopic(@RequestBody ArticlesRequestDto articlesRequest) {
+        return articleService.getArticlesOfTopic(articlesRequest.articleTopic);
     }
 
     @GetMapping(value = "/article/{id}")
-    public ArticleDto getArticles(@PathVariable String id) {
-        // TODO
-        return null;
+    public ArticleDto getArticle(@PathVariable String id) {
+        return articleService.getArticle(id);
     }
 
     @PostMapping(value = "article/create")
-    public void createArticle() {
-        // TODO
+    public void createArticle(ArticleDto articleDto) {
+        articleService.createArticle(articleDto);
+    }
+
+    @GetMapping(value = "/article/delete/{id}")
+    public void deleteArticle(String id) {
+        articleService.deleteArticle(id);
     }
 }
