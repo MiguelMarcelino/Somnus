@@ -2,10 +2,13 @@ package com.somnus.server.backend.articles.domain;
 
 import com.somnus.server.backend.config.DateHandler;
 import org.bson.codecs.pojo.annotations.BsonProperty;
+import org.bson.types.ObjectId;
 
 import java.time.LocalDateTime;
 
 public class Article {
+
+    private ObjectId id;
 
     @BsonProperty(value = "article_name")
     private String articleName;
@@ -32,7 +35,6 @@ public class Article {
      * @param articleName
      * @param authorUserName
      * @param description
-     * @param datePublished
      * @param topic
      * @param content
      */

@@ -1,14 +1,15 @@
 package com.somnus.server.backend.exceptions;
 
 public enum ErrorMessage {
-    NO_ARTICLE_FOUND("No article found"),
-    NO_ARTICLES_TO_DELETE("There are no articles that can be deleted"),
-    ARTICLE_INSERT_FAILED("Failed on inserting a new article"),
+    NO_OBJECT_FOUND("No article found"),
+    NO_OBJECTS_TO_DELETE("There are no objects that can be deleted"),
+    OBJECT_INSERT_FAILED("Failed on inserting a new object"),
 
     ACCESS_DENIED("You do not have permission to access the requested resource"),
     BAD_REQUEST("Malformed Request"),
     INTERNAL_SERVER_ERROR("Server error"),
-    DATABASE_CONNECTION_ERROR("Error connecting to database");
+    DATABASE_CONNECTION_ERROR("Error connecting to database"),
+    URI_NOT_PRESENT("Error with one of the URIs for database connection");
 
     public final String message;
 
