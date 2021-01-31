@@ -28,6 +28,11 @@ public class DatabaseConnection {
         String mongoDBUri = environments.getProperty("spring.data.mongodb.uri");
         String databaseUri = environments.getProperty("spring.data.mongodb.database");
 
+        // check if URIs are present
+        if(mongoDBUri == null || databaseUri == null) {
+            throw new SomnusException(ErrorMessage.URI_NOT_PRESENT);
+        }
+
         // connection for mongodb including uri
         ConnectionString connectionString = new ConnectionString(mongoDBUri);
 
@@ -44,7 +49,8 @@ public class DatabaseConnection {
                 .codecRegistry(codecRegistry)
                 .build();
 
-        try (MongoClient mongoClient = MongoClients.create(clientSettings)) {
+        try {
+            MongoClient mongoClient = MongoClients.create(clientSettings);
             database = mongoClient.getDatabase(databaseUri);
         } catch (Exception e) {
             throw new SomnusException(ErrorMessage.DATABASE_CONNECTION_ERROR, e);

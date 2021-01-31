@@ -3,24 +3,23 @@ package com.somnus.server.backend.articles;
 import com.somnus.server.backend.articles.dto.ArticleDto;
 import com.somnus.server.backend.articles.dto.ArticlesRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
-@RequestMapping("/articlesApi")
+@RestController
+@RequestMapping("/articles-api")
 public class ArticleController {
 
     @Autowired
     private ArticleService articleService;
 
-    @PostMapping(value = "/articleList")
+    @GetMapping(value = "/articles")
     public List<ArticleDto> getAllArticles() {
         return articleService.getAllArticles();
     }
 
-    @PostMapping(value = "/topicArticles")
+    @PostMapping(value = "/topic-articles")
     public List<ArticleDto> getArticlesOfTopic(@RequestBody ArticlesRequestDto articlesRequest) {
         return articleService.getArticlesOfTopic(articlesRequest.articleTopic);
     }
@@ -30,8 +29,8 @@ public class ArticleController {
         return articleService.getArticle(id);
     }
 
-    @PostMapping(value = "article/create")
-    public void createArticle(ArticleDto articleDto) {
+    @PostMapping(value = "/article/create")
+    public void createArticle(@RequestBody ArticleDto articleDto) {
         articleService.createArticle(articleDto);
     }
 

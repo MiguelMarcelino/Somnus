@@ -2,9 +2,9 @@ package com.somnus.server.backend.articles.dto;
 
 import com.somnus.server.backend.articles.domain.ArticleTopic;
 
-import java.time.LocalDateTime;
+import java.io.Serializable;
 
-public class ArticlesRequestDto {
+public class ArticlesRequestDto implements Serializable {
 
     public String articleTopic;
 

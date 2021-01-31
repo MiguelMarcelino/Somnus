@@ -4,6 +4,7 @@ import com.somnus.server.backend.articles.database.ArticleDatabaseConnection;
 import com.somnus.server.backend.articles.domain.Article;
 import com.somnus.server.backend.articles.domain.ArticleTopic;
 import com.somnus.server.backend.articles.dto.ArticleDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,15 +13,12 @@ import java.util.List;
 @Service
 public class ArticleService {
 
+    @Autowired
     public ArticleDatabaseConnection articleDatabaseConnection;
-
-    public ArticleService() {
-        articleDatabaseConnection = new ArticleDatabaseConnection();
-    }
 
     public List<ArticleDto> getAllArticles() {
         List<ArticleDto> articleDtos = new ArrayList<>();
-        articleDatabaseConnection.getAllArticles().forEach(article -> articleDtos.add(
+        articleDatabaseConnection.getAllObject().forEach(article -> articleDtos.add(
                 new ArticleDto(article.getArticleName(), article.getAuthorUserName(),
                         article.getDescription(), article.getDatePublished(),
                         article.getTopic().name, article.getContent())));
@@ -37,7 +35,7 @@ public class ArticleService {
     }
 
     public ArticleDto getArticle(String id) {
-        Article article = articleDatabaseConnection.getArticle(id);
+        Article article = articleDatabaseConnection.getObject(id);
         return new ArticleDto(article.getArticleName(), article.getAuthorUserName(),
                 article.getDescription(), article.getDatePublished(),
                 article.getTopic().name, article.getContent());
@@ -47,11 +45,11 @@ public class ArticleService {
         Article article = new Article(articleDto.getArticleName(),
                 articleDto.getAuthorUserName(), articleDto.getDescription(),
                 ArticleTopic.valueOf(articleDto.getTopic()), articleDto.getContent());
-        articleDatabaseConnection.createArticle(article);
+        articleDatabaseConnection.createObject(article);
     }
 
     public void deleteArticle(String id) {
-        articleDatabaseConnection.deleteArticle(id);
+        articleDatabaseConnection.deleteObject(id);
     }
 
     public List<ArticleDto> searchArticles(String nameContent) {

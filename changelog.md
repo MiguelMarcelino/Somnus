@@ -3,15 +3,25 @@ All changes made to this project will be documented in this file
 
 ## [Unreleased]
 
+## [0.2.0] - 2021-01-31
+### Added
+- New TeamMember API
+- New WebConfig and WebSecurityConfig classes
+- Started preparing new User API
+
+### Changed
+- Changed to more generic Database connection method
+
+---------------------------------------------------------
+
 ## [0.2.0] - 2021-01-30
 ### Added
 - New Database connection method
 - New Article database connection
 
-###Changed
+### Changed
 - Finished Articles API
 - Fixed application properties database connection strings
-
 
 ---------------------------------------------------------
 
