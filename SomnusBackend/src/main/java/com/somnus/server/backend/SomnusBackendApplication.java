@@ -1,17 +1,21 @@
 package com.somnus.server.backend;
 
-import com.somnus.server.backend.config.DatabaseConnection;
+import com.somnus.server.backend.systemmonitor.systemusage.SystemUsage;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+@PropertySource({"classpath:application.properties"})
+@EnableJpaRepositories
+@EnableTransactionManagement
+@EnableJpaAuditing
 @SpringBootApplication
 public class SomnusBackendApplication extends SpringBootServletInitializer implements InitializingBean {
-
-	@Autowired
-	private DatabaseConnection databaseConnection;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SomnusBackendApplication.class, args);
@@ -19,7 +23,6 @@ public class SomnusBackendApplication extends SpringBootServletInitializer imple
 
 	@Override
 	public void afterPropertiesSet() {
-		// Runs on app startup
-		databaseConnection.startMongoDBConnection();
+		// TODO
 	}
 }

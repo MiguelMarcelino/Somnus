@@ -3,6 +3,19 @@ All changes made to this project will be documented in this file
 
 ## [Unreleased]
 
+---------------------------------------------------------
+## [0.2.1] - 2021-01-01
+### Added
+- New Feedback API
+- New SystemMonitor API
+- Started preparing for mailSender
+- New develop and production environments
+
+### Changed
+- Now using JPA with mysql to store data
+- properties files changed to support new database changes
+---------------------------------------------------------
+
 ## [0.2.0] - 2021-01-31
 ### Added
 - New TeamMember API
