@@ -25,3 +25,9 @@ https://dzone.com/articles/add-secure-token-authentication-to-your-java-app
 
 Sending Emails in Java
 https://howtodoinjava.com/spring-core/send-email-with-spring-javamailsenderimpl-example/
+
+Retrovisor system monitor
+https://github.com/alskenobi/retrovisor/blob/master/server.js
+
+Periodically backing up database
+https://stackoverflow.com/questions/938805/taking-periodic-backups-of-a-mysql-database

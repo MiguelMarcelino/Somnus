@@ -4,7 +4,7 @@ All changes made to this project will be documented in this file
 ## [Unreleased]
 
 ---------------------------------------------------------
-## [0.2.1] - 2021-01-01
+## [0.2.1] - 2021-02-01
 ### Added
 - New Feedback API
 - New SystemMonitor API
