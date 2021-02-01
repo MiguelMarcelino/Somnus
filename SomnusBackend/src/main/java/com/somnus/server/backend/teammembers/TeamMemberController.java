@@ -19,7 +19,7 @@ public class TeamMemberController {
     }
 
     @GetMapping(value = "/team-member/{articleId}")
-    public TeamMemberDto teamMember(@PathVariable String articleId) {
+    public TeamMemberDto teamMember(@PathVariable Integer articleId) {
         return teamMemberService.getTeamMember(articleId);
     }
 
@@ -29,7 +29,7 @@ public class TeamMemberController {
     }
 
     @GetMapping(value = "/team-member/delete/{teamMemberId}")
-    public void createTeamMember(@PathVariable String teamMemberId) {
+    public void createTeamMember(@PathVariable Integer teamMemberId) {
         teamMemberService.deleteTeamMember(teamMemberId);
     }
 }

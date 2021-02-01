@@ -25,7 +25,7 @@ public class ArticleController {
     }
 
     @GetMapping(value = "/article/{id}")
-    public ArticleDto getArticle(@PathVariable String id) {
+    public ArticleDto getArticle(@PathVariable Integer id) {
         return articleService.getArticle(id);
     }
 
@@ -35,7 +35,7 @@ public class ArticleController {
     }
 
     @GetMapping(value = "/article/delete/{id}")
-    public void deleteArticle(String id) {
+    public void deleteArticle(@PathVariable Integer id) {
         articleService.deleteArticle(id);
     }
 }

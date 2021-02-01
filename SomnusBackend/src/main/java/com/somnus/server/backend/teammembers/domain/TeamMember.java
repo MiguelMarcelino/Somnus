@@ -1,23 +1,25 @@
 package com.somnus.server.backend.teammembers.domain;
 
 import com.somnus.server.backend.config.DateHandler;
-import org.bson.codecs.pojo.annotations.BsonProperty;
-import org.bson.types.ObjectId;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
+@Entity
+@Table(name = "team_members")
 public class TeamMember {
 
-    private ObjectId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-    @BsonProperty(value = "team_member_name")
+    @Column(name = "team_member_name")
     private String teamMemberName;
 
-    @BsonProperty(value = "photo_path")
+    @Column(name = "photo_path")
     private String photoPath;
 
-    @BsonProperty(value = "date_joined")
+    @Column(name = "date_joined")
     private LocalDateTime dateJoined;
 
     public TeamMember() {}

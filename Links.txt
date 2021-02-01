@@ -22,3 +22,6 @@ https://adrianfaciu.dev/posts/barrel-files/
 
 JWTs
 https://dzone.com/articles/add-secure-token-authentication-to-your-java-app
+
+Sending Emails in Java
+https://howtodoinjava.com/spring-core/send-email-with-spring-javamailsenderimpl-example/

@@ -1,31 +1,34 @@
 package com.somnus.server.backend.articles.domain;
 
 import com.somnus.server.backend.config.DateHandler;
-import org.bson.codecs.pojo.annotations.BsonProperty;
-import org.bson.types.ObjectId;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "articles")
 public class Article {
 
-    private ObjectId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-    @BsonProperty(value = "article_name")
+    @Column(name = "article_name")
     private String articleName;
 
-    @BsonProperty(value = "author_user_name")
+    @Column(name = "author_user_name")
     private String authorUserName;
 
-    @BsonProperty(value = "description")
+    @Column(name = "description")
     private String description;
 
-    @BsonProperty(value = "date_published")
+    @Column(name = "date_published")
     private LocalDateTime datePublished;
 
-    @BsonProperty(value = "topic")
+    @Enumerated(EnumType.STRING)
     private ArticleTopic topic;
 
-    @BsonProperty(value = "content")
+    @Column(name = "content")
     private String content;
 
     public Article () {}

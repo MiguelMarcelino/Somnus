@@ -1,26 +1,29 @@
 package com.somnus.server.backend.teammembers.domain;
 
 import com.somnus.server.backend.config.DateHandler;
-import com.somnus.server.backend.users.domain.User;
-import org.bson.codecs.pojo.annotations.BsonProperty;
-import org.bson.types.ObjectId;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Entity
+//@Table(name = "contributions")
 public class Contribution {
 
-    private ObjectId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-    @BsonProperty(value = "title")
+    @Column(name = "title")
     private String title;
 
-    @BsonProperty(value = "team_member_id")
-    private int teamMemberId;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "team_member_id")
+    private TeamMember teamMember;
 
-    @BsonProperty(value = "description")
+    @Column(name = "description")
     private String description;
 
-    @BsonProperty(value = "dateAdded")
+    @Column(name = "date_added")
     private LocalDateTime dateAdded;
 
     public Contribution() {}
@@ -28,12 +31,12 @@ public class Contribution {
     /**
      * Constructor used when adding a new Contribution
      * @param title
-     * @param teamMemberId
+     * @param teamMember
      * @param description
      */
-    public Contribution(String title, Integer teamMemberId, String description) {
+    public Contribution(String title, TeamMember teamMember, String description) {
         this.title = title;
-        this.teamMemberId = teamMemberId;
+        this.teamMember = teamMember;
         this.description = description;
         this.dateAdded = DateHandler.now();
     }
@@ -42,8 +45,8 @@ public class Contribution {
         return title;
     }
 
-    public int getTeamMemberId() {
-        return teamMemberId;
+    public TeamMember getTeamMember() {
+        return teamMember;
     }
 
     public String getDescription() {

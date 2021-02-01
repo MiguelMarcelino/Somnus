@@ -1,9 +1,8 @@
 package com.somnus.server.backend.exceptions;
 
 public enum ErrorMessage {
-    NO_OBJECT_FOUND("No article found"),
-    NO_OBJECTS_TO_DELETE("There are no objects that can be deleted"),
-    OBJECT_INSERT_FAILED("Failed on inserting a new object"),
+    NO_ARTICLE_FOUND("No article found"),
+    NO_TEAMMEMBER_FOUND("No team member found."),
 
     ACCESS_DENIED("You do not have permission to access the requested resource"),
     BAD_REQUEST("Malformed Request"),
