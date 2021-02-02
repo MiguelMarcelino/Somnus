@@ -1,5 +1,6 @@
 package com.somnus.server.backend.articles.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.somnus.server.backend.articles.domain.Article;
 import com.somnus.server.backend.articles.domain.ArticleTopic;
 

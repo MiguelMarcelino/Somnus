@@ -1,5 +1,6 @@
 package com.somnus.server.backend.teammembers;
 
+import com.somnus.server.backend.teammembers.dto.ContributionDto;
 import com.somnus.server.backend.teammembers.dto.TeamMemberDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +19,9 @@ public class TeamMemberController {
         return teamMemberService.getAllTeamMembers();
     }
 
-    @GetMapping(value = "/team-member/{articleId}")
-    public TeamMemberDto teamMember(@PathVariable Integer articleId) {
-        return teamMemberService.getTeamMember(articleId);
+    @GetMapping(value = "/team-member/{teamMemberId}")
+    public TeamMemberDto teamMember(@PathVariable Integer teamMemberId) {
+        return teamMemberService.getTeamMember(teamMemberId);
     }
 
     @PostMapping(value = "/team-member/create")
@@ -31,5 +32,10 @@ public class TeamMemberController {
     @GetMapping(value = "/team-member/delete/{teamMemberId}")
     public void createTeamMember(@PathVariable Integer teamMemberId) {
         teamMemberService.deleteTeamMember(teamMemberId);
+    }
+
+    @PostMapping(value = "/contributions/create")
+    public void addContribution(@RequestBody ContributionDto contributionDto) {
+        teamMemberService.addContribution(contributionDto);
     }
 }

@@ -8,6 +8,7 @@ public class TeamMemberDto implements Serializable {
     private String teamMemberName;
     private String photoPath;
     private LocalDateTime dateJoined;
+    private Integer numContributions;
 
     public TeamMemberDto() {}
 
@@ -28,10 +29,11 @@ public class TeamMemberDto implements Serializable {
      * @param dateJoined
      */
     public TeamMemberDto(String teamMemberName, String photoPath,
-                         LocalDateTime dateJoined) {
+                         LocalDateTime dateJoined, Integer numContributions) {
         this.teamMemberName = teamMemberName;
         this.photoPath = photoPath;
         this.dateJoined = dateJoined;
+        this.numContributions = numContributions;
     }
 
     public String getTeamMemberName() {
@@ -42,4 +44,11 @@ public class TeamMemberDto implements Serializable {
         return photoPath;
     }
 
+    public LocalDateTime getDateJoined() {
+        return dateJoined;
+    }
+
+    public Integer getNumContributions() {
+        return numContributions;
+    }
 }

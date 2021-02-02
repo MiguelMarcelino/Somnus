@@ -4,6 +4,17 @@ All changes made to this project will be documented in this file
 ## [Unreleased]
 
 ---------------------------------------------------------
+## [0.2.1] - 2021-02-02
+### Added
+- New Email sending service through spring
+- New User authentication method through Firebase
+- New User API (still needs adaptation to Firebase login)
+- TeamMember stores number of contributions (performance)
+
+### Fixed
+- Bug in SomnusExceptionDto: parsing of LocalDateTime
+
+---------------------------------------------------------
 ## [0.2.1] - 2021-02-01
 ### Added
 - New Feedback API

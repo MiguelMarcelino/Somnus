@@ -22,6 +22,9 @@ public class TeamMember {
     @Column(name = "date_joined")
     private LocalDateTime dateJoined;
 
+    @Column(name = "num_contributions")
+    private Integer numContributions;
+
     public TeamMember() {}
 
     /**
@@ -47,4 +50,11 @@ public class TeamMember {
         return dateJoined;
     }
 
+    public Integer getNumContributions() {
+        return numContributions;
+    }
+
+    public void addContribution() {
+        numContributions++;
+    }
 }
