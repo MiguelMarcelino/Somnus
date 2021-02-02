@@ -31,3 +31,9 @@ https://github.com/alskenobi/retrovisor/blob/master/server.js
 
 Periodically backing up database
 https://stackoverflow.com/questions/938805/taking-periodic-backups-of-a-mysql-database
+
+JAAS Authentication Tutorial
+https://docs.oracle.com/javase/7/docs/technotes/guides/security/jaas/tutorials/GeneralAcnOnly.html
+
+Java Authentication and Authorization Service (JAAS) Reference Guide
+https://docs.oracle.com/javase/8/docs/technotes/guides/security/jaas/JAASRefGuide.html

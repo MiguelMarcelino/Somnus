@@ -7,8 +7,9 @@ public enum ErrorMessage {
     ACCESS_DENIED("You do not have permission to access the requested resource"),
     BAD_REQUEST("Malformed Request"),
     INTERNAL_SERVER_ERROR("Server error"),
-    DATABASE_CONNECTION_ERROR("Error connecting to database"),
-    URI_NOT_PRESENT("Error with one of the URIs for database connection");
+
+    FIREBASE_USER_DOES_NOT_EXIST("Firebase user does not exist"),
+    INVALID_AUTH_TOKEN("Invalid auth token");
 
     public final String message;
 

@@ -15,7 +15,7 @@
 	<description>Backend for Somnus Website</description>
 	<properties>
 		<java.version>11</java.version>
-		<email.version>1.16.18</email.version>
+		<email.version>1.5.0-b01</email.version>
 	</properties>
 
 	<!-- Development and production profiles -->
@@ -81,9 +81,15 @@
 
 		<!-- Sending Emails -->
 		<dependency>
-			<groupId>com.sun.mail</groupId>
-			<artifactId>javax.mail</artifactId>
-			<version>${email.version}</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
+		<!-- Firebase Authentication -->
+		<dependency>
+			<groupId>com.google.firebase</groupId>
+			<artifactId>firebase-admin</artifactId>
+			<version>7.1.0</version>
 		</dependency>
 
 	</dependencies>

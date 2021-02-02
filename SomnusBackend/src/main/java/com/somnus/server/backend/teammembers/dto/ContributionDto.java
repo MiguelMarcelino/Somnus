@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 public class ContributionDto implements Serializable {
     private String title;
-    private int contributorId;
+    private int teamMemberId;
     private String description;
     private LocalDateTime dateAdded;
 
@@ -14,7 +14,7 @@ public class ContributionDto implements Serializable {
     public ContributionDto(String title, int contributorId,
                            String description, LocalDateTime dateAdded){
         this.title = title;
-        this.contributorId = contributorId;
+        this.teamMemberId = contributorId;
         this.description = description;
         this.dateAdded = dateAdded;
     }
@@ -23,8 +23,8 @@ public class ContributionDto implements Serializable {
         return title;
     }
 
-    public int getContributorId() {
-        return contributorId;
+    public int getTeamMemberId() {
+        return teamMemberId;
     }
 
     public String getDescription() {
