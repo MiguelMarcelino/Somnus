@@ -22,13 +22,10 @@ public class User implements UserDetails {
     private String username;
 
     @Column(name = "password", nullable = false, unique = true)
-    private final String password = null;
+    private String password;
 
     @Column(name = "email", nullable = false)
     private String email;
-
-    @Enumerated(EnumType.STRING)
-    private Role role;
 
     @Column(name = "last_login_at", nullable = false)
     private LocalDateTime lastLoginAt;
@@ -58,6 +55,13 @@ public class User implements UserDetails {
         this.uid = uid;
     }
 
+    public User(String username, String password, String adminEmail, List<RoleEntity> adminRoles) {
+        this.username = username;
+        this.password = password;
+        this.email = adminEmail;
+        this.authorities = adminRoles;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
@@ -75,10 +79,6 @@ public class User implements UserDetails {
 
     public String getEmail() {
         return email;
-    }
-
-    public Role getRole() {
-        return role;
     }
 
     @Override
@@ -100,4 +100,5 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return enabled;
     }
+
 }

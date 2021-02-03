@@ -1,7 +1,6 @@
 package com.somnus.server.backend.config;
 
 import com.somnus.server.backend.config.auth.firebase.FirebaseAuthenticationProvider;
-import com.somnus.server.backend.config.auth.firebase.FirebaseAuthenticationTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import java.util.Arrays;
 
@@ -35,11 +35,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new ProviderManager(Arrays.asList(authenticationProvider));
     }
 
-    public FirebaseAuthenticationTokenFilter authenticationTokenFilterBean() throws Exception {
-        FirebaseAuthenticationTokenFilter authenticationTokenFilter = new FirebaseAuthenticationTokenFilter();
-        authenticationTokenFilter.setAuthenticationManager(authenticationManager());
-        authenticationTokenFilter.setAuthenticationSuccessHandler((request, response, authentication) -> {});
-        return authenticationTokenFilter;
+    private FirebaseFilter tokenAuthorizationFilter() {
+        return new FirebaseFilter();
     }
 
     @Override
@@ -57,9 +54,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                     // don't create session
                     .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); //.and()
-            // Custom JWT based security filter
-            http
-                    .addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
+
+            http.addFilterBefore(tokenAuthorizationFilter(), BasicAuthenticationFilter.class).authorizeRequests();
         } else {
             http.httpBasic().disable()
                     .csrf().disable()
