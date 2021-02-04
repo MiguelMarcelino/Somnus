@@ -4,6 +4,11 @@ All changes made to this project will be documented in this file
 ## [Unreleased]
 
 ---------------------------------------------------------
+## [0.2.1] - 2021-02-03
+### Changed
+- Changed some Firebase configuration files
+
+---------------------------------------------------------
 ## [0.2.1] - 2021-02-02
 ### Added
 - New Email sending service through spring

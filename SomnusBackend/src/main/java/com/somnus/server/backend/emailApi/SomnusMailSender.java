@@ -1,6 +1,7 @@
 package com.somnus.server.backend.emailApi;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -12,8 +13,8 @@ public class SomnusMailSender {
     @Autowired
     private JavaMailSender mailSender;
 
-    @Autowired
-    private Environment environment;
+    @Value("${spring.mail.username}")
+    private String adminEmail;
 
     public SomnusMailSender(){}
 
@@ -27,7 +28,7 @@ public class SomnusMailSender {
 
     public void sendEmailToAdmin(String subject, String body) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(environment.getProperty("spring.mail.username"));
+        message.setTo(adminEmail);
         message.setSubject(subject);
         message.setText(body);
         mailSender.send(message);

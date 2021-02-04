@@ -12,16 +12,16 @@ import org.springframework.web.bind.annotation.RestController;
 import java.security.Principal;
 
 @RestController
-@RequestMapping(value = "/contacts-api")
+@RequestMapping(value = "/feedback-api")
 public class FeedbackController {
 
     @Autowired
-    private FeedbackService contactsService;
+    private FeedbackService feedbackService;
 
-    @PostMapping(value = "deliverFeedback")
+    @PostMapping(value = "/deliverFeedback")
     public void deliverFeedback(Principal principal, @RequestBody FeedbackDto feedbackDto) {
         User user = (User) ((Authentication) principal).getPrincipal();
 
-        contactsService.deliverFeedback(user.getEmail(), feedbackDto);
+        feedbackService.deliverFeedback(user.getEmail(), feedbackDto);
     }
 }

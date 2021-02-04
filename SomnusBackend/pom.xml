@@ -32,7 +32,7 @@
 		<profile>
 			<id>production</id>
 			<properties>
-				<activatedProperties>dev</activatedProperties>
+				<activatedProperties>production</activatedProperties>
 			</properties>
 			<activation>
 				<activeByDefault>true</activeByDefault>
