@@ -1,8 +1,8 @@
 package com.somnus.server.backend.config;
 
-import com.somnus.server.backend.config.auth.firebase.FirebaseAuthenticationToken;
-import com.somnus.server.backend.config.auth.firebase.FirebaseParser;
-import com.somnus.server.backend.config.auth.firebase.FirebaseTokenHolder;
+import com.somnus.server.backend.auth.firebase.FirebaseAuthenticationToken;
+import com.somnus.server.backend.auth.firebase.FirebaseParser;
+import com.somnus.server.backend.auth.firebase.FirebaseTokenHolder;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;

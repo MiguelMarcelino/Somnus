@@ -1,7 +1,6 @@
 package com.somnus.server.backend.users;
 
 import com.somnus.server.backend.users.domain.Role;
-import com.somnus.server.backend.users.domain.RoleEntity;
 import com.somnus.server.backend.users.domain.User;
 import com.somnus.server.backend.users.repository.RoleRepository;
 import com.somnus.server.backend.users.repository.UserRepository;
@@ -10,8 +9,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.util.Collections;
-import java.util.List;
 
 @Service
 public class UserDBInit {
@@ -22,6 +19,9 @@ public class UserDBInit {
     @Autowired
     private RoleRepository roleRepository;
 
+    @Autowired
+    private RolesHandler rolesHandler;
+
     @Value("${spring.mail.username}")
     private String adminEmail;
 
@@ -29,26 +29,11 @@ public class UserDBInit {
     public void init() {
         // Add admin to user DB
         if (userRepository.count() == 0) {
-            User admin = new User("somnus-admin", "882e4de25d20", adminEmail, getAdminRoles());
+            User admin = new User("somnus-admin", "882e4de25d20", adminEmail,
+                    rolesHandler.getRole(Role.ADMIN));
             userRepository.save(admin);
         }
     }
 
-    private List<RoleEntity> getAdminRoles() {
-        return Collections.singletonList(getRole(Role.ADMIN.name));
-    }
 
-    /**
-     * Get or create role
-     * @param authority
-     * @return
-     */
-    private RoleEntity getRole(String authority) {
-        RoleEntity adminRole = roleRepository.findByAuthority(authority);
-        if (adminRole == null) {
-            return new RoleEntity(authority);
-        } else {
-            return adminRole;
-        }
-    }
 }

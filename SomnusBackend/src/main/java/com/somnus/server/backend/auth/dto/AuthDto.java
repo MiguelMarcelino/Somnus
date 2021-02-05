@@ -1,4 +1,6 @@
-package com.somnus.server.backend.users.dto;
+package com.somnus.server.backend.auth.dto;
+
+import com.somnus.server.backend.users.dto.UserDto;
 
 import java.io.Serializable;
 

@@ -1,16 +1,14 @@
-package com.somnus.server.backend.config.auth.firebase;
+package com.somnus.server.backend.auth.firebase;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseToken;
-import com.somnus.server.backend.exceptions.ErrorMessage;
-import com.somnus.server.backend.exceptions.SomnusException;
-import org.apache.commons.lang3.StringUtils;
 //import com.google.firebase.tasks.Task;
 //import com.google.firebase.tasks.Tasks;
+
+import org.springframework.stereotype.Component;
 
 /**
  * @author prvoslav
  */
+@Component
 public class FirebaseParser {
     public static FirebaseTokenHolder parseToken(String idToken) {
 //        if (StringUtils.isBlank(idToken)) {
