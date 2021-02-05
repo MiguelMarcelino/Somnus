@@ -1,3 +1,4 @@
+
 package com.somnus.server.backend.teammembers.database;
 
 import com.somnus.server.backend.teammembers.domain.Contribution;
