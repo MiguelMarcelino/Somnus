@@ -14,14 +14,8 @@ public class UserController {
     private UserService userService;
 
     @GetMapping(value = "/authentication/authenticate-user")
-    public AuthDto registerNewUser(@RequestHeader String firebaseToken){
-        return userService.registerNewUser(firebaseToken);
-    }
-
-
-    public UserDto loginUser(@RequestBody LoginUserDto loginUserDto) {
-        // TODO
-        return null;
+    public AuthDto authenticateUser(@RequestHeader String firebaseToken){
+        return userService.authenticateUser(firebaseToken);
     }
 
 }

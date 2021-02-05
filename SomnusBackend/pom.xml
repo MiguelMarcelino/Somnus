@@ -92,6 +92,15 @@
 			<version>7.1.0</version>
 		</dependency>
 
+		<!-- https://firebase.google.com/docs/server/setup -->
+		<dependency>
+			<groupId>com.google.firebase</groupId>
+			<artifactId>firebase-server-sdk</artifactId>
+			<version>3.0.3</version>
+		</dependency>
+
+		<!--  -->
+
 	</dependencies>
 
 	<build>
