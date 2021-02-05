@@ -7,6 +7,7 @@ All changes made to this project will be documented in this file
 ## [0.2.1] - 2021-02-03
 ### Added
 - New Method to authenticate user through Firebase token
+- Started to work on JWT tokens
 
 ### Changed
 - Field password in user no longer used

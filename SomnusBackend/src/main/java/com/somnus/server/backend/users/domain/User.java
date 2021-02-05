@@ -55,6 +55,10 @@ public class User implements UserDetails {
         this.createdAt = DateHandler.now();
     }
 
+    public Integer getId() {
+        return id;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;

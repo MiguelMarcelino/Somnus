@@ -1,4 +1,4 @@
-package com.somnus.server.backend.config;
+package com.somnus.server.backend.auth.firebase;
 
 import com.somnus.server.backend.auth.firebase.FirebaseAuthenticationToken;
 import com.somnus.server.backend.auth.firebase.FirebaseParser;
