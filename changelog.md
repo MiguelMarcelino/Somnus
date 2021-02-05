@@ -5,6 +5,14 @@ All changes made to this project will be documented in this file
 
 ---------------------------------------------------------
 ## [0.2.1] - 2021-02-03
+### Added
+- New Method to authenticate user through Firebase token
+
+### Changed
+- Field password in user no longer used
+
+---------------------------------------------------------
+## [0.2.1] - 2021-02-03
 ### Changed
 - Changed some Firebase configuration files
 

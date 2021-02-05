@@ -46,7 +46,7 @@ public class UserService implements UserDetailsService {
                 userDetails.getPassword(), userDetails.getAuthorities());
     }
 
-    public AuthDto registerNewUser(String firebaseToken) {
+    public AuthDto authenticateUser(String firebaseToken) {
         if(StringUtils.isBlank(firebaseToken)) {
             throw new IllegalArgumentException("Blank Firebase Token");
         }
@@ -55,8 +55,7 @@ public class UserService implements UserDetailsService {
         // add user to repository if it does not exist already
         User user = userRepository.findByUserName(firebaseTokenHolder.getUid());
         if(user == null) {
-            // TODO change password auth
-            user = new User(firebaseTokenHolder.getUid(), UUID.randomUUID().toString(),
+            user = new User(firebaseTokenHolder.getUid(),
                     firebaseTokenHolder.getEmail(), rolesHandler.getRole(Role.USER));
             userRepository.save(user);
         }
@@ -66,6 +65,8 @@ public class UserService implements UserDetailsService {
         user.getAuthorities().stream().forEach(auth -> roles.add(auth.getAuthority()));
 
         // create new AuthDto
+        // TODO: generate JWT token
         return new AuthDto(firebaseToken, new UserDto(user.getUsername(), user.getEmail(), roles));
     }
+
 }

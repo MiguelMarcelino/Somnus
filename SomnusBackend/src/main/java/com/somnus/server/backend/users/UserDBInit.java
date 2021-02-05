@@ -27,9 +27,9 @@ public class UserDBInit {
 
     @PostConstruct
     public void init() {
-        // Add admin to user DB
+        // TODO: Save in Firebase
         if (userRepository.count() == 0) {
-            User admin = new User("somnus-admin", "882e4de25d20", adminEmail,
+            User admin = new User("somnus-admin", adminEmail,
                     rolesHandler.getRole(Role.ADMIN));
             userRepository.save(admin);
         }

@@ -19,7 +19,7 @@ public class User implements UserDetails {
     @Column(name = "username", nullable = false, unique = true)
     private String username;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "password")
     private String password;
 
     @Column(name = "email", nullable = false)
@@ -48,9 +48,8 @@ public class User implements UserDetails {
 
     public User(){}
 
-    public User(String username, String password, String adminEmail, List<RoleEntity> adminRoles) {
+    public User(String username, String adminEmail, List<RoleEntity> adminRoles) {
         this.username = username;
-        this.password = password;
         this.email = adminEmail;
         this.authorities = adminRoles;
         this.createdAt = DateHandler.now();

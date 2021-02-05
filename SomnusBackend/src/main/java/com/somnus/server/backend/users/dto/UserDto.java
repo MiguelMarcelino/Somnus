@@ -17,7 +17,6 @@ public class UserDto implements Serializable {
         this.roles = roles;
     }
 
-
     public String getUsername() {
         return username;
     }
