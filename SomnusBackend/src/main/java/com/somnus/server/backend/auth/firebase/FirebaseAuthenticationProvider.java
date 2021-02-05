@@ -1,4 +1,4 @@
-package com.somnus.server.backend.config.auth.firebase;
+package com.somnus.server.backend.auth.firebase;
 
 import com.somnus.server.backend.exceptions.ErrorMessage;
 import com.somnus.server.backend.exceptions.SomnusException;
@@ -29,13 +29,13 @@ public class FirebaseAuthenticationProvider implements AuthenticationProvider {
 		}
 
 		FirebaseAuthenticationToken authenticationToken = (FirebaseAuthenticationToken) authentication;
-		UserDetails details = userService.loadUserByUsername(authenticationToken.getName());
-		if (details == null) {
+		UserDetails userDetails = userService.loadUserByUsername(authenticationToken.getName());
+		if (userDetails == null) {
 			throw new SomnusException(ErrorMessage.FIREBASE_USER_DOES_NOT_EXIST);
 		}
 
-		authenticationToken = new FirebaseAuthenticationToken(details, authentication.getCredentials(),
-				details.getAuthorities());
+		authenticationToken = new FirebaseAuthenticationToken(userDetails, authentication.getCredentials(),
+				userDetails.getAuthorities());
 
 		return authenticationToken;
 	}

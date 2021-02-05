@@ -3,7 +3,7 @@ package com.somnus.server.backend.users.domain;
 public enum Role {
     ADMIN("Admin"),
     EDITOR("Editor"),
-    READER("Reader");
+    USER("Reader");
 
     public String name;
 
