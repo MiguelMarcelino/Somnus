@@ -1,6 +1,7 @@
 package com.somnus.server.backend.config;
 
 import com.somnus.server.backend.auth.firebase.FirebaseAuthenticationProvider;
+import com.somnus.server.backend.auth.firebase.FirebaseFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

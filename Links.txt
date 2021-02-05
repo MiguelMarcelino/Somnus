@@ -37,3 +37,6 @@ https://docs.oracle.com/javase/7/docs/technotes/guides/security/jaas/tutorials/G
 
 Java Authentication and Authorization Service (JAAS) Reference Guide
 https://docs.oracle.com/javase/8/docs/technotes/guides/security/jaas/JAASRefGuide.html
+
+Setting up JWT
+https://www.freecodecamp.org/news/how-to-setup-jwt-authorization-and-authentication-in-spring/
