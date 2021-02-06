@@ -42,7 +42,8 @@ public class Feedback {
     /**
      * Used when adding new feedback
      */
-    public Feedback(String title, String content) {
+    public Feedback(User user, String title, String content) {
+        this.user = user;
         this.title = title;
         this.content = content;
         this.submissionDate = DateHandler.now();

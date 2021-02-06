@@ -1,5 +1,6 @@
 package com.somnus.server.backend.users;
 
+import com.somnus.server.backend.auth.SecurityConstants;
 import com.somnus.server.backend.auth.dto.AuthDto;
 import com.somnus.server.backend.users.dto.LoginUserDto;
 import com.somnus.server.backend.users.dto.UserDto;
@@ -14,7 +15,8 @@ public class UserController {
     private UserService userService;
 
     @GetMapping(value = "/authentication/authenticate-user")
-    public AuthDto authenticateUser(@RequestHeader String firebaseToken){
+    public UserDto authenticateUser(@RequestHeader(value = SecurityConstants.FIREBASE_HEADER_NAME) String firebaseToken){
+        System.out.println("ola");
         return userService.authenticateUser(firebaseToken);
     }
 

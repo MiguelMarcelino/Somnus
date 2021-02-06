@@ -34,7 +34,7 @@ public class ArticleController {
         articleService.createArticle(articleDto);
     }
 
-    @GetMapping(value = "/article/delete/{id}")
+    @DeleteMapping(value = "/article/delete/{id}")
     public void deleteArticle(@PathVariable Integer id) {
         articleService.deleteArticle(id);
     }

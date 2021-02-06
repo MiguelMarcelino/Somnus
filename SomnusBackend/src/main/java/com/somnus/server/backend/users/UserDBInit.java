@@ -29,7 +29,7 @@ public class UserDBInit {
     public void init() {
         // TODO: Save in Firebase
         if (userRepository.count() == 0) {
-            User admin = new User("somnus-admin", adminEmail,
+            User admin = new User("somnus-admin", adminEmail, "somnus", "admin",
                     rolesHandler.getRole(Role.ADMIN));
             userRepository.save(admin);
         }

@@ -14,21 +14,18 @@ import { ContactsComponent } from './components/contacts/contacts.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '../shared/material.module';
-import { AddGameEventComponent } from './components/add-game-event/add-game-event.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ServerStatsComponent } from './components/server-stats/server-stats.component';
 import { TeamMemberPageComponent } from './components/team-member-page/team-member-page.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
-import { GamingSectionComponent } from './components/gaming-section/gaming-section.component';
 import { ArticlesSectionComponent } from './components/articles-section/articles-section.component';
 import { CreateArticlesSectionComponent } from './components/create-articles-section/create-articles-section.component';
 import { AppRoutesService } from './services/routes/app-routes.service';
 import { ArticlePageComponent } from './components/article-page/article-page.component';
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
 import { RegisterComponent } from './components/register/register.component';
-import { CreateGameStoriesSectionComponent } from './components/create-game-stories-section/create-game-stories-section.component';
-import { GamePageComponent } from './components/game-page/game-page.component';
 import { QuillEditorComponent } from './components/quill-editor/quill-editor.component';
+import { JwtInterceptor } from './services/interceptor/jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -36,18 +33,14 @@ import { QuillEditorComponent } from './components/quill-editor/quill-editor.com
     HomeComponent,
     ContactsComponent,
     HomePageComponent,
-    AddGameEventComponent,
     ServerStatsComponent,
     TeamMemberPageComponent,
     LoginPageComponent,
-    GamingSectionComponent,
     ArticlesSectionComponent,
     CreateArticlesSectionComponent,
     ArticlePageComponent,
     NotFoundPageComponent,
     RegisterComponent,
-    CreateGameStoriesSectionComponent,
-    GamePageComponent,
     QuillEditorComponent,
   ],
   imports: [
@@ -74,6 +67,11 @@ import { QuillEditorComponent } from './components/quill-editor/quill-editor.com
           return appRoutesService.loadAppConfig();
         };
       }
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
     },
   ],
   bootstrap: [AppComponent]

@@ -1,8 +1,9 @@
 import { TeamMemberModel } from 'src/app/models/teamMember.model';
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { TemplateControllerService } from './template-controller.service';
 import { AppRoutesService } from '../routes/app-routes.service';
+import { AuthenticationService } from '../authentication/authentication.service';
 
 @Injectable({
     providedIn: 'root'

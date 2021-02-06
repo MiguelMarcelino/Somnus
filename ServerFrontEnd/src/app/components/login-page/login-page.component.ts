@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class LoginPageComponent implements OnInit {
 
   //google Icon
-  googlePhoto = "https://cdn.freebiesupply.com/logos/large/2x/google-icon-logo-png-transparent.png"
+  googlePhoto = "https://img.icons8.com/ios/50/000000/google-logo--v1.png";
   //login form
   loginForm: FormGroup;
   authError: any;

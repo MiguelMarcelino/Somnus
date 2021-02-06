@@ -38,21 +38,22 @@ export class AppRoutesService {
         return this.appRoutes.apiArticleEndPoint;
     }
 
-    // Games
-    get apiGamesEndPoint(): string {
-        this.isLoaded();
-        return this.appRoutes.apiGamesEndPoint;
-    }
-
-    get apiGameEndPoint(): string {
-        this.isLoaded();
-        return this.appRoutes.apiGameEndPoint;
-    }
-
     // Team Members
     get apiTeamMembersEndPoint(): string {
         this.isLoaded();
         return this.appRoutes.apiTeamMembersEndPoint;
+    }
+
+    // Feedback
+    get apiFeedbackEndpoint(): string {
+        this.isLoaded();
+        return this.appRoutes.apiFeedbackEndpoint;
+    }
+
+    // User authentication
+    get apiUsersEndPointAuth(): string {
+        this.isLoaded();
+        return this.appRoutes.apiUsersEndPointAuth;
     }
 
     // Check if routes file was loaded

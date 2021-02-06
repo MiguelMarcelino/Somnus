@@ -85,14 +85,14 @@ export class CreateArticlesSectionComponent implements OnInit {
     let artName = this.editorForm.get('article_name').value;
     let content = this.editorContent;
     let description = this.editorForm.get('description').value;
-    let type = this.editorForm.get('type').value;
+    let topic = this.editorForm.get('type').value;
 
-    if(!artName || !content || !description || !type) {
+    if(!artName || !content || !description || !topic) {
       this.publishError="Please fill in all the necessary fields"
     }
 
     let articleModel = {"articleName": artName, "authorUserName": this.currentUser.displayName, "description": description, 
-      datePublished: new Date(), 'type': type, 'content': content};
+      datePublished: new Date(), 'topic': topic, 'content': content};
     this.articlesController.addObject(articleModel).subscribe(id => {
       this.router.navigateByUrl("/articles");
     },
