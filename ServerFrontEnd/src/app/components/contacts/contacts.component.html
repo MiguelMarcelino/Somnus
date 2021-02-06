@@ -1,17 +1,21 @@
 
 <h2>Feel Free to contact us!</h2>
+<div class="row" *ngIf="publishError">
+    <div class="col-12 alert alert-danger">
+      {{ publishError?.message }}
+    </div>
+</div>
+<div class="row" *ngIf="successMessage">
+    <div class="col-12 alert alert-success">
+      {{ successMessage?.message }}
+    </div>
+</div>
 <div class="contact-form">
     <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" method="post">
         <div class="form-group">
-            <!-- First Name -->
-            <label for="first_name" class="control-label">First Name</label>
-            <input type="text" class="form-control" id="first_name" formControlName="first_name" placeholder="Bob">
-        </div>
-
-        <div class="form-group">
-            <!-- Email: -->
-            <label for="email" class="control-label">Email:</label>
-            <input type="email" class="form-control" id="email" formControlName="email" placeholder="bob@gmail.com">
+            <!-- Feedback Title -->
+            <label for="feedbackTitle" class="control-label">Feedback Title</label>
+            <input type="text" class="form-control" id="feedbackTitle" formControlName="feedbackTitle" placeholder="Give a title to your feedback">
         </div>
 
         <div class="form-group">
@@ -21,7 +25,7 @@
         </div>
 
         <div class="form-group">
-            <!-- Register Button -->
+            <!-- Send Feedback Button -->
             <button type="submit" class="btn btn-primary">Send Feedback</button>
         </div>
     </form>

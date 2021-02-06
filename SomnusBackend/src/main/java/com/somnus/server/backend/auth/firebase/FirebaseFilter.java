@@ -15,19 +15,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static com.somnus.server.backend.auth.SecurityConstants.*;
+
 /**
  * @author prvoslav
  */
 public class FirebaseFilter extends OncePerRequestFilter {
-    private static String HEADER_NAME = "X-Authorization-Firebase";
 
     public FirebaseFilter() { }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-
-        String xAuth = request.getHeader(HEADER_NAME);
+        String xAuth = request.getHeader(FIREBASE_HEADER_NAME);
         if (StringUtils.isBlank(xAuth)) {
             filterChain.doFilter(request, response);
             return;

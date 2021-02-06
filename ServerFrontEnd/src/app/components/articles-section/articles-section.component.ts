@@ -10,7 +10,7 @@ import { AuthenticationService } from 'src/app/services/authentication/authentic
 })
 export class ArticlesSectionComponent implements OnInit {
 
-  articles: ArticleModel[];
+  articles: ArticleModel[] = [];
   noArticles: boolean = false;
 
   constructor(
@@ -24,15 +24,15 @@ export class ArticlesSectionComponent implements OnInit {
 
   getArticles(): void {
     this.articleService.getAll().subscribe(allArticles => {
-      this.articles = allArticles.article_list;
-      if(!allArticles || allArticles.article_list.length == 0) {
+      this.articles = allArticles;
+      if(!allArticles || allArticles.length == 0) {
         this.noArticles = true;
       }
     })
   }
 
   getArticleLink(article: ArticleModel) {
-    return "/article/" + article._id;
+    return "/article/" + article.id;
   }
 
 }

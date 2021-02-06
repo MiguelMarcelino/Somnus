@@ -5,6 +5,7 @@ import com.somnus.server.backend.emailApi.SomnusMailSender;
 import com.somnus.server.backend.feedback.domain.Feedback;
 import com.somnus.server.backend.feedback.dto.FeedbackDto;
 import com.somnus.server.backend.feedback.repository.FeedbackRepository;
+import com.somnus.server.backend.users.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +18,9 @@ public class FeedbackService {
     @Autowired
     private SomnusMailSender mailSender;
 
-    public void deliverFeedback(String userEmail, FeedbackDto feedbackDto) {
+    public void deliverFeedback(User user, String userEmail, FeedbackDto feedbackDto) {
         // save Feedback Information
-        Feedback feedback = new Feedback(feedbackDto.getTitle(), feedbackDto.getContent());
+        Feedback feedback = new Feedback(user, feedbackDto.getTitle(), feedbackDto.getContent());
         feedbackRepository.save(feedback);
 
         // send email with feedback to admin

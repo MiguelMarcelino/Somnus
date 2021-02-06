@@ -1,7 +1,7 @@
 import { TemplateControllerService } from './template-controller.service';
 import { ArticleModel } from 'src/app/models/article.model';
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { AppRoutesService } from '../routes/app-routes.service';
 
 @Injectable({
@@ -11,7 +11,7 @@ export class ArticlesService extends TemplateControllerService<ArticleModel> {
 
     constructor( 
         protected http: HttpClient,
-        private appRoutes: AppRoutesService
+        private appRoutes: AppRoutesService,
     ) {
       super(http);
     }

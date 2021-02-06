@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AppSettings } from './../../appSettings';
-import { AngularFireAuth } from '@angular/fire/auth';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { Router } from '@angular/router';
 

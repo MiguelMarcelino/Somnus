@@ -40,3 +40,6 @@ https://docs.oracle.com/javase/8/docs/technotes/guides/security/jaas/JAASRefGuid
 
 Setting up JWT
 https://www.freecodecamp.org/news/how-to-setup-jwt-authorization-and-authentication-in-spring/
+
+Adding Headers
+https://stackoverflow.com/questions/50132753/angular-5-add-token-to-header-before-posting-with-httpclient

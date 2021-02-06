@@ -5,6 +5,6 @@ export interface ArticleModel extends Identifiable {
     authorUserName: string;
     description: string;
     datePublished: Date;
-    type: String;
+    topic: String;
     content: any;
 }

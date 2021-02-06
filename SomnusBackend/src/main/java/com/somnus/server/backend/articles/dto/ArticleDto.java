@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public class ArticleDto implements Serializable {
+    private int id;
     private String articleName;
     private String authorUserName;
     private String description;

@@ -1,8 +1,8 @@
 {
-    "apiEndPoint": "localhost:3000",
-    "apiArticlesEndPoint": "localhost:3000/articlesApi/articles",
-    "apiArticleEndPoint": "localhost:3000/articlesApi/article",
-    "apiGamesEndPoint": "localhost:3000/gamesApi/games",
-    "apiGameEndPoint": "localhost:3000/gamesApi/game",
-    "apiTeamMembersEndPoint": "localhost:3000/teamMembersApi/teamMembers"
+    "apiEndPoint": "http://localhost:3000",
+    "apiArticlesEndPoint": "http://localhost:3000/articles-api/articles",
+    "apiArticleEndPoint": "http://localhost:3000/articles-api/article",
+    "apiTeamMembersEndPoint": "http://localhost:3000/team-member-api/team-members",
+    "apiFeedbackEndpoint": "http://localhost:3000/feedback-api/feedback/create",
+    "apiUsersEndPointAuth": "http://localhost:3000/user-api/authentication/authenticate-user"
 }

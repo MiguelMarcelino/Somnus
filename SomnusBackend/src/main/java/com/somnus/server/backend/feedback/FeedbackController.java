@@ -18,10 +18,10 @@ public class FeedbackController {
     @Autowired
     private FeedbackService feedbackService;
 
-    @PostMapping(value = "/deliverFeedback")
-    public void deliverFeedback(Principal principal, @RequestBody FeedbackDto feedbackDto) {
+    @PostMapping(value = "/feedback/create")
+    public void createFeedback(Principal principal, @RequestBody FeedbackDto feedbackDto) {
         User user = (User) ((Authentication) principal).getPrincipal();
 
-        feedbackService.deliverFeedback(user.getEmail(), feedbackDto);
+        feedbackService.deliverFeedback(user, user.getEmail(), feedbackDto);
     }
 }
