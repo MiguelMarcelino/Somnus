@@ -11,15 +11,64 @@ export class JwtInterceptor implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    let token = "";
-    this.getAuthToken().then(x => {
-        token = x;
-    })
+    // not used until we figure out how to make an async interceptor
+    // const user = this.authService.isLoggedIn();
+    // user.then(user => {
+    //   user.getIdToken().then(token => {
+    //     // attach token to header
+    //     const authReq = req.clone({
+    //       headers: req.headers.set('X-Authorization-Firebase', token)
+    //         .append('Access-Control-Allow-Origin', '*')
+    //     });
+    //     console.log(token);
+    //     return next
+    //       .handle(authReq)
+    //       .pipe(tap(
+    //         (err: any) => {
+    //           if (err instanceof HttpErrorResponse) {
+    //             console.log(err);
+    //             console.log('req url :: ' + req.url);
+    //             if (err.status === 401) {
+    //               this.router.navigate(['user']);
+    //             }
+    //           }
+    //         }
+    //       ));
+    //   })
+    // });
+
+    // should not be necessary
+    // this.authService.getToken();
+
+    const token = localStorage.getItem("token");
+    if(token) {
+      const authReq = req.clone({
+        headers: req.headers.set('X-Authorization-Firebase', token)
+              .append('Access-Control-Allow-Origin', '*')
+      });
+      return next
+        .handle(authReq)
+        .pipe(tap(
+          (err: any) => {
+            if (err instanceof HttpErrorResponse) {
+              console.log(err);
+              // console.log('req url :: ' + req.url);
+              if (err.status === 401) {
+                this.router.navigate(['/login']);
+                localStorage.removeItem("token");
+              }
+            }
+          }
+        ));
+    } 
+
+    // if there is no token, don't send it
     const authReq = req.clone({
-      headers: req.headers.set('X-Authorization-Firebase', token)
-        .append('Access-Control-Allow-Origin', '*')
-    }); 
-    return next.handle(authReq).pipe(tap(
+      headers: req.headers.set('Access-Control-Allow-Origin', '*')
+    });
+    return next
+      .handle(authReq)
+      .pipe(tap(
         (err: any) => {
           if (err instanceof HttpErrorResponse) {
             console.log(err);
@@ -30,12 +79,7 @@ export class JwtInterceptor implements HttpInterceptor {
           }
         }
       ));
+    
   }
 
-  // This is stupid
-  async getAuthToken() {
-    let user = await this.authService.isLoggedIn();
-    let token = await user.getIdToken();
-    return token;
-  }
 }

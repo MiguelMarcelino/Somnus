@@ -1,0 +1,15 @@
+
+.links {
+    margin-bottom: 10pt;
+}
+
+.link-image {
+    height: 40pt;
+    filter: invert(1);
+}
+
+p{
+    text-align: center;
+    font-size: 12pt !important;
+    line-height: 15pt;
+}

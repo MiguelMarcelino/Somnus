@@ -90,8 +90,13 @@ public class ArticleService {
             backoff = @Backoff(delay = 5000))
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public List<ArticleDto> searchArticles(String nameContent) {
-        // TODO: Check for any articles in the database containing the string
-        //  content within the name
-        return null;
+        // TODO: Find more efficient search method
+        String searchQuery = "%" + nameContent + "%";
+        List<Article> articles = articleRepository.getAllArticlesContainingSubstring(searchQuery);
+        List<ArticleDto> articleDtos = new ArrayList<>();
+        articles.forEach(article -> articleDtos.add(new ArticleDto(article.getArticleName(),
+                article.getAuthorUserName(), article.getDescription(), article.getDatePublished(),
+                article.getTopic().name, article.getContent())));
+        return articleDtos;
     }
 }

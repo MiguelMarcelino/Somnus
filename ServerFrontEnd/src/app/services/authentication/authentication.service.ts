@@ -28,9 +28,13 @@ export class AuthenticationService  {
 
   loginWithGoogle() {
     this.angularFireAuth.signInWithPopup(new auth.GoogleAuthProvider)
-      .then ( user => {
+      .then ( userCredential => {
         // send user info to backend
-        this.sendUserInfoToBackend();
+        if(userCredential) {
+          userCredential.user.getIdToken(false).then(token => {
+            this.sendUserInfoToBackend(token);
+          })
+        }
       }
         
       )
@@ -39,21 +43,30 @@ export class AuthenticationService  {
       });
   }
 
-  sendUserInfoToBackend() {
-    this.userService.authenticateUser().subscribe(user => {
+  sendUserInfoToBackend(token: string) {
+    localStorage.setItem("token", token);
+    this.userService.authenticateUser(token).subscribe(user => {
       this.newUser = user;
     })
   }
 
   getToken() {
-    return this.angularFireAuth.authState
+    if(!localStorage.getItem("token")) {
+      this.getLoggedInUser().toPromise().then(user => {
+        user.getIdToken().then(token => {
+          localStorage.setItem("token", token);
+        })
+      })
+    }
   }
 
   loginWithEmail(email: string, password: string) {
     this.angularFireAuth.signInWithEmailAndPassword(email, password)
       .then ( userCredential => {
         if(userCredential) {
-          this.sendUserInfoToBackend();
+          userCredential.user.getIdToken(false).then(token => {
+            this.sendUserInfoToBackend(token);
+          })
           this.router.navigate(['/']);
         }
       })
@@ -70,15 +83,22 @@ export class AuthenticationService  {
   createUser(username: string, firstName: string, lastName: string, email: string, password: string, confirmPassword: string) {
     this.angularFireAuth.createUserWithEmailAndPassword(email, password)
       .then( userCredential => {
-        this.sendUserInfoToBackend();
-        // this.newUser = {'email': email, 'username': username, 'firstName': firstName, 'lastName': lastName, 'role': "User"};
-        userCredential.user.updateProfile({
-          displayName: firstName + " " +  lastName,
-        })
-        this.insertUserData(userCredential)
-          .then(() => {
-            this.router.navigate(['/']);
-        })
+        if(userCredential) {
+          // send token info to backend
+          userCredential.user.getIdToken(false).then(token => {
+            this.sendUserInfoToBackend(token);
+          })
+
+          // save new user info
+          // this.newUser = {'email': email, 'username': username, 'firstName': firstName, 'lastName': lastName, 'role': "User"};
+          userCredential.user.updateProfile({
+            displayName: firstName + " " +  lastName,
+          })
+          this.insertUserData(userCredential)
+            .then(() => {
+              this.router.navigate(['/']);
+          })
+        }
       })
       .catch( error => {
         this.eventAuthError.next(error);
@@ -95,6 +115,7 @@ export class AuthenticationService  {
   }
 
   logout() {
+    localStorage.removeItem("token");
     this.angularFireAuth.signOut();
   }
 

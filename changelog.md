@@ -2,9 +2,29 @@
 All changes made to this project will be documented in this file
 
 ## [Unreleased]
+---------------------------------------------------------
+## [0.2.1] - 2021-02-08
 
 ---------------------------------------------------------
-## [0.2.1] - 2021-02-03
+## [0.2.1] - 2021-02-07
+### Added
+- New search feature added to search for articles on 
+frontend and backend
+- New footer added for website
+- New value for OAuth in application.properties
+
+### Changed
+- Fixed token passing to backend
+- Tested angular interface with backend
+
+---------------------------------------------------------
+## [0.2.1] - 2021-02-06
+### Changed
+- Firebase authentication classes
+- Started addapting frontend to new backend
+
+---------------------------------------------------------
+## [0.2.1] - 2021-02-04
 ### Added
 - New Method to authenticate user through Firebase token
 - Started to work on JWT tokens

@@ -1,6 +1,5 @@
 package com.somnus.server.backend.users;
 
-import com.somnus.server.backend.auth.dto.AuthDto;
 import com.somnus.server.backend.auth.firebase.FirebaseParser;
 import com.somnus.server.backend.auth.firebase.FirebaseTokenHolder;
 import com.somnus.server.backend.users.domain.Role;
@@ -17,7 +16,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserService implements UserDetailsService {

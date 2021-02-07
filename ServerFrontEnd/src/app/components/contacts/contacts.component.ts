@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
+import { AppSettings } from 'src/app/appSettings';
 import { FeedbackControllerService } from 'src/app/services/controllers/feedback-controller.service';
 
 @Component({
@@ -13,6 +14,7 @@ export class ContactsComponent implements OnInit {
   contactForm: FormGroup;
   publishError: any;
   successMessage: any;
+  inviteLink: string = AppSettings.DISCORD_INVITE;
 
   constructor(
     private formBuilder: FormBuilder,

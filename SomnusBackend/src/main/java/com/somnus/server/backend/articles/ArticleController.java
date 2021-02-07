@@ -38,4 +38,9 @@ public class ArticleController {
     public void deleteArticle(@PathVariable Integer id) {
         articleService.deleteArticle(id);
     }
+
+    @GetMapping(value = "/article/search/{articleName}")
+    public List<ArticleDto> searchArticles(@PathVariable String articleName) {
+        return articleService.searchArticles(articleName);
+    }
 }
