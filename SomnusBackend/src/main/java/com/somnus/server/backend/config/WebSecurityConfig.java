@@ -4,8 +4,10 @@ import com.somnus.server.backend.auth.firebase.FirebaseAuthenticationProvider;
 import com.somnus.server.backend.auth.firebase.FirebaseFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
@@ -21,6 +23,7 @@ import java.util.Arrays;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
+@Order(SecurityProperties.BASIC_AUTH_ORDER)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Value("${rs.pscode.firebase.enabled}")
@@ -42,7 +45,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         if(firebaseEnabled) {
-            http
+            http.addFilterBefore(tokenAuthorizationFilter(), BasicAuthenticationFilter.class)
+                    .authorizeRequests()
+                    .and()
                     .cors()
                     .and()
                     // we don't need CSRF because our token is invulnerable
@@ -54,8 +59,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                     // don't create session
                     .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); //.and()
-
-            http.addFilterBefore(tokenAuthorizationFilter(), BasicAuthenticationFilter.class).authorizeRequests();
         } else {
             http.httpBasic().disable()
                     .csrf().disable()

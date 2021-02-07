@@ -38,6 +38,11 @@ export class AppRoutesService {
         return this.appRoutes.apiArticleEndPoint;
     }
 
+    get apiArticleEndPointSearch(): string {
+        this.isLoaded();
+        return this.appRoutes.apiArticleEndPointSearch;
+    }
+
     // Team Members
     get apiTeamMembersEndPoint(): string {
         this.isLoaded();

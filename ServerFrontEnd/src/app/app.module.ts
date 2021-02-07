@@ -26,6 +26,7 @@ import { NotFoundPageComponent } from './components/not-found-page/not-found-pag
 import { RegisterComponent } from './components/register/register.component';
 import { QuillEditorComponent } from './components/quill-editor/quill-editor.component';
 import { JwtInterceptor } from './services/interceptor/jwt.interceptor';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { JwtInterceptor } from './services/interceptor/jwt.interceptor';
     NotFoundPageComponent,
     RegisterComponent,
     QuillEditorComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

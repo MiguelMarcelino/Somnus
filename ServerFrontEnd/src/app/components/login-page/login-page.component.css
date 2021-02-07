@@ -1,16 +1,11 @@
-h2{
-    color: white;
-    font-size: 20pt;
-}
 
 p {
-    color: white;
-    font-size: 15pt;
+    text-align: center;
 }
 
 label {
     color: white;
-    float: left;
+    text-align: center;
 }
 
 .page-style {

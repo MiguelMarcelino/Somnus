@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable, Injector } from "@angular/core";
 import { Observable } from "rxjs";
 import { UserModel } from "src/app/models/user.model";
@@ -25,8 +25,14 @@ export class UserController extends TemplateControllerService<UserModel>{
         throw new Error("Method not implemented.");
     }
   
-    public authenticateUser(): Observable<any> {
-      return this.http.get(this.appRoutes.apiUsersEndPointAuth);
+    public authenticateUser(token: string): Observable<any> {
+      this.httpOptions = {
+        headers: new HttpHeaders({ 
+            "Content-Type": "application/json",
+            "firebaseToken": token
+        })
+      };
+      return this.http.get(this.appRoutes.apiUsersEndPointAuth, this.httpOptions);
     }
 
 }

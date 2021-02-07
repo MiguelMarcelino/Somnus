@@ -1,6 +1,8 @@
 
 .everything {
     overflow: hidden;
+    position: relative;
+    min-height: 100vh;
 }
 
 .main-content {
@@ -8,6 +10,15 @@
     text-align: center;
     width: 90%;
     padding: 10pt;
+    padding-bottom: 110pt;
+}
+
+.footer-content{
+    background-color: rgb(34, 34, 34);
+    position: absolute;
+    bottom:0;
+    width: 100%;
+    height: 110pt;
 }
 
 @media only screen and (max-width: 700) {

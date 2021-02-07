@@ -1,8 +1,5 @@
 package com.somnus.server.backend.auth.firebase;
 
-import com.somnus.server.backend.auth.firebase.FirebaseAuthenticationToken;
-import com.somnus.server.backend.auth.firebase.FirebaseParser;
-import com.somnus.server.backend.auth.firebase.FirebaseTokenHolder;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
@@ -15,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.somnus.server.backend.auth.SecurityConstants.*;
+import static com.somnus.server.backend.auth.SecurityConstants.FIREBASE_HEADER_NAME;
 
 /**
  * @author prvoslav

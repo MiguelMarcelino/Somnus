@@ -1,16 +1,12 @@
-h2 {
-  color: white;
-  font-size: 20pt;
-}
 
-p {
+.site-options {
+  text-align: center;
   color: white;
-  font-size: 16pt;
-  /* padding: 2pt; */
+  font-size: 15pt;
   line-height: 25pt;
 }
 
-h1 {
+#headline{
   color: #ffffff; 
   font-family: 'Raleway',sans-serif;
   font-weight: 800; 
@@ -65,7 +61,7 @@ h1 {
 #about-section {
   margin-top: 100pt;
   padding-top: 200pt;
-  padding-bottom: 200pt;
+  /* padding-bottom: 200pt; */
 }
 
 .about-content {
