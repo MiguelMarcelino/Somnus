@@ -74,21 +74,4 @@ public class TeamMemberService {
         teamMemberRepository.deleteById(teamMemberId);
     }
 
-    @Retryable(
-            value = {SQLException.class},
-            backoff = @Backoff(delay = 5000))
-    @Transactional(isolation = Isolation.READ_COMMITTED)
-    public void addContribution(ContributionDto contributionDto) {
-        Optional<TeamMember> optionalTeamMember = teamMemberRepository.findById(contributionDto.getTeamMemberId());
-        if(!optionalTeamMember.isPresent()) {
-            throw new SomnusException(ErrorMessage.NO_TEAMMEMBER_FOUND);
-        }
-
-        TeamMember teamMember = optionalTeamMember.get();
-        contributionRepository.save(new Contribution(contributionDto.getTitle(), teamMember,
-                contributionDto.getDescription()));
-
-        teamMember.addContribution();
-        teamMemberRepository.save(teamMember);
-    }
 }

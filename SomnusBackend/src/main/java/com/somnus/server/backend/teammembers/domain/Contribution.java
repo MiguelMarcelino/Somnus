@@ -16,12 +16,12 @@ public class Contribution {
     @Column(name = "title")
     private String title;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name = "team_member_id")
     private TeamMember teamMember;
 
-    @Column(name = "description")
-    private String description;
+    @Column(name = "author")
+    private String author;
 
     @Column(name = "date_added")
     private LocalDateTime dateAdded;
@@ -32,13 +32,14 @@ public class Contribution {
      * Constructor used when adding a new Contribution
      * @param title
      * @param teamMember
-     * @param description
+     * @param author
+     * @param dateAdded
      */
-    public Contribution(String title, TeamMember teamMember, String description) {
+    public Contribution(String title, LocalDateTime dateAdded, String author) {
         this.title = title;
-        this.teamMember = teamMember;
-        this.description = description;
-        this.dateAdded = DateHandler.now();
+        this.author = author;
+        // this.teamMember = teamMember;
+        this.dateAdded = dateAdded;
     }
 
     public String getTitle() {
@@ -49,8 +50,8 @@ public class Contribution {
         return teamMember;
     }
 
-    public String getDescription() {
-        return description;
+    public String getAuthor() {
+        return author;
     }
 
     public LocalDateTime getDateAdded() {

@@ -34,8 +34,5 @@ public class TeamMemberController {
         teamMemberService.deleteTeamMember(teamMemberId);
     }
 
-    @PostMapping(value = "/contributions/create")
-    public void addContribution(@RequestBody ContributionDto contributionDto) {
-        teamMemberService.addContribution(contributionDto);
-    }
+ 
 }
