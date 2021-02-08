@@ -54,8 +54,6 @@
 .section-photo {
   max-height: 11vw;
   max-width: 11vw;
-  /* object-fit: scale-down; */
-  filter: invert(1);
 }
 
 #about-section {

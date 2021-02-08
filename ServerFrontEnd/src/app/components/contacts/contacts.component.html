@@ -1,16 +1,6 @@
 
 <h2>Feel Free to contact us!</h2>
-<div class="row" *ngIf="publishError">
-    <div class="col-12 alert alert-danger">
-      {{ publishError?.message }}
-    </div>
-</div>
-<div class="row" *ngIf="successMessage">
-    <div class="col-12 alert alert-success">
-      {{ successMessage?.message }}
-    </div>
-</div>
-<div class="contact-form">
+<div class="contact-form" *ngIf="user">
     <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" method="post">
         <div class="form-group">
             <!-- Feedback Title -->
@@ -31,11 +21,15 @@
     </form>
 </div>
 
+<div class="not-logged-in-message" *ngIf="!user">
+    <p class="centered-text">If you want to send some feedback, please Login first and try again!</p>
+</div>
+
 <div>
     <h2>Join our platforms</h2>
     <div class="img-left">
         <a class="link" href="{{inviteLink}}">
-            <img class="img-inverted" src="../../../assets/icons/discord.png"> 
+            <img class="color-inverted-img" src="../../../assets/icons/discord.png"> 
         </a>
     </div>
     <div class="description-right">

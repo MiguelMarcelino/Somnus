@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import { AppSettings } from 'src/app/appSettings';
+import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { FeedbackControllerService } from 'src/app/services/controllers/feedback-controller.service';
+import { ErrorInterface } from 'src/errors/error-interface';
 
 @Component({
   selector: 'contacts',
@@ -11,15 +13,17 @@ import { FeedbackControllerService } from 'src/app/services/controllers/feedback
 })
 export class ContactsComponent implements OnInit {
 
+  // app user
+  user: firebase.User;
   contactForm: FormGroup;
-  publishError: any;
-  successMessage: any;
   inviteLink: string = AppSettings.DISCORD_INVITE;
 
   constructor(
     private formBuilder: FormBuilder,
     private feedbackController: FeedbackControllerService,
-    private router: Router
+    private errorInterface: ErrorInterface,
+    private router: Router,
+    private authenticationService: AuthenticationService
   ) { }
 
   ngOnInit(): void {
@@ -27,6 +31,10 @@ export class ContactsComponent implements OnInit {
       feedbackTitle: new FormControl(''),
       feedback: new FormControl(''),
     })
+    this.authenticationService.getLoggedInUser()
+      .subscribe (user => {
+        this.user = user;
+    });
   }
 
   onSubmit() {
@@ -37,21 +45,16 @@ export class ContactsComponent implements OnInit {
     let feedbackTitle = this.contactForm.get('feedbackTitle').value;
     let feedback = this.contactForm.get('feedback').value;
 
-    let feedbackModel = {"feedbackTitle": feedbackTitle, "feedback": feedback};
+    let feedbackModel = {"title": feedbackTitle, "content": feedback};
 
     this.feedbackController.addObject(feedbackModel).subscribe(id => {
       // show success message
-      this.successMessage = "Thank you for submitting your feedback!";
-
+      this.errorInterface.setSuccessMessage("Thank you for submitting your feedback!");
+      
       // reset form values
       this.contactForm.get('feedbackTitle').setValue("");
       this.contactForm.get('feedback').setValue("");
-    },
-    (error) => {
-      // Template message
-      this.publishError = "Something went wrong! We could not submit your feedback";
-    }
-    );
+    });
   }
 
 }

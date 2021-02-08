@@ -1,9 +1,17 @@
 package com.somnus.server.backend.auth.firebase;
 
+import com.somnus.server.backend.exceptions.ErrorMessage;
+import com.somnus.server.backend.exceptions.SomnusException;
+import com.somnus.server.backend.users.UserService;
+import com.somnus.server.backend.users.domain.User;
+import com.somnus.server.backend.users.repository.UserRepository;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -19,7 +27,11 @@ import static com.somnus.server.backend.auth.SecurityConstants.FIREBASE_HEADER_N
  */
 public class FirebaseFilter extends OncePerRequestFilter {
 
-    public FirebaseFilter() { }
+    private UserService userService;
+
+    public FirebaseFilter(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -34,7 +46,7 @@ public class FirebaseFilter extends OncePerRequestFilter {
 
                 String userName = holder.getUid();
 
-                Authentication auth = new FirebaseAuthenticationToken(userName, holder);
+                Authentication auth = new FirebaseAuthenticationToken(userService.loadUserByUsername(userName), holder);
                 SecurityContextHolder.getContext().setAuthentication(auth);
 
                 filterChain.doFilter(request, response);
@@ -43,4 +55,6 @@ public class FirebaseFilter extends OncePerRequestFilter {
             }
         }
     }
+
+
 }

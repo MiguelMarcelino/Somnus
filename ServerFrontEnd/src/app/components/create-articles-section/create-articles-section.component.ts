@@ -4,6 +4,7 @@ import { ArticlesService } from 'src/app/services/controllers/articles-controlle
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { QuillEditorComponent } from 'ngx-quill';
+import { ErrorInterface } from 'src/errors/error-interface';
 
 @Component({
   selector: 'app-create-articles-section',
@@ -14,7 +15,6 @@ export class CreateArticlesSectionComponent implements OnInit {
 
   currentUser: firebase.User;
   editorForm: FormGroup;
-  publishError: any;
   articleTypes: String[];
   loading = false;
   submitted = false;
@@ -26,7 +26,8 @@ export class CreateArticlesSectionComponent implements OnInit {
     private formBuilder: FormBuilder,
     private articlesController: ArticlesService,
     private authenticationService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private errorInterface: ErrorInterface
   ) { }
 
   ngOnInit(): void {
@@ -67,7 +68,7 @@ export class CreateArticlesSectionComponent implements OnInit {
     let type = this.editorForm.get('type').value;
 
     if(!artName || !content || !description || !type ) {
-      return false;
+      //this.errorInterface.setErrorMessage("Please check if you have entered all fields");
     }
 
     return true;
@@ -88,19 +89,14 @@ export class CreateArticlesSectionComponent implements OnInit {
     let topic = this.editorForm.get('type').value;
 
     if(!artName || !content || !description || !topic) {
-      this.publishError="Please fill in all the necessary fields"
+      
     }
 
     let articleModel = {"articleName": artName, "authorUserName": this.currentUser.displayName, "description": description, 
       datePublished: new Date(), 'topic': topic, 'content': content};
     this.articlesController.addObject(articleModel).subscribe(id => {
       this.router.navigateByUrl("/articles");
-    },
-    (error) => {
-      // Template message
-      this.publishError = "Something went wrong!";
-    }
-    );
+    });
   }
 
 }

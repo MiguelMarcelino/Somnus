@@ -20,14 +20,16 @@ public class SomnusMailSender {
 
     public void sendEmail(String to, String subject, String body) {
         SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom(adminEmail);
         message.setTo(to);
         message.setSubject(subject);
         message.setText(body);
         mailSender.send(message);
     }
 
-    public void sendEmailToAdmin(String subject, String body) {
+    public void sendEmailToAdmin(String from, String subject, String body) {
         SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom(from);
         message.setTo(adminEmail);
         message.setSubject(subject);
         message.setText(body);

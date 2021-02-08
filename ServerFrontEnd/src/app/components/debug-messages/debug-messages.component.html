@@ -1,0 +1,10 @@
+<div class="message-container row" *ngIf="publishError">
+    <div class="message col-12 alert alert-danger">
+        {{ publishError }}
+    </div>
+</div>
+<div class="message-container row" *ngIf="successMessage">
+    <div class="message col-12 alert alert-success">
+      {{ successMessage }}
+    </div>
+</div>

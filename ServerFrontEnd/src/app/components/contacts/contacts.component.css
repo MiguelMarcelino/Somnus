@@ -19,10 +19,6 @@ label {
     height: 200pt;
 }
 
-.img-inverted {
-    filter: invert(1);
-}
-
 .img-left{
     float: left;
     width: 20%;
@@ -31,6 +27,15 @@ label {
 .description-right {
     float: right;
     width: 80%;
+}
+
+.not-logged-in-message {
+    margin-bottom: 40pt;
+    text-align: center;
+}
+
+.centered-text{
+    text-align: center;
 }
 
 @media only screen and (max-width:800px) {

@@ -7,9 +7,10 @@ public enum EmailConfig {
 
     // Email Responses
     FEEDBACK_RESPONSE_MESSAGE("Your Feedback has been received by the Somnus Administrator. " +
-            "It will now be processed. You will receive an answer shortly! \n " +
+            "It will now be processed. You will receive an answer shortly! \n" +
             "Thank you for giving your Feedback to the somnus website.\n" +
-            "Best Regards, \n Somnus Administration.");
+            "Best Regards, \n" +
+            "Somnus Administration.");
 
     public final String message;
 

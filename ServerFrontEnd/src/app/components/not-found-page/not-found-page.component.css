@@ -9,7 +9,6 @@
 }
 
 .not-found-img {
-    filter: invert(1);
     width: 200pt;
     height: 200pt;
     animation: float 6s ease-in-out infinite;

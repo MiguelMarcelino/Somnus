@@ -44,9 +44,9 @@ export class AuthenticationService  {
   }
 
   sendUserInfoToBackend(token: string) {
-    localStorage.setItem("token", token);
     this.userService.authenticateUser(token).subscribe(user => {
       this.newUser = user;
+      localStorage.setItem("token", token);
     })
   }
 
