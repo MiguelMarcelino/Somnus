@@ -92,6 +92,20 @@
 			<version>7.1.0</version>
 		</dependency>
 
+		<!-- Web Client-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
+
+		<!-- JSON Org-->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20180130</version>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>

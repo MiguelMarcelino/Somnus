@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public class ContributionDto implements Serializable {
+    private String url;
+    private String commit;
     private String title;
     private int teamMemberId;
     private String description;
@@ -19,8 +21,21 @@ public class ContributionDto implements Serializable {
         this.dateAdded = dateAdded;
     }
 
+    public ContributionDto(String url, String commit){
+        this.url = url;
+        this.commit = url;
+    }
+
     public String getTitle() {
         return title;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+    
+    public String getCommit() {
+        return commit;
     }
 
     public int getTeamMemberId() {
