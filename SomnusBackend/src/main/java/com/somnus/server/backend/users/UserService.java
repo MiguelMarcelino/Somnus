@@ -2,7 +2,10 @@ package com.somnus.server.backend.users;
 
 import com.somnus.server.backend.auth.firebase.FirebaseParser;
 import com.somnus.server.backend.auth.firebase.FirebaseTokenHolder;
+import com.somnus.server.backend.exceptions.ErrorMessage;
+import com.somnus.server.backend.exceptions.SomnusException;
 import com.somnus.server.backend.users.domain.Role;
+import com.somnus.server.backend.users.domain.RoleEntity;
 import com.somnus.server.backend.users.domain.User;
 import com.somnus.server.backend.users.dto.UserDto;
 import com.somnus.server.backend.users.repository.RoleRepository;
@@ -10,7 +13,6 @@ import com.somnus.server.backend.users.repository.UserRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,7 +21,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -34,18 +35,18 @@ public class UserService implements UserDetailsService {
     private RolesHandler rolesHandler;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserDetails userDetails = userRepository.findByUserName(username);
-        if(userDetails == null)
-            return null;
+    public User loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findByUserName(username);
+        if(user == null)
+            throw new SomnusException(ErrorMessage.NO_USER_FOUND);
 
-        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        for (GrantedAuthority role : userDetails.getAuthorities()) {
-            grantedAuthorities.add(new SimpleGrantedAuthority(role.getAuthority()));
+        List<RoleEntity> grantedAuthorities = new ArrayList<>();
+        for (GrantedAuthority role : user.getAuthorities()) {
+            grantedAuthorities.add(new RoleEntity(role.getAuthority()));
         }
 
-        return new org.springframework.security.core.userdetails.User(userDetails.getUsername(),
-                userDetails.getPassword(), userDetails.getAuthorities());
+        user.setAuthorities(grantedAuthorities);
+        return user;
     }
 
     public UserDto authenticateUser(String firebaseToken) {

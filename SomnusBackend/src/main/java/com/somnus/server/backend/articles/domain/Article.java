@@ -1,16 +1,21 @@
 package com.somnus.server.backend.articles.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.somnus.server.backend.config.DateHandler;
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "articles")
+@Proxy(lazy=false)
 public class Article {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @Column(name = "article_name")
@@ -23,6 +28,8 @@ public class Article {
     private String description;
 
     @Column(name = "date_published")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonFormat(pattern="dd/MM/yyyy hh:mm")
     private LocalDateTime datePublished;
 
     @Enumerated(EnumType.STRING)
@@ -49,6 +56,10 @@ public class Article {
         this.datePublished = DateHandler.now();
         this.topic = topic;
         this.content = content;
+    }
+
+    public Integer getId() {
+        return this.id;
     }
 
     public String getArticleName() {

@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule, APP_INITIALIZER, ErrorHandler } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MglTimelineModule } from 'angular-mgl-timeline'; // still not in use
 import { environment } from '../environments/environment'; 
@@ -25,8 +25,10 @@ import { ArticlePageComponent } from './components/article-page/article-page.com
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
 import { RegisterComponent } from './components/register/register.component';
 import { QuillEditorComponent } from './components/quill-editor/quill-editor.component';
-import { JwtInterceptor } from './services/interceptor/jwt.interceptor';
+import { CustomHttpInterceptor } from './services/interceptor/jwt.interceptor';
 import { FooterComponent } from './components/footer/footer.component';
+import { DebugMessagesComponent } from './components/debug-messages/debug-messages.component';
+import { GlobalErrorHandler } from 'src/errors/global-error-handler';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,7 @@ import { FooterComponent } from './components/footer/footer.component';
     RegisterComponent,
     QuillEditorComponent,
     FooterComponent,
+    DebugMessagesComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,9 +75,13 @@ import { FooterComponent } from './components/footer/footer.component';
     },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: JwtInterceptor,
+      useClass: CustomHttpInterceptor,
       multi: true
     },
+    {
+      provide: ErrorHandler,
+      useClass: GlobalErrorHandler,
+    }
   ],
   bootstrap: [AppComponent]
 })

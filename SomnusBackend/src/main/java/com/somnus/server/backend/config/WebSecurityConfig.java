@@ -2,6 +2,8 @@ package com.somnus.server.backend.config;
 
 import com.somnus.server.backend.auth.firebase.FirebaseAuthenticationProvider;
 import com.somnus.server.backend.auth.firebase.FirebaseFilter;
+import com.somnus.server.backend.auth.firebase.UserProvider;
+import com.somnus.server.backend.users.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
@@ -30,6 +32,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private boolean firebaseEnabled;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private FirebaseAuthenticationProvider authenticationProvider;
 
     @Bean
@@ -39,7 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     private FirebaseFilter tokenAuthorizationFilter() {
-        return new FirebaseFilter();
+        return new FirebaseFilter(userService);
     }
 
     @Override

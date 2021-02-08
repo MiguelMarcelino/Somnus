@@ -29,7 +29,8 @@ export class ArticlePageComponent implements OnInit {
     });
     this.articleService.getObject(id).subscribe(article =>{
       if(article) {
-        this.article = article.article;
+        console.log(article);
+        this.article = article;
       }
     })
   }

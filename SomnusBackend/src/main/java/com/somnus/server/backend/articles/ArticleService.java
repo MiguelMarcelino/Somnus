@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @Service
@@ -31,7 +32,7 @@ public class ArticleService {
     public List<ArticleDto> getAllArticles() {
         List<ArticleDto> articleDtos = new ArrayList<>();
         articleRepository.findAll().forEach(article -> articleDtos.add(
-                new ArticleDto(article.getArticleName(), article.getAuthorUserName(),
+                new ArticleDto(article.getId(), article.getArticleName(), article.getAuthorUserName(),
                         article.getDescription(), article.getDatePublished(),
                         article.getTopic().name, article.getContent())));
         return articleDtos;
@@ -44,7 +45,7 @@ public class ArticleService {
     public List<ArticleDto> getArticlesOfTopic(String articleTopic) {
         List<ArticleDto> articleDtos = new ArrayList<>();
         articleRepository.getArticlesMatchingTopic(articleTopic).forEach(article -> articleDtos.add(
-                new ArticleDto(article.getArticleName(), article.getAuthorUserName(),
+                new ArticleDto(article.getId(), article.getArticleName(), article.getAuthorUserName(),
                         article.getDescription(), article.getDatePublished(),
                         article.getTopic().name, article.getContent())));
         return articleDtos;
@@ -61,7 +62,7 @@ public class ArticleService {
         }
 
         Article article = optionalArticle.get();
-        return new ArticleDto(article.getArticleName(), article.getAuthorUserName(),
+        return new ArticleDto(article.getId(), article.getArticleName(), article.getAuthorUserName(),
                 article.getDescription(), article.getDatePublished(),
                 article.getTopic().name, article.getContent());
     }
@@ -73,7 +74,7 @@ public class ArticleService {
     public void createArticle(ArticleDto articleDto) {
         Article article = new Article(articleDto.getArticleName(),
                 articleDto.getAuthorUserName(), articleDto.getDescription(),
-                ArticleTopic.valueOf(articleDto.getTopic()), articleDto.getContent());
+                ArticleTopic.valueOf(articleDto.getTopic().toUpperCase()), articleDto.getContent());
         articleRepository.save(article);
     }
 
@@ -94,7 +95,7 @@ public class ArticleService {
         String searchQuery = "%" + nameContent + "%";
         List<Article> articles = articleRepository.getAllArticlesContainingSubstring(searchQuery);
         List<ArticleDto> articleDtos = new ArrayList<>();
-        articles.forEach(article -> articleDtos.add(new ArticleDto(article.getArticleName(),
+        articles.forEach(article -> articleDtos.add(new ArticleDto(article.getId(), article.getArticleName(),
                 article.getAuthorUserName(), article.getDescription(), article.getDatePublished(),
                 article.getTopic().name, article.getContent())));
         return articleDtos;

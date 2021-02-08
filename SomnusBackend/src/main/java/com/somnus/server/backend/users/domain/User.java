@@ -16,7 +16,7 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "uid", nullable = false, unique = true)
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
 
     @Column(name = "first_name")
@@ -63,11 +63,16 @@ public class User implements UserDetails {
         this.createdAt = DateHandler.now();
     }
 
-    public User(String username, String email, List<RoleEntity> adminRoles) {
+    public User(String username, String email, List<RoleEntity> roles) {
         this.username = username;
         this.email = email;
-        this.authorities = adminRoles;
+        this.authorities = roles;
         this.createdAt = DateHandler.now();
+    }
+
+    public User(String username, String email) {
+        this.username = username;
+        this.email = email;
     }
 
     public Integer getId() {
@@ -77,6 +82,10 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
+    }
+
+    public void setAuthorities(List<RoleEntity> authorities) {
+        this.authorities = authorities;
     }
 
     @Override

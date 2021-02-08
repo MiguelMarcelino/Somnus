@@ -24,11 +24,11 @@ public class FeedbackService {
         feedbackRepository.save(feedback);
 
         // send email with feedback to admin
-        mailSender.sendEmailToAdmin(EmailConfig.FEEDBACK_TOPIC.message + feedback.getTitle(),
+        mailSender.sendEmailToAdmin(user.getEmail(), EmailConfig.FEEDBACK_TOPIC.message + feedback.getTitle(),
                 feedbackDto.getContent());
 
         // send email to user
-        mailSender.sendEmail(userEmail, EmailConfig.FEEDBACK_RESPONSE_TOPIC.message,
+        mailSender.sendEmail(user.getEmail(), EmailConfig.FEEDBACK_RESPONSE_TOPIC.message,
                 EmailConfig.FEEDBACK_RESPONSE_MESSAGE.message);
     }
 }
