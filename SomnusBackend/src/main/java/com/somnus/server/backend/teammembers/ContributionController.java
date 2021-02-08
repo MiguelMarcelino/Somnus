@@ -1,6 +1,7 @@
 package com.somnus.server.backend.teammembers;
 
 import com.somnus.server.backend.teammembers.dto.ContributionDto;
+import com.somnus.server.backend.teammembers.domain.Contribution;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,8 +16,8 @@ public class ContributionController{
     private ContributionService contributionService;
 
     @GetMapping(value = "/contributions")
-    public String[] getAllContributions(){
-        return contributionService.getAllContributions();
+    public Contribution[] getAllContributions(){
+        return contributionService.fetchContributions();
     }
 
 }
