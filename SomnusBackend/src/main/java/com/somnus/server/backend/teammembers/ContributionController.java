@@ -4,6 +4,8 @@ import com.somnus.server.backend.teammembers.dto.ContributionDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import reactor.core.publisher.Mono;
+
 import java.util.List;
 
 @RestController
@@ -13,7 +15,7 @@ public class ContributionController{
     private ContributionService contributionService;
 
     @GetMapping(value = "/contributions")
-    public List<ContributionDto> getAllContributions(){
+    public String[] getAllContributions(){
         return contributionService.getAllContributions();
     }
 
