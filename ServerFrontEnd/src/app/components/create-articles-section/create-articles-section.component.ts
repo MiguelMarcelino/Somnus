@@ -14,7 +14,7 @@ import { ErrorInterface } from 'src/handlers/error-interface';
 })
 export class CreateArticlesSectionComponent implements OnInit {
 
-  currentUser: firebase.User;
+  currentUser: firebase.default.User;
   editorForm: FormGroup;
   articleTypes: String[];
   loading = false;
