@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.somnus.server.backend.config.DateHandler;
+import com.somnus.server.backend.users.domain.User;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
@@ -17,6 +19,10 @@ public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User author;
 
     @Column(name = "article_name")
     private String articleName;
@@ -48,8 +54,9 @@ public class Article {
      * @param topic
      * @param content
      */
-    public Article(String articleName, String authorUserName, String description,
+    public Article(User author, String articleName, String authorUserName, String description,
                    ArticleTopic topic, String content) {
+        this.author = author;
         this.articleName = articleName;
         this.authorUserName = authorUserName;
         this.description = description;

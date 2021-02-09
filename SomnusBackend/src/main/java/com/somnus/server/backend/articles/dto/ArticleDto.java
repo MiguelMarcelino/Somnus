@@ -9,27 +9,32 @@ import com.somnus.server.backend.articles.domain.ArticleTopic;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class ArticleDto implements Serializable {
-    private Integer id;
+    private String id;
     private String articleName;
     private String authorUserName;
     private String description;
-    private LocalDateTime datePublished;
+    private String datePublished;
     private String topic;
     private String content;
 
     public ArticleDto() {}
 
-    public ArticleDto(Integer id, String articleName, String authorUserName, String description,
+    public ArticleDto(String id, String articleName, String authorUserName, String description,
                       LocalDateTime datePublished, String topic, String content) {
         this.id = id;
         this.articleName = articleName;
         this.authorUserName = authorUserName;
         this.description = description;
-        this.datePublished = datePublished;
+        this.datePublished = datePublished.format(DateTimeFormatter.ISO_DATE);
         this.topic = topic;
         this.content = content;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getArticleName() {
@@ -44,7 +49,7 @@ public class ArticleDto implements Serializable {
         return description;
     }
 
-    public LocalDateTime getDatePublished() {
+    public String getDatePublished() {
         return datePublished;
     }
 

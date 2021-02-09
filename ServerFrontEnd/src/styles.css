@@ -28,6 +28,13 @@ p {
   text-align: justify;
 }
 
+.ql-syntax {
+  background-color: #505050;
+  border-radius: 6pt;
+  color: white;
+  overflow: visible;
+}
+
 .content-wrapper {
   color: white;
 }

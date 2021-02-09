@@ -1,8 +1,8 @@
 import { CastExpr } from '@angular/compiler';
 import { Component, ErrorHandler, OnInit } from '@angular/core';
 import { timeout } from 'rxjs/operators';
-import { ErrorInterface } from 'src/errors/error-interface';
-import { GlobalErrorHandler } from 'src/errors/global-error-handler';
+import { ErrorInterface } from 'src/handlers/error-interface';
+import { GlobalErrorHandler } from 'src/handlers/global-error-handler';
 
 @Component({
   selector: 'app-debug-messages',

@@ -18,7 +18,7 @@ export class ErrorInterface {
     }
 
     // Error Message
-    errorMessageChange() {
+    private errorMessageChange() {
         this.observableErrorMessage.next(this.errorMessage);
     }
 
@@ -32,7 +32,7 @@ export class ErrorInterface {
     }
 
     // Success Message
-    successMessageChange() {
+    private successMessageChange() {
         this.observableSuccessMessage.next(this.successMessage)
     }
 

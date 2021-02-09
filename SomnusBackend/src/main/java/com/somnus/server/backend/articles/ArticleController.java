@@ -2,9 +2,12 @@ package com.somnus.server.backend.articles;
 
 import com.somnus.server.backend.articles.dto.ArticleDto;
 import com.somnus.server.backend.articles.dto.ArticlesRequestDto;
+import com.somnus.server.backend.users.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -30,8 +33,10 @@ public class ArticleController {
     }
 
     @PostMapping(value = "/article/create")
-    public void createArticle(@RequestBody ArticleDto articleDto) {
-        articleService.createArticle(articleDto);
+    public void createArticle(Principal principal, @RequestBody ArticleDto articleDto) {
+        User user = (User) ((Authentication) principal).getPrincipal();
+
+        articleService.createArticle(user, articleDto);
     }
 
     @DeleteMapping(value = "/article/delete/{id}")

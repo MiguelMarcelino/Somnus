@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AppSettings } from 'src/app/appSettings';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { FeedbackControllerService } from 'src/app/services/controllers/feedback-controller.service';
-import { ErrorInterface } from 'src/errors/error-interface';
+import { ErrorInterface } from 'src/handlers/error-interface';
 
 @Component({
   selector: 'contacts',
