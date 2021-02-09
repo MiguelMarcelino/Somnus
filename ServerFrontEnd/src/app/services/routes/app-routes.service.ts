@@ -61,6 +61,12 @@ export class AppRoutesService {
         return this.appRoutes.apiUsersEndPointAuth;
     }
 
+    // User Registration
+    get apiUsersEndPointRegister(): string {
+        this.isLoaded();
+        return this.appRoutes.apiUsersEndPointRegister;
+    }
+
     // Check if routes file was loaded
     private isLoaded() {
         if (!this.appRoutes) {

@@ -35,4 +35,14 @@ export class UserController extends TemplateControllerService<UserModel>{
       return this.http.get(this.appRoutes.apiUsersEndPointAuth, this.httpOptions);
     }
 
+    public registerUser(token: string, user: UserModel): Observable<any> {
+      this.httpOptions = {
+        headers: new HttpHeaders({ 
+            "Content-Type": "application/json",
+            "firebaseToken": token
+        })
+      };
+      return this.http.post(this.appRoutes.apiUsersEndPointRegister, user, this.httpOptions);
+    }
+
 }
