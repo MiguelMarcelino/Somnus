@@ -1,6 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { auth } from 'firebase/app';
+// import { firebase } from '@angular/fire';
+import * as firebase from 'firebase';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -27,7 +28,7 @@ export class AuthenticationService  {
   }
 
   loginWithGoogle() {
-    this.angularFireAuth.signInWithPopup(new auth.GoogleAuthProvider)
+    this.angularFireAuth.signInWithPopup(new firebase.default.auth.GoogleAuthProvider)
       .then ( userCredential => {
         // send user info to backend
         if(userCredential) {
@@ -105,7 +106,7 @@ export class AuthenticationService  {
       })
   }
 
-  insertUserData(userCredential: firebase.auth.UserCredential) {
+  insertUserData(userCredential: firebase.default.auth.UserCredential) {
     return this.db.doc(`Users/${userCredential.user.uid}`).set({
       email:this.newUser.email,
       firstname: this.newUser.username,

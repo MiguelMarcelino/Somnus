@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
+import * as firebase from 'firebase';
 import { AppSettings } from 'src/app/appSettings';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { FeedbackControllerService } from 'src/app/services/controllers/feedback-controller.service';
@@ -14,7 +15,7 @@ import { ErrorInterface } from 'src/handlers/error-interface';
 export class ContactsComponent implements OnInit {
 
   // app user
-  user: firebase.User;
+  user: firebase.default.User;
   contactForm: FormGroup;
   inviteLink: string = AppSettings.DISCORD_INVITE;
 

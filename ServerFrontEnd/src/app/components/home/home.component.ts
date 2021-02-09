@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppSettings } from './../../appSettings';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { Router } from '@angular/router';
-import { ArticlesService } from 'src/app/services/controllers/articles-controller.service';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'home',
@@ -12,7 +12,7 @@ import { ArticlesService } from 'src/app/services/controllers/articles-controlle
 export class HomeComponent implements OnInit {
 
   // app user
-  user: firebase.User;
+  user: firebase.default.User;
   // app title
   title = AppSettings.SERVER_NAME;
   navbarCollapsed = false;
