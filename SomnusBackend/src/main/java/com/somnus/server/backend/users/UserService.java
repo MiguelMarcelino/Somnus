@@ -13,13 +13,11 @@ import com.somnus.server.backend.users.repository.UserRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -71,4 +69,25 @@ public class UserService implements UserDetailsService {
         return new UserDto(user.getUsername(), user.getEmail(), roles);
     }
 
+    public UserDto registerUser(String firebaseToken, UserDto userDto) {
+        if(StringUtils.isBlank(firebaseToken)) {
+            throw new IllegalArgumentException("Blank Firebase Token");
+        }
+        FirebaseTokenHolder firebaseTokenHolder = FirebaseParser.parseToken(firebaseToken);
+
+        // add user to repository if it does not exist already
+        User user = userRepository.findByUserName(firebaseTokenHolder.getUid());
+        if(user == null) {
+            user = new User(firebaseTokenHolder.getUid(), firebaseTokenHolder.getEmail(),
+                    userDto.getFirstName(), userDto.getLastName(), rolesHandler.getRole(Role.USER));
+            userRepository.save(user);
+        }
+
+        // get user roles
+        List<String> roles = new ArrayList<>();
+        user.getAuthorities().forEach(auth -> roles.add(auth.getAuthority()));
+
+        // create new UserDto
+        return new UserDto(user.getUsername(), user.getEmail(), user.getFirstName(), user.getLastName(), roles);
+    }
 }

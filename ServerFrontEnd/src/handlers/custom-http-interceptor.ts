@@ -29,8 +29,8 @@ export class CustomHttpInterceptor implements HttpInterceptor {
             console.log(err);
             if (err.status === 401) {
               this.router.navigate(['/login']);
-              // localStorage.removeItem("token");
-              // this.authService.logout();
+              localStorage.removeItem("token");
+              this.authService.logout();
               this.errorInterface.setErrorMessage("You are not authorized to perform that task!");
             } else {
               // send error to interface

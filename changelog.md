@@ -3,7 +3,23 @@ All changes made to this project will be documented in this file
 
 ## [Unreleased]
 ---------------------------------------------------------
+## [0.2.1] - 2021-02-09
+### Added
+- New register feature for users
+
+### Changed
+- Fixed Articles api
+- Changed to new Angular version
+
+---------------------------------------------------------
 ## [0.2.1] - 2021-02-08
+### Added
+- New global error handling
+- New global Http error handling
+- New footer for website
+
+### Changed
+- Theme of somnus website
 
 ---------------------------------------------------------
 ## [0.2.1] - 2021-02-07

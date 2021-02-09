@@ -101,6 +101,14 @@ public class User implements UserDetails {
         return email;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return accountNonExpired;

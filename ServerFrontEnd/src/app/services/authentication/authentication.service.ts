@@ -32,41 +32,60 @@ export class AuthenticationService  {
       .then ( userCredential => {
         // send user info to backend
         if(userCredential) {
-          userCredential.user.getIdToken(false).then(token => {
-            this.sendUserInfoToBackend(token);
+          userCredential.user.getIdTokenResult(false).then(token => {
+            this.sendUserInfoToBackend(token.token, token.expirationTime);
           })
         }
-      }
-        
-      )
+      })
       .catch( error => {
         this.eventAuthError.next(error);
       });
   }
 
-  sendUserInfoToBackend(token: string) {
+  sendUserInfoToBackend(token: string, expirationTime: string) {
     this.userService.authenticateUser(token).subscribe(user => {
       this.newUser = user;
       localStorage.setItem("token", token);
-    })
+      // localStorage.setItem("expirationTime", expirationTime);
+    },
+    error => {
+      localStorage.removeItem("token");
+      // localStorage.removeItem("expirationTime");
+      this.logout();
+    });
   }
 
-  getToken() {
-    if(!localStorage.getItem("token")) {
-      this.getLoggedInUser().toPromise().then(user => {
-        user.getIdToken().then(token => {
-          localStorage.setItem("token", token);
-        })
-      })
-    }
+  registerUserBackend(token: string, expirationTime: string, user: UserModel) {
+    this.userService.registerUser(token, user).subscribe(user => {
+      this.newUser = user;
+      localStorage.setItem("token", token);
+      // localStorage.setItem("expirationTime", expirationTime);
+    },
+    error => {
+      localStorage.removeItem("token");
+      // localStorage.removeItem("expirationTime");
+      this.logout();
+    });
   }
+
+  // checkExpirationTime(): string {
+  //   this.getLoggedInUser().toPromise().then(user => {
+  //     user.getIdTokenResult().then(token => {
+  //       token.expirationTime;
+  //       // if(Date.parse(token.expirationTime) < Date.now() ) {
+  //       //   this.logout();
+  //       //   localStorage.removeItem("token");
+  //       // }
+  //     });
+  //   })
+  // }
 
   loginWithEmail(email: string, password: string) {
     this.angularFireAuth.signInWithEmailAndPassword(email, password)
       .then ( userCredential => {
         if(userCredential) {
-          userCredential.user.getIdToken(false).then(token => {
-            this.sendUserInfoToBackend(token);
+          userCredential.user.getIdTokenResult(false).then(token => {
+            this.sendUserInfoToBackend(token.token, token.expirationTime);
           })
           this.router.navigate(['/']);
         }
@@ -81,17 +100,18 @@ export class AuthenticationService  {
   }
 
   // Register new User
-  createUser(username: string, firstName: string, lastName: string, email: string, password: string, confirmPassword: string) {
+  createUser(username: string, firstName: string, lastName: string, email: string, password: string, 
+      confirmPassword: string) {
     this.angularFireAuth.createUserWithEmailAndPassword(email, password)
       .then( userCredential => {
         if(userCredential) {
-          // send token info to backend
-          userCredential.user.getIdToken(false).then(token => {
-            this.sendUserInfoToBackend(token);
+          // send token and user info to backend
+          let user = {'email': email, 'username': username, 'firstName': firstName, 
+           'lastName': lastName, 'role': "User"};
+          userCredential.user.getIdTokenResult(false).then(token => {
+            this.registerUserBackend(token.token, token.expirationTime, user);
           })
-
-          // save new user info
-          // this.newUser = {'email': email, 'username': username, 'firstName': firstName, 'lastName': lastName, 'role': "User"};
+          
           userCredential.user.updateProfile({
             displayName: firstName + " " +  lastName,
           })
@@ -117,10 +137,10 @@ export class AuthenticationService  {
 
   logout() {
     localStorage.removeItem("token");
+    localStorage.removeItem("expirationTime");
     this.angularFireAuth.signOut();
   }
 
-  
   public isLoggedIn() {
     return this.angularFireAuth.authState.pipe(first()).toPromise();
   }
