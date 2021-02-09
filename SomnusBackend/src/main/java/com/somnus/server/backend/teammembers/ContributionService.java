@@ -3,6 +3,7 @@ package com.somnus.server.backend.teammembers;
 import org.springframework.beans.factory.annotation.Value;
 import com.somnus.server.backend.teammembers.domain.Contribution;
 import com.somnus.server.backend.teammembers.dto.ContributionDto;
+import com.somnus.server.backend.teammembers.repository.ContributionRepository;
 import com.somnus.server.backend.exceptions.ErrorMessage;
 import com.somnus.server.backend.exceptions.SomnusException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import reactor.core.publisher.Mono;
 import org.json.*;
 
 import java.sql.SQLException;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.time.LocalDateTime;
@@ -26,13 +27,16 @@ import java.time.format.DateTimeFormatter;
 @Service
 public class ContributionService {
 
+    @Autowired
+    private ContributionRepository contributionRepository;
+
     @Value("${github.auth.token}")
     private String auth_token;
 
     private WebClient webClient;
 
     // Fetch all the Commits associated to this repository's main branch and return them as Contributions
-    public Contribution[] fetchContributions(){
+    public ContributionDto[] fetchContributions(){
 
         // Create a Web Client pointing to the repository
         this.webClient = WebClient.create("https://api.github.com/repos/MiguelMarcelino/SomnusWebsite/");
@@ -53,7 +57,7 @@ public class ContributionService {
         // Parse the response string into a JSON format, in this case an array
         JSONArray data = new JSONArray(response); 
         // An array to store the new contributions
-        Contribution[] contributions = new Contribution[data.length()];
+        ContributionDto[] contributions = new ContributionDto[data.length()];
 
         // A DateTimeFormatter to format the Date attribute from the API
         DateTimeFormatter date_formatter = DateTimeFormatter.ofPattern("yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'");
@@ -66,10 +70,50 @@ public class ContributionService {
             String rowDateStr = row.getJSONObject("commit").getJSONObject("author").getString("date");
             LocalDateTime rowDate =LocalDateTime.parse(rowDateStr, date_formatter);
             String rowDescription = row.getJSONObject("commit").getString("message");
-            contributions[i] = new Contribution(rowDescription, rowDate, rowAuthor);
+            contributions[i] = new ContributionDto(rowDescription, rowAuthor, rowDate);
         }
 
         return contributions;
     }
+
+    @Retryable(
+            value = {SQLException.class},
+            backoff = @Backoff(delay = 5000))
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+    public List<ContributionDto> getAllContributions() {
+        List<ContributionDto> contributionDtos = new ArrayList<>();
+        contributionRepository.findAll().forEach(contribution -> contributionDtos.add(
+                new ContributionDto(
+                        contribution.getTitle(),
+                        contribution.getAuthor(),
+                        contribution.getDateAdded()
+                        )));
+        return contributionDtos;
+    }
+    
+    @Retryable(
+            value = {SQLException.class},
+            backoff = @Backoff(delay = 5000))
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+    public void createContribution(ContributionDto contributionDto) {
+        Contribution contribution = new Contribution(
+            contributionDto.getTitle(),
+            contributionDto.getAuthor(),
+            contributionDto.getDateAdded()
+        );
+        contributionRepository.save(contribution);
+    }
+
+    // Method to get all contributions from github and store them in DB
+    public void initializeContributionRepo(){
+        // Fetch all the contributions
+        ContributionDto[] contributionDtos = fetchContributions();
+
+        // One by one, save them into the database
+        for(ContributionDto curr_contribution : contributionDtos){
+            createContribution(curr_contribution);
+        }
+    }
+
 
 }

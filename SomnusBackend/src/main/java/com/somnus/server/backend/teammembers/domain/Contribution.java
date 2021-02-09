@@ -35,7 +35,7 @@ public class Contribution {
      * @param author
      * @param dateAdded
      */
-    public Contribution(String title, LocalDateTime dateAdded, String author) {
+    public Contribution(String title,  String author, LocalDateTime dateAdded) {
         this.title = title;
         this.author = author;
         // this.teamMember = teamMember;
