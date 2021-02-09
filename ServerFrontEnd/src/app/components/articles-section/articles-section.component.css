@@ -1,4 +1,7 @@
 
+h3{
+    text-align: left;
+}
 
 .content{
     width: 100%;
@@ -43,7 +46,7 @@
 }
 
 .author-name {
-    color: rgb(173, 0, 0);
+    color: rgb(87, 140, 255);
 }
 
 .description{

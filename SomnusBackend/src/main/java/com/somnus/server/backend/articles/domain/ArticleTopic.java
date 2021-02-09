@@ -1,6 +1,7 @@
 package com.somnus.server.backend.articles.domain;
 
 public enum ArticleTopic {
+    COMPUTER_SCIENCE("Computer Science"),
     MATHEMATICS("Mathematics"),
     PHYSICS("Physics"),
     ENGINEERING("Engineering"),

@@ -3,8 +3,8 @@ import { Injectable, Injector } from "@angular/core";
 import { Router } from "@angular/router";
 import { Observable, throwError } from "rxjs";
 import { catchError, tap } from "rxjs/operators";
-import { ErrorInterface } from "src/errors/error-interface";
-import { AuthenticationService } from "../authentication/authentication.service";
+import { ErrorInterface } from "src/handlers/error-interface";
+import { AuthenticationService } from "../app/services/authentication/authentication.service";
 
 @Injectable()
 export class CustomHttpInterceptor implements HttpInterceptor {
@@ -26,12 +26,15 @@ export class CustomHttpInterceptor implements HttpInterceptor {
         .handle(authReq)
         .pipe(catchError(
           (err: HttpErrorResponse) => {
-            // send error to interface
-            this.errorInterface.setErrorMessage(err.message);
             console.log(err);
             if (err.status === 401) {
               this.router.navigate(['/login']);
-              localStorage.removeItem("token");
+              // localStorage.removeItem("token");
+              // this.authService.logout();
+              this.errorInterface.setErrorMessage("You are not authorized to perform that task!");
+            } else {
+              // send error to interface
+              this.errorInterface.setErrorMessage(err.message);
             }
 
             return throwError(err);
@@ -46,12 +49,13 @@ export class CustomHttpInterceptor implements HttpInterceptor {
     return next
       .handle(authReq)
       .pipe(catchError(
-        (err: HttpErrorResponse) => {
-          // throw error to interface
-          this.errorInterface.setErrorMessage(err.message);
+        (err: HttpErrorResponse) => {          
           console.log(err);
           if (err.status === 401) {
             this.router.navigate(['user']);
+            this.errorInterface.setErrorMessage("You are not authorized to perform that task!");
+          } else {
+            this.errorInterface.setErrorMessage(err.message);
           }
 
           return throwError(err);

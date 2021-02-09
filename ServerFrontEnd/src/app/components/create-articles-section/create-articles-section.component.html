@@ -4,29 +4,22 @@
     <div>
         <form [formGroup]="editorForm" method="post">
             <!-- Article Name -->
-            <div class="form-group">
-                <label for="article_name" class="control-label">Article Name</label>
-                <input type="text" class="form-control" id="article_name" formControlName="article_name" placeholder="Name of your Article">
-                <div *ngIf="submitted && form.article_name.errors" class="invalid-feedback">
-                    <div *ngIf="form.article_name.errors.required">Article Name is required</div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="description" class="control-label">Article Description</label>
-                <input type="text" class="form-control description-input" id="description" formControlName="description" placeholder="Describe your article">
-                <div *ngIf="submitted && form.description.errors" class="invalid-feedback">
-                    <div *ngIf="form.description.errors.required">Description is required</div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="type" class="control-label">Select Article Type</label>
-                <select class="custom-select" formControlName="type">
-                   <option *ngFor="let type of articleTypes" [ngValue]="type">{{type}}</option>
-                </select>
-                <div *ngIf="submitted && form.type.errors" class="invalid-feedback">
-                    <div *ngIf="form.type.errors.required">Type is required</div>
-                </div>
-            </div>
+            <mat-form-field appearance="fill">
+                <mat-label>Article Name</mat-label>
+                <input type="text" matInput formControlName="article_name" placeholder="Name of your Article">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Article Description</mat-label>
+                <input type="text" class="description-input" matInput formControlName="description">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Select Article Type</mat-label>
+                <mat-select formControlName="type">
+                  <mat-option *ngFor="let type of articleTypes" [value]="type">
+                    {{type}}
+                  </mat-option>
+                </mat-select>
+            </mat-form-field>
             <br>
             <!-- Editor content -->
             <div class="form-group">
@@ -37,7 +30,7 @@
 
     <div>
         <div *ngIf="!checkContent()">
-            <h2>Start writing get a preview of your article!</h2>
+            <h2>Start writing to get a preview of your article!</h2>
         </div>
         <div *ngIf="checkContent()">
             <h2>Here's the result</h2>

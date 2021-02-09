@@ -2,17 +2,15 @@
 <h2>Feel Free to contact us!</h2>
 <div class="contact-form" *ngIf="user">
     <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" method="post">
-        <div class="form-group">
-            <!-- Feedback Title -->
-            <label for="feedbackTitle" class="control-label">Feedback Title</label>
-            <input type="text" class="form-control" id="feedbackTitle" formControlName="feedbackTitle" placeholder="Give a title to your feedback">
-        </div>
+        <mat-form-field appearance="fill">
+            <mat-label>Feedback Title</mat-label>
+            <input type="text" matInput formControlName="feedbackTitle" placeholder="Give a title to your feedback">
+        </mat-form-field>
 
-        <div class="form-group">
-            <!-- Feedback -->
-            <label for="feedback" class="control-label">Feedback</label>
-            <input class="form-control" id="feedback" formControlName="feedback" placeholder="Leave some Feedback here!">
-        </div>
+        <mat-form-field appearance="fill">
+            <mat-label>Feedback</mat-label>
+            <input id="feedback" type="text" matInput formControlName="feedback" placeholder="Leave some Feedback here!">
+        </mat-form-field>
 
         <div class="form-group">
             <!-- Send Feedback Button -->

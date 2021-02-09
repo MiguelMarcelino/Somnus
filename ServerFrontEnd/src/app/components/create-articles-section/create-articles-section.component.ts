@@ -1,15 +1,16 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { ArticlesService } from 'src/app/services/controllers/articles-controller.service';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { QuillEditorComponent } from 'ngx-quill';
-import { ErrorInterface } from 'src/errors/error-interface';
+import { ErrorInterface } from 'src/handlers/error-interface';
 
 @Component({
   selector: 'app-create-articles-section',
   templateUrl: './create-articles-section.component.html',
-  styleUrls: ['./create-articles-section.component.css']
+  styleUrls: ['./create-articles-section.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class CreateArticlesSectionComponent implements OnInit {
 
@@ -38,7 +39,11 @@ export class CreateArticlesSectionComponent implements OnInit {
     }),
     this.authenticationService.getLoggedInUser()
       .subscribe (user => {
-        this.currentUser = user;
+        if(user) {
+          this.currentUser = user;
+        } else {
+          this.router.navigateByUrl["/articles"];
+        }
     });
     this.createArticleTypes();
   }
@@ -50,7 +55,7 @@ export class CreateArticlesSectionComponent implements OnInit {
   // Temporary
   createArticleTypes(): void {
     this.articleTypes = [];
-    this.articleTypes.push("Physics", "Chemistry", "Mathematics", "Computer Science"); // fail!
+    this.articleTypes.push("Physics", "Mathematics", "Computer Science", "Gaming"); // improve method
   }
 
   setEditorContent(editorContent: String) {

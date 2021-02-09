@@ -25,10 +25,10 @@ import { ArticlePageComponent } from './components/article-page/article-page.com
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
 import { RegisterComponent } from './components/register/register.component';
 import { QuillEditorComponent } from './components/quill-editor/quill-editor.component';
-import { CustomHttpInterceptor } from './services/interceptor/jwt.interceptor';
+import { CustomHttpInterceptor } from '../handlers/custom-http-interceptor';
 import { FooterComponent } from './components/footer/footer.component';
 import { DebugMessagesComponent } from './components/debug-messages/debug-messages.component';
-import { GlobalErrorHandler } from 'src/errors/global-error-handler';
+import { GlobalErrorHandler } from 'src/handlers/global-error-handler';
 
 @NgModule({
   declarations: [

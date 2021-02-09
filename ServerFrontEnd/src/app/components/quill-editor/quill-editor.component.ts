@@ -13,8 +13,9 @@ export class QuillEditorComponent implements OnInit {
 
   editorStyle = {
     height: '400pt',
-    backgroundColor: 'white',
+    backgroundColor: 'black',
     borderRadius: '4pt',
+    color: 'white'
   };
   editorConfig = {
     toolbar: [

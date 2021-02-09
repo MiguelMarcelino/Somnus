@@ -27,8 +27,7 @@ export class ArticlesSectionComponent implements OnInit {
       } else {
         this.getSearchArticles(params.params.value);
       }
-    });  
-    console.log(this.articles);
+    });
   }
 
   getArticles(): void {

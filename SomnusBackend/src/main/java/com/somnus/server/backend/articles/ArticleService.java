@@ -6,6 +6,7 @@ import com.somnus.server.backend.articles.domain.ArticleTopic;
 import com.somnus.server.backend.articles.dto.ArticleDto;
 import com.somnus.server.backend.exceptions.ErrorMessage;
 import com.somnus.server.backend.exceptions.SomnusException;
+import com.somnus.server.backend.users.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Retryable;
@@ -32,9 +33,7 @@ public class ArticleService {
     public List<ArticleDto> getAllArticles() {
         List<ArticleDto> articleDtos = new ArrayList<>();
         articleRepository.findAll().forEach(article -> articleDtos.add(
-                new ArticleDto(article.getId(), article.getArticleName(), article.getAuthorUserName(),
-                        article.getDescription(), article.getDatePublished(),
-                        article.getTopic().name, article.getContent())));
+                createArticleDto(article)));
         return articleDtos;
     }
 
@@ -45,9 +44,7 @@ public class ArticleService {
     public List<ArticleDto> getArticlesOfTopic(String articleTopic) {
         List<ArticleDto> articleDtos = new ArrayList<>();
         articleRepository.getArticlesMatchingTopic(articleTopic).forEach(article -> articleDtos.add(
-                new ArticleDto(article.getId(), article.getArticleName(), article.getAuthorUserName(),
-                        article.getDescription(), article.getDatePublished(),
-                        article.getTopic().name, article.getContent())));
+                createArticleDto(article)));
         return articleDtos;
     }
 
@@ -62,19 +59,20 @@ public class ArticleService {
         }
 
         Article article = optionalArticle.get();
-        return new ArticleDto(article.getId(), article.getArticleName(), article.getAuthorUserName(),
-                article.getDescription(), article.getDatePublished(),
-                article.getTopic().name, article.getContent());
+        return createArticleDto(article);
     }
 
     @Retryable(
             value = {SQLException.class},
             backoff = @Backoff(delay = 5000))
     @Transactional(isolation = Isolation.READ_COMMITTED)
-    public void createArticle(ArticleDto articleDto) {
-        Article article = new Article(articleDto.getArticleName(),
+    public void createArticle(User user, ArticleDto articleDto) {
+        // Parse article Topic
+        ArticleTopic articleTopic = ArticleTopic.valueOf(articleDto.getTopic()
+                .replace(" ", "_").toUpperCase());
+        Article article = new Article(user, articleDto.getArticleName(),
                 articleDto.getAuthorUserName(), articleDto.getDescription(),
-                ArticleTopic.valueOf(articleDto.getTopic().toUpperCase()), articleDto.getContent());
+                articleTopic, articleDto.getContent());
         articleRepository.save(article);
     }
 
@@ -95,9 +93,13 @@ public class ArticleService {
         String searchQuery = "%" + nameContent + "%";
         List<Article> articles = articleRepository.getAllArticlesContainingSubstring(searchQuery);
         List<ArticleDto> articleDtos = new ArrayList<>();
-        articles.forEach(article -> articleDtos.add(new ArticleDto(article.getId(), article.getArticleName(),
-                article.getAuthorUserName(), article.getDescription(), article.getDatePublished(),
-                article.getTopic().name, article.getContent())));
+        articles.forEach(article -> articleDtos.add(createArticleDto(article)));
         return articleDtos;
+    }
+
+    private ArticleDto createArticleDto(Article article) {
+        return new ArticleDto(String.valueOf(article.getId()), article.getArticleName(),
+                article.getAuthorUserName(), article.getDescription(), article.getDatePublished(),
+                article.getTopic().name, article.getContent());
     }
 }
