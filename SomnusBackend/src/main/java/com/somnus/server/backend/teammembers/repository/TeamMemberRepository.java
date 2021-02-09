@@ -1,4 +1,4 @@
-package com.somnus.server.backend.teammembers.database;
+package com.somnus.server.backend.teammembers.repository;
 
 import com.somnus.server.backend.teammembers.domain.TeamMember;
 import org.springframework.data.jpa.repository.JpaRepository;

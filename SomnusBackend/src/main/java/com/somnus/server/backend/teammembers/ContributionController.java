@@ -1,11 +1,8 @@
 package com.somnus.server.backend.teammembers;
 
 import com.somnus.server.backend.teammembers.dto.ContributionDto;
-import com.somnus.server.backend.teammembers.domain.Contribution;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -16,8 +13,15 @@ public class ContributionController{
     private ContributionService contributionService;
 
     @GetMapping(value = "/contributions")
-    public Contribution[] getAllContributions(){
-        return contributionService.fetchContributions();
+    public List<ContributionDto> getAllContributions(){
+        return contributionService.getAllContributions();
     }
+
+    @GetMapping(value = "/initialize")
+    public void initializeContributions(){
+        contributionService.initializeContributionRepo();
+    }
+
+
 
 }

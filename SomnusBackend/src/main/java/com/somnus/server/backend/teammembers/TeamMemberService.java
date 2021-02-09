@@ -2,8 +2,8 @@ package com.somnus.server.backend.teammembers;
 
 import com.somnus.server.backend.exceptions.ErrorMessage;
 import com.somnus.server.backend.exceptions.SomnusException;
-import com.somnus.server.backend.teammembers.database.ContributionRepository;
-import com.somnus.server.backend.teammembers.database.TeamMemberRepository;
+import com.somnus.server.backend.teammembers.repository.ContributionRepository;
+import com.somnus.server.backend.teammembers.repository.TeamMemberRepository;
 import com.somnus.server.backend.teammembers.domain.Contribution;
 import com.somnus.server.backend.teammembers.domain.TeamMember;
 import com.somnus.server.backend.teammembers.dto.ContributionDto;
