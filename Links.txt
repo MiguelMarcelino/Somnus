@@ -43,3 +43,7 @@ https://www.freecodecamp.org/news/how-to-setup-jwt-authorization-and-authenticat
 
 Adding Headers
 https://stackoverflow.com/questions/50132753/angular-5-add-token-to-header-before-posting-with-httpclient
+
+Update Angular
+ng update | awk -v re='@[[:alnum:]]' '$0 ~ re {printf $1 " "}' | xargs ng update --force=true && npm update
+
