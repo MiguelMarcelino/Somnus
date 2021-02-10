@@ -43,6 +43,12 @@ export class ContactsComponent implements OnInit {
       return;
     }
 
+    if(!this.contactForm.get('feedbackTitle').value ||
+       !this.contactForm.get('feedback').value) {
+      this.errorInterface.setErrorMessage("Please fill in all the feedback fields");
+      return;
+    }
+
     let feedbackTitle = this.contactForm.get('feedbackTitle').value;
     let feedback = this.contactForm.get('feedback').value;
 

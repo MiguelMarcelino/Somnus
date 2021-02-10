@@ -23,6 +23,9 @@
             <li class="nav-item" [ngClass]="{'active': isActive('/team')}">
                 <a class="nav-link" routerLink="team">Team</a>
             </li>
+            <li *ngIf="user" class="nav-item" [ngClass]="{'active': isActive('/games')}">
+                <a class="nav-link" routerLink="/games">Games</a>
+            </li>
             <li class="nav-item" [ngClass]="{'active': isActive('/contacts')}">
                 <a class="nav-link" routerLink="contacts">Contacts</a>
             </li>

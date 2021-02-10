@@ -12,6 +12,7 @@ import { ArticlePageComponent } from './components/article-page/article-page.com
 import { AuthGuard } from './services/authentication/auth-guard.service';
 import { RegisterComponent } from './components/register/register.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { GamesPageComponent } from './components/games-page/games-page.component';
 
 const routes: Routes = [
   {
@@ -58,7 +59,12 @@ const routes: Routes = [
   },
   {
     path: 'register',
-    component: RegisterComponent,
+    component: RegisterComponent
+  },
+  {
+    path: 'games',
+    component: GamesPageComponent,
+    canActivate: [AuthGuard]
   }
 ];
 

@@ -5,6 +5,13 @@ All changes made to this project will be documented in this file
 ---------------------------------------------------------
 ## [0.2.1] - 2021-02-09
 ### Added
+- New feature to get info from Minecraft API
+
+### Changed
+- Users cannot submit empty feedbacks anymore
+---------------------------------------------------------
+## [0.2.1] - 2021-02-09
+### Added
 - New register feature for users
 
 ### Changed
