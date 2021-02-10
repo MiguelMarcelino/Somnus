@@ -29,6 +29,7 @@ import { CustomHttpInterceptor } from '../handlers/custom-http-interceptor';
 import { FooterComponent } from './components/footer/footer.component';
 import { DebugMessagesComponent } from './components/debug-messages/debug-messages.component';
 import { GlobalErrorHandler } from 'src/handlers/global-error-handler';
+import { GamesPageComponent } from './components/games-page/games-page.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { GlobalErrorHandler } from 'src/handlers/global-error-handler';
     QuillEditorComponent,
     FooterComponent,
     DebugMessagesComponent,
+    GamesPageComponent,
   ],
   imports: [
     BrowserModule,
