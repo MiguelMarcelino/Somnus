@@ -4,6 +4,7 @@ deploy/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+somnus_server-v*
 
 ### STS ###
 .apt_generated

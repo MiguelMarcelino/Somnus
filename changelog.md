@@ -7,7 +7,11 @@ All changes made to this project will be documented in this file
 ### Added
 - New deployment script
 - Preparation for test deployment
+- Scroll up function for errors
 
+### Changed
+- Updated README with new project instructions
+- Fixed submit article form bugs
 ---------------------------------------------------------
 ## [0.2.1] - 2021-02-10
 ### Added

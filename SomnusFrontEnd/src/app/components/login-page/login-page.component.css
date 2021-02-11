@@ -1,0 +1,44 @@
+
+p {
+    text-align: center;
+}
+
+label {
+    color: white;
+    text-align: center;
+}
+
+.page-style {
+    margin: 20pt auto;
+    vertical-align: middle;
+    width: 40%;
+}
+
+.other-accounts {
+    margin-top: 30pt;
+    margin-bottom: 30pt;
+}
+
+.account-button {
+    background-size: cover;
+    transition: 0.5s ease;
+}
+.account-button:hover {
+    transform: scale(1.05,1.05);
+}
+
+.sign-up-component-access {
+    padding-top: 30pt;
+}
+
+@media only screen and (max-width: 1200px) {
+    .page-style {
+        width: 50%;
+    }
+}
+
+@media only screen and (max-width: 750px) {
+    .page-style {
+        width: 100%;
+    }
+}

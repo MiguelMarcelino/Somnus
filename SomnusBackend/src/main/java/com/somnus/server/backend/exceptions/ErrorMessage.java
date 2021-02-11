@@ -4,6 +4,7 @@ public enum ErrorMessage {
     NO_ARTICLE_FOUND("No article found"),
     NO_TEAMMEMBER_FOUND("No team member found."),
     NO_USER_FOUND("No user found in database"),
+    NO_TOPIC_PROVIDED("There is no topic provided for the given article"),
 
     ACCESS_DENIED("You do not have permission to access the requested resource"),
     BAD_REQUEST("Malformed Request"),
