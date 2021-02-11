@@ -25,17 +25,31 @@ public class TeamMember {
     @Column(name = "num_contributions")
     private Integer numContributions;
 
+    @Column(name = "github_username")
+    private String githubUsername;
+
     public TeamMember() {}
 
     /**
      * Used when creating new TeamMembers
      * @param teamMemberName
      * @param photoPath
+     * @param githubUsername
      */
-    public TeamMember(String teamMemberName, String photoPath){
+    public TeamMember(String teamMemberName, String photoPath, String githubUsername){
         this.teamMemberName = teamMemberName;
         this.photoPath = photoPath;
         this.dateJoined = DateHandler.now();
+        this.githubUsername = githubUsername;
+    }
+    
+    /**
+     * Used when registering a commit that does not belong to any existing TeamMember
+     * @param githubUsername
+     */
+    public TeamMember(String githubUsername){
+        this.dateJoined = DateHandler.now();
+        this.githubUsername = githubUsername;
     }
 
     public String getTeamMemberName() {
@@ -54,7 +68,12 @@ public class TeamMember {
         return numContributions;
     }
 
+    public String getGithubUsername(){
+        return githubUsername;
+    }
+
     public void addContribution() {
         numContributions++;
     }
+
 }
