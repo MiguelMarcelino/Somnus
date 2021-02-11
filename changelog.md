@@ -3,7 +3,13 @@ All changes made to this project will be documented in this file
 
 ## [Unreleased]
 ---------------------------------------------------------
-## [0.2.1] - 2021-02-09
+## [0.2.1] - 2021-02-11
+### Added
+- New deployment script
+- Preparation for test deployment
+
+---------------------------------------------------------
+## [0.2.1] - 2021-02-10
 ### Added
 - New feature to get info from Minecraft API
 
