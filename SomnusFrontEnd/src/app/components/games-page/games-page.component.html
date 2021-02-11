@@ -1,0 +1,41 @@
+<div class="content">
+    <h2>Hosted Games Information</h2>
+
+    <mat-progress-spinner *ngIf="loading" mode="indeterminate"></mat-progress-spinner>
+
+    <mat-expansion-panel *ngIf="minecraftData" class="container">
+        <mat-expansion-panel-header [collapsedHeight]="'240pt'" [expandedHeight]="'240pt'">
+            <mat-panel-description collapsedHeight="'200pt'">
+                <div class="left-img">
+                    <img src="../../../assets/images/minecraft.png" class="img-style">
+                </div>
+                
+                <div class="right-data">
+                    <div class="info">
+                        <h3>Minecraft Server Info</h3>
+                        <p>Host: {{minecraftData.hostname}}</p>
+                        <p *ngIf="minecraftData.isOnline">Online status: Currently Online</p>
+                        <p *ngIf="!minecraftData.isOnline">Online status: Currently Offline</p>
+                        <p>Software: {{minecraftData.software}}</p>
+                        <p>Version: {{minecraftData.version}}</p>
+                        <p>Number of players online: {{minecraftData.numOnlinePlayers}}</p>
+                    </div>
+                </div>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div *ngIf="players">
+            <p>Online Players:</p>
+            <div *ngFor="let playerName of minecraftData.playerNames">
+                {{playerName}}
+            </div>
+        </div>
+        <div *ngIf="!players">
+            <p>There are currently no online players</p>
+        </div>
+    </mat-expansion-panel>
+
+    <div *ngIf="!minecraftData && !loading" class="not-found-section">
+        <app-not-found-page></app-not-found-page>
+    </div>
+</div>

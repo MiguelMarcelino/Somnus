@@ -7,6 +7,7 @@ import com.somnus.server.backend.articles.dto.ArticleDto;
 import com.somnus.server.backend.exceptions.ErrorMessage;
 import com.somnus.server.backend.exceptions.SomnusException;
 import com.somnus.server.backend.users.domain.User;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Retryable;
@@ -68,6 +69,9 @@ public class ArticleService {
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public void createArticle(User user, ArticleDto articleDto) {
         // Parse article Topic
+        if(Strings.isBlank(articleDto.getTopic())) {
+            throw new SomnusException(ErrorMessage.NO_TOPIC_PROVIDED);
+        }
         ArticleTopic articleTopic = ArticleTopic.valueOf(articleDto.getTopic()
                 .replace(" ", "_").toUpperCase());
         Article article = new Article(user, articleDto.getArticleName(),

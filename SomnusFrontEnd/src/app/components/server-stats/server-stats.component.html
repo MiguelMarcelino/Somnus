@@ -1,0 +1,40 @@
+<div class="page-style">
+    <h2> System Specifications</h2>
+    <div id="server-specs">
+        <div class="left">
+            <table class="spec_table">
+                <tr>
+                    <th class="th-img"><img class="img-style color-inverted-img" src="../../../assets/icons/CPU.png"></th>
+                    <th class="th-content">FX8300 @ 2.8GHz</th>
+                </tr>
+                <tr>
+                    <th class="th-img"><img class="img-style color-inverted-img" src="../../../assets/icons/ram.png"></th>
+                    <th class="th-content">6GB DDR3 1333MHz</th>
+                </tr>
+            </table>
+        </div>
+        <div class="right">
+            <table class="spec_table">
+                <tr>
+                    <th class="th-img"><img class="img-style color-inverted-img" src="../../../assets/icons/power.png"></th>
+                    <th class="th-content">375W</th>
+                </tr>
+                <tr>
+                    <th class="th-img"><img class="img-style color-inverted-img" src="../../../assets/icons/hdd.png"></th>
+                    <th class="th-content">1x 120GB SSD + 1x 500GB WD 5400RPM</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+    <div id="system-usage-container" *ngIf="user">
+        <h2>System Usage</h2>
+        <!-- TODO -->
+        <h3><b>Coming soon!</b></h3>
+    </div>
+
+    <div id="system-usage-container" *ngIf="!user">
+        <h2>System Usage</h2>
+        <h3>Please Login to see the current system usage</h3>
+    </div>
+</div>
