@@ -9,6 +9,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/contributions-api")
 public class ContributionController{
+
     @Autowired
     private ContributionService contributionService;
 
@@ -16,13 +17,5 @@ public class ContributionController{
     public List<ContributionDto> getAllContributions(){
         return contributionService.getAllContributions();
     }
-
-    @GetMapping(value = "/newcontributions")
-    public ContributionDto[] addNewContributions(){
-        return contributionService.addNewContributions();
-    }
-
-
-
 
 }

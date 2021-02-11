@@ -41,6 +41,7 @@ public class TeamMember {
         this.photoPath = photoPath;
         this.dateJoined = DateHandler.now();
         this.githubUsername = githubUsername;
+        this.numContributions = 0;
     }
     
     /**
@@ -50,6 +51,7 @@ public class TeamMember {
     public TeamMember(String githubUsername){
         this.dateJoined = DateHandler.now();
         this.githubUsername = githubUsername;
+        this.numContributions = 0;
     }
 
     public String getTeamMemberName() {
@@ -76,4 +78,11 @@ public class TeamMember {
         numContributions++;
     }
 
+    public void setNumContributions(Integer numContributions) {
+        this.numContributions = numContributions;
+    }
+
+    public void setDateJoined(LocalDateTime dateJoined) {
+        this.dateJoined = dateJoined;
+    }
 }

@@ -1,8 +1,9 @@
 import { Identifiable } from './identifiable';
 
 export interface TeamMemberModel extends Identifiable {
-    memberName: string;
+    teamMemberName: string;
     photoPath: string;
     dateJoined: Date;
-    contributions: Number;
+    numContributions: Number;
+    githubUsername: string;
 }
