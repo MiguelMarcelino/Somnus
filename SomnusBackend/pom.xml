@@ -9,10 +9,11 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.somnus.server</groupId>
-	<artifactId>backend</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>somnus_server</artifactId>
+	<version>v1.0</version>
 	<name>backend</name>
 	<description>Backend for Somnus Website</description>
+	<packaging>jar</packaging>
 	<properties>
 		<java.version>11</java.version>
 		<email.version>1.5.0-b01</email.version>
@@ -39,6 +40,17 @@
 			</activation>
 		</profile>
 	</profiles>
+
+	<!-- Repository configuration for deployment -->
+	<distributionManagement>
+		<repository>
+			<uniqueVersion>false</uniqueVersion>
+			<id>somnusRepo</id>
+			<name>Somnus Repository</name>
+			<url>https://repo1.maven.org/maven2/</url>
+			<layout>default</layout>
+		</repository>
+	</distributionManagement>
 
 	<dependencies>
 		<dependency>
@@ -110,6 +122,13 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
+
+		<!-- Servlet dependency -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<scope>provided</scope>
 		</dependency>
 
 	</dependencies>
