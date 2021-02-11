@@ -17,6 +17,11 @@ public class ContributionController{
         return contributionService.getAllContributions();
     }
 
+    @GetMapping(value = "/newcontributions")
+    public ContributionDto[] addNewContributions(){
+        return contributionService.addNewContributions();
+    }
+
 
 
 
