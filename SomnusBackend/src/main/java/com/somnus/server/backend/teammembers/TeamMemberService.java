@@ -37,7 +37,7 @@ public class TeamMemberService {
         List<TeamMemberDto> teamMemberDtos = new ArrayList<>();
         for(TeamMember teamMember : teamMemberRepository.findAll()) {
             teamMemberDtos.add(new TeamMemberDto(teamMember.getTeamMemberName(), teamMember.getPhotoPath(),
-                    teamMember.getDateJoined(), teamMember.getNumContributions()));
+                    teamMember.getDateJoined(), teamMember.getNumContributions(), teamMember.getGithubUsername()));
         }
         return teamMemberDtos;
     }
@@ -53,8 +53,12 @@ public class TeamMemberService {
         }
 
         TeamMember teamMember = optionalTeamMember.get();
-        return new TeamMemberDto(teamMember.getTeamMemberName(), teamMember.getPhotoPath(),
-                teamMember.getDateJoined(), teamMember.getNumContributions());
+        return new TeamMemberDto(
+                teamMember.getTeamMemberName(), 
+                teamMember.getPhotoPath(),
+                teamMember.getDateJoined(), 
+                teamMember.getNumContributions(),
+                teamMember.getGithubUsername());
     }
 
     @Retryable(
@@ -63,7 +67,7 @@ public class TeamMemberService {
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public void createTeamMember(TeamMemberDto teamMemberDto) {
         teamMemberRepository.save(new TeamMember(teamMemberDto.getTeamMemberName(),
-                teamMemberDto.getPhotoPath()));
+                teamMemberDto.getPhotoPath(), teamMemberDto.getGithubUsername()));
     }
 
     @Retryable(
