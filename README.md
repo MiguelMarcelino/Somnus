@@ -8,7 +8,7 @@
 - Flush mysql privileges: FLUSH PRIVILEGES;
 
 ### Running Backend
-- Run using the creaed script file: run_backend_testing.sh
+- Run using the created script file: run_backend_testing.sh
 
 ## Deployment
 

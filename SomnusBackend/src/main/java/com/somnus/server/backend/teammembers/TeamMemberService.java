@@ -78,4 +78,13 @@ public class TeamMemberService {
         teamMemberRepository.deleteById(teamMemberId);
     }
 
+    public void updateTeamMemberOldestCommit(){
+        teamMemberRepository.findAll().stream().forEach(teamMember -> {
+            Contribution contribution =
+                    contributionRepository.findFirstByTeamMemberOrderByDateAddedAsc(teamMember);
+            teamMember.setDateJoined(contribution.getDateAdded());
+            teamMemberRepository.save(teamMember);
+        });
+    }
+
 }

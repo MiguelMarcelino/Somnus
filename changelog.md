@@ -8,6 +8,7 @@ All changes made to this project will be documented in this file
 - New deployment script
 - Preparation for test deployment
 - Scroll up function for errors
+- Integrated TeamMemberFeature into application
 
 ### Changed
 - Updated README with new project instructions

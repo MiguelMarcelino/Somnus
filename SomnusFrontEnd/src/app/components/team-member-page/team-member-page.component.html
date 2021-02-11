@@ -6,12 +6,12 @@
     <div class="grid-container" *ngIf="teamMembers">
         <div class="grid-element" *ngFor="let teamMember of teamMembers">
             <div class="photo-above">
-                <img class="team-member-photo color-inverted-img" src="{{teamMember.photoPath}}">
+                <img class="team-member-photo color-inverted-img" src="../../../assets/icons/git-img.png">
             </div>
             <div class="content-below">
-                <h3><b>{{teamMember.memberName}}</b></h3>
-                <p>{{teamMember.contributions}} contributions</p>
-                <p>Joined {{title}} on {{teamMember.dateJoined | date:'mediumDate'}}</p>
+                <h3><b>{{teamMember.githubUsername}}</b></h3>
+                <p>{{teamMember.numContributions}} contributions</p>
+                <p>First contribution on {{teamMember.dateJoined | date:'mediumDate'}}</p>
             </div>
         </div>
     </div>

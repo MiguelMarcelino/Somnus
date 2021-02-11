@@ -6,6 +6,7 @@ import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.somnus.server.backend.systemmonitor.systemusage.SystemUsage;
 import com.somnus.server.backend.teammembers.ContributionService;
+import com.somnus.server.backend.teammembers.TeamMemberService;
 import com.somnus.server.backend.teammembers.repository.ContributionRepository;
 
 import org.springframework.beans.factory.InitializingBean;
@@ -37,6 +38,9 @@ public class SomnusBackendApplication extends SpringBootServletInitializer imple
 	@Autowired
 	private ContributionService contributionService;
 
+	@Autowired
+	private TeamMemberService teamMemberService;
+
 	public static void main(String[] args) {
 		SpringApplication.run(SomnusBackendApplication.class, args);
 	}
@@ -44,6 +48,7 @@ public class SomnusBackendApplication extends SpringBootServletInitializer imple
 	@Override
 	public void afterPropertiesSet() {
 		contributionService.updateContributionRepo();
+		teamMemberService.updateTeamMemberOldestCommit();
 	}
 
 	@Override

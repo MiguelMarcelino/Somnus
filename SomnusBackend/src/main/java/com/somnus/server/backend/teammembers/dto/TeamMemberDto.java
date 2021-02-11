@@ -2,12 +2,13 @@ package com.somnus.server.backend.teammembers.dto;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class TeamMemberDto implements Serializable {
 
     private String teamMemberName;
     private String photoPath;
-    private LocalDateTime dateJoined;
+    private String dateJoined;
     private Integer numContributions;
     private String githubUsername;
 
@@ -36,7 +37,7 @@ public class TeamMemberDto implements Serializable {
                          LocalDateTime dateJoined, Integer numContributions, String githubUsername) {
         this.teamMemberName = teamMemberName;
         this.photoPath = photoPath;
-        this.dateJoined = dateJoined;
+        this.dateJoined = dateJoined.format(DateTimeFormatter.ISO_DATE);
         this.numContributions = numContributions;
         this.githubUsername = githubUsername;
     }
@@ -49,7 +50,7 @@ public class TeamMemberDto implements Serializable {
         return photoPath;
     }
 
-    public LocalDateTime getDateJoined() {
+    public String getDateJoined() {
         return dateJoined;
     }
 

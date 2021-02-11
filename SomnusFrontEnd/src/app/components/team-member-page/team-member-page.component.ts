@@ -19,35 +19,35 @@ export class TeamMemberPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.getTeamMembers();
-    this.populateTeamMembers();
+    this.getTeamMembers();
+    // this.populateTeamMembers();
   }
 
   getTeamMembers(): void {
-    this.teamMemberService.getAll().subscribe( teamMembers => {
+    this.teamMemberService.getAll().subscribe( teamMemberList => {
       this.loading = false;
-      this.teamMembers = teamMembers.team_member_list;
+      this.teamMembers = teamMemberList;
     },
     (error)=>{
       this.loading = false;
     });
   }
 
-  populateTeamMembers() {
-    this.loading = false;
-    let teamMember1 = {"memberName": "Test1", "photoPath": "../../../assets/icons/git-img.png", 
-    "dateJoined": new Date(), "contributions": 6};
-    let teamMember2 = {"memberName": "Test2", "photoPath": "../../../assets/icons/git-img.png", 
-    "dateJoined": new Date(), "contributions": 10};
-    let teamMember3 = {"memberName": "Test3", "photoPath": "../../../assets/icons/git-img.png", 
-    "dateJoined": new Date(), "contributions": 33};
-    let teamMember4 = {"memberName": "Test4", "photoPath": "../../../assets/icons/git-img.png", 
-    "dateJoined": new Date(), "contributions": 4};
-    this.teamMembers = [];
-    this.teamMembers.push(teamMember1);
-    this.teamMembers.push(teamMember2);
-    this.teamMembers.push(teamMember3);
-    this.teamMembers.push(teamMember4);
-  }
+  // populateTeamMembers() {
+  //   this.loading = false;
+  //   let teamMember1 = {"teamMemberName": "Test1", "photoPath": "../../../assets/icons/git-img.png", 
+  //   "dateJoined": new Date(), "contributions": 6};
+  //   let teamMember2 = {"memberName": "Test2", "photoPath": "../../../assets/icons/git-img.png", 
+  //   "dateJoined": new Date(), "contributions": 10};
+  //   let teamMember3 = {"memberName": "Test3", "photoPath": "../../../assets/icons/git-img.png", 
+  //   "dateJoined": new Date(), "contributions": 33};
+  //   let teamMember4 = {"memberName": "Test4", "photoPath": "../../../assets/icons/git-img.png", 
+  //   "dateJoined": new Date(), "contributions": 4};
+  //   this.teamMembers = [];
+  //   this.teamMembers.push(teamMember1);
+  //   this.teamMembers.push(teamMember2);
+  //   this.teamMembers.push(teamMember3);
+  //   this.teamMembers.push(teamMember4);
+  // }
 
 }
