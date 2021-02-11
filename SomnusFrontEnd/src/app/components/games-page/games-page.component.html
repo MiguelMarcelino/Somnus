@@ -24,10 +24,17 @@
             </mat-panel-description>
         </mat-expansion-panel-header>
 
-        <div *ngIf="players">
+        <div>
             <p>Online Players:</p>
-            <div *ngFor="let playerName of minecraftData.playerNames">
-                {{playerName}}
+            <div class="player-container">
+                <div class="player-element" *ngFor="let playerName of minecraftData.playerNames">
+                    <div class="img-left">
+                        <img src="https://img.icons8.com/doodle/96/000000/minecraft-logo.png" class="small-minecraft-img">
+                    </div>
+                    <div class="player-name">
+                        {{playerName}}
+                    </div>
+                </div>
             </div>
         </div>
         <div *ngIf="!players">

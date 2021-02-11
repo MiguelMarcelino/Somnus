@@ -15,6 +15,32 @@ h3{
     margin-top: 40pt;
 }
 
+.player-container  {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.player-element {
+    width: 10%;
+    height: 30pt;
+}
+
+.small-minecraft-img{
+    width: 20pt;
+    height: 20pt;
+}
+
+.img-left {
+    float: left;
+    margin-right: 20pt;
+}
+
+.player-name {
+    float: left;
+    text-align: center;
+    /* margin: 0% 0.5% auto; */
+}
+
 .container {
     max-width: 100%;
     margin-top: 20pt;
