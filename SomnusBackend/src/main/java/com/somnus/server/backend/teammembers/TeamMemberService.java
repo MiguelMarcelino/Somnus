@@ -2,8 +2,8 @@ package com.somnus.server.backend.teammembers;
 
 import com.somnus.server.backend.exceptions.ErrorMessage;
 import com.somnus.server.backend.exceptions.SomnusException;
-import com.somnus.server.backend.teammembers.database.ContributionRepository;
-import com.somnus.server.backend.teammembers.database.TeamMemberRepository;
+import com.somnus.server.backend.teammembers.repository.ContributionRepository;
+import com.somnus.server.backend.teammembers.repository.TeamMemberRepository;
 import com.somnus.server.backend.teammembers.domain.Contribution;
 import com.somnus.server.backend.teammembers.domain.TeamMember;
 import com.somnus.server.backend.teammembers.dto.ContributionDto;
@@ -37,7 +37,7 @@ public class TeamMemberService {
         List<TeamMemberDto> teamMemberDtos = new ArrayList<>();
         for(TeamMember teamMember : teamMemberRepository.findAll()) {
             teamMemberDtos.add(new TeamMemberDto(teamMember.getTeamMemberName(), teamMember.getPhotoPath(),
-                    teamMember.getDateJoined(), teamMember.getNumContributions()));
+                    teamMember.getDateJoined(), teamMember.getNumContributions(), teamMember.getGithubUsername()));
         }
         return teamMemberDtos;
     }
@@ -53,8 +53,12 @@ public class TeamMemberService {
         }
 
         TeamMember teamMember = optionalTeamMember.get();
-        return new TeamMemberDto(teamMember.getTeamMemberName(), teamMember.getPhotoPath(),
-                teamMember.getDateJoined(), teamMember.getNumContributions());
+        return new TeamMemberDto(
+                teamMember.getTeamMemberName(), 
+                teamMember.getPhotoPath(),
+                teamMember.getDateJoined(), 
+                teamMember.getNumContributions(),
+                teamMember.getGithubUsername());
     }
 
     @Retryable(
@@ -63,7 +67,7 @@ public class TeamMemberService {
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public void createTeamMember(TeamMemberDto teamMemberDto) {
         teamMemberRepository.save(new TeamMember(teamMemberDto.getTeamMemberName(),
-                teamMemberDto.getPhotoPath()));
+                teamMemberDto.getPhotoPath(), teamMemberDto.getGithubUsername()));
     }
 
     @Retryable(
@@ -74,21 +78,4 @@ public class TeamMemberService {
         teamMemberRepository.deleteById(teamMemberId);
     }
 
-    @Retryable(
-            value = {SQLException.class},
-            backoff = @Backoff(delay = 5000))
-    @Transactional(isolation = Isolation.READ_COMMITTED)
-    public void addContribution(ContributionDto contributionDto) {
-        Optional<TeamMember> optionalTeamMember = teamMemberRepository.findById(contributionDto.getTeamMemberId());
-        if(!optionalTeamMember.isPresent()) {
-            throw new SomnusException(ErrorMessage.NO_TEAMMEMBER_FOUND);
-        }
-
-        TeamMember teamMember = optionalTeamMember.get();
-        contributionRepository.save(new Contribution(contributionDto.getTitle(), teamMember,
-                contributionDto.getDescription()));
-
-        teamMember.addContribution();
-        teamMemberRepository.save(teamMember);
-    }
 }
