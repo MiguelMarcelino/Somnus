@@ -144,7 +144,38 @@ public class ContributionService {
         }
     }
 
-    private void addNewContributions() {
+    public ContributionDto[] addNewContributions() {
+        Contribution newestContribution = contributionRepository.findFirstByOrderByDateAddedDesc();
+        DateTimeFormatter date_formatter = DateTimeFormatter.ofPattern("yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'");
+        String sinceDate = newestContribution.getDateAdded().plusSeconds(1).format(date_formatter);
+        // Create a Web Client pointing to the repository
+        this.webClient = WebClient.create("https://api.github.com/repos/MiguelMarcelino/SomnusWebsite");
+        String response = this.webClient.get()
+                 .uri(uriBuilder -> uriBuilder
+                    .path("/commits")
+                    .queryParam("since", sinceDate)
+                    .queryParam("access_token", auth_token)
+                    .build())
+                // .header("since", "1999-01-01T00:00:00Z")
+            .retrieve().bodyToMono(String.class).log().block(); // Get the response and convert it to a String object
+
+        // Parse the response string into a JSON format, in this case an array
+        JSONArray data = new JSONArray(response); 
+        // An array to store the new contributions
+        ContributionDto[] contributions = new ContributionDto[data.length()];
+
+        // For each row(commit) in the response, get the author's name, date and Commit message and
+        // create a new Contribution with it
+        for(int i = 0; i< data.length(); i++){
+            JSONObject row = data.getJSONObject(i);
+            String rowAuthor = row.getJSONObject("commit").getJSONObject("author").getString("name");
+            String rowDateStr = row.getJSONObject("commit").getJSONObject("author").getString("date");
+            LocalDateTime rowDate =LocalDateTime.parse(rowDateStr, date_formatter);
+            String rowDescription = row.getJSONObject("commit").getString("message");
+            contributions[i] = new ContributionDto(rowDescription, rowAuthor, rowDate);
+        }
+
+        return contributions;
     }
 
 

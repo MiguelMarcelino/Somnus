@@ -1,5 +1,6 @@
 package com.somnus.server.backend.teammembers.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.somnus.server.backend.config.DateHandler;
 
 import javax.persistence.*;
@@ -24,6 +25,7 @@ public class Contribution {
     private String author;
 
     @Column(name = "date_added")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDateTime dateAdded;
 
     public Contribution() {}
