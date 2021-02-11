@@ -9,6 +9,7 @@ public class TeamMemberDto implements Serializable {
     private String photoPath;
     private LocalDateTime dateJoined;
     private Integer numContributions;
+    private String githubUsername;
 
     public TeamMemberDto() {}
 
@@ -16,10 +17,12 @@ public class TeamMemberDto implements Serializable {
      * Used when creating new TeamMember
      * @param teamMemberName
      * @param photoPath
+     * @param githubUsername
      */
-    public TeamMemberDto(String teamMemberName, String photoPath) {
+    public TeamMemberDto(String teamMemberName, String photoPath, String githubUsername) {
         this.teamMemberName = teamMemberName;
         this.photoPath = photoPath;
+        this.githubUsername = githubUsername;
     }
 
     /**
@@ -27,13 +30,15 @@ public class TeamMemberDto implements Serializable {
      * @param teamMemberName
      * @param photoPath
      * @param dateJoined
+     * @param githubUsername
      */
     public TeamMemberDto(String teamMemberName, String photoPath,
-                         LocalDateTime dateJoined, Integer numContributions) {
+                         LocalDateTime dateJoined, Integer numContributions, String githubUsername) {
         this.teamMemberName = teamMemberName;
         this.photoPath = photoPath;
         this.dateJoined = dateJoined;
         this.numContributions = numContributions;
+        this.githubUsername = githubUsername;
     }
 
     public String getTeamMemberName() {
@@ -50,5 +55,9 @@ public class TeamMemberDto implements Serializable {
 
     public Integer getNumContributions() {
         return numContributions;
+    }
+
+    public String getGithubUsername(){
+        return githubUsername;
     }
 }

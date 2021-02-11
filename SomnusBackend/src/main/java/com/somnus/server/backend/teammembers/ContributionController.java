@@ -17,10 +17,6 @@ public class ContributionController{
         return contributionService.getAllContributions();
     }
 
-    @GetMapping(value = "/initialize")
-    public void initializeContributions(){
-        contributionService.initializeContributionRepo();
-    }
 
 
 

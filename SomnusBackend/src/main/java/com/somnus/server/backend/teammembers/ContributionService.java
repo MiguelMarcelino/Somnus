@@ -2,8 +2,10 @@ package com.somnus.server.backend.teammembers;
 
 import org.springframework.beans.factory.annotation.Value;
 import com.somnus.server.backend.teammembers.domain.Contribution;
+import com.somnus.server.backend.teammembers.domain.TeamMember;
 import com.somnus.server.backend.teammembers.dto.ContributionDto;
 import com.somnus.server.backend.teammembers.repository.ContributionRepository;
+import com.somnus.server.backend.teammembers.repository.TeamMemberRepository;
 import com.somnus.server.backend.exceptions.ErrorMessage;
 import com.somnus.server.backend.exceptions.SomnusException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,9 @@ public class ContributionService {
 
     @Autowired
     private ContributionRepository contributionRepository;
+
+    @Autowired
+    private TeamMemberRepository teamMemberRepository;
 
     @Value("${github.auth.token}")
     private String auth_token;
@@ -96,16 +101,31 @@ public class ContributionService {
             backoff = @Backoff(delay = 5000))
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public void createContribution(ContributionDto contributionDto) {
+        String authorName = contributionDto.getAuthor();
+        TeamMember author;
+
+        // Try to find the Teammember who made the contribution
+        if(teamMemberRepository.existsByGithubUsername(authorName)){
+            // If succesful, assign him to the object
+            author = teamMemberRepository.findByGithubUsername(authorName).get(0);
+        }
+        else{
+            // If not, create a new one
+            author = teamMemberRepository.save(new TeamMember(authorName));
+        }
+        
+        // Insert the contribution into the DB
         Contribution contribution = new Contribution(
             contributionDto.getTitle(),
             contributionDto.getAuthor(),
-            contributionDto.getDateAdded()
+            contributionDto.getDateAdded(),
+            author
         );
         contributionRepository.save(contribution);
     }
 
     // Method to get all contributions from github and store them in DB
-    public void initializeContributionRepo(){
+    private void initializeContributionRepo(){
         // Fetch all the contributions
         ContributionDto[] contributionDtos = fetchContributions();
 
@@ -113,6 +133,18 @@ public class ContributionService {
         for(ContributionDto curr_contribution : contributionDtos){
             createContribution(curr_contribution);
         }
+    }
+
+    public void updateContributionRepo(){
+        if(contributionRepository.count() == 0){
+            initializeContributionRepo();
+        }
+        else{
+            addNewContributions();
+        }
+    }
+
+    private void addNewContributions() {
     }
 
 
