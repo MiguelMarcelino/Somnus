@@ -71,11 +71,11 @@
 
 /* Typewriter animation */
 
-.typed{
+.typed {
   display: inline;
 }
 
-.typed-cursor{
+.typed-cursor {
   opacity: 0;
   display: none;
 }
