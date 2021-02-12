@@ -113,22 +113,30 @@ public class ContributionService {
     private void initializeContributionRepo(){
         // Retrieve the Commit information from Github's API
         // and convert it to a String object
-        String response = this.webClient.get()
-                .uri(uriBuilder -> uriBuilder
-                        .path("/commits")
-                        .queryParam("access_token", auth_token)
-                        .build())
-                .retrieve().bodyToMono(String.class).block();
+        JSONArray data = new JSONArray("[1]");
+        for(int page = 1; data.length() != 0; page++){
+            final int currPage = page;
+            String response = this.webClient.get()
+                    .uri(uriBuilder -> uriBuilder
+                            .path("/commits")
+                            .queryParam("access_token", auth_token)
+                            .queryParam("page", currPage)
+                            .build())
+                    .retrieve().bodyToMono(String.class).block();
 
-        // Parse the response string into a JSON format, in this case an array
-        JSONArray data = new JSONArray(response);
-        // An array to store the new contributions
-        ContributionDto[] contributionDtos = new ContributionDto[data.length()];
-        populateContributions(contributionDtos, data);
+            // Parse the response string into a JSON format, in this case an array
+            data = new JSONArray(response);
+            if(data.length() == 0){
+                break;
+            }
+            // An array to store the new contributions
+            ContributionDto[] contributionDtos = new ContributionDto[data.length()];
+            populateContributions(contributionDtos, data);
 
-        // One by one, save them into the database
-        for(ContributionDto curr_contribution : contributionDtos){
-            createContribution(curr_contribution);
+            // One by one, save them into the database
+            for(ContributionDto curr_contribution : contributionDtos){
+                createContribution(curr_contribution);
+            }
         }
     }
 
@@ -140,23 +148,31 @@ public class ContributionService {
         Contribution newestContribution = contributionRepository.findFirstByOrderByDateAddedDesc();
         String sinceDate = newestContribution.getDateAdded().plusSeconds(1).format(date_formatter);
 
-        String response = this.webClient.get()
-                .uri(uriBuilder -> uriBuilder
-                        .path("/commits")
-                        .queryParam("since", sinceDate)
-                        .queryParam("access_token", auth_token)
-                        .build())
-                .retrieve().bodyToMono(String.class).block(); // Get the response and convert it to a String object
+        JSONArray data = new JSONArray("[1]");
+        for(int page = 1; data.length() != 0; page++){
+            final int currPage = page;
+            String response = this.webClient.get()
+                    .uri(uriBuilder -> uriBuilder
+                            .path("/commits")
+                            .queryParam("since", sinceDate)
+                            .queryParam("access_token", auth_token)
+                            .queryParam("page", currPage)
+                            .build())
+                    .retrieve().bodyToMono(String.class).block(); // Get the response and convert it to a String object
 
-        // Parse the response string into a JSON format, in this case an array
-        JSONArray data = new JSONArray(response);
-        // An array to store the new contributions
-        ContributionDto[] contributions = new ContributionDto[data.length()];
-        populateContributions(contributions, data);
+            // Parse the response string into a JSON format, in this case an array
+            data = new JSONArray(response);
+            if(data.length() == 0){
+                break;
+            }
+            // An array to store the new contributions
+            ContributionDto[] contributions = new ContributionDto[data.length()];
+            populateContributions(contributions, data);
 
-        // One by one, save them into the database
-        for(ContributionDto curr_contribution : contributions){
-            createContribution(curr_contribution);
+            // One by one, save them into the database
+            for(ContributionDto curr_contribution : contributions){
+                createContribution(curr_contribution);
+            }
         }
     }
 
