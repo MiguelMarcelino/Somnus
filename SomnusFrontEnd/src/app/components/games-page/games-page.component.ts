@@ -26,10 +26,6 @@ export class GamesPageComponent implements OnInit {
       this.loading = false;
       this.minecraftData = minecraftInfo;
       this.players = minecraftInfo.numOnlinePlayers > 0;
-
-      this.minecraftData.playerNames.push("test1");
-      this.minecraftData.playerNames.push("test2");
-
     },
     (error)=>{
       this.loading = false;
