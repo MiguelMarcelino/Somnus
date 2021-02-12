@@ -165,7 +165,7 @@ public class ContributionService {
         // create a new Contribution with it
         for(int i = 0; i< data.length(); i++){
             JSONObject row = data.getJSONObject(i);
-            String rowAuthor = row.getJSONObject("commit").getJSONObject("author").getString("name");
+            String rowAuthor = row.getJSONObject("author").getString("login");
             String rowDateStr = row.getJSONObject("commit").getJSONObject("author").getString("date");
             LocalDateTime rowDate =LocalDateTime.parse(rowDateStr, date_formatter);
             String rowDescription = row.getJSONObject("commit").getString("message");
