@@ -3,9 +3,18 @@
 ## Testing environment
 
 ### Using Database (MySQL)
+#### Testing
 - Create a new user on the mysql database: CREATE USER 'testuser'@'localhost' IDENTIFIED BY '12345678';
 - Give permissions to new user: GRANT ALL PRIVILEGES ON *.* TO 'testuser'@'localhost' WITH GRANT OPTION;
 - Flush mysql privileges: FLUSH PRIVILEGES;
+- Create Database: CREATE DB somnustestdb;
+
+#### Production
+- Create a new admin user on the mysql database: CREATE USER 'somnususer'@'localhost' IDENTIFIED BY '882e4de25d20';
+- Give permissions to new user: GRANT ALL PRIVILEGES ON *.* TO 'somnususer'@'localhost' WITH GRANT OPTION;
+- Flush mysql privileges: FLUSH PRIVILEGES;
+- Create Database: CREATE DB somnusdb
+
 
 ### Running Backend
 - Run using the created bash script file: run_backend_testing.sh
