@@ -1,13 +1,13 @@
 export const environment = {
   production: true,
-  firebaseConfig: {
-    apiKey: "AIzaSyCpDkZxZ-U7YMWIC6MYARsHYZtNAPOrsVs",
-    authDomain: "uberpowerserver.firebaseapp.com",
-    databaseURL: "https://uberpowerserver.firebaseio.com",
-    projectId: "uberpowerserver",
-    storageBucket: "uberpowerserver.appspot.com",
-    messagingSenderId: "745482456029",
-    appId: "1:745482456029:web:0125c6bc17b21bad284434",
-    measurementId: "G-MZKE6P8DPS"
+  firebaseConfig : {
+    apiKey: "AIzaSyD52dfJGrzSn3bV974ABZiK6Kt7Xfie2FM",
+    authDomain: "somnusserverv1.firebaseapp.com",
+    databaseURL: "https://somnusserverv1.firebaseio.com",
+    projectId: "somnusserverv1",
+    storageBucket: "somnusserverv1.appspot.com",
+    messagingSenderId: "537573150465",
+    appId: "1:537573150465:web:34fd4520c9b628362a5500",
+    measurementId: "G-G618VY0T5R"
   }
 };
