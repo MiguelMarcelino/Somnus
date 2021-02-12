@@ -26,6 +26,14 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.authenticationService.getLoggedInUser()
       .subscribe (user => {
+        if(user) {
+          user.getIdTokenResult().then(token => {
+            let num: Number = Number.parseInt(token.expirationTime);
+            if(Date.now() > num){
+              this.authenticationService.logout();
+            }
+          });
+        }
         this.user = user;
     });
   }
