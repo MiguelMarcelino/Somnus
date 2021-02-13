@@ -1,0 +1,17 @@
+<div class="content">
+    <h2>Hosted System Information</h2>
+    <mat-progress-spinner *ngIf="loading" mode="indeterminate"></mat-progress-spinner>
+    <div class="info" style="display: none;">
+        <h3>Hosted Server Info</h3>
+        <p>numCpuThreads: {{systemInfo.numCpuThreads}}</p>
+        <p>totalMemory: {{systemInfo.totalMemory}}</p>
+        <p>cpuUsage: {{systemInfo.cpuUsage}}</p>
+        <p>memoryUsage: {{systemInfo.memoryUsage}}</p>
+        <p>swapSize: {{systemInfo.swapSize}}</p>
+        <p>swapUsage: {{systemInfo.swapUsage}}</p>
+    </div>
+
+    <h2>Pie Chart</h2>
+    <figure id="pie"></figure>
+
+</div>

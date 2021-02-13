@@ -29,12 +29,12 @@
     
     <div id="system-usage-container" *ngIf="user">
         <h2>System Usage</h2>
-        <!-- TODO -->
         <h3><b>Coming soon!</b></h3>
     </div>
 
     <div id="system-usage-container" *ngIf="!user">
         <h2>System Usage</h2>
+        <app-system-info></app-system-info>
         <h3>Please Login to see the current system usage</h3>
     </div>
 </div>
