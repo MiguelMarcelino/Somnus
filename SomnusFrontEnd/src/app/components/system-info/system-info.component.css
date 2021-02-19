@@ -1,0 +1,18 @@
+p {
+    text-align: center;
+}
+
+.grid-container {
+    display: flex;
+    width: 100% !important;
+    min-height: 10pt;
+    margin: 0 auto;
+    justify-content: space-around;
+}
+
+.grid-element {
+    text-align: center;
+    width: 20%;
+    margin: 0% 5% auto;
+    border-radius: 10pt;
+}

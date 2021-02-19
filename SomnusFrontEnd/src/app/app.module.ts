@@ -31,6 +31,7 @@ import { DebugMessagesComponent } from './components/debug-messages/debug-messag
 import { GlobalErrorHandler } from 'src/handlers/global-error-handler';
 import { GamesPageComponent } from './components/games-page/games-page.component';
 import { SystemInfoComponent } from './components/system-info/system-info.component';
+import { GaugeChartComponent } from './components/gauge-chart/gauge-chart.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { SystemInfoComponent } from './components/system-info/system-info.compon
     DebugMessagesComponent,
     GamesPageComponent,
     SystemInfoComponent,
+    GaugeChartComponent,
   ],
   imports: [
     BrowserModule,
