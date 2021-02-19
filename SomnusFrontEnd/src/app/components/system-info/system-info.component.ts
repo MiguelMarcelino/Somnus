@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import * as d3 from 'd3';
 import { SystemInfoModel } from 'src/app/models/system_monitor/systemInfo.model';
 import { SystemInfoControllerService } from 'src/app/services/controllers/system-info-controller.service';
+import { GaugeChartComponent } from '../gauge-chart/gauge-chart.component';
 
 @Component({
   selector: 'app-system-info',
@@ -13,95 +14,22 @@ export class SystemInfoComponent implements OnInit {
   systemInfo: SystemInfoModel;
   loading: boolean = true;
 
-  ///////////////////
-  private data = [
-    {"Framework": "Vue", "Stars": "166443", "Released": "2014"},
-    {"Framework": "React", "Stars": "150793", "Released": "2013"},
-    {"Framework": "Angular", "Stars": "62342", "Released": "2016"},
-    {"Framework": "Backbone", "Stars": "27647", "Released": "2010"},
-    {"Framework": "Ember", "Stars": "21471", "Released": "2011"},
-  ];
-  private svg;
-  private margin = 10;
-  private width = 750;
-  private height = 600;
-  // The radius of the pie chart is half the smallest side
-  private radius = Math.min(this.width, this.height) / 2 - this.margin;
-  private colors;
+  memoryGaugeTitle;
+  memoryGaugeid;
+  memoryGaugeConfig;
+  memoryGaugeValue;
 
-  private createSvg(): void {
-    this.svg = d3.select("figure#pie")
-    .append("svg")
-    .attr("width", this.width)
-    .attr("height", this.height)
-    .append("g")
-    .attr(
-      "transform",
-      "translate(" + this.width / 2 + "," + this.height / 2 + ")"
-    );
-}
+  cpuGaugeTitle;
+  cpuGaugeid;
+  cpuGaugeConfig;
+  cpuGaugeValue;
+  
+  swapGaugeTitle;
+  swapGaugeid;
+  swapGaugeConfig;
+  swapGaugeValue;
 
-private createColors(): void {
-  this.colors = d3.scaleOrdinal()
-  .domain(this.data.map(d => d.Stars.toString()))
-  .range(["#c7d3ec", "#a5b8db", "#879cc4", "#677795", "#5a6782"]);
-}
-
-private drawArc(){
-  const pie = d3.pie<any>().value((d: any) => Number(d.Stars));
-  this.svg = d3.select("figure#pie").append("svg").attr("width", 1000).attr("height", 400);
-  this.svg
-  .append("path")
-  .data(pie(this.data))
-  .attr("transform", "translate(400,200)")
-  .attr("d", d3.arc()
-    .innerRadius( 100 )
-    .outerRadius( 150 )
-    .startAngle( 3.14 - 3.14/2  )     // It's in radian, so Pi = 3.14 = bottom.
-    .endAngle( 6.28 + 3.14/2 )       // 2*Pi = 6.28 = top
-    )
-  .attr('stroke', 'black')
-  .attr('fill', (d, i) => (this.colors(i)));
-}
-
-private drawChart(): void {
-  // Compute the position of each group on the pie:
-  const pie = d3.pie<any>().value((d: any) => Number(d.Stars));
-
-  // Build the pie chart
-  this.svg
-  .selectAll('pieces')
-  .data(pie(this.data))
-  .enter()
-  .append('path')
-  .attr('d', d3.arc()
-    .innerRadius(0)
-    .outerRadius(this.radius)
-  )
-  .attr('fill', (d, i) => (this.colors(i)))
-  .attr("stroke", "#121926")
-  .style("stroke-width", "1px");
-
-  // Add labels
-  const labelLocation = d3.arc()
-  .innerRadius(100)
-  .outerRadius(this.radius);
-
-  this.svg
-  .selectAll('pieces')
-  .data(pie(this.data))
-  .enter()
-  .append('text')
-  .text(d => d.data.Framework)
-  .attr("transform", d => "translate(" + labelLocation.centroid(d) + ")")
-  .style("text-anchor", "middle")
-  .style("font-size", 15);
-}
-
-
-  //////////////////
-
-
+  @ViewChildren(GaugeChartComponent) gauges: QueryList<GaugeChartComponent>;
 
   constructor(
     private systemInfoService: SystemInfoControllerService
@@ -109,9 +37,76 @@ private drawChart(): void {
 
   ngOnInit(): void {
     //this.getSystemInfoData();
-    //this.createSvg();
-    //this.createColors();
-    //this.drawArc();
+    this.getDummySystemInfo();
+
+    this.memoryGaugeTitle = "Memory Usage";
+    this.memoryGaugeid = "memGauge";
+    this.memoryGaugeValue = this.systemInfo.memoryUsage;
+    this.memoryGaugeConfig = {
+      size: 350,
+      clipWidth: 400,
+      clipHeight: 400,
+      ringWidth: 30,
+      minValue: 0,
+      maxValue: this.systemInfo.totalMemory,
+      majorTicks: 10,
+      transitionMs: 10000
+    }
+
+    this.cpuGaugeTitle = "CPU Usage";
+    this.cpuGaugeid = "cpuGauge";
+    this.cpuGaugeValue = this.systemInfo.cpuUsage;
+    this.cpuGaugeConfig = {
+      size: 350,
+      clipWidth: 400,
+      clipHeight: 400,
+      ringWidth: 30,
+      minValue: 0,
+      maxValue: this.systemInfo.numCpuThreads,
+      majorTicks: this.systemInfo.numCpuThreads,
+      transitionMs: 10000
+    }
+
+    this.swapGaugeTitle = "Swap Usage";
+    this.swapGaugeid = "swapGauge";
+    this.swapGaugeValue = this.systemInfo.swapUsage;
+    this.swapGaugeConfig = {
+      size: 350,
+      clipWidth: 400,
+      clipHeight: 400,
+      ringWidth: 30,
+      minValue: 0,
+      maxValue: this.systemInfo.swapSize,
+      majorTicks: 10,
+      transitionMs: 10000
+    }
+  }
+
+  ngAfterViewInit():void{
+    setInterval(()=> { this.updateGauges();  }, 5 * 1000);
+  }
+
+  updateGauges():void{
+    this.getDummySystemInfo();
+    this.gauges.toArray();
+    this.gauges.toArray()[0].update(this.systemInfo.memoryUsage);
+    this.gauges.toArray()[1].update(this.systemInfo.cpuUsage);
+    this.gauges.toArray()[2].update(this.systemInfo.swapUsage);
+  }
+
+  getRandomInt(max):number {
+    return Math.floor(Math.random() * Math.floor(max));
+  }
+  
+  getDummySystemInfo(){
+    this.systemInfo = {
+      numCpuThreads : 8,
+      totalMemory: 100000,
+      cpuUsage: this.getRandomInt(8),
+      memoryUsage: this.getRandomInt(100000),
+      swapSize: 1000,
+      swapUsage: this.getRandomInt(1000)
+    }
   }
 
   getSystemInfoData() {
