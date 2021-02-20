@@ -4,7 +4,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
 import { UserModel } from 'src/app/models/user.model';
 import { first } from 'rxjs/operators';
 import { UserController } from '../controllers/user-controller.service';

@@ -72,6 +72,12 @@ export class AppRoutesService {
         return this.appRoutes.apiGamesEndpointMinecraft;
     }
 
+    get apiSystemMonitorEndpointSystemInfo(): string {
+        this.isLoaded();
+        return this.appRoutes.apiSystemMonitorEndpointSystemInfo;
+    }
+
+
     // Check if routes file was loaded
     private isLoaded() {
         if (!this.appRoutes) {

@@ -30,6 +30,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { DebugMessagesComponent } from './components/debug-messages/debug-messages.component';
 import { GlobalErrorHandler } from 'src/handlers/global-error-handler';
 import { GamesPageComponent } from './components/games-page/games-page.component';
+import { SystemInfoComponent } from './components/system-info/system-info.component';
+import { GaugeChartComponent } from './components/gauge-chart/gauge-chart.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,8 @@ import { GamesPageComponent } from './components/games-page/games-page.component
     FooterComponent,
     DebugMessagesComponent,
     GamesPageComponent,
+    SystemInfoComponent,
+    GaugeChartComponent,
   ],
   imports: [
     BrowserModule,
