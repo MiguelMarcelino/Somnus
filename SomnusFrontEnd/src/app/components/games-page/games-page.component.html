@@ -27,12 +27,12 @@
         <div>
             <p>Online Players:</p>
             <div class="player-container">
-                <div class="player-element" *ngFor="let playerName of minecraftData.playerNames">
+                <div class="player-element" *ngFor="let player of minecraftData.players">
                     <div class="img-left">
-                        <img src="https://img.icons8.com/doodle/96/000000/minecraft-logo.png" class="small-minecraft-img">
+                        <img src="https://crafatar.com/avatars/{{player.uuid}}" class="small-minecraft-img">
                     </div>
                     <div class="player-name">
-                        {{playerName}}
+                        {{player.name}}
                     </div>
                 </div>
             </div>

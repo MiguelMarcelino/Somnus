@@ -3,6 +3,7 @@ package com.somnus.server.backend.minecraftApi.minecraftApiCom;
 import aj.org.objectweb.asm.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.somnus.server.backend.minecraftApi.dto.MinecraftInfoDto;
+import com.somnus.server.backend.minecraftApi.dto.MinecraftPlayerInfo;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -38,15 +39,21 @@ public class MinecraftApiCommunication {
         String software = minecraftInfo.getString("software");
         Integer numOnlinePlayers = minecraftInfo.getJSONObject("players").getInt("online");
 
-        List<String> players = new ArrayList<>();
+        List<String> playerNames = new ArrayList<>();
         if(numOnlinePlayers > 0) {
              Iterator<Object> iterator = minecraftInfo.getJSONObject("players").getJSONArray("list").iterator();
              while (iterator.hasNext()) {
                  Object playerName = iterator.next();
                  if(playerName instanceof String){
-                     players.add((String) playerName);
+                     playerNames.add((String) playerName);
                  }
              }
+        }
+
+        List<MinecraftPlayerInfo> players = new ArrayList<>();
+        for (String playerName : playerNames) {
+            String uuid = minecraftInfo.getJSONObject("players").getJSONObject("uuid").getString(playerName);
+            players.add(new MinecraftPlayerInfo(playerName, uuid));
         }
 
         return new MinecraftInfoDto(online, version, hostname, software, numOnlinePlayers, players);
