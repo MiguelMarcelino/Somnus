@@ -26,6 +26,7 @@ export class GamesPageComponent implements OnInit {
       this.loading = false;
       this.minecraftData = minecraftInfo;
       this.players = minecraftInfo.numOnlinePlayers > 0;
+      console.log(minecraftInfo);
     },
     (error)=>{
       this.loading = false;

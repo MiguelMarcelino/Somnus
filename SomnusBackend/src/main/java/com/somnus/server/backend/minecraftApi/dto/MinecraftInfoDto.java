@@ -1,6 +1,7 @@
 package com.somnus.server.backend.minecraftApi.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,20 +13,21 @@ public class MinecraftInfoDto implements Serializable {
     private String hostname;
     private String software;
     private Integer numOnlinePlayers;
-    private List<String> playerNames;
+    @JsonProperty(value = "players")
+    private List<MinecraftPlayerInfo> players;
 
     public MinecraftInfoDto() {}
 
     public MinecraftInfoDto(boolean online, String version,
                             String hostname, String software,
                             Integer numOnlinePlayers,
-                            List<String> playerNames) {
+                            List<MinecraftPlayerInfo> players) {
         this.online = online;
         this.version = version;
         this.hostname = hostname;
         this.software = software;
         this.numOnlinePlayers = numOnlinePlayers;
-        this.playerNames = playerNames;
+        this.players = players;
     }
 
     public boolean getIsOnline() {
@@ -48,7 +50,7 @@ public class MinecraftInfoDto implements Serializable {
         return numOnlinePlayers;
     }
 
-    public List<String> getPlayerNames() {
-        return playerNames;
+    public List<MinecraftPlayerInfo> getPlayers() {
+        return players;
     }
 }
