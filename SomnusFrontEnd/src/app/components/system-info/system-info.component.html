@@ -1,0 +1,25 @@
+<div class="content">
+    <h2>Hosted System Information</h2>
+    <!-- <mat-progress-spinner *ngIf="loading" mode="indeterminate"></mat-progress-spinner> -->
+    <div class="info">
+        <h3>Hosted Server Info</h3>
+        <p>numCpuThreads: {{systemInfo.numCpuThreads}}</p>
+        <p>totalMemory: {{systemInfo.totalMemory}}</p>
+        <p>cpuUsage: {{systemInfo.cpuUsage}}</p>
+        <p>memoryUsage: {{systemInfo.memoryUsage}}</p>
+        <p>swapSize: {{systemInfo.swapSize}}</p>
+        <p>swapUsage: {{systemInfo.swapUsage}}</p>
+    </div> 
+    
+    <div class="grid-container">
+        <div class="grid-element">
+            <app-gauge-chart [title]="memoryGaugeTitle" [id] = "memoryGaugeid" [config]="memoryGaugeConfig" [currentValue]="memoryGaugeValue"  ></app-gauge-chart>
+        </div>
+        <div class="grid-element">
+            <app-gauge-chart [title]="cpuGaugeTitle" [id] = "cpuGaugeid" [config]="cpuGaugeConfig" [currentValue]="cpuGaugeValue"  ></app-gauge-chart>
+        </div>
+        <div class="grid-element">
+            <app-gauge-chart [title]="swapGaugeTitle"  [id] = "swapGaugeid" [config]="swapGaugeConfig" [currentValue]="swapGaugeValue"  ></app-gauge-chart>
+        </div>
+    </div>
+</div>
