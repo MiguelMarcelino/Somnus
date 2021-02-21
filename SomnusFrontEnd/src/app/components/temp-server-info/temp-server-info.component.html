@@ -1,0 +1,58 @@
+
+
+<div class="grid-container" *ngIf="!loading && user">
+    <mat-progress-spinner *ngIf="loading" mode="indeterminate"></mat-progress-spinner>
+    <div class="grid-element">
+        <ngx-gauge [type]="gaugeType"
+            [value]="systemInfo.memoryUsage"
+            [max]="systemInfo.totalMemory" 
+            [foregroundColor]="foregroundColor"
+            [backgroundColor]="backgroundColor"
+            [size]="size"
+            [thick]="thickness"
+            [duration]="duration">
+            <ngx-gauge-value>
+                <div>{{systemInfo.memoryUsage}} MB</div>
+            </ngx-gauge-value>
+            <ngx-gauge-label>
+                <div>{{memoryGaugeTitle}}</div>
+            </ngx-gauge-label>
+        </ngx-gauge>
+    </div>
+
+    <div class="grid-element">
+        <ngx-gauge [type]="gaugeType"
+            [value]="systemInfo.cpuUsage"
+            [max]="100"
+            [foregroundColor]="foregroundColor"
+            [backgroundColor]="backgroundColor"
+            [size]="size"
+            [thick]="thickness"
+            [duration]="duration">
+            <ngx-gauge-value>
+                <div>{{systemInfo.cpuUsage}}%</div>
+            </ngx-gauge-value>
+            <ngx-gauge-label>
+                <div>{{cpuGaugeTitle}}</div>
+            </ngx-gauge-label>
+        </ngx-gauge>
+    </div>
+
+    <div class="grid-element">
+        <ngx-gauge [type]="gaugeType"
+            [value]="systemInfo.swapUsage"
+            [max]="systemInfo.swapSize"
+            [foregroundColor]="foregroundColor"
+            [backgroundColor]="backgroundColor"
+            [size]="size"
+            [thick]="thickness"
+            [duration]="duration">
+            <ngx-gauge-value>
+                <div>{{systemInfo.swapUsage}} MB</div>
+            </ngx-gauge-value>
+            <ngx-gauge-label>
+                <div>{{swapGaugeTitle}}</div>
+            </ngx-gauge-label>
+        </ngx-gauge>
+    </div>
+</div>

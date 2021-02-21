@@ -10,7 +10,6 @@ h3{
 
 .img-style {
     /* margin: 0 auto; */
-    max-width: 200%;
     height: 150pt;
     margin-top: 40pt;
 }
@@ -21,7 +20,7 @@ h3{
 }
 
 .player-element {
-    width: 10%;
+    width: 25%;
     height: 30pt;
 }
 
@@ -42,9 +41,9 @@ h3{
 }
 
 .container {
-    max-width: 100%;
+    width: 100%;
+    margin: 0 auto;
     margin-top: 20pt;
-    /* overflow: hidden; */
 }
 
 .left-img{
@@ -64,6 +63,12 @@ h3{
     padding-top: 10pt;
 }
 
+mat-expansion-panel{
+    width: 100%;
+    margin: 0 auto;
+    padding: 0%;
+}
+
 mat-progress-spinner{
     padding-top: 100pt;
     margin: 0 auto;
@@ -71,9 +76,6 @@ mat-progress-spinner{
 
 @media only screen and (max-width: 1200px) {
     .img-style {
-        /* margin: 0 auto; */
-        margin-top: 50%;
-        max-width: 200%;
         height: 100pt;
         margin-top: 40pt;
     }
@@ -81,6 +83,10 @@ mat-progress-spinner{
     p{
         font-size: 10pt;
         line-height: 20pt;
+    }
+
+    .player-element {
+        width: 50%;
     }
 }
 
@@ -96,5 +102,9 @@ mat-progress-spinner{
     .right-data {
         width: 100%;
         padding-left: 0pt;
+    }
+
+    .player-element {
+        width: 100%;
     }
 }

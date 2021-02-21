@@ -10,7 +10,7 @@
     text-align: center;
     width: 90%;
     padding: 10pt;
-    padding-bottom: 110pt;
+    padding-bottom: 130pt;
 }
 
 .footer-content{
@@ -18,12 +18,28 @@
     position: absolute;
     bottom:0;
     width: 100%;
-    height: 110pt;
+    padding-top: 5pt;
+    height: 130pt;
 }
 
 @media only screen and (max-width: 700) {
     .main-content {
         width: 100%;
+    }
+
+    .footer-content{
+        padding-top: 0pt;
+    }
+}
+
+@media only screen and (max-width: 500) {
+    .main-content {
+        padding-bottom: 220pt;
+    }
+
+    .footer-content{
+        padding-top: 0pt;
+        height: 220pt;
     }
 }
 

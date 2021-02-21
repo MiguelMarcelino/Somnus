@@ -1,0 +1,56 @@
+
+.grid-container {
+    width: 100% !important;
+    min-height: 10pt;
+    margin: 0 auto;
+    display: flex;
+}
+
+.grid-element {
+    /* width: 25%; */
+    /* float: inherit; */
+    margin: 0 auto;
+}
+
+mat-progress-spinner{
+    padding-top: 100pt;
+    margin: 0 auto;
+}
+
+ngx-gauge {
+    color: white;
+}
+
+ngx-gauge-value {
+    font-size: 25pt;
+}
+
+ngx-gauge-label {
+    font-size: 15pt;
+    padding: 5pt;
+}
+
+@media only screen and (max-width: 1200px) {
+    .grid-container {
+        display: inline-block;
+    }
+
+    .grid-element {
+        /* margin: 0% 0% auto; */
+        float: left;
+        width: 50%;
+        margin-bottom: 20pt;
+    }
+}
+
+
+@media only screen and (max-width: 900px) {
+    .grid-container {
+        display: grid;
+    }
+
+    .grid-element {
+        float: none;
+        width: 100%;
+    }
+}

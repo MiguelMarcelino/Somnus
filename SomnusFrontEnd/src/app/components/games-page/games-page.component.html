@@ -24,7 +24,7 @@
             </mat-panel-description>
         </mat-expansion-panel-header>
 
-        <div>
+        <div *ngIf="players">
             <p>Online Players:</p>
             <div class="player-container">
                 <div class="player-element" *ngFor="let player of minecraftData.players">

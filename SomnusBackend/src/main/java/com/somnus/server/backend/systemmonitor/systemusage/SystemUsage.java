@@ -12,7 +12,8 @@ public class SystemUsage {
                 .getOperatingSystemMXBean();
         int numCpuThreads = bean.getAvailableProcessors();
         double totalMemory = bean.getTotalPhysicalMemorySize();
-        double cpuUsage = bean.getSystemLoadAverage() / bean.getAvailableProcessors();
+//        double cpuUsage = bean.getSystemLoadAverage() / bean.getAvailableProcessors();
+        double cpuUsage = bean.getSystemCpuLoad();
         double memoryUsage = bean.getTotalPhysicalMemorySize() - bean.getFreePhysicalMemorySize();
         double swapSize = bean.getTotalSwapSpaceSize();
         double swapUsage = bean.getTotalSwapSpaceSize() - bean.getFreeSwapSpaceSize();
