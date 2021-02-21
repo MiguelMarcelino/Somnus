@@ -15,10 +15,11 @@ export class AuthenticationService  {
 
   private static CURRENT_USER_STORAGE_NAME: string = "currentUser";
   private static TOKEN_STORAGE_NAME: string = "token";
+  
+  private currentUser: UserModel;
 
   private eventAuthError = new BehaviorSubject<string>("");
   eventAuthError$ = this.eventAuthError.asObservable();
-  currentUser: UserModel;
 
   constructor(
     private angularFireAuth: AngularFireAuth,
@@ -33,7 +34,9 @@ export class AuthenticationService  {
         // send user info to backend
         if(userCredential) {
           userCredential.user.getIdTokenResult(false).then(token => {
-            this.sendUserInfoToBackend(token.token, token.expirationTime);
+            let user = {'email': userCredential.user.email, 'username': userCredential.user.uid, 
+            'displayName': userCredential.user.displayName,'firstName': "", 'lastName': "", 'role': "User"};
+            this.sendUserInfoToBackend(token.token, user);
           })
         }
       })
@@ -42,23 +45,14 @@ export class AuthenticationService  {
       });
   }
 
-  sendUserInfoToBackend(token: string, expirationTime: string) {
-    this.userService.authenticateUser(token).subscribe(user => {
-      this.currentUser = user;
-      this.saveToLocalStorage(token, user);
-    },
-    error => {
-      this.removeFromLocalStorage();
-      this.logout();
-    });
-  }
-
   loginWithEmail(email: string, password: string) {
     this.angularFireAuth.signInWithEmailAndPassword(email, password)
       .then ( userCredential => {
         if(userCredential) {
           userCredential.user.getIdTokenResult(false).then(token => {
-            this.sendUserInfoToBackend(token.token, token.expirationTime);
+            let user = {'email': userCredential.user.email, 'username': userCredential.user.uid, 
+            'displayName': userCredential.user.displayName,'firstName': "", 'lastName': "", 'role': "User"};
+            this.sendUserInfoToBackend(token.token, user);
           })
           this.router.navigate(['/']);
         }
@@ -78,8 +72,8 @@ export class AuthenticationService  {
       .then( userCredential => {
         if(userCredential) {
           // send token and user info to backend
-          let user = {'email': email, 'username': username, 'firstName': firstName, 
-           'lastName': lastName, 'role': "User"};
+          let user = {'email': email, 'username': username, 'displayName': userCredential.user.displayName,
+          'firstName': firstName, 'lastName': lastName, 'role': "User"};
           userCredential.user.getIdTokenResult(false).then(token => {
             this.registerUserBackend(token.token, token.expirationTime, user);
           })
@@ -121,8 +115,18 @@ export class AuthenticationService  {
     return this.angularFireAuth.authState.pipe(first()).toPromise();
   }
 
+  private sendUserInfoToBackend(token: string, user: UserModel) {
+    this.userService.authenticateUser(token, user).subscribe(user => {
+      this.saveToLocalStorage(token, user);
+    },
+    error => {
+      this.removeFromLocalStorage();
+      this.logout();
+    });
+  }
+
   private registerUserBackend(token: string, expirationTime: string, user: UserModel) {
-    this.userService.registerUser(token, user).subscribe(user => {
+    this.userService.authenticateUser(token, user).subscribe(user => {
       this.saveToLocalStorage(token, user);
     },
     error => {

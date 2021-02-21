@@ -25,24 +25,14 @@ export class UserController extends TemplateControllerService<UserModel>{
         throw new Error("Method not implemented.");
     }
   
-    public authenticateUser(token: string): Observable<any> {
+    public authenticateUser(token: string, user: UserModel): Observable<any> {
       this.httpOptions = {
         headers: new HttpHeaders({ 
             "Content-Type": "application/json",
             "firebaseToken": token
         })
       };
-      return this.http.get(this.appRoutes.apiUsersEndPointAuth, this.httpOptions);
-    }
-
-    public registerUser(token: string, user: UserModel): Observable<any> {
-      this.httpOptions = {
-        headers: new HttpHeaders({ 
-            "Content-Type": "application/json",
-            "firebaseToken": token
-        })
-      };
-      return this.http.post(this.appRoutes.apiUsersEndPointRegister, user, this.httpOptions);
+      return this.http.post(this.appRoutes.apiUsersEndPointAuth, user, this.httpOptions);
     }
 
 }

@@ -30,8 +30,8 @@ public class UserDBInit {
         // TODO: Save in Firebase
         if (userRepository.count() == 0) {
             // username from firebase
-            User admin = new User("wdhAh6fNpPQ6CDVeal7X8a6LnuP2", adminEmail, "somnus", "admin",
-                    rolesHandler.getRole(Role.ADMIN), Role.ADMIN);
+            User admin = new User("wdhAh6fNpPQ6CDVeal7X8a6LnuP2", adminEmail, "Somnus Admin",
+                    "somnus", "admin", rolesHandler.getRole(Role.ADMIN), Role.ADMIN);
             userRepository.save(admin);
         }
     }

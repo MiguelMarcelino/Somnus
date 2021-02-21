@@ -6,7 +6,6 @@
     "apiTeamMembersEndPoint": "http://localhost:3000/team-member-api/team-members",
     "apiFeedbackEndpoint": "http://localhost:3000/feedback-api/feedback",
     "apiUsersEndPointAuth": "http://localhost:3000/user-api/authentication/authenticate-user",
-    "apiUsersEndPointRegister": "http://localhost:3000/user-api/authentication/register-user",
     "apiGamesEndpointMinecraft": "http://localhost:3000/game-api/get-minecraft-info",
     "apiSystemMonitorEndpointSystemInfo": "http://localhost:3000/system-monitor-api/get-system-usage"
 }

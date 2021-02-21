@@ -42,7 +42,6 @@ export class ArticlePageComponent implements OnInit {
     });
     this.articleService.getObject(id).subscribe(article =>{
       if(article) {
-        console.log(article);
         this.article = article;
       }
     })
@@ -50,8 +49,6 @@ export class ArticlePageComponent implements OnInit {
 
   isArticleOwnerOrAdmin() {
     const currentUser: UserModel = this.authenticationService.getCurrentUser();
-    console.log(this.article.authorUserName);
-    console.log(currentUser.username);
     return (currentUser.role === Role.Admin) ||
             (currentUser.username === this.article.authorUserName);
   }
