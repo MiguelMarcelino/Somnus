@@ -3,6 +3,27 @@ All changes made to this project will be documented in this file
 
 ## [RELEASED]
 ---------------------------------------------------------
+## [0.2.1] - 2021-02-21
+### Added
+- New User profile page
+- User roles for website
+- User login component now sending userDto to backend
+
+### Changed
+- Corrected Minecraft Api error
+- Fixed Apache reload problem
+
+---------------------------------------------------------
+## [0.2.1] - 2021-02-20
+### Added
+- New server stats component added for temporary demonstration
+- New Crafatar image for Minecraft in frontend based on
+players uuids
+
+### Changed
+- Minor interface bugs fixed
+
+---------------------------------------------------------
 ## [0.2.1] - 2021-02-11
 ### Added
 - Properties for security
