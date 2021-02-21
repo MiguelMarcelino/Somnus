@@ -3,6 +3,8 @@ import { ArticleModel } from 'src/app/models/article.model';
 import { ArticlesService } from 'src/app/services/controllers/articles-controller.service';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ErrorInterface } from 'src/handlers/error-interface';
+import { Role } from 'src/app/models/role.model';
 
 @Component({
   selector: 'app-articles-section',
@@ -14,11 +16,13 @@ export class ArticlesSectionComponent implements OnInit {
   articles: ArticleModel[] = [];
   noArticles: boolean = false;
   loading: boolean = true;
+  canCreateArticles = false;
 
   constructor(
     private articleService: ArticlesService,
     private authenticationService: AuthenticationService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private errorInterface: ErrorInterface,
   ) { }
 
   ngOnInit(): void {
@@ -29,6 +33,11 @@ export class ArticlesSectionComponent implements OnInit {
         this.getSearchArticles(params.params.value);
       }
     });
+    
+    const currentUser = this.authenticationService.getCurrentUser();
+    if(currentUser.role === Role.Admin || currentUser.role === Role.Editor) {
+      this.canCreateArticles = true;
+    }
   }
 
   getArticles(): void {

@@ -11,8 +11,9 @@ import { ArticlesSectionComponent } from './components/articles-section/articles
 import { ArticlePageComponent } from './components/article-page/article-page.component';
 import { AuthGuard } from './services/authentication/auth-guard.service';
 import { RegisterComponent } from './components/register/register.component';
-import { FooterComponent } from './components/footer/footer.component';
 import { GamesPageComponent } from './components/games-page/games-page.component';
+import { Role } from './models/role.model';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 const routes: Routes = [
   {
@@ -47,7 +48,8 @@ const routes: Routes = [
   {
     path: 'createArticle',
     component: CreateArticlesSectionComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Editor, Role.Admin]}
   },
   {
     path: 'articles',
@@ -65,7 +67,12 @@ const routes: Routes = [
     path: 'games',
     component: GamesPageComponent,
     canActivate: [AuthGuard]
-  }
+  },
+  {
+    path: "user-profile",
+    component: UserProfileComponent,
+    canActivate: [AuthGuard]
+  },
 ];
 
 @NgModule({

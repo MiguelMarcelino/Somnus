@@ -1,0 +1,81 @@
+
+.page-content {
+    display: grid;
+    margin-top: 30pt;
+}
+
+a{
+    color: white;
+    text-decoration: none
+}
+
+.user-info-wrapper{
+    width: 100%;
+    margin-bottom: 20pt;
+}
+
+
+.info-wrapper {
+    width: 100%;
+    overflow: hidden;
+}
+
+.img-left {
+    float: left;
+    width: 20%;
+    padding-right: 20pt;
+    text-align: center;
+    position: relative;
+}
+
+.content-right {
+    float: right;
+    width: 80%;
+}
+
+.user-profile-img {
+    max-width: 140pt;
+    max-height: 140pt;
+    border: 1pt solid rgb(107, 107, 107);
+    border-radius: 50%;
+    transition: 0.5s ease;
+}
+
+.info-left{
+    float: left;
+    width: 25%;
+    text-align: left;
+}
+
+.info-right {
+    float: right;
+    width: 75%;
+    text-align: center;
+}
+
+@media only screen and (max-width: 1000px){
+    .img-left {
+        width: 30%;
+    }
+    
+    .content-right {
+        width: 70%;
+    }
+
+}
+
+@media only screen and (max-width: 750px){
+
+    .img-left {
+        margin-bottom: 20pt;
+        width: 100%;
+        padding: 0pt;
+    }
+
+    .content-right {
+        text-align: center;
+        width: 100%;
+    }
+
+    
+}

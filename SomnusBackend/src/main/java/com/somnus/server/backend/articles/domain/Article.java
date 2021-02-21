@@ -69,6 +69,10 @@ public class Article {
         return this.id;
     }
 
+    public User getAuthor() {
+        return author;
+    }
+
     public String getArticleName() {
         return articleName;
     }

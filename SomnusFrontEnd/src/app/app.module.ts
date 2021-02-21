@@ -34,6 +34,7 @@ import { SystemInfoComponent } from './components/system-info/system-info.compon
 import { GaugeChartComponent } from './components/gauge-chart/gauge-chart.component';
 import { NgxGaugeModule } from 'ngx-gauge';
 import { TempServerInfoComponent } from './components/temp-server-info/temp-server-info.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { TempServerInfoComponent } from './components/temp-server-info/temp-serv
     SystemInfoComponent,
     GaugeChartComponent,
     TempServerInfoComponent,
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule,

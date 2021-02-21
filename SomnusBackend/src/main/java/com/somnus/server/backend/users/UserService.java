@@ -11,6 +11,7 @@ import com.somnus.server.backend.users.dto.UserDto;
 import com.somnus.server.backend.users.repository.RoleRepository;
 import com.somnus.server.backend.users.repository.UserRepository;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -57,16 +58,17 @@ public class UserService implements UserDetailsService {
         User user = userRepository.findByUserName(firebaseTokenHolder.getUid());
         if(user == null) {
             user = new User(firebaseTokenHolder.getUid(),
-                    firebaseTokenHolder.getEmail(), rolesHandler.getRole(Role.USER));
+                    firebaseTokenHolder.getEmail(), rolesHandler.getRole(Role.USER),
+                    Role.USER);
             userRepository.save(user);
         }
 
         // get user roles
-        List<String> roles = new ArrayList<>();
-        user.getAuthorities().stream().forEach(auth -> roles.add(auth.getAuthority()));
+        // List<String> roles = new ArrayList<>();
+        // user.getAuthorities().stream().forEach(auth -> roles.add(auth.getAuthority()));
 
         // create new UserDto
-        return new UserDto(user.getUsername(), user.getEmail(), roles);
+        return new UserDto(user.getId(), user.getUsername(), user.getEmail(), user.getRole().name);
     }
 
     public UserDto registerUser(String firebaseToken, UserDto userDto) {
@@ -79,15 +81,50 @@ public class UserService implements UserDetailsService {
         User user = userRepository.findByUserName(firebaseTokenHolder.getUid());
         if(user == null) {
             user = new User(firebaseTokenHolder.getUid(), firebaseTokenHolder.getEmail(),
-                    userDto.getFirstName(), userDto.getLastName(), rolesHandler.getRole(Role.USER));
+                    userDto.getFirstName(), userDto.getLastName(), rolesHandler.getRole(Role.USER),
+                    Role.USER);
             userRepository.save(user);
         }
 
         // get user roles
-        List<String> roles = new ArrayList<>();
-        user.getAuthorities().forEach(auth -> roles.add(auth.getAuthority()));
+        // List<String> roles = new ArrayList<>();
+        // user.getAuthorities().forEach(auth -> roles.add(auth.getAuthority()));
 
         // create new UserDto
-        return new UserDto(user.getUsername(), user.getEmail(), user.getFirstName(), user.getLastName(), roles);
+        return new UserDto(user.getId(), user.getUsername(), user.getEmail(), user.getFirstName(), user.getLastName(), user.getRole().name);
+    }
+
+    /**
+     * Changes an already existent user and returns the user with the new information
+     * @param user - user trying to modify the saved user data
+     * @param userDto - parameters to change
+     * @return - new user information
+     */
+    public UserDto changeUser(User user, UserDto userDto) {
+        if(!user.getRole().equals(Role.ADMIN) ||
+            !user.getUsername().equals(userDto)) {
+            throw new SomnusException(ErrorMessage.ROLE_NOT_ALLOWED);
+        }
+
+        User userToModify = this.userRepository.findByUserName(userDto.getUsername());
+        if(userToModify == null) {
+            throw new SomnusException(ErrorMessage.NO_USER_FOUND);
+        }
+
+        userToModify.setUsername(userDto.getUsername());
+        userToModify.setEmail(userDto.getEmail());
+        userToModify.setFirstName(userDto.getFirstName());
+        userToModify.setLastName(userDto.getLastName());
+
+        if(!Strings.isBlank(userDto.getRole()) &&
+                user.getRole().equals(Role.ADMIN)) {
+            Role newUserRole = Role.valueOf(userDto.getRole().replace(" ", "_").toUpperCase());
+            userToModify.setRole(newUserRole);
+        }
+
+        this.userRepository.save(userToModify);
+
+        return new UserDto(userToModify.getId(), userToModify.getUsername(), userToModify.getEmail(),
+                userToModify.getFirstName(), userToModify.getLastName(), userToModify.getRole().name);
     }
 }

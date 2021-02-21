@@ -34,6 +34,11 @@ public class MinecraftApiCommunication {
         JSONObject minecraftInfo = new JSONObject(response);
 
         boolean online = minecraftInfo.getBoolean("online");
+        if(!online) {
+            return new MinecraftInfoDto(false, "No version available", "somnus",
+                    "No software available", 0, new ArrayList<>());
+        }
+
         String version = minecraftInfo.getString("version");
         String hostname = minecraftInfo.getString("hostname");
         String software = minecraftInfo.getString("software");

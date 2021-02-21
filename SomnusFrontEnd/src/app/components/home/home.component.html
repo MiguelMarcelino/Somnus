@@ -59,6 +59,10 @@
                     <mat-card-subtitle>{{user?.email}}</mat-card-subtitle>
                 </mat-card-header>
             </mat-card>
+            <button mat-menu-item routerLink="/user-profile">
+                <mat-icon>person</mat-icon>
+                <span>User Profile</span>
+            </button>
             <button mat-menu-item (click)="logout()">
                 <mat-icon>exit_to_app</mat-icon>
                 <span>Sign out</span>
