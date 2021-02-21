@@ -25,6 +25,9 @@ public class User implements UserDetails {
     @Column(name = "last_name")
     private String lastName;
 
+    @Column(name = "display_name")
+    private String displayName;
+
     @Column(name = "password")
     private String password;
 
@@ -56,12 +59,14 @@ public class User implements UserDetails {
     private final boolean accountNonExpired = true;
 
 
-    public User(){}
+    public User() {
+    }
 
-    public User(String username, String email, String firstName, String lastName, List<RoleEntity> adminRoles,
+    public User(String username, String email, String displayName, String firstName, String lastName, List<RoleEntity> adminRoles,
                 Role role) {
         this.username = username;
         this.email = email;
+        this.displayName = displayName;
         this.firstName = firstName;
         this.lastName = lastName;
         this.authorities = adminRoles;
@@ -106,6 +111,10 @@ public class User implements UserDetails {
 
     public String getEmail() {
         return email;
+    }
+
+    public String getDisplayName() {
+        return displayName;
     }
 
     public String getFirstName() {

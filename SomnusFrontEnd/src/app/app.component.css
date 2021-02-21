@@ -10,7 +10,8 @@
     text-align: center;
     width: 90%;
     padding: 10pt;
-    padding-bottom: 130pt;
+    margin-bottom: 130pt;
+    min-height: fit-content;
 }
 
 .footer-content{
@@ -19,16 +20,12 @@
     bottom:0;
     width: 100%;
     padding-top: 5pt;
-    height: 130pt;
+    height: 125pt;
 }
 
 @media only screen and (max-width: 700) {
     .main-content {
         width: 100%;
-    }
-
-    .footer-content{
-        padding-top: 0pt;
     }
 }
 

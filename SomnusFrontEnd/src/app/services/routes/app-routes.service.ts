@@ -61,12 +61,6 @@ export class AppRoutesService {
         return this.appRoutes.apiUsersEndPointAuth;
     }
 
-    // User Registration
-    get apiUsersEndPointRegister(): string {
-        this.isLoaded();
-        return this.appRoutes.apiUsersEndPointRegister;
-    }
-
     get apiGamesEndpointMinecraft(): string {
         this.isLoaded();
         return this.appRoutes.apiGamesEndpointMinecraft;

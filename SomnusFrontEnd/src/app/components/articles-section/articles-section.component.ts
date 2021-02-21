@@ -13,6 +13,9 @@ import { Role } from 'src/app/models/role.model';
 })
 export class ArticlesSectionComponent implements OnInit {
 
+  // app user
+  user: firebase.default.User;
+
   articles: ArticleModel[] = [];
   noArticles: boolean = false;
   loading: boolean = true;
@@ -33,11 +36,16 @@ export class ArticlesSectionComponent implements OnInit {
         this.getSearchArticles(params.params.value);
       }
     });
-    
-    const currentUser = this.authenticationService.getCurrentUser();
-    if(currentUser.role === Role.Admin || currentUser.role === Role.Editor) {
-      this.canCreateArticles = true;
-    }
+    this.authenticationService.getLoggedInUser()
+      .subscribe (user => {
+        this.user = user;
+        const currentUser = this.authenticationService.getCurrentUser();
+        if(currentUser && currentUser.role) {
+          if(currentUser.role === Role.Admin || currentUser.role === Role.Editor) {
+            this.canCreateArticles = true;
+          }
+        } 
+    });
   }
 
   getArticles(): void {

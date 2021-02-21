@@ -15,15 +15,15 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping(value = "/authentication/authenticate-user")
-    public UserDto authenticateUser(@RequestHeader String firebaseToken){
-        return userService.authenticateUser(firebaseToken);
+    @PostMapping(value = "/authentication/authenticate-user")
+    public UserDto authenticateUser(@RequestHeader String firebaseToken, @RequestBody UserDto userDto){
+        return userService.authenticateUser(firebaseToken, userDto);
     }
 
-    @PostMapping(value = "/authentication/register-user")
-    public UserDto registerUser(@RequestHeader String firebaseToken, @RequestBody UserDto userDto){
-        return userService.registerUser(firebaseToken, userDto);
-    }
+//    @PostMapping(value = "/authentication/register-user")
+//    public UserDto registerUser(@RequestHeader String firebaseToken, @RequestBody UserDto userDto){
+//        return userService.registerUser(firebaseToken, userDto);
+//    }
 
     @PostMapping(value = "/change-user-role")
     public UserDto changeUser(Principal principal, @RequestBody UserDto userDto) {

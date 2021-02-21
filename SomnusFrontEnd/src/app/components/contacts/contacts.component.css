@@ -1,4 +1,8 @@
 
+.wrapper {
+    margin-bottom: 130pt;
+}
+
 mat-form-field.mat-form-field {
     width: 100%;
     font-size: 14pt;
@@ -54,5 +58,21 @@ mat-form-field.mat-form-field {
     
     .contact-form {
         width: 100%;
+    }
+
+    .wrapper {
+        margin-bottom: 300pt;
+    }
+}
+
+@media only screen and (max-width:500px) {
+    .wrapper {
+        margin-bottom: 400pt;
+    }
+}
+
+@media only screen and (max-width:300px) {
+    .wrapper {
+        margin-bottom: 500pt;
     }
 }
