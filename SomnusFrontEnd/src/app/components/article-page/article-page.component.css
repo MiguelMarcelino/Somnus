@@ -10,3 +10,7 @@ h2,h3 {
 .article-text {
     padding-top: 20pt;
 }
+
+.delete-button {
+    float: left;
+}

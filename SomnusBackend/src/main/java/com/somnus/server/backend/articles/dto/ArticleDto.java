@@ -15,6 +15,7 @@ public class ArticleDto implements Serializable {
     private String id;
     private String articleName;
     private String authorUserName;
+    private String userId;
     private String description;
     private String datePublished;
     private String topic;
@@ -22,11 +23,12 @@ public class ArticleDto implements Serializable {
 
     public ArticleDto() {}
 
-    public ArticleDto(String id, String articleName, String authorUserName, String description,
+    public ArticleDto(String id, String articleName, String authorUserName, String userId, String description,
                       LocalDateTime datePublished, String topic, String content) {
         this.id = id;
         this.articleName = articleName;
         this.authorUserName = authorUserName;
+        this.userId = userId;
         this.description = description;
         this.datePublished = datePublished.format(DateTimeFormatter.ISO_DATE);
         this.topic = topic;
@@ -43,6 +45,10 @@ public class ArticleDto implements Serializable {
 
     public String getAuthorUserName() {
         return authorUserName;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 
     public String getDescription() {

@@ -37,6 +37,12 @@ public class User implements UserDetails {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
+    @Column(name = "role", nullable = false)
+    private Role role;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<RoleEntity> authorities;
+
     @Column(name = "enabled")
     private final boolean enabled = true;
 
@@ -49,25 +55,26 @@ public class User implements UserDetails {
     @Column(name = "account_non_expired")
     private final boolean accountNonExpired = true;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<RoleEntity> authorities;
 
     public User(){}
 
-    public User(String username, String email, String firstName, String lastName, List<RoleEntity> adminRoles) {
+    public User(String username, String email, String firstName, String lastName, List<RoleEntity> adminRoles,
+                Role role) {
         this.username = username;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.authorities = adminRoles;
         this.createdAt = DateHandler.now();
+        this.role = role;
     }
 
-    public User(String username, String email, List<RoleEntity> roles) {
+    public User(String username, String email, List<RoleEntity> roles, Role role) {
         this.username = username;
         this.email = email;
         this.authorities = roles;
         this.createdAt = DateHandler.now();
+        this.role = role;
     }
 
     public User(String username, String email) {
@@ -80,7 +87,7 @@ public class User implements UserDetails {
     }
 
     @Override
-    public Collection<RoleEntity> getAuthorities() {
+    public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
     }
 
@@ -109,6 +116,10 @@ public class User implements UserDetails {
         return lastName;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return accountNonExpired;
@@ -127,6 +138,26 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return enabled;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
 }

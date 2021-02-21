@@ -95,8 +95,8 @@ public class ArticleService {
         Article article = articleRepository.getOne(id);
 
         // Article can only be deleted by the person who wrote it or the admin
-        if(!article.getAuthorUserName().equals(user.getUsername()) ||
-            !user.getAuthorities().contains(roleEntity)) {
+        if(!article.getAuthor().getUsername().equals(user.getUsername()) &&
+            !user.getAuthorities().equals(roleEntity)) {
             throw new SomnusException(ErrorMessage.DELETE_ARTICLE_NOT_ALLOWED);
         }
 
@@ -118,7 +118,7 @@ public class ArticleService {
 
     private ArticleDto createArticleDto(Article article) {
         return new ArticleDto(String.valueOf(article.getId()), article.getArticleName(),
-                article.getAuthorUserName(), article.getDescription(), article.getDatePublished(),
+                article.getAuthorUserName(), article.getAuthor().getUsername(), article.getDescription(), article.getDatePublished(),
                 article.getTopic().name, article.getContent());
     }
 }

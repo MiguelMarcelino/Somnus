@@ -105,7 +105,7 @@ export class CreateArticlesSectionComponent implements OnInit {
       return;
     }
 
-    let articleModel = {"articleName": artName, "authorUserName": this.currentUser.displayName, "description": description, 
+    let articleModel = {"articleName": artName, "authorUserName": this.currentUser.displayName, "userId": this.currentUser.uid, "description": description, 
       datePublished: new Date(), 'topic': topic, 'content': content};
     this.articlesController.addObject(articleModel).subscribe(id => {
       this.router.navigateByUrl("/articles");

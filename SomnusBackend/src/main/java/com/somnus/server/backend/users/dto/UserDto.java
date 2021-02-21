@@ -7,27 +7,29 @@ import java.util.List;
 
 public class UserDto implements Serializable {
 
+    private int id;
     private String username;
     private String firstName;
     private String lastName;
     private String email;
     private String role;
-    private List<String> roles;
 
     private UserDto() {}
 
-    public UserDto(String username, String email, List<String> roles) {
+    public UserDto(Integer id, String username, String email, String role) {
+        this.id = id;
         this.username = username;
         this.email = email;
-        this.roles = roles;
+        this.role = role;
     }
 
-    public UserDto(String username, String email, String firstName, String lastName, List<String> roles) {
+    public UserDto(Integer id, String username, String email, String firstName, String lastName, String role) {
+        this.id = id;
         this.username = username;
         this.email = email;
-        this.firstName = username;
+        this.firstName = firstName;
         this.lastName = lastName;
-        this.roles = roles;
+        this.role = role;
     }
 
     public String getUsername() {
@@ -46,7 +48,7 @@ public class UserDto implements Serializable {
         return lastName;
     }
 
-    public List<String> getRole() {
-        return roles;
+    public String getRole() {
+        return role;
     }
 }
