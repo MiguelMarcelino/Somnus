@@ -6,6 +6,9 @@ import com.somnus.server.backend.articles.domain.ArticleTopic;
 import com.somnus.server.backend.articles.dto.ArticleDto;
 import com.somnus.server.backend.exceptions.ErrorMessage;
 import com.somnus.server.backend.exceptions.SomnusException;
+import com.somnus.server.backend.users.RolesHandler;
+import com.somnus.server.backend.users.domain.Role;
+import com.somnus.server.backend.users.domain.RoleEntity;
 import com.somnus.server.backend.users.domain.User;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +29,9 @@ public class ArticleService {
 
     @Autowired
     private ArticleRepository articleRepository;
+
+    @Autowired
+    private RolesHandler rolesHandler;
 
     @Retryable(
             value = {SQLException.class},
@@ -84,7 +90,16 @@ public class ArticleService {
             value = {SQLException.class},
             backoff = @Backoff(delay = 5000))
     @Transactional(isolation = Isolation.READ_COMMITTED)
-    public void deleteArticle(Integer id) {
+    public void deleteArticle(User user, Integer id) {
+        RoleEntity roleEntity = new RoleEntity(Role.ADMIN.name);
+        Article article = articleRepository.getOne(id);
+
+        // Article can only be deleted by the person who wrote it or the admin
+        if(!article.getAuthorUserName().equals(user.getUsername()) ||
+            !user.getAuthorities().contains(roleEntity)) {
+            throw new SomnusException(ErrorMessage.DELETE_ARTICLE_NOT_ALLOWED);
+        }
+
         articleRepository.deleteById(id);
     }
 

@@ -4,7 +4,9 @@ public enum ErrorMessage {
     NO_ARTICLE_FOUND("No article found"),
     NO_TEAMMEMBER_FOUND("No team member found."),
     NO_USER_FOUND("No user found in database"),
-    NO_TOPIC_PROVIDED("There is no topic provided for the given article"),
+    NO_TOPIC_PROVIDED("There is no topic provided for the given article."),
+    ROLE_NOT_ALLOWED("This role is not allowed."),
+    DELETE_ARTICLE_NOT_ALLOWED("The current user is not the owner of the article."),
 
     ACCESS_DENIED("You do not have permission to access the requested resource"),
     BAD_REQUEST("Malformed Request"),

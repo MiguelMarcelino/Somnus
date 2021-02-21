@@ -32,6 +32,8 @@ import { GlobalErrorHandler } from 'src/handlers/global-error-handler';
 import { GamesPageComponent } from './components/games-page/games-page.component';
 import { SystemInfoComponent } from './components/system-info/system-info.component';
 import { GaugeChartComponent } from './components/gauge-chart/gauge-chart.component';
+import { NgxGaugeModule } from 'ngx-gauge';
+import { TempServerInfoComponent } from './components/temp-server-info/temp-server-info.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +55,7 @@ import { GaugeChartComponent } from './components/gauge-chart/gauge-chart.compon
     GamesPageComponent,
     SystemInfoComponent,
     GaugeChartComponent,
+    TempServerInfoComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,7 +68,8 @@ import { GaugeChartComponent } from './components/gauge-chart/gauge-chart.compon
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
-    QuillModule.forRoot()
+    QuillModule.forRoot(),
+    NgxGaugeModule
   ],
   providers: [
     {

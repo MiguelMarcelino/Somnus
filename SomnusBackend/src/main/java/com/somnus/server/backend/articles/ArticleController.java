@@ -40,8 +40,10 @@ public class ArticleController {
     }
 
     @DeleteMapping(value = "/article/delete/{id}")
-    public void deleteArticle(@PathVariable Integer id) {
-        articleService.deleteArticle(id);
+    public void deleteArticle(Principal principal, @PathVariable Integer id) {
+        User user = (User) ((Authentication) principal).getPrincipal();
+
+        articleService.deleteArticle(user, id);
     }
 
     @GetMapping(value = "/article/search/{articleName}")
