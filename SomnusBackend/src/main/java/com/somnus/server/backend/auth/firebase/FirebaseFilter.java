@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.somnus.server.backend.auth.SecurityConstants.FIREBASE_HEADER_NAME;
+import static com.somnus.server.backend.auth.SecurityConstants.*;
 
 /**
  * @author prvoslav
@@ -37,7 +37,8 @@ public class FirebaseFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         String xAuth = request.getHeader(FIREBASE_HEADER_NAME);
-        if (StringUtils.isBlank(xAuth)) {
+        String loginHeader = request.getHeader(AUTHENTICATE_USER_HEADER_NAME);
+        if (StringUtils.isBlank(xAuth) || !StringUtils.isBlank(loginHeader)) {
             filterChain.doFilter(request, response);
             return;
         } else {

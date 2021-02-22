@@ -3,13 +3,29 @@ All changes made to this project will be documented in this file
 
 ## [RELEASED]
 ---------------------------------------------------------
-## [0.2.1] - 2021-02-11
+## [0.2.1] - 2021-02-22
+### Changed
+- Fixed minor bug in firebase tokens
+
+---------------------------------------------------------
+## [0.2.1] - 2021-02-21
+### Added
+- New user page
+
+### Changed
+- Corrected Apache refresh error
+- Fixed interface bugs
+- New backend interface for changing users
+
+---------------------------------------------------------
+## [0.2.1] - 2021-02-20
 ### Added
 - Properties for security
 - Release info
 
 ### Changed
 - Minor changes in Contributions Service
+
 ---------------------------------------------------------
 ## [0.2.1] - 2021-02-11
 ### Added
@@ -21,6 +37,7 @@ All changes made to this project will be documented in this file
 ### Changed
 - Updated README with new project instructions
 - Fixed submit article form bugs
+
 ---------------------------------------------------------
 ## [0.2.1] - 2021-02-10
 ### Added
@@ -28,6 +45,7 @@ All changes made to this project will be documented in this file
 
 ### Changed
 - Users cannot submit empty feedbacks anymore
+
 ---------------------------------------------------------
 ## [0.2.1] - 2021-02-09
 ### Added
