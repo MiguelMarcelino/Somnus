@@ -1,5 +1,7 @@
 package com.somnus.server.backend.exceptions;
 
+import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.FirebaseAuthException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -16,6 +18,7 @@ public class SomnusExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(SomnusException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public SomnusExceptionDto somnusException(SomnusException e) {
+        System.out.println("ola");
         return new SomnusExceptionDto(ErrorMessage.BAD_REQUEST.message, e.getMessage());
     }
 

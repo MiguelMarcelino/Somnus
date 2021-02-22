@@ -3,10 +3,12 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, from, Observable, of} from 'rxjs';
 import { UserModel } from 'src/app/models/user.model';
-import { first } from 'rxjs/operators';
+import { first, switchMap, take } from 'rxjs/operators';
 import { UserController } from '../controllers/user-controller.service';
+import 'rxjs/add/observable/fromPromise';
+import 'rxjs/add/operator/mergeMap';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,7 @@ import { UserController } from '../controllers/user-controller.service';
 export class AuthenticationService  {
 
   private static CURRENT_USER_STORAGE_NAME: string = "currentUser";
-  private static TOKEN_STORAGE_NAME: string = "token";
+  // private static TOKEN_STORAGE_NAME: string = "token";
   
   private currentUser: UserModel;
 
@@ -106,6 +108,23 @@ export class AuthenticationService  {
     return user;
   }
 
+  getUserObservable (): Observable<firebase.default.User> {
+    // return Observable.fromPromise(this.isLoggedIn());
+    return this.angularFireAuth.authState;
+  }
+
+  getToken(): Observable<string | null> {
+    return this.angularFireAuth.authState.pipe(
+      take(1),
+      switchMap((user) => {
+        if (user) {
+          return from(user.getIdToken())
+        }
+        return of(null);
+      })
+    )
+  }
+  
   logout() {
     this.removeFromLocalStorage();
     this.angularFireAuth.signOut();
@@ -136,12 +155,12 @@ export class AuthenticationService  {
   }
 
   private saveToLocalStorage(token: string, user: UserModel) {
-    localStorage.setItem(AuthenticationService.TOKEN_STORAGE_NAME, token);
+    // localStorage.setItem(AuthenticationService.TOKEN_STORAGE_NAME, token);
     localStorage.setItem(AuthenticationService.CURRENT_USER_STORAGE_NAME, JSON.stringify(user));
   }
 
   private removeFromLocalStorage() {
-    localStorage.removeItem(AuthenticationService.TOKEN_STORAGE_NAME);
+    // localStorage.removeItem(AuthenticationService.TOKEN_STORAGE_NAME);
     localStorage.removeItem(AuthenticationService.CURRENT_USER_STORAGE_NAME);
   }
 
