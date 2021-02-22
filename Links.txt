@@ -49,3 +49,6 @@ ng update | awk -v re='@[[:alnum:]]' '$0 ~ re {printf $1 " "}' | xargs ng update
 
 Angular gauges
 https://github.com/ashish-chopra/ngx-gauge
+
+Fix tokens
+https://stackoverflow.com/questions/58625642/how-to-fix-typeerror-cannot-read-property-getidtoken-of-null-on-browser-ref
