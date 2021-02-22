@@ -24,13 +24,14 @@ players uuids
 - Minor interface bugs fixed
 
 ---------------------------------------------------------
-## [0.2.1] - 2021-02-11
+## [0.2.1] - 2021-02-19
 ### Added
 - Properties for security
 - Release info
 
 ### Changed
 - Minor changes in Contributions Service
+
 ---------------------------------------------------------
 ## [0.2.1] - 2021-02-11
 ### Added
@@ -42,6 +43,7 @@ players uuids
 ### Changed
 - Updated README with new project instructions
 - Fixed submit article form bugs
+
 ---------------------------------------------------------
 ## [0.2.1] - 2021-02-10
 ### Added
@@ -49,6 +51,7 @@ players uuids
 
 ### Changed
 - Users cannot submit empty feedbacks anymore
+
 ---------------------------------------------------------
 ## [0.2.1] - 2021-02-09
 ### Added
