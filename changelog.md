@@ -3,6 +3,12 @@ All changes made to this project will be documented in this file
 
 ## [RELEASED]
 ---------------------------------------------------------
+## [0.2.1] - 2021-02-23
+### Changed
+- Fixed bug when creating and deleting articles
+- Users are now redirected to homepage after logout
+
+---------------------------------------------------------
 ## [0.2.1] - 2021-02-22
 ### Changed
 - Fixed minor bug in firebase tokens
