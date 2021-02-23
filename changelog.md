@@ -2,16 +2,22 @@
 All changes made to this project will be documented in this file
 
 ## [RELEASED]
+## [0.2.1] - 2021-02-23
+### Changed
+- Fixed bug when creating and deleting articles
+- Users are now redirected to homepage after logout
+
+---------------------------------------------------------
+## [0.2.1] - 2021-02-22
+### Changed
+- Corrected Minecraft Api error
+- Fixed Apache reload problem
 ---------------------------------------------------------
 ## [0.2.1] - 2021-02-21
 ### Added
 - New User profile page
 - User roles for website
 - User login component now sending userDto to backend
-
-### Changed
-- Corrected Minecraft Api error
-- Fixed Apache reload problem
 
 ---------------------------------------------------------
 ## [0.2.1] - 2021-02-20

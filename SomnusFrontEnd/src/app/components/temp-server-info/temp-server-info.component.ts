@@ -64,7 +64,9 @@ export class TempServerInfoComponent implements OnInit {
   }
 
   updateGauges():void{
-    this.getSystemInfoData();
+    if(this.user) {
+      this.getSystemInfoData();
+    }
   }
 
   getSystemInfoData() {

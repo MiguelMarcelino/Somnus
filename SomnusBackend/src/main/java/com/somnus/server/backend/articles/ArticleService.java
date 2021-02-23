@@ -91,12 +91,11 @@ public class ArticleService {
             backoff = @Backoff(delay = 5000))
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public void deleteArticle(User user, Integer id) {
-        RoleEntity roleEntity = new RoleEntity(Role.ADMIN.name);
         Article article = articleRepository.getOne(id);
 
         // Article can only be deleted by the person who wrote it or the admin
         if(!article.getAuthor().getUsername().equals(user.getUsername()) &&
-            !user.getAuthorities().equals(roleEntity)) {
+            !user.getRole().equals(Role.ADMIN)) {
             throw new SomnusException(ErrorMessage.DELETE_ARTICLE_NOT_ALLOWED);
         }
 
