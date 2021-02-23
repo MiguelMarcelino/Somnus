@@ -128,6 +128,7 @@ export class AuthenticationService  {
   logout() {
     this.removeFromLocalStorage();
     this.angularFireAuth.signOut();
+    this.router.navigateByUrl("/");
   }
 
   public isLoggedIn() {
