@@ -49,8 +49,8 @@ export class ArticlePageComponent implements OnInit {
 
   isArticleOwnerOrAdmin() {
     const currentUser: UserModel = this.authenticationService.getCurrentUser();
-    return (currentUser.role === Role.Admin) ||
-            (currentUser.username === this.article.authorUserName);
+    return currentUser && (currentUser.role === Role.Admin ||
+            currentUser.username === this.article.userId);
   }
 
   deleteArticle() {
