@@ -8,7 +8,6 @@ import com.somnus.server.backend.users.domain.Role;
 import com.somnus.server.backend.users.domain.RoleEntity;
 import com.somnus.server.backend.users.domain.User;
 import com.somnus.server.backend.users.dto.UserDto;
-import com.somnus.server.backend.users.repository.RoleRepository;
 import com.somnus.server.backend.users.repository.UserRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.util.Strings;
@@ -20,19 +19,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
-
-    @Autowired
-    private RoleRepository roleRepository;
 
     @Autowired
     private RolesHandler rolesHandler;
@@ -43,12 +36,12 @@ public class UserService implements UserDetailsService {
         if (user == null)
             throw new SomnusException(ErrorMessage.NO_USER_FOUND);
 
-        List<RoleEntity> grantedAuthorities = new ArrayList<>();
-        for (GrantedAuthority role : user.getAuthorities()) {
-            grantedAuthorities.add(new RoleEntity(role.getAuthority()));
-        }
+//        List<RoleEntity> grantedAuthorities = new ArrayList<>();
+//        for (GrantedAuthority role : user.getAuthorities()) {
+//            grantedAuthorities.add(new RoleEntity(role.getAuthority()));
+//        }
+//        user.setAuthorities(grantedAuthorities);
 
-        user.setAuthorities(grantedAuthorities);
         return user;
     }
 

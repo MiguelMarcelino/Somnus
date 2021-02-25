@@ -4,16 +4,25 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.somnus.server.backend.config.DateHandler;
+import com.somnus.server.backend.exceptions.ErrorMessage;
+import com.somnus.server.backend.exceptions.SomnusException;
 import com.somnus.server.backend.users.domain.User;
-import org.hibernate.annotations.Cascade;
+import org.hibernate.SessionFactory;
 import org.hibernate.annotations.Proxy;
+import org.hibernate.ejb.HibernateEntityManagerFactory;
+import org.springframework.boot.context.properties.bind.DefaultValue;
+import org.springframework.context.annotation.Bean;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
+import java.nio.charset.StandardCharsets;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "articles")
-@Proxy(lazy=false)
+@Proxy(lazy = false)
 public class Article {
 
     @Id
@@ -33,21 +42,28 @@ public class Article {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "last_update")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonFormat(pattern = "dd/MM/yyyy hh:mm")
+    private LocalDateTime lastUpdate = null;
+
     @Column(name = "date_published")
     @JsonDeserialize(using = LocalDateDeserializer.class)
-    @JsonFormat(pattern="dd/MM/yyyy hh:mm")
+    @JsonFormat(pattern = "dd/MM/yyyy hh:mm")
     private LocalDateTime datePublished;
 
     @Enumerated(EnumType.STRING)
     private ArticleTopic topic;
 
-    @Column(name = "content")
-    private String content;
+    @Lob
+    private byte[] content;
 
-    public Article () {}
+    public Article() {
+    }
 
     /**
      * Create a new Article for storing in Database
+     *
      * @param articleName
      * @param authorUserName
      * @param description
@@ -61,8 +77,9 @@ public class Article {
         this.authorUserName = authorUserName;
         this.description = description;
         this.datePublished = DateHandler.now();
+        this.lastUpdate = DateHandler.now();
         this.topic = topic;
-        this.content = content;
+        writeData(content);
     }
 
     public Integer getId() {
@@ -89,11 +106,40 @@ public class Article {
         return datePublished;
     }
 
+    public LocalDateTime getLastUpdate() {
+        return lastUpdate;
+    }
+
     public ArticleTopic getTopic() {
         return topic;
     }
 
     public String getContent() {
-        return content;
+        return new String(content, StandardCharsets.UTF_8);
+    }
+
+    public void setArticleName(String articleName) {
+        this.articleName = articleName;
+    }
+
+    public void updateLastUpdate() {
+        this.lastUpdate = DateHandler.now();
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setTopic(ArticleTopic topic) {
+        this.topic = topic;
+    }
+
+    public void setContent(String content) {
+        writeData(content);
+    }
+
+    private void writeData(String content) {
+        byte[] contentData = content.getBytes(StandardCharsets.UTF_8);
+        this.content = contentData;
     }
 }

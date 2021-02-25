@@ -16,7 +16,6 @@ import 'rxjs/add/operator/mergeMap';
 export class AuthenticationService  {
 
   private static CURRENT_USER_STORAGE_NAME: string = "currentUser";
-  // private static TOKEN_STORAGE_NAME: string = "token";
   
   private currentUser: UserModel;
 
@@ -109,7 +108,6 @@ export class AuthenticationService  {
   }
 
   getUserObservable (): Observable<firebase.default.User> {
-    // return Observable.fromPromise(this.isLoggedIn());
     return this.angularFireAuth.authState;
   }
 
@@ -137,7 +135,7 @@ export class AuthenticationService  {
 
   private sendUserInfoToBackend(token: string, user: UserModel) {
     this.userService.authenticateUser(token, user).subscribe(user => {
-      this.saveToLocalStorage(token, user);
+      this.saveToLocalStorage(user);
     },
     error => {
       this.removeFromLocalStorage();
@@ -147,7 +145,7 @@ export class AuthenticationService  {
 
   private registerUserBackend(token: string, expirationTime: string, user: UserModel) {
     this.userService.authenticateUser(token, user).subscribe(user => {
-      this.saveToLocalStorage(token, user);
+      this.saveToLocalStorage(user);
     },
     error => {
       this.removeFromLocalStorage();
@@ -155,25 +153,11 @@ export class AuthenticationService  {
     });
   }
 
-  private saveToLocalStorage(token: string, user: UserModel) {
-    // localStorage.setItem(AuthenticationService.TOKEN_STORAGE_NAME, token);
+  private saveToLocalStorage(user: UserModel) {
     localStorage.setItem(AuthenticationService.CURRENT_USER_STORAGE_NAME, JSON.stringify(user));
   }
 
   private removeFromLocalStorage() {
-    // localStorage.removeItem(AuthenticationService.TOKEN_STORAGE_NAME);
     localStorage.removeItem(AuthenticationService.CURRENT_USER_STORAGE_NAME);
   }
-
-  // checkExpirationTime(): string {
-  //   this.getLoggedInUser().toPromise().then(user => {
-  //     user.getIdTokenResult().then(token => {
-  //       token.expirationTime;
-  //       // if(Date.parse(token.expirationTime) < Date.now() ) {
-  //       //   this.logout();
-  //       //   localStorage.removeItem("token");
-  //       // }
-  //     });
-  //   })
-  // }
 }

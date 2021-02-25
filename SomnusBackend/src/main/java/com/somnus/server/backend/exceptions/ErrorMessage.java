@@ -7,6 +7,7 @@ public enum ErrorMessage {
     NO_TOPIC_PROVIDED("There is no topic provided for the given article."),
     ROLE_NOT_ALLOWED("This role is not allowed."),
     DELETE_ARTICLE_NOT_ALLOWED("The current user is not the owner of the article."),
+    CANNOT_PARSE_ARTICLE_DATA("Cannot parse Article data."),
 
     ACCESS_DENIED("You do not have permission to access the requested resource"),
     BAD_REQUEST("Malformed Request"),

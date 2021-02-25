@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ArticlesService } from 'src/app/services/controllers/articles-controller.service';
 import { ArticleModel } from 'src/app/models/article.model';
@@ -10,7 +10,7 @@ import { ErrorInterface } from 'src/handlers/error-interface';
 @Component({
   selector: 'app-article-page',
   templateUrl: './article-page.component.html',
-  styleUrls: ['./article-page.component.css']
+  styleUrls: ['./article-page.component.css'],
 })
 export class ArticlePageComponent implements OnInit {
 
@@ -40,7 +40,7 @@ export class ArticlePageComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.urlParams = {...params};
     });
-    this.articleService.getObject(id).subscribe(article =>{
+    this.articleService.getObject(id).subscribe((article: ArticleModel) =>{
       if(article) {
         this.article = article;
       }
@@ -62,5 +62,10 @@ export class ArticlePageComponent implements OnInit {
       this.router.navigateByUrl("/articles");
       this.errorInterface.setSuccessMessage("Successfully deleted Article!")
     });
+  }
+
+  editArticle() {
+    const id = this.route.snapshot.paramMap.get('id');
+    this.router.navigate(["/createArticle"], {queryParams: {id: id}});
   }
 }
