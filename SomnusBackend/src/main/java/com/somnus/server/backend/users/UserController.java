@@ -20,16 +20,10 @@ public class UserController {
         return userService.authenticateUser(firebaseToken, userDto);
     }
 
-//    @PostMapping(value = "/authentication/register-user")
-//    public UserDto registerUser(@RequestHeader String firebaseToken, @RequestBody UserDto userDto){
-//        return userService.registerUser(firebaseToken, userDto);
-//    }
-
     @PostMapping(value = "/change-user-role")
     public UserDto changeUser(Principal principal, @RequestBody UserDto userDto) {
         User user = (User) ((Authentication) principal).getPrincipal();
 
         return userService.changeUser(user, userDto);
     }
-
 }

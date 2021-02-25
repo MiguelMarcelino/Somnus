@@ -1,6 +1,6 @@
 
 <h2>Start Writing your own Article</h2>
-<div class="container">
+<div class="">
     <div>
         <form [formGroup]="editorForm" method="post">
             <!-- Article Name -->
@@ -23,7 +23,8 @@
             <br>
             <!-- Editor content -->
             <div class="form-group">
-                <app-quill-editor (onEditorContentChange)="setEditorContent($event)"></app-quill-editor>
+                <app-quill-editor *ngIf="!article" (onEditorContentChange)="setEditorContent($event)"></app-quill-editor>
+                <app-quill-editor *ngIf="article" (onEditorContentChange)="setEditorContent($event)" [article]="article"></app-quill-editor>
             </div>
         </form>    
     </div>

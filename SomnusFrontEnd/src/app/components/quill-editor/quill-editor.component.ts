@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { ArticleModel } from 'src/app/models/article.model';
+import { ArticlesService } from 'src/app/services/controllers/articles-controller.service';
 
 @Component({
   selector: 'app-quill-editor',
@@ -10,6 +12,9 @@ export class QuillEditorComponent implements OnInit {
 
   @Output() onEditorContentChange: EventEmitter<String> = new EventEmitter<String>();
   quillForm: FormGroup;
+
+  @Input()
+  article: ArticleModel;
 
   editorStyle = {
     height: '400pt',
@@ -26,16 +31,20 @@ export class QuillEditorComponent implements OnInit {
       ['link', 'image', 'video'],
     ]
   }
-  maxContentLength = 40000;
+  maxContentLength = 60000;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
     this.quillForm = this.formBuilder.group({
       'editor': new FormControl(''),
     });
+
+    if(this.article) {
+      this.quillForm.get("editor").setValue(this.article.content);
+    }
   }
 
   checkContent(e: any):void {

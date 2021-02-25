@@ -1,5 +1,10 @@
 
-h2,h3 {
+:host ::ng-deep h2 {
+    text-align: left;
+}
+
+
+:host ::ng-deep h3 {
     text-align: left;
 }
 
@@ -9,8 +14,32 @@ h2,h3 {
 
 .article-text {
     padding-top: 20pt;
+    text-align: left;
 }
 
 .delete-button {
     float: left;
+}
+
+:host ::ng-deep img {
+    height: auto;
+    width: 80%;
+}
+
+mat-expansion-panel{
+    width: 100%;
+    margin: 0 auto;
+    padding: 0%;
+}
+
+.article-options {
+    display: flex;
+    float: left;
+}
+
+.custom-button {
+    width:100pt;
+    padding: 5pt;
+    margin-right: 10pt;
+    text-align: center;
 }

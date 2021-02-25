@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { ArticlesService } from 'src/app/services/controllers/articles-controller.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { QuillEditorComponent } from 'ngx-quill';
 import { ErrorInterface } from 'src/handlers/error-interface';
+import { ArticleModel } from 'src/app/models/article.model';
 
 @Component({
   selector: 'app-create-articles-section',
@@ -19,11 +20,15 @@ export class CreateArticlesSectionComponent implements OnInit {
   articleTypes: String[];
   loading = false;
   submitted = false;
-  
+
+  article: ArticleModel;
+
   // from quill
   editorContent: String;
 
   constructor(
+    private route: ActivatedRoute,
+    private articleService: ArticlesService,
     private formBuilder: FormBuilder,
     private articlesController: ArticlesService,
     private authenticationService: AuthenticationService,
@@ -36,7 +41,10 @@ export class CreateArticlesSectionComponent implements OnInit {
       'article_name': new FormControl(''),
       'description': new FormControl(''),
       'type': new FormControl('')
-    }),
+    });
+
+    this.createArticleTypes();
+
     this.authenticationService.getLoggedInUser()
       .subscribe (user => {
         if(user) {
@@ -45,7 +53,30 @@ export class CreateArticlesSectionComponent implements OnInit {
           this.router.navigateByUrl["/articles"];
         }
     });
-    this.createArticleTypes();
+
+    this.populateArticleData();
+  }
+
+  // Gets the articles id from the params
+  populateArticleData() {
+    this.route.queryParamMap.subscribe((params: any) => {
+      if(params.params.id){
+        this.getArticle(params.params.id);
+      }
+    });
+  }
+
+  // gets the article with a given id
+  getArticle(id: string): void {
+    this.articleService.getObject(id).subscribe((article: ArticleModel) =>{
+      if(article) {
+        this.article = article;
+        this.editorForm.get('article_name').setValue(article.articleName);
+        this.editorForm.get('description').setValue(article.description);
+        this.editorForm.get('type').setValue(article.topic);
+        this.setEditorContent(article.content);
+      }
+    })
   }
 
   get form() {
@@ -105,8 +136,14 @@ export class CreateArticlesSectionComponent implements OnInit {
       return;
     }
 
-    let articleModel = {"articleName": artName, "authorUserName": this.currentUser.displayName, "userId": this.currentUser.uid, "description": description, 
-      datePublished: new Date(), 'topic': topic, 'content': content};
+    let articleModel: ArticleModel;
+    if(this.article) {
+      articleModel = {"id": this.article.id, "articleName": artName, "authorUserName": this.currentUser.displayName, "userId": this.currentUser.uid, "description": description, 
+      "datePublished": new Date(), "lastUpdate": new Date(),'topic': topic, 'content': content};
+    } else {
+      articleModel = {"articleName": artName, "authorUserName": this.currentUser.displayName, "userId": this.currentUser.uid, "description": description, 
+        "datePublished": new Date(), "lastUpdate": new Date(),'topic': topic, 'content': content};
+    }
     this.articlesController.addObject(articleModel).subscribe(id => {
       this.router.navigateByUrl("/articles");
     },
