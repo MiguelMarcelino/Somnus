@@ -2,6 +2,26 @@
 All changes made to this project will be documented in this file
 
 ## [RELEASED]
+---------------------------------------------------------
+## [0.2.1] - 2021-02-26
+### Added
+- New update user feature to user page
+- Integrated new feature from DiogoRasteiro
+
+### Changed
+- Updated login page and register page interface
+- Fixed minor interface bugs
+
+---------------------------------------------------------
+## [0.2.1] - 2021-02-25
+### Added
+- New update article feature
+- Started planning website transitions
+
+### Changed
+- Code cleanup in authentication service
+
+---------------------------------------------------------
 ## [0.2.1] - 2021-02-23
 ### Changed
 - Fixed bug when creating and deleting articles

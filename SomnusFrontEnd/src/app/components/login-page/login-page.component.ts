@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';

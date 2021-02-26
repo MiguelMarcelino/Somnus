@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { ArticleModel } from 'src/app/models/article.model';
 
 @Component({
   selector: 'app-quill-editor',
@@ -11,8 +12,11 @@ export class QuillEditorComponent implements OnInit {
   @Output() onEditorContentChange: EventEmitter<String> = new EventEmitter<String>();
   quillForm: FormGroup;
 
+  @Input()
+  article: ArticleModel;
+
   editorStyle = {
-    height: '400pt',
+    height: '700pt',
     backgroundColor: 'black',
     borderRadius: '4pt',
     color: 'white'
@@ -26,16 +30,48 @@ export class QuillEditorComponent implements OnInit {
       ['link', 'image', 'video'],
     ]
   }
-  maxContentLength = 40000;
+  maxContentLength = 60000;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: FormBuilder
   ) { }
+
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(event?) {
+    let screenHeight = window.innerHeight;
+    let screenWidth = window.innerWidth;
+    if(screenWidth < 500) {
+      this.editorStyle = {
+        height: '300pt',
+        backgroundColor: 'black',
+        borderRadius: '4pt',
+        color: 'white'
+      };
+    } else if (screenWidth < 800) {
+      this.editorStyle = {
+        height: '450pt',
+        backgroundColor: 'black',
+        borderRadius: '4pt',
+        color: 'white'
+      };
+    } else {
+      this.editorStyle = {
+        height: '700pt',
+        backgroundColor: 'black',
+        borderRadius: '4pt',
+        color: 'white'
+      };
+    }
+  }
 
   ngOnInit(): void {
     this.quillForm = this.formBuilder.group({
       'editor': new FormControl(''),
     });
+
+    if(this.article) {
+      this.quillForm.get("editor").setValue(this.article.content);
+    }
   }
 
   checkContent(e: any):void {

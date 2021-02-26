@@ -2,41 +2,30 @@
 <div class="page-style" *ngIf="isLoaded">
     <div class="row-fluid contact-form">
         <form [formGroup]="registerForm" (ngSubmit)="onSubmitRegister()" method="post">
-            <div class="form-group username-input">
-                <!-- First Name -->
-                <label for="username" class="control-label">Username</label>
-                <input type="text" class="form-control" id="username" formControlName="username" placeholder="Bob">
-            </div>
+            <mat-form-field appearance="fill">
+                <mat-label>First Name</mat-label>
+                <input type="text" matInput formControlName="first_name" placeholder="Bob">
+            </mat-form-field>
 
-            <div class="form-group first-name-input">
-                <!-- First Name -->
-                <label for="first_name" class="control-label">First Name</label>
-                <input type="text" class="form-control" id="first_name" formControlName="first_name" placeholder="Bob">
-            </div>
+            <mat-form-field appearance="fill">
+                <mat-label>Last Name</mat-label>
+                <input type="text" matInput formControlName="last_name" placeholder="Schmidt">
+            </mat-form-field>
 
-            <div class="form-group last-name-input">
-                <!-- Last Name -->
-                <label for="last_name" class="control-label ">Last Name</label>
-                <input type="text" class="form-control" id="last_name" formControlName="last_name" placeholder="Schmidt">
-            </div>
+            <mat-form-field appearance="fill">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput formControlName="email" placeholder="bob@gmail.com">
+            </mat-form-field>
     
-            <div class="form-group">
-                <!-- Email: -->
-                <label for="email" class="control-label">Email:</label>
-                <input type="email" class="form-control" id="email" formControlName="email" placeholder="bob@gmail.com">
-            </div>
-    
-            <div class="form-group">
-                <!-- Password -->
-                <label for="password" class="control-label">Password</label>
-                <input type="password" class="form-control" id="password" formControlName="password" placeholder="***********">
-            </div>
+            <mat-form-field appearance="fill">
+                <mat-label>Password</mat-label>
+                <input type="password" matInput formControlName="password" placeholder="***********">
+            </mat-form-field>
 
-            <div class="form-group">
-                <!-- Confirm Password -->
-                <label for="confirm_password" class="control-label">Confirm Password</label>
-                <input type="password" class="form-control" id="confirm_password" formControlName="confirm_password" placeholder="***********">
-            </div>
+            <mat-form-field appearance="fill">
+                <mat-label>Confirm Password</mat-label>
+                <input type="password" matInput formControlName="confirm_password" placeholder="***********">
+            </mat-form-field>
     
             <div class="form-group">
                 <!-- Submit Button -->
@@ -46,6 +35,6 @@
     </div>
 
     <div class="login-component-access">
-        <p>If you have already created an account yet, head over to the <a routerLink="/login">Login</a> page</p>
+        <p id="register-text">If you have already created an account yet, head over to the <a routerLink="/login">Login</a> page</p>
     </div>
 </div>

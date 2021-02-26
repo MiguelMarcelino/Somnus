@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable, Injector } from "@angular/core";
 import { Observable } from "rxjs";
 import { UserModel } from "src/app/models/user.model";
-import { AuthenticationService } from "../authentication/authentication.service";
 import { AppRoutesService } from "../routes/app-routes.service";
 import { TemplateControllerService } from "./template-controller.service";
 
@@ -33,6 +32,10 @@ export class UserController extends TemplateControllerService<UserModel>{
         })
       };
       return this.http.post(this.appRoutes.apiUsersEndPointAuth, user, this.httpOptions);
+    }
+
+    public updateUser(updatedUser: UserModel) {
+      return this.http.post(this.appRoutes.apiUpdateUsersEndPointAuth, updatedUser);
     }
 
 }

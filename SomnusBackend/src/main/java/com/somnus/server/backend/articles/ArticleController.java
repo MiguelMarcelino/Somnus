@@ -33,10 +33,10 @@ public class ArticleController {
     }
 
     @PostMapping(value = "/article/create")
-    public void createArticle(Principal principal, @RequestBody ArticleDto articleDto) {
+    public void createOrUpdateArticle(Principal principal, @RequestBody ArticleDto articleDto) {
         User user = (User) ((Authentication) principal).getPrincipal();
 
-        articleService.createArticle(user, articleDto);
+        articleService.createOrUpdateArticle(user, articleDto);
     }
 
     @DeleteMapping(value = "/article/delete/{id}")

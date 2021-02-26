@@ -5,34 +5,22 @@ import com.somnus.server.backend.auth.firebase.FirebaseTokenHolder;
 import com.somnus.server.backend.exceptions.ErrorMessage;
 import com.somnus.server.backend.exceptions.SomnusException;
 import com.somnus.server.backend.users.domain.Role;
-import com.somnus.server.backend.users.domain.RoleEntity;
 import com.somnus.server.backend.users.domain.User;
 import com.somnus.server.backend.users.dto.UserDto;
-import com.somnus.server.backend.users.repository.RoleRepository;
 import com.somnus.server.backend.users.repository.UserRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
-
-    @Autowired
-    private RoleRepository roleRepository;
 
     @Autowired
     private RolesHandler rolesHandler;
@@ -43,12 +31,12 @@ public class UserService implements UserDetailsService {
         if (user == null)
             throw new SomnusException(ErrorMessage.NO_USER_FOUND);
 
-        List<RoleEntity> grantedAuthorities = new ArrayList<>();
-        for (GrantedAuthority role : user.getAuthorities()) {
-            grantedAuthorities.add(new RoleEntity(role.getAuthority()));
-        }
+//        List<RoleEntity> grantedAuthorities = new ArrayList<>();
+//        for (GrantedAuthority role : user.getAuthorities()) {
+//            grantedAuthorities.add(new RoleEntity(role.getAuthority()));
+//        }
+//        user.setAuthorities(grantedAuthorities);
 
-        user.setAuthorities(grantedAuthorities);
         return user;
     }
 
@@ -65,8 +53,7 @@ public class UserService implements UserDetailsService {
             String firstName = firstAndLastName.getFirst();
             String lastName = firstAndLastName.getSecond();
             user = new User(firebaseTokenHolder.getUid(), firebaseTokenHolder.getEmail(),
-                    userDto.getDisplayName(), firstName, lastName, rolesHandler.getRole(Role.USER),
-                    Role.USER);
+                    userDto.getDisplayName(), firstName, lastName, Role.USER);
             userRepository.save(user);
         }
 
@@ -87,31 +74,48 @@ public class UserService implements UserDetailsService {
      * @return - new user information
      */
     public UserDto changeUser(User user, UserDto userDto) {
-        if (!user.getRole().equals(Role.ADMIN) ||
-                !user.getUsername().equals(userDto)) {
+        if (!user.getRole().equals(Role.ADMIN) &&
+                !user.getUsername().equals(userDto.getUserID())) {
             throw new SomnusException(ErrorMessage.ROLE_NOT_ALLOWED);
         }
 
-        User userToModify = this.userRepository.findByUserName(userDto.getUsername());
+        User userToModify = this.userRepository.findByUserName(userDto.getUserID());
         if (userToModify == null) {
             throw new SomnusException(ErrorMessage.NO_USER_FOUND);
         }
 
-        userToModify.setUsername(userDto.getUsername());
-        userToModify.setEmail(userDto.getEmail());
-        userToModify.setFirstName(userDto.getFirstName());
-        userToModify.setLastName(userDto.getLastName());
+        String firstName = userToModify.getFirstName();
+        String lastName = userToModify.getLastName();
+        String email = userToModify.getEmail();
+        Role newUserRole = userToModify.getRole();
+        String displayName;
+
+        if(!Strings.isBlank(userDto.getEmail())) {
+            userToModify.setEmail(userDto.getEmail());
+        }
+        if(!Strings.isBlank(userDto.getFirstName())) {
+            firstName = userDto.getFirstName();
+            userToModify.setFirstName(userDto.getFirstName());
+        }
+        if(!Strings.isBlank(userDto.getLastName())) {
+            lastName = userDto.getLastName();
+            userToModify.setLastName(userDto.getLastName());
+        }
+
+        userToModify.setDisplayName(firstName + " "
+                + lastName);
+        displayName = firstName + " " + lastName;
 
         if (!Strings.isBlank(userDto.getRole()) &&
                 user.getRole().equals(Role.ADMIN)) {
-            Role newUserRole = Role.valueOf(userDto.getRole().replace(" ", "_").toUpperCase());
+            newUserRole = Role.valueOf(userDto.getRole().replace(" ", "_").toUpperCase());
             userToModify.setRole(newUserRole);
         }
 
         this.userRepository.save(userToModify);
 
-        return new UserDto(user.getId(), user.getUsername(), user.getEmail(), user.getDisplayName(),
-                user.getFirstName(), user.getLastName(), user.getRole().name);
+        return new UserDto(userToModify.getId(), userToModify.getUsername(), email, displayName,
+                firstName, lastName, newUserRole.name);
     }
 
     /**

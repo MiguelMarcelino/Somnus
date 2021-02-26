@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Role } from 'src/app/models/role.model';
 import { UserModel } from 'src/app/models/user.model';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 
@@ -25,4 +26,10 @@ export class UserProfileComponent implements OnInit {
     this.userInfo = this.authenticationService.getCurrentUser();
   }
 
+  isAdmin() {
+    if(this.userInfo) {
+      return this.userInfo.role === Role.Admin;
+    }
+    return false;
+  }
 }

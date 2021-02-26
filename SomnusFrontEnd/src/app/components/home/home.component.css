@@ -1,22 +1,24 @@
 .login-button {
-    background-color: rgba(0, 132, 255, 0.952);
-    color: white;
     margin-right: 10pt;
     margin-left: 10pt;
-    padding: 1pt;
 }
 
 .user-button {
     margin-right: 10pt;
     margin-left: 10pt;
-}
-
-.user-avatar {
     background-size: cover;
 }
 
 .navbar-toggler{
     float: right;
+}
+
+.navbar-brand {
+    transition: 0.5s ease;
+}
+
+.navbar-brand:hover {
+    opacity: 0.7;
 }
 
 .somnus-img {
@@ -35,6 +37,7 @@
     .user-button {
         margin-left: 0pt;
         margin-right: 0pt;
+        margin-right: 20pt;
     }
 
 }

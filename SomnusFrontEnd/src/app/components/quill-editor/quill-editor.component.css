@@ -1,3 +1,17 @@
 editor {
     color: black;
 }
+
+:host ::ng-deep h2 {
+    text-align: left;
+}
+
+
+:host ::ng-deep h3 {
+    text-align: left;
+}
+
+:host ::ng-deep img {
+    height: auto;
+    width: 80%;
+}
