@@ -41,6 +41,6 @@ create a <i>/dist<i> folder containing all the necessary files for deployment.
     <hr>
     <h4 style="width: 80%; margin: 0 auto">The Somnus Team</h4>
     <a href="https://somnus.ddns.net/team" target="_blank">
-        <img src="https://img.icons8.com/material/100/000000/user-group-man-woman--v1.png" style="height: 50pt; filter: invert(1)" />
+        <img src="https://img.icons8.com/material/100/000000/user-group-man-woman--v1.png" style="height: 50pt" />
     </a> 
 </div>
