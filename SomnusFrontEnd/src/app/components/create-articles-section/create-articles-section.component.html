@@ -45,7 +45,7 @@
     </div>
 
     <!-- Publish -->
-    <div class="publish-article" *ngIf="canPublish()">
+    <div id="publish-button" class="publish-article" *ngIf="canPublish()">
         <button class="btn btn-primary" (click)="sendArticleData()">
             <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
             Publish your article
@@ -55,4 +55,12 @@
     <div class="publish-article" *ngIf="!canPublish()">
         <h2>Please fill in all the fields before publishing the article.</h2>
     </div>
+
+    <button class="navigate-button-up" mat-fab color="primary" (click)="navigateUp()">
+        <mat-icon>arrow_circle_up</mat-icon>
+    </button>
+    <button class="navigate-button-down" mat-fab color="primary" (click)="navigateDown()">
+        <mat-icon>arrow_circle_down</mat-icon>
+    </button>
+
 </div>

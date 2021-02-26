@@ -115,7 +115,7 @@ public class UserService implements UserDetailsService {
 
         this.userRepository.save(userToModify);
 
-        return new UserDto(user.getId(), user.getUsername(), email, displayName,
+        return new UserDto(userToModify.getId(), userToModify.getUsername(), email, displayName,
                 firstName, lastName, newUserRole.name);
     }
 

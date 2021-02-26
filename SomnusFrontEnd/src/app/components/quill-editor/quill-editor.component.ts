@@ -1,7 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ArticleModel } from 'src/app/models/article.model';
-import { ArticlesService } from 'src/app/services/controllers/articles-controller.service';
 
 @Component({
   selector: 'app-quill-editor',
@@ -17,7 +16,7 @@ export class QuillEditorComponent implements OnInit {
   article: ArticleModel;
 
   editorStyle = {
-    height: '400pt',
+    height: '700pt',
     backgroundColor: 'black',
     borderRadius: '4pt',
     color: 'white'
@@ -36,6 +35,34 @@ export class QuillEditorComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder
   ) { }
+
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(event?) {
+    let screenHeight = window.innerHeight;
+    let screenWidth = window.innerWidth;
+    if(screenWidth < 500) {
+      this.editorStyle = {
+        height: '300pt',
+        backgroundColor: 'black',
+        borderRadius: '4pt',
+        color: 'white'
+      };
+    } else if (screenWidth < 800) {
+      this.editorStyle = {
+        height: '450pt',
+        backgroundColor: 'black',
+        borderRadius: '4pt',
+        color: 'white'
+      };
+    } else {
+      this.editorStyle = {
+        height: '700pt',
+        backgroundColor: 'black',
+        borderRadius: '4pt',
+        color: 'white'
+      };
+    }
+  }
 
   ngOnInit(): void {
     this.quillForm = this.formBuilder.group({
