@@ -53,8 +53,7 @@ public class UserService implements UserDetailsService {
             String firstName = firstAndLastName.getFirst();
             String lastName = firstAndLastName.getSecond();
             user = new User(firebaseTokenHolder.getUid(), firebaseTokenHolder.getEmail(),
-                    userDto.getDisplayName(), firstName, lastName, rolesHandler.getRole(Role.USER),
-                    Role.USER);
+                    userDto.getDisplayName(), firstName, lastName, Role.USER);
             userRepository.save(user);
         }
 

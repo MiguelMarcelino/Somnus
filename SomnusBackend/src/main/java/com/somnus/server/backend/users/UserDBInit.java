@@ -1,6 +1,7 @@
 package com.somnus.server.backend.users;
 
 import com.somnus.server.backend.users.domain.Role;
+import com.somnus.server.backend.users.domain.RoleEntity;
 import com.somnus.server.backend.users.domain.User;
 import com.somnus.server.backend.users.repository.RoleRepository;
 import com.somnus.server.backend.users.repository.UserRepository;
@@ -31,7 +32,7 @@ public class UserDBInit {
         if (userRepository.count() == 0) {
             // username from firebase
             User admin = new User("wdhAh6fNpPQ6CDVeal7X8a6LnuP2", adminEmail, "Somnus Admin",
-                    "somnus", "admin", rolesHandler.getRole(Role.ADMIN), Role.ADMIN);
+                    "somnus", "admin", Role.ADMIN);
             userRepository.save(admin);
         }
     }
