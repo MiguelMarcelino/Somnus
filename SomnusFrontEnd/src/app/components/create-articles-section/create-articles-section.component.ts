@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { ArticlesService } from 'src/app/services/controllers/articles-controller.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -46,13 +46,13 @@ export class CreateArticlesSectionComponent implements OnInit {
     this.createArticleTypes();
 
     this.authenticationService.getLoggedInUser()
-      .subscribe (user => {
-        if(user) {
+      .subscribe(user => {
+        if (user) {
           this.currentUser = user;
         } else {
           this.router.navigateByUrl["/articles"];
         }
-    });
+      });
 
     this.populateArticleData();
   }
@@ -60,7 +60,7 @@ export class CreateArticlesSectionComponent implements OnInit {
   // Gets the articles id from the params
   populateArticleData() {
     this.route.queryParamMap.subscribe((params: any) => {
-      if(params.params.id){
+      if (params.params.id) {
         this.getArticle(params.params.id);
       }
     });
@@ -68,8 +68,8 @@ export class CreateArticlesSectionComponent implements OnInit {
 
   // gets the article with a given id
   getArticle(id: string): void {
-    this.articleService.getObject(id).subscribe((article: ArticleModel) =>{
-      if(article) {
+    this.articleService.getObject(id).subscribe((article: ArticleModel) => {
+      if (article) {
         this.article = article;
         this.editorForm.get('article_name').setValue(article.articleName);
         this.editorForm.get('description').setValue(article.description);
@@ -103,7 +103,7 @@ export class CreateArticlesSectionComponent implements OnInit {
     let description = this.editorForm.get('description').value;
     let type = this.editorForm.get('type').value;
 
-    if(!artName || !content || !description || !type ) {
+    if (!artName || !content || !description || !type) {
       //this.errorInterface.setErrorMessage("Please check if you have entered all fields");
     }
 
@@ -113,7 +113,7 @@ export class CreateArticlesSectionComponent implements OnInit {
   sendArticleData(): void {
     this.submitted = true;
 
-    if(this.editorForm.invalid) {
+    if (this.editorForm.invalid) {
       return;
     }
 
@@ -124,32 +124,44 @@ export class CreateArticlesSectionComponent implements OnInit {
     let description = this.editorForm.get('description').value;
     let topic = this.editorForm.get('type').value;
 
-    if(!artName || !description || !topic) {
+    if (!artName || !description || !topic) {
       this.errorInterface.setErrorMessage("Please fill in all the fields");
       this.loading = false;
       return;
     }
 
-    if(!content){
+    if (!content) {
       this.errorInterface.setErrorMessage("You cannot publish an article with no content");
       this.loading = false;
       return;
     }
 
     let articleModel: ArticleModel;
-    if(this.article) {
-      articleModel = {"id": this.article.id, "articleName": artName, "authorUserName": this.currentUser.displayName, "userId": this.currentUser.uid, "description": description, 
-      "datePublished": new Date(), "lastUpdate": new Date(),'topic': topic, 'content': content};
+    if (this.article) {
+      articleModel = {
+        "id": this.article.id, "articleName": artName, "authorUserName": this.currentUser.displayName, "userId": this.currentUser.uid, "description": description,
+        "datePublished": new Date(), "lastUpdate": new Date(), 'topic': topic, 'content': content
+      };
     } else {
-      articleModel = {"articleName": artName, "authorUserName": this.currentUser.displayName, "userId": this.currentUser.uid, "description": description, 
-        "datePublished": new Date(), "lastUpdate": new Date(),'topic': topic, 'content': content};
+      articleModel = {
+        "articleName": artName, "authorUserName": this.currentUser.displayName, "userId": this.currentUser.uid, "description": description,
+        "datePublished": new Date(), "lastUpdate": new Date(), 'topic': topic, 'content': content
+      };
     }
     this.articlesController.addObject(articleModel).subscribe(id => {
       this.router.navigateByUrl("/articles");
     },
-    (error)=>{
-      this.loading = false;
-    });
+      (error) => {
+        this.loading = false;
+      });
+  }
+
+  navigateUp() {
+    document.querySelector('html').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  navigateDown() {
+    document.querySelector('html').scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
   }
 
 }
