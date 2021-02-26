@@ -8,7 +8,7 @@
             <!-- Username -->
             <div class="info-wrapper">
                 <a class="info-left" title="Your ID number on Somnus">Id</a>
-                <a class="info-right" title="Your ID number on Somnus">{{userInfo.username}} </a>
+                <a class="info-right" title="Your ID number on Somnus">{{userInfo.userId}} </a>
             </div>
             <hr>
             <!-- First Name -->
@@ -30,4 +30,15 @@
             </div>
         </div>
     </div>
+
+    <mat-expansion-panel class="edit-user-info" *ngIf="user">
+        <mat-expansion-panel-header [collapsedHeight]="'60pt'" [expandedHeight]="'60pt'">
+            <mat-panel-description collapsedHeight="'60pt'">
+               <p id="edit-user-header">Edit your profile</p>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <app-update-user-info></app-update-user-info>
+    </mat-expansion-panel>
+    
 </div>

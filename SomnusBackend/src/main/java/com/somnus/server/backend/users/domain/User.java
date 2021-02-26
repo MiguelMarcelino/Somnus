@@ -169,4 +169,7 @@ public class User implements UserDetails {
         this.lastName = lastName;
     }
 
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
 }

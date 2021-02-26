@@ -61,6 +61,12 @@ export class AppRoutesService {
         return this.appRoutes.apiUsersEndPointAuth;
     }
 
+    // User update
+    get apiUpdateUsersEndPointAuth(): string {
+        this.isLoaded();
+        return this.appRoutes.apiUpdateUsersEndPointAuth;
+    }
+
     get apiGamesEndpointMinecraft(): string {
         this.isLoaded();
         return this.appRoutes.apiGamesEndpointMinecraft;

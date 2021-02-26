@@ -34,4 +34,8 @@ export class UserController extends TemplateControllerService<UserModel>{
       return this.http.post(this.appRoutes.apiUsersEndPointAuth, user, this.httpOptions);
     }
 
+    public updateUser(updatedUser: UserModel) {
+      return this.http.post(this.appRoutes.apiUpdateUsersEndPointAuth, updatedUser);
+    }
+
 }
