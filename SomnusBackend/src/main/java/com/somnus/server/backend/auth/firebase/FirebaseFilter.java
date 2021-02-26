@@ -1,17 +1,10 @@
 package com.somnus.server.backend.auth.firebase;
 
-import com.somnus.server.backend.exceptions.ErrorMessage;
-import com.somnus.server.backend.exceptions.SomnusException;
 import com.somnus.server.backend.users.UserService;
-import com.somnus.server.backend.users.domain.User;
-import com.somnus.server.backend.users.repository.UserRepository;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -20,7 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.somnus.server.backend.auth.SecurityConstants.*;
+import static com.somnus.server.backend.auth.SecurityConstants.AUTHENTICATE_USER_HEADER_NAME;
+import static com.somnus.server.backend.auth.SecurityConstants.FIREBASE_HEADER_NAME;
 
 /**
  * @author prvoslav

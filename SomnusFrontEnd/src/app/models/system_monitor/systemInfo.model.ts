@@ -7,4 +7,6 @@ export interface SystemInfoModel extends Identifiable {
     memoryUsage: number;
     swapSize: number;
     swapUsage: number;
+    temperature: number;
+    maxTemp?: number;
 }

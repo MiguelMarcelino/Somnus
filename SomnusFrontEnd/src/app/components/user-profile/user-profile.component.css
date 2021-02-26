@@ -53,6 +53,15 @@ a{
     text-align: center;
 }
 
+.edit-user-info{
+    margin-top: 20pt;
+    background-color: transparent;
+}
+
+#edit-user-header {
+    margin-top: 10pt;
+}
+
 @media only screen and (max-width: 1000px){
     .img-left {
         width: 30%;
@@ -77,5 +86,4 @@ a{
         width: 100%;
     }
 
-    
 }

@@ -30,3 +30,27 @@ mat-form-field.mat-form-field {
     color: white;
     float: left;
 }
+
+#article-container img{
+    height: auto;
+    width: 80%;
+}
+
+#article-container h3,
+#article-container h2 {
+    text-align: left;
+}
+
+.navigate-button-up {
+    position: fixed;
+    bottom: 85px;
+    right: 20px;
+    z-index: 10;
+}
+
+.navigate-button-down {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10;
+}

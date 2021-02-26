@@ -2,7 +2,8 @@
     <home></home>
     <app-debug-messages></app-debug-messages>
     <section class="main-content">
-        <router-outlet></router-outlet>
+    <!-- <section class="main-content" [@routerTransition]="routerOutlet.activatedRouteData.state"> -->
+        <router-outlet #routerOutlet="outlet"></router-outlet>
     </section>
     <br>
     <app-footer class="footer-content"></app-footer>

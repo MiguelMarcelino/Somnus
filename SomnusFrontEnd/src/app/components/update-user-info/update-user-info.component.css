@@ -1,0 +1,22 @@
+
+.page-style {
+    margin-top: 10pt;
+}
+
+mat-form-field.mat-form-field {
+    width: 100%;
+    font-size: 14pt;
+    color: white;
+}
+
+.user-form {
+    margin: 0 auto;
+    width: 90%;
+    margin-bottom: 30pt;
+}
+
+@media only screen and (max-width:800px) {
+    .user-form {
+        width: 100%;
+    }
+}

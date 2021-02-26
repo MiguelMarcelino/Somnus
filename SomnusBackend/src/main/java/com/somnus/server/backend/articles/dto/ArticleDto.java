@@ -1,11 +1,6 @@
 package com.somnus.server.backend.articles.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
-import com.somnus.server.backend.articles.domain.Article;
-import com.somnus.server.backend.articles.domain.ArticleTopic;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -18,19 +13,23 @@ public class ArticleDto implements Serializable {
     private String userId;
     private String description;
     private String datePublished;
+    private String lastUpdate;
     private String topic;
     private String content;
 
     public ArticleDto() {}
 
     public ArticleDto(String id, String articleName, String authorUserName, String userId, String description,
-                      LocalDateTime datePublished, String topic, String content) {
+                      LocalDateTime datePublished, LocalDateTime lastUpdate, String topic, String content) {
         this.id = id;
         this.articleName = articleName;
         this.authorUserName = authorUserName;
         this.userId = userId;
         this.description = description;
         this.datePublished = datePublished.format(DateTimeFormatter.ISO_DATE);
+        if(lastUpdate != null) {
+            this.lastUpdate = lastUpdate.format(DateTimeFormatter.ISO_DATE);
+        }
         this.topic = topic;
         this.content = content;
     }
@@ -57,6 +56,10 @@ public class ArticleDto implements Serializable {
 
     public String getDatePublished() {
         return datePublished;
+    }
+
+    public String getLastUpdate() {
+        return lastUpdate;
     }
 
     public String getTopic() {

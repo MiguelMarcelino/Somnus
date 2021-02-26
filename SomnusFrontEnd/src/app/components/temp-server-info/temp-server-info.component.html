@@ -55,4 +55,22 @@
             </ngx-gauge-label>
         </ngx-gauge>
     </div>
+
+    <div class="grid-element">
+        <ngx-gauge [type]="gaugeType"
+            [value]="systemInfo.temperature"
+            [max]="systemInfo.maxTemp"
+            [foregroundColor]="foregroundColor"
+            [backgroundColor]="backgroundColor"
+            [size]="size"
+            [thick]="thickness"
+            [duration]="duration">
+            <ngx-gauge-value>
+                <div>{{systemInfo.temperature}} °C</div>
+            </ngx-gauge-value>
+            <ngx-gauge-label>
+                <div>{{temperatureGaugeTitle}}</div>
+            </ngx-gauge-label>
+        </ngx-gauge>
+    </div>
 </div>
