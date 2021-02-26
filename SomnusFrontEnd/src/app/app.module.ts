@@ -35,6 +35,7 @@ import { GaugeChartComponent } from './components/gauge-chart/gauge-chart.compon
 import { NgxGaugeModule } from 'ngx-gauge';
 import { TempServerInfoComponent } from './components/temp-server-info/temp-server-info.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { UpdateUserInfoComponent } from './components/update-user-info/update-user-info.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     GaugeChartComponent,
     TempServerInfoComponent,
     UserProfileComponent,
+    UpdateUserInfoComponent,
   ],
   imports: [
     BrowserModule,

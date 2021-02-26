@@ -1,0 +1,39 @@
+<div class="page-style">
+    <div class="user-form" *ngIf="user">
+        <form [formGroup]="userUpdateForm" (ngSubmit)="onSubmit()" method="post">
+            <mat-form-field appearance="fill" *ngIf="isAdmin()">
+                <mat-label>Id of the user to update</mat-label>
+                <input type="text" matInput formControlName="id" placeholder="Id of the user">
+            </mat-form-field>
+            
+            <mat-form-field appearance="fill">
+                <mat-label>New First Name</mat-label>
+                <input type="text" matInput formControlName="firstName" placeholder="Insert a new first name. Leave it empty if you don't want to change it">
+            </mat-form-field>
+    
+            <mat-form-field appearance="fill">
+                <mat-label>New Last Name</mat-label>
+                <input type="text" matInput formControlName="lastName" placeholder="Insert a new last name. Leave it empty if you don't want to change it">
+            </mat-form-field>
+    
+            <mat-form-field appearance="fill">
+                <mat-label>New Email</mat-label>
+                <input type="text" matInput formControlName="email" placeholder="Leave it empty if you don't want to change it">
+            </mat-form-field>
+    
+            <mat-form-field appearance="fill" *ngIf="isAdmin()">
+                <mat-label>New Role</mat-label>
+                <mat-select formControlName="role">
+                  <mat-option *ngFor="let role of roles" [value]="role">
+                    {{role}}
+                  </mat-option>
+                </mat-select>
+            </mat-form-field>
+    
+            <div class="form-group">
+                <!-- Send User info Button -->
+                <button type="submit" class="btn btn-primary">Update User Info</button>
+            </div>
+        </form>
+    </div>
+</div>

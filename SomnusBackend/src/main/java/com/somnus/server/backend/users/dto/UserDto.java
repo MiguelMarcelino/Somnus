@@ -9,7 +9,8 @@ import java.util.List;
 public class UserDto implements Serializable {
 
     private int id;
-    private String username;
+    @JsonProperty(value = "userId")
+    private String userId;
     @JsonProperty(value = "firstName")
     private String firstName;
     @JsonProperty(value = "lastName")
@@ -18,12 +19,12 @@ public class UserDto implements Serializable {
     private String email;
     private String role;
 
-    private UserDto() {}
+    public UserDto() {}
 
-    public UserDto(Integer id, String username, String email, String displayName, String firstName,
+    public UserDto(Integer id, String userId, String email, String displayName, String firstName,
                    String lastName, String role) {
         this.id = id;
-        this.username = username;
+        this.userId = userId;
         this.email = email;
         this.displayName = displayName;
         this.firstName = firstName;
@@ -31,8 +32,8 @@ public class UserDto implements Serializable {
         this.role = role;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserID() {
+        return userId;
     }
 
     public String getEmail() {
@@ -53,5 +54,33 @@ public class UserDto implements Serializable {
 
     public String getRole() {
         return role;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

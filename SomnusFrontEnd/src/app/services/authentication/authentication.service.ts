@@ -17,7 +17,9 @@ export class AuthenticationService  {
 
   private static CURRENT_USER_STORAGE_NAME: string = "currentUser";
   
-  private currentUser: UserModel;
+  // For later
+  private currentUserInfo: UserModel; 
+  private currentUser: BehaviorSubject<UserModel>;
 
   private eventAuthError = new BehaviorSubject<string>("");
   eventAuthError$ = this.eventAuthError.asObservable();
@@ -27,7 +29,9 @@ export class AuthenticationService  {
     private db : AngularFirestore,
     private router: Router,
     private userService: UserController
-  ) {  }
+  ) {
+    this.currentUser = new BehaviorSubject<UserModel>(this.currentUserInfo);
+  }
 
   loginWithGoogle() {
     this.angularFireAuth.signInWithPopup(new firebase.default.auth.GoogleAuthProvider)
@@ -35,7 +39,7 @@ export class AuthenticationService  {
         // send user info to backend
         if(userCredential) {
           userCredential.user.getIdTokenResult(false).then(token => {
-            let user = {'email': userCredential.user.email, 'username': userCredential.user.uid, 
+            let user: UserModel = {'email': userCredential.user.email, 'userId': userCredential.user.uid, 
             'displayName': userCredential.user.displayName,'firstName': "", 'lastName': "", 'role': "User"};
             this.sendUserInfoToBackend(token.token, user);
           })
@@ -51,7 +55,7 @@ export class AuthenticationService  {
       .then ( userCredential => {
         if(userCredential) {
           userCredential.user.getIdTokenResult(false).then(token => {
-            let user = {'email': userCredential.user.email, 'username': userCredential.user.uid, 
+            let user: UserModel = {'email': userCredential.user.email, 'userId': userCredential.user.uid, 
             'displayName': userCredential.user.displayName,'firstName': "", 'lastName': "", 'role': "User"};
             this.sendUserInfoToBackend(token.token, user);
           })
@@ -63,17 +67,16 @@ export class AuthenticationService  {
       });
   }
 
-  getLoggedInUser() {
+  getLoggedInUser() : Observable<firebase.default.User> {
     return this.angularFireAuth.authState;
   }
 
-  createUser(username: string, firstName: string, lastName: string, email: string, password: string, 
-      confirmPassword: string) {
+  createUser(firstName: string, lastName: string, email: string, password: string) {
     this.angularFireAuth.createUserWithEmailAndPassword(email, password)
       .then( userCredential => {
         if(userCredential) {
           // send token and user info to backend
-          let user = {'email': email, 'username': username, 'displayName': userCredential.user.displayName,
+          let user: UserModel = {"userId": userCredential.user.uid, 'email': email, 'displayName': userCredential.user.displayName,
           'firstName': firstName, 'lastName': lastName, 'role': "User"};
           userCredential.user.getIdTokenResult(false).then(token => {
             this.registerUserBackend(token.token, token.expirationTime, user);
@@ -81,11 +84,7 @@ export class AuthenticationService  {
           
           userCredential.user.updateProfile({
             displayName: firstName + " " +  lastName,
-          })
-          this.insertUserData(userCredential)
-            .then(() => {
-              this.router.navigate(['/']);
-          })
+          });
         }
       })
       .catch( error => {
@@ -93,22 +92,9 @@ export class AuthenticationService  {
       })
   }
 
-  insertUserData(userCredential: firebase.default.auth.UserCredential) {
-    return this.db.doc(`Users/${userCredential.user.uid}`).set({
-      email:this.currentUser.email,
-      firstname: this.currentUser.username,
-      lastname: this.currentUser.lastName,
-      role: 'website_user'
-    })
-  }
-
   getCurrentUser(): UserModel {
     let user: UserModel = JSON.parse(localStorage.getItem(AuthenticationService.CURRENT_USER_STORAGE_NAME));
     return user;
-  }
-
-  getUserObservable (): Observable<firebase.default.User> {
-    return this.angularFireAuth.authState;
   }
 
   getToken(): Observable<string | null> {
@@ -127,6 +113,46 @@ export class AuthenticationService  {
     this.removeFromLocalStorage();
     this.angularFireAuth.signOut();
     this.router.navigateByUrl("/");
+  }
+
+  updateCurrentUserInfo(updatedUser: UserModel) {
+    let user = this.getCurrentUser();
+    if(user) {
+      let hasFirstName = updatedUser.firstName && updatedUser.firstName.length != 0;
+      let hasLastName = updatedUser.lastName && updatedUser.lastName.length != 0;
+      let hasEmail = updatedUser.email && updatedUser.email.length != 0;
+      let hasRole = updatedUser.role && updatedUser.role.length != 0;
+      let hasDisplayName = updatedUser.displayName && updatedUser.displayName.length != 0;
+
+      if(hasFirstName) {
+        user.firstName = updatedUser.firstName;
+      }
+
+      if(hasLastName) {
+        user.lastName = updatedUser.lastName
+      }
+
+      if(hasEmail) {
+        user.email = updatedUser.email
+        this.getLoggedInUser().toPromise().then(user => {
+          user.updateEmail(updatedUser.email);
+        })
+      }
+
+      if(hasRole) {
+        user.role = updatedUser.role
+      }
+
+      if(hasDisplayName) {
+        this.angularFireAuth.authState.subscribe(user => {
+          user.updateProfile({
+            displayName: updatedUser.displayName,
+          })
+        });
+        user.displayName = updatedUser.displayName;
+      }
+      this.saveToLocalStorage(user);
+    }
   }
 
   public isLoggedIn() {
@@ -154,6 +180,9 @@ export class AuthenticationService  {
   }
 
   private saveToLocalStorage(user: UserModel) {
+    if(localStorage.getItem(AuthenticationService.CURRENT_USER_STORAGE_NAME)) {
+      localStorage.removeItem(AuthenticationService.CURRENT_USER_STORAGE_NAME);
+    }
     localStorage.setItem(AuthenticationService.CURRENT_USER_STORAGE_NAME, JSON.stringify(user));
   }
 

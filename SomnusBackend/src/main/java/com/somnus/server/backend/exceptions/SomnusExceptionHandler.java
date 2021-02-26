@@ -18,7 +18,6 @@ public class SomnusExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(SomnusException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public SomnusExceptionDto somnusException(SomnusException e) {
-        System.out.println("ola");
         return new SomnusExceptionDto(ErrorMessage.BAD_REQUEST.message, e.getMessage());
     }
 

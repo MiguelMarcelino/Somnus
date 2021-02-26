@@ -20,8 +20,8 @@ public class UserController {
         return userService.authenticateUser(firebaseToken, userDto);
     }
 
-    @PostMapping(value = "/change-user-role")
-    public UserDto changeUser(Principal principal, @RequestBody UserDto userDto) {
+    @PostMapping(value = "/update-user")
+    public UserDto updateUser(Principal principal, @RequestBody UserDto userDto) {
         User user = (User) ((Authentication) principal).getPrincipal();
 
         return userService.changeUser(user, userDto);
