@@ -10,15 +10,19 @@ public class SystemInformationDto implements Serializable {
     public double memoryUsage;
     public double swapSize;
     public double swapUsage;
+    public double temperature;
 
     public SystemInformationDto(){}
 
-    public SystemInformationDto(int numCpuThreads, double totalMemory, double cpuUsage, double memoryUsage, double swapSize, double swapUsage) {
+    public SystemInformationDto(int numCpuThreads, double totalMemory, double cpuUsage, 
+                                double memoryUsage, double swapSize, double swapUsage,
+                                double temperature) {
         this.numCpuThreads = numCpuThreads;
         this.totalMemory = totalMemory;
         this.cpuUsage = cpuUsage;
         this.memoryUsage = memoryUsage;
         this.swapSize = swapSize;
         this.swapUsage = swapUsage;
+        this.temperature = temperature;
     }
 }
