@@ -62,14 +62,14 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String username, String email, String displayName, String firstName, String lastName, List<RoleEntity> adminRoles,
+    public User(String username, String email, String displayName, String firstName, String lastName,
                 Role role) {
         this.username = username;
         this.email = email;
         this.displayName = displayName;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.authorities = adminRoles;
+//        this.authorities = adminRoles;
         this.createdAt = DateHandler.now();
         this.role = role;
     }

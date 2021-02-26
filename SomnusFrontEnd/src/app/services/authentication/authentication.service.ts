@@ -79,7 +79,7 @@ export class AuthenticationService  {
           let user: UserModel = {"userId": userCredential.user.uid, 'email': email, 'displayName': userCredential.user.displayName,
           'firstName': firstName, 'lastName': lastName, 'role': "User"};
           userCredential.user.getIdTokenResult(false).then(token => {
-            this.registerUserBackend(token.token, token.expirationTime, user);
+            this.sendUserInfoToBackend(token.token, user);
           })
           
           userCredential.user.updateProfile({
@@ -160,16 +160,6 @@ export class AuthenticationService  {
   }
 
   private sendUserInfoToBackend(token: string, user: UserModel) {
-    this.userService.authenticateUser(token, user).subscribe(user => {
-      this.saveToLocalStorage(user);
-    },
-    error => {
-      this.removeFromLocalStorage();
-      this.logout();
-    });
-  }
-
-  private registerUserBackend(token: string, expirationTime: string, user: UserModel) {
     this.userService.authenticateUser(token, user).subscribe(user => {
       this.saveToLocalStorage(user);
     },

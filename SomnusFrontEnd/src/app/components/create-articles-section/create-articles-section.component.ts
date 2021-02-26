@@ -1,9 +1,8 @@
-import { Component, HostListener, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, HostListener, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { ArticlesService } from 'src/app/services/controllers/articles-controller.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
-import { QuillEditorComponent } from 'ngx-quill';
 import { ErrorInterface } from 'src/handlers/error-interface';
 import { ArticleModel } from 'src/app/models/article.model';
 
@@ -150,9 +149,11 @@ export class CreateArticlesSectionComponent implements OnInit {
     }
     this.articlesController.addObject(articleModel).subscribe(id => {
       this.router.navigateByUrl("/articles");
+      this.errorInterface.setSuccessMessage("Your Article has been successfully published!")
     },
       (error) => {
         this.loading = false;
+        this.errorInterface.setErrorMessage("There was an error publishing your article!");
       });
   }
 

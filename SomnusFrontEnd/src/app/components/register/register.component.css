@@ -1,4 +1,10 @@
 
+mat-form-field.mat-form-field {
+    width: 100%;
+    font-size: 14pt;
+    color: white;
+}
+
 label {
     color: white;
     float: left;
@@ -10,20 +16,12 @@ label {
     width: 40%;
 }
 
-.first-name-input{
-    width: 50%;
-    float: left;
-    padding-right: 5pt;
-}
-
-.last-name-input {
-    width: 50%;
-    float: right;
-    padding-left: 5pt;
-}
-
 .login-component-access {
     padding-top: 30pt;
+}
+
+#register-text {
+    text-align: center;
 }
 
 @media only screen and (max-width: 1200px) {

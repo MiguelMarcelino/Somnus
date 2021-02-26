@@ -53,7 +53,7 @@ export class RegisterComponent implements OnInit {
     }
 
     if(!this.registerForm.get('first_name').value ||
-    this.registerForm.get('last_name').value ||
+    !this.registerForm.get('last_name').value ||
     !this.registerForm.get('email').value ||
     !this.registerForm.get('password').value ||
     !this.registerForm.get('confirm_password').value) {

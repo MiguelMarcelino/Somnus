@@ -105,7 +105,8 @@ export class SystemInfoComponent implements OnInit {
       cpuUsage: this.getRandomInt(8),
       memoryUsage: this.getRandomInt(100000),
       swapSize: 1000,
-      swapUsage: this.getRandomInt(1000)
+      swapUsage: this.getRandomInt(1000),
+      temperature: 0
     }
   }
 
