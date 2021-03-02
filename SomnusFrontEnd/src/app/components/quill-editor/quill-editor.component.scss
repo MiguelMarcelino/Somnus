@@ -1,6 +1,8 @@
-editor {
-    color: black;
-}
+@import "../../../shared/highlightjs_themes/dracula.scss";
+
+// .editor {
+//     color: black;
+// }
 
 :host ::ng-deep h2 {
     text-align: left;

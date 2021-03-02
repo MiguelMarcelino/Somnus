@@ -7,7 +7,7 @@ import { SystemInfoControllerService } from 'src/app/services/controllers/system
 @Component({
   selector: 'app-temp-server-info',
   templateUrl: './temp-server-info.component.html',
-  styleUrls: ['./temp-server-info.component.css']
+  styleUrls: ['./temp-server-info.component.scss']
 })
 export class TempServerInfoComponent implements OnInit {
 

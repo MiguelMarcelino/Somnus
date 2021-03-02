@@ -5,7 +5,7 @@ import { GamesControllerService } from 'src/app/services/controllers/games-contr
 @Component({
   selector: 'app-games-page',
   templateUrl: './games-page.component.html',
-  styleUrls: ['./games-page.component.css']
+  styleUrls: ['./games-page.component.scss']
 })
 export class GamesPageComponent implements OnInit {
 

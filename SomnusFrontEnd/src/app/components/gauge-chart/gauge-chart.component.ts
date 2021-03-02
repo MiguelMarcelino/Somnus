@@ -4,7 +4,7 @@ import * as d3 from "d3";
 @Component({
   selector: 'app-gauge-chart',
   templateUrl: './gauge-chart.component.html',
-  styleUrls: ['./gauge-chart.component.css']
+  styleUrls: ['./gauge-chart.component.scss']
 })
 export class GaugeChartComponent implements OnInit {
 

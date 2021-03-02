@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import {BehaviorSubject, from, Observable, of} from 'rxjs';
