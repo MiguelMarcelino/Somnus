@@ -5,11 +5,13 @@ import { ArticleModel } from 'src/app/models/article.model';
 @Component({
   selector: 'app-quill-editor',
   templateUrl: './quill-editor.component.html',
-  styleUrls: ['./quill-editor.component.css']
+  styleUrls: ['./quill-editor.component.scss']
 })
 export class QuillEditorComponent implements OnInit {
 
-  @Output() onEditorContentChange: EventEmitter<String> = new EventEmitter<String>();
+  @Output() 
+  onEditorContentChange: EventEmitter<String> = new EventEmitter<String>();
+
   quillForm: FormGroup;
 
   @Input()
@@ -28,7 +30,8 @@ export class QuillEditorComponent implements OnInit {
       [{ 'list': 'ordered'}, { 'list': 'bullet' }],
       [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
       ['link', 'image', 'video'],
-    ]
+    ],
+    syntax: true
   }
   maxContentLength = 60000;
 

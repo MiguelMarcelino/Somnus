@@ -6,7 +6,7 @@ import { TeamMemberControllerService } from 'src/app/services/controllers/team-m
 @Component({
   selector: 'app-team-member-page',
   templateUrl: './team-member-page.component.html',
-  styleUrls: ['./team-member-page.component.css']
+  styleUrls: ['./team-member-page.component.scss']
 })
 export class TeamMemberPageComponent implements OnInit {
 
