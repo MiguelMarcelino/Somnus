@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 import { AppSettings } from 'src/app/appSettings';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { FeedbackControllerService } from 'src/app/services/controllers/feedback-controller.service';
@@ -10,7 +10,7 @@ import { ErrorInterface } from 'src/handlers/error-interface';
 @Component({
   selector: 'contacts',
   templateUrl: './contacts.component.html',
-  styleUrls: ['./contacts.component.css']
+  styleUrls: ['./contacts.component.scss']
 })
 export class ContactsComponent implements OnInit {
 

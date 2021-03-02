@@ -7,7 +7,7 @@ import { GaugeChartComponent } from '../gauge-chart/gauge-chart.component';
 @Component({
   selector: 'app-system-info',
   templateUrl: './system-info.component.html',
-  styleUrls: ['./system-info.component.css']
+  styleUrls: ['./system-info.component.scss']
 })
 export class SystemInfoComponent implements OnInit {
 

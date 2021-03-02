@@ -9,7 +9,7 @@ import { ErrorInterface } from 'src/handlers/error-interface';
 @Component({
   selector: 'app-update-user-info',
   templateUrl: './update-user-info.component.html',
-  styleUrls: ['./update-user-info.component.css']
+  styleUrls: ['./update-user-info.component.scss']
 })
 export class UpdateUserInfoComponent implements OnInit {
 
