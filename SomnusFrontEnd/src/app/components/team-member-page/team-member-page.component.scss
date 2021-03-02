@@ -12,7 +12,6 @@ hr {
     margin: 0 auto;
     text-align: center;
     width: 100%;
-    display: grid;
 }
 
 .photo-above {
@@ -32,17 +31,18 @@ hr {
 }
 
 .grid-container {
-    width: 100% !important;
-    min-height: 10pt;
+    width: 100%;
+    height: max-content;
     margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
 }
 
 .grid-element {
     float: left;
+    height: fit-content;
     text-align: center;
-    width: 20%;
-    height: 300pt;
-    margin: 0% 2.5% auto;
     border-radius: 10pt;
     transition: 0.5s ease;
 }
@@ -54,6 +54,7 @@ hr {
 
 .info-div {
     width: 100%;
+    height: auto;
     /* float: inline-end; */
     margin-bottom: 30pt;
     margin-top: 30pt;
@@ -89,17 +90,21 @@ mat-progress-spinner{
         max-width: 18vw;
     }
 
-    .grid-element {
-        width: 50%;
-        margin: 0%;
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media only screen and (max-width: 600px) {
-    /* .team-member-photo {
-        max-height: 25vw;
-        max-width: 25vw;
-    } */
+
+    .grid-container {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .team-member-photo {
+        max-height: 70pt;
+        max-width: 70pt;
+    }
 
     .info-div {
         margin-top: 5pt;
