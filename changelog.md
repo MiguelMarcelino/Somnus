@@ -3,6 +3,12 @@ All changes made to this project will be documented in this file
 
 ## [RELEASED]
 ---------------------------------------------------------
+## [0.2.1] - 2021-03-02
+### Changed
+- Added syntax highlighting
+- Fixed visual bug in team member page
+
+---------------------------------------------------------
 ## [0.2.1] - 2021-02-26
 ### Added
 - New update user feature to user page
