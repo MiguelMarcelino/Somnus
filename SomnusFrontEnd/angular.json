@@ -14,7 +14,10 @@
           "showCircularDependencies": false,
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "allowedCommonJsDependencies": ["firebase/app"],
+            "allowedCommonJsDependencies": [
+              "firebase/app",
+              "highlight.js"
+            ],
             "outputPath": "dist/ServerWebsite",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -30,7 +33,9 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "./node_modules/quill/dist/quill.core.css",
               "./node_modules/quill/dist/quill.snow.css",
-              "src/styles.css"
+              "src/styles.scss",
+              "src/shared/highlightjs_themes/dracula.scss",
+              "./node_modules/highlight.js/styles/github.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
@@ -98,7 +103,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.scss",
+              "src/shared/highlightjs_themes/dracula.scss"
             ],
             "scripts": []
           }
@@ -129,6 +135,11 @@
           }
         }
       }
+    }
+  },
+  "schematics": {
+    "@schematics/angular:component": {
+      "style": "scss"
     }
   },
   "defaultProject": "ServerWebsite"

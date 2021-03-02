@@ -9,7 +9,7 @@ import { Role } from 'src/app/models/role.model';
 @Component({
   selector: 'app-articles-section',
   templateUrl: './articles-section.component.html',
-  styleUrls: ['./articles-section.component.css']
+  styleUrls: ['./articles-section.component.scss']
 })
 export class ArticlesSectionComponent implements OnInit {
 

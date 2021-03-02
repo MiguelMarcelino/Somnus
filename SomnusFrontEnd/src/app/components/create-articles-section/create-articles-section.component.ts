@@ -9,7 +9,7 @@ import { ArticleModel } from 'src/app/models/article.model';
 @Component({
   selector: 'app-create-articles-section',
   templateUrl: './create-articles-section.component.html',
-  styleUrls: ['./create-articles-section.component.css'],
+  styleUrls: ['./create-articles-section.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class CreateArticlesSectionComponent implements OnInit {

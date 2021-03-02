@@ -15,8 +15,8 @@
                 <div class="right-article-data">
                     <div class="article-info">
                         <h3>{{article.articleName}}</h3>
-                        <h3>Published on {{article.datePublished | date:'mediumDate'}}</h3>
-                        <h3 *ngIf="article.lastUpdate">Last Updated on {{article.lastUpdate | date:'mediumDate'}}</h3>
+                        <h3>Published on {{article.datePublished | date:'medium'}}</h3>
+                        <h3 *ngIf="article.lastUpdate">Last Updated on {{article.lastUpdate | date:'medium'}}</h3>
                         <p class="article-author">Written by <span class="author-name">{{article.authorUserName}}</span> on {{article.topic}}</p>
                     </div>
                     <div class="description">

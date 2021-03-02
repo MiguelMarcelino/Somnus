@@ -36,6 +36,7 @@ import { NgxGaugeModule } from 'ngx-gauge';
 import { TempServerInfoComponent } from './components/temp-server-info/temp-server-info.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { UpdateUserInfoComponent } from './components/update-user-info/update-user-info.component';
+import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,7 @@ import { UpdateUserInfoComponent } from './components/update-user-info/update-us
     GaugeChartComponent,
     TempServerInfoComponent,
     UserProfileComponent,
-    UpdateUserInfoComponent,
+    UpdateUserInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -100,3 +101,4 @@ import { UpdateUserInfoComponent } from './components/update-user-info/update-us
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+

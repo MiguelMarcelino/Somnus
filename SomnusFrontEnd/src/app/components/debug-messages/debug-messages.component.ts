@@ -7,7 +7,7 @@ import { GlobalErrorHandler } from 'src/handlers/global-error-handler';
 @Component({
   selector: 'app-debug-messages',
   templateUrl: './debug-messages.component.html',
-  styleUrls: ['./debug-messages.component.css']
+  styleUrls: ['./debug-messages.component.scss']
 })
 export class DebugMessagesComponent implements OnInit {
 
