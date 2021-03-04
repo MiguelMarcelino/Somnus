@@ -3,6 +3,10 @@ All changes made to this project will be documented in this file
 
 ## [RELEASED]
 ---------------------------------------------------------
+## [0.2.1] - 2021-03-04
+- Started working on article comment section
+
+---------------------------------------------------------
 ## [0.2.1] - 2021-03-02
 ### Changed
 - Added syntax highlighting

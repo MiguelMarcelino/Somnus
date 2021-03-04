@@ -37,6 +37,7 @@ import { TempServerInfoComponent } from './components/temp-server-info/temp-serv
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { UpdateUserInfoComponent } from './components/update-user-info/update-user-info.component';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+import { CommentsSectionComponent } from './components/comments-section/comments-section.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
     GaugeChartComponent,
     TempServerInfoComponent,
     UserProfileComponent,
-    UpdateUserInfoComponent
+    UpdateUserInfoComponent,
+    CommentsSectionComponent
   ],
   imports: [
     BrowserModule,
