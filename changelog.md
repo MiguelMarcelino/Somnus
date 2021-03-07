@@ -3,7 +3,16 @@ All changes made to this project will be documented in this file
 
 ## [RELEASED]
 ---------------------------------------------------------
+## [0.2.1] - 2021-03-07
+### Added
+- Added Backend updates to store comments
+- Started integrating pusher into backend
+
+### Changed
+- Updated Frontend to incorporate new Backend changes
+---------------------------------------------------------
 ## [0.2.1] - 2021-03-04
+### Added
 - Started working on article comment section
 
 ---------------------------------------------------------

@@ -1,5 +1,6 @@
 package com.somnus.server.backend;
 
+import com.somnus.server.backend.notifications.config.PusherConfig;
 import com.somnus.server.backend.teammembers.ContributionService;
 import com.somnus.server.backend.teammembers.TeamMemberService;
 import org.springframework.beans.factory.InitializingBean;
@@ -26,6 +27,9 @@ public class SomnusBackendApplication extends SpringBootServletInitializer imple
 	@Autowired
 	private TeamMemberService teamMemberService;
 
+	@Autowired
+	private PusherConfig pusherConfig;
+
 	public static void main(String[] args) {
 		SpringApplication.run(SomnusBackendApplication.class, args);
 	}
@@ -34,6 +38,7 @@ public class SomnusBackendApplication extends SpringBootServletInitializer imple
 	public void afterPropertiesSet() {
 		contributionService.updateContributionRepo();
 		teamMemberService.updateTeamMemberOldestCommit();
+		pusherConfig.createPusherConnection();
 	}
 
 	@Override

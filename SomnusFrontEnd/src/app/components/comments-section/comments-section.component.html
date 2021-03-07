@@ -11,8 +11,8 @@
     </form>
 </div>
 
-<div id="comments-section">
-    <div class="user-comment" *ngFor="comment in userComments">
+<div id="comments-section" *ngIf="userComments">
+    <div class="user-comment" *ngFor="let comment in userComments">
         <!-- Make a modern comment box -->
         <h3>{{comment.username}}</h3>
     </div>

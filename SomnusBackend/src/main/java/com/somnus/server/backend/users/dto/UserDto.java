@@ -1,10 +1,8 @@
 package com.somnus.server.backend.users.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.somnus.server.backend.users.domain.Role;
 
 import java.io.Serializable;
-import java.util.List;
 
 public class UserDto implements Serializable {
 
@@ -18,11 +16,12 @@ public class UserDto implements Serializable {
     private String displayName;
     private String email;
     private String role;
+    private String photoURL;
 
     public UserDto() {}
 
     public UserDto(Integer id, String userId, String email, String displayName, String firstName,
-                   String lastName, String role) {
+                   String lastName, String role, String photoURL) {
         this.id = id;
         this.userId = userId;
         this.email = email;
@@ -30,6 +29,7 @@ public class UserDto implements Serializable {
         this.firstName = firstName;
         this.lastName = lastName;
         this.role = role;
+        this.photoURL = photoURL;
     }
 
     public String getUserID() {
@@ -54,6 +54,10 @@ public class UserDto implements Serializable {
 
     public String getRole() {
         return role;
+    }
+
+    public String getPhotoURL() {
+        return photoURL;
     }
 
     public void setId(int id) {

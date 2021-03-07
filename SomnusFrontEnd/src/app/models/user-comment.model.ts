@@ -1,12 +1,14 @@
 import { Identifiable } from "./identifiable";
+import { UserModel } from "./user.model";
 
 export interface UserComment extends Identifiable {
-    userId: string;
-    username: string;
-    publishedAt: Date;
-    editedAt: Date;
     articleId: string;
+    user?: UserModel;
+    publishedAt?: Date;
+    editedAt?: Date;
     content: string;
+    numLikes?: number;
     //see how to display recursive data structures in angular
-    responseComments: UserComment[]; 
+    responseComments?: UserComment[];
+    parentId?: string;
 }
