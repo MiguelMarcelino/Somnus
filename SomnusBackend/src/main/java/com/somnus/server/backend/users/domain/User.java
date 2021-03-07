@@ -43,6 +43,9 @@ public class User implements UserDetails {
     @Column(name = "role", nullable = false)
     private Role role;
 
+    @Column(name = "picture_url")
+    private String photoURL;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<RoleEntity> authorities;
 
@@ -63,7 +66,7 @@ public class User implements UserDetails {
     }
 
     public User(String username, String email, String displayName, String firstName, String lastName,
-                Role role) {
+                Role role, String photoURL) {
         this.username = username;
         this.email = email;
         this.displayName = displayName;
@@ -72,6 +75,7 @@ public class User implements UserDetails {
 //        this.authorities = adminRoles;
         this.createdAt = DateHandler.now();
         this.role = role;
+        this.photoURL = photoURL;
     }
 
     public User(String username, String email, List<RoleEntity> roles, Role role) {
@@ -127,6 +131,10 @@ public class User implements UserDetails {
 
     public Role getRole() {
         return role;
+    }
+
+    public String getPhotoURL() {
+        return photoURL;
     }
 
     @Override

@@ -53,7 +53,7 @@ public class UserService implements UserDetailsService {
             String firstName = firstAndLastName.getFirst();
             String lastName = firstAndLastName.getSecond();
             user = new User(firebaseTokenHolder.getUid(), firebaseTokenHolder.getEmail(),
-                    userDto.getDisplayName(), firstName, lastName, Role.USER);
+                    userDto.getDisplayName(), firstName, lastName, Role.USER, userDto.getPhotoURL());
             userRepository.save(user);
         }
 
@@ -63,7 +63,7 @@ public class UserService implements UserDetailsService {
 
         // create new UserDto
         return new UserDto(user.getId(), user.getUsername(), user.getEmail(), user.getDisplayName(),
-                user.getFirstName(), user.getLastName(), user.getRole().name);
+                user.getFirstName(), user.getLastName(), user.getRole().name, user.getPhotoURL());
     }
 
     /**
@@ -115,7 +115,7 @@ public class UserService implements UserDetailsService {
         this.userRepository.save(userToModify);
 
         return new UserDto(userToModify.getId(), userToModify.getUsername(), email, displayName,
-                firstName, lastName, newUserRole.name);
+                firstName, lastName, newUserRole.name, user.getPhotoURL());
     }
 
     /**

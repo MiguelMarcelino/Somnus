@@ -43,6 +43,17 @@ export class AppRoutesService {
         return this.appRoutes.apiArticleEndPointSearch;
     }
 
+    // Article Comments
+    get apiCommentsEndPoint(): string {
+        this.isLoaded();
+        return this.appRoutes.apiCommentsEndPoint;
+    }
+
+    get apiCommentEndPoint(): string {
+        this.isLoaded();
+        return this.appRoutes.apiCommentEndPoint;
+    }
+
     // Team Members
     get apiTeamMembersEndPoint(): string {
         this.isLoaded();

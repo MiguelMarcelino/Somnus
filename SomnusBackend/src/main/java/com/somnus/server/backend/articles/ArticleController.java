@@ -2,6 +2,7 @@ package com.somnus.server.backend.articles;
 
 import com.somnus.server.backend.articles.dto.ArticleDto;
 import com.somnus.server.backend.articles.dto.ArticlesRequestDto;
+import com.somnus.server.backend.articles.dto.CommentDto;
 import com.somnus.server.backend.users.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -49,5 +50,35 @@ public class ArticleController {
     @GetMapping(value = "/article/search/{articleName}")
     public List<ArticleDto> searchArticles(@PathVariable String articleName) {
         return articleService.searchArticles(articleName);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////// Article Comments /////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @GetMapping(value = "/comments/{articleId}")
+    public List<CommentDto> getCommentsFromArticle(@PathVariable String articleId) {
+        return articleService.getCommentsFromArticle(Integer.parseInt(articleId));
+    }
+
+    @PostMapping(value = "/comment/create")
+    public CommentDto addCommentToArticle(Principal principal, @RequestBody CommentDto commentDto) {
+        User user = (User) ((Authentication) principal).getPrincipal();
+
+        return articleService.addCommentToArticle(user, commentDto);
+    }
+
+    @PostMapping(value = "/comment/update")
+    public CommentDto updateComment(Principal principal, @RequestBody CommentDto commentDto) {
+        User user = (User) ((Authentication) principal).getPrincipal();
+
+        return articleService.updateComment(user, commentDto);
+    }
+
+    @RequestMapping("/comment/add-like/{commentId}")
+    public void addCommentLike(Principal principal, @PathVariable String commentId) {
+        User user = (User) ((Authentication) principal).getPrincipal();
+
+        articleService.addCommentLike(user, Integer.parseInt(commentId));
     }
 }
