@@ -10,13 +10,13 @@ import com.somnus.server.backend.articles.repository.CommentRepository;
 import com.somnus.server.backend.config.DateHandler;
 import com.somnus.server.backend.exceptions.ErrorMessage;
 import com.somnus.server.backend.exceptions.SomnusException;
-import com.somnus.server.backend.notifications.config.PusherConfig;
 import com.somnus.server.backend.notifications.config.PusherInfo;
 import com.somnus.server.backend.notifications.handlers.NotificationHandler;
 import com.somnus.server.backend.users.RolesHandler;
 import com.somnus.server.backend.users.domain.Role;
 import com.somnus.server.backend.users.domain.User;
 import com.somnus.server.backend.users.dto.UserDto;
+import com.somnus.server.backend.users.repository.UserRepository;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.retry.annotation.Backoff;
@@ -44,6 +44,9 @@ public class ArticleService {
 
     @Autowired
     private NotificationHandler notificationHandler;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Retryable(
             value = {SQLException.class},
@@ -223,6 +226,8 @@ public class ArticleService {
         Comment comment = optionalComment.get();
         comment.setNumLikes(comment.getNumLikes() + 1);
         commentRepository.save(comment);
+        user.addLikedComment(comment);
+        userRepository.save(user);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -244,7 +249,13 @@ public class ArticleService {
     private UserDto getUserDto(User user) {
         return new UserDto(user.getId(), user.getUsername(), user.getEmail(),
                 user.getDisplayName(), user.getFirstName(), user.getLastName(),
-                user.getRole().name, user.getPhotoURL());
+                user.getRole().name, user.getPhotoURL(), getCommentDtos(user.getLikedComments()));
+    }
+
+    private List<CommentDto> getCommentDtos(List<Comment> comments) {
+        List<CommentDto> commentDtoList = new ArrayList<>();
+        comments.forEach(comment -> commentDtoList.add(createCommentDto(comment)));
+        return commentDtoList;
     }
 
     private List<CommentDto> parseResponseComments(List<Comment> comments) {

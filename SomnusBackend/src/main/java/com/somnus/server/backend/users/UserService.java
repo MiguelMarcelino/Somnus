@@ -1,5 +1,7 @@
 package com.somnus.server.backend.users;
 
+import com.somnus.server.backend.articles.domain.Comment;
+import com.somnus.server.backend.articles.dto.CommentDto;
 import com.somnus.server.backend.auth.firebase.FirebaseParser;
 import com.somnus.server.backend.auth.firebase.FirebaseTokenHolder;
 import com.somnus.server.backend.exceptions.ErrorMessage;
@@ -15,6 +17,9 @@ import org.springframework.data.util.Pair;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -63,7 +68,8 @@ public class UserService implements UserDetailsService {
 
         // create new UserDto
         return new UserDto(user.getId(), user.getUsername(), user.getEmail(), user.getDisplayName(),
-                user.getFirstName(), user.getLastName(), user.getRole().name, user.getPhotoURL());
+                user.getFirstName(), user.getLastName(), user.getRole().name, user.getPhotoURL(),
+                getCommentDtos(user.getLikedComments()));
     }
 
     /**
@@ -115,7 +121,7 @@ public class UserService implements UserDetailsService {
         this.userRepository.save(userToModify);
 
         return new UserDto(userToModify.getId(), userToModify.getUsername(), email, displayName,
-                firstName, lastName, newUserRole.name, user.getPhotoURL());
+                firstName, lastName, newUserRole.name, user.getPhotoURL(), getCommentDtos(user.getLikedComments()));
     }
 
     /**
@@ -141,5 +147,27 @@ public class UserService implements UserDetailsService {
 //            lastName = Arrays.stream(name).collect(Collectors.joining(" "));
         }
         return Pair.of(firstName, lastName);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////// Private Methods ///////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    private CommentDto createCommentDto(Comment comment) {
+        return new CommentDto(comment.getId(), comment.getArticleId(), getUserDto(comment.getUser()),
+                comment.getPublishedAt(), comment.getEditedAt(), comment.getContent(),
+                comment.getNumLikes());
+    }
+
+    private UserDto getUserDto(User user) {
+        return new UserDto(user.getId(), user.getUsername(), user.getEmail(),
+                user.getDisplayName(), user.getFirstName(), user.getLastName(),
+                user.getRole().name, user.getPhotoURL(), getCommentDtos(user.getLikedComments()));
+    }
+
+    private List<CommentDto> getCommentDtos(List<Comment> comments) {
+        List<CommentDto> commentDtoList = new ArrayList<>();
+        comments.forEach(comment -> commentDtoList.add(createCommentDto(comment)));
+        return commentDtoList;
     }
 }

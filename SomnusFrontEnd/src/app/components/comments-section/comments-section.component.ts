@@ -5,6 +5,7 @@ import { ErrorInterface } from 'src/handlers/error-interface';
 import { CommentService } from 'src/app/services/controllers/comment-controller.service';
 import { ArticleModel } from 'src/app/models/article.model';
 import { UserModel } from 'src/app/models/user.model';
+import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 
 @Component({
   selector: 'app-comments-section',
@@ -13,23 +14,45 @@ import { UserModel } from 'src/app/models/user.model';
 })
 export class CommentsSectionComponent implements OnInit {
 
+  user: firebase.default.User;
+  currentUser: UserModel;
+
   @Input()
   articleId: string;
 
   commentForm: FormGroup;
   userComments: UserComment[];
+  currentSelectedComment: UserComment;
+
 
   constructor(
     private formBuilder: FormBuilder,
     private errorInterface: ErrorInterface,
-    private commenService: CommentService
+    private commentService: CommentService,
+    private authenticationService: AuthenticationService
   ) { }
 
   ngOnInit(): void {
     this.commentForm = this.formBuilder.group({
       comment: new FormControl(''),
-      parentId: new FormControl(''),
+      parentId: new FormControl('')
     });
+    // this.getDummyComments();
+    this.getUser();
+    this.getComments();
+  }
+
+  getUser() {
+    this.authenticationService.getLoggedInUser()
+      .subscribe (user => {
+        this.user = user;
+    });
+  }
+
+  getComments() {
+    this.commentService.getCommentsFromArticle(this.articleId).subscribe(comments => {
+      this.userComments = comments;
+    })
   }
 
   submitComment() {
@@ -40,12 +63,53 @@ export class CommentsSectionComponent implements OnInit {
     }
 
     let comment: UserComment = {"articleId": this.articleId, 
-      "content": content}
+      "content": content};
+
+    console.log(parentId);
 
     if(parentId) {
       comment.parentId = parentId;
     }
-    this.commenService.addObject(comment);
+    this.commentService.addObject(comment).subscribe(comment => {
+      this.errorInterface.setSuccessMessage("Successfully added your new comment!");
+      if(parentId) {
+        this.insertChild(parentId, comment);
+      } else {
+        this.userComments.push(comment);
+      }
+    }) ;
+  }
+
+  insertChild(parentId: string, newComment: UserComment) {
+    this.userComments.forEach(comment => {
+      if(comment.id === parentId) {
+        if(comment.responseComments) {
+          comment.responseComments.push(newComment)
+          return;
+        } else {
+          comment.responseComments = [];
+          comment.responseComments.push(newComment);
+          return;
+        }
+      }
+      if(comment.responseComments) {
+        this.insertChild(parentId, newComment);
+      }
+    });
+  }
+
+  leaveResponse(comment: UserComment) {
+    this.commentForm.get("parentId").setValue(comment.id);
+    this.currentSelectedComment = comment;
+    this.navigateToCommentSection();
+  }
+
+  addLike() {
+
+  }
+
+  navigateToCommentSection() {
+    document.querySelector('html').scrollTo({ top: document.getElementById("section").scrollHeight, behavior: 'smooth' });
   }
 
 }

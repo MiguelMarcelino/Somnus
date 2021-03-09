@@ -167,7 +167,7 @@ export class AuthenticationService  {
   private createNewUser(userCredential: firebase.default.auth.UserCredential): UserModel {
     return {'email': userCredential.user.email, 'userId': userCredential.user.uid, 
             'displayName': userCredential.user.displayName,'firstName': "", 'lastName': "", 'role': "User",
-            'pictureUrl': userCredential.user.photoURL};
+            'photoURL': userCredential.user.photoURL};
   }
 
   private sendUserInfoToBackend(token: string, user: UserModel) {

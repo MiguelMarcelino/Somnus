@@ -1,19 +1,41 @@
-<div id="comments-section">
-    <form [formGroup]="commentForm" (ngSubmit)="submitComment()" method="post">
-        <mat-form-field appearance="fill">
-            <mat-label>Leave a Comment</mat-label>
-            <input id="comment-box" type="text" matInput formControlName="comment" >
-        </mat-form-field>
-
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary">Submit Comment</button>
-        </div>
-    </form>
-</div>
-
-<div id="comments-section" *ngIf="userComments">
-    <div class="user-comment" *ngFor="let comment in userComments">
-        <!-- Make a modern comment box -->
-        <h3>{{comment.username}}</h3>
+<div id="article-edit">
+    <p *ngIf="currentSelectedComment" class="reply-text">Currently replying to {{currentSelectedComment.user.displayName}}</p>
+    <div class="comments-section" *ngIf="user" id="section">
+        <form [formGroup]="commentForm" (ngSubmit)="submitComment()" method="post">
+            <mat-form-field appearance="fill">
+                <mat-label>Leave a Comment</mat-label>
+                <input id="comment-box" type="text" matInput formControlName="comment" >
+            </mat-form-field>
+    
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Publish your Comment</button>
+            </div>
+        </form>
     </div>
+
+    <ng-template #responseCommentList class="comments-section" let-comments [ngIf]="userComments">
+        <div class="user-comment" *ngFor="let comment of comments; let numComment = index">
+            <!-- Make a modern comment box -->
+            <p>{{comment.user.displayName}}</p>
+            <p class="comment-date">{{comment.publishedAt | date:'mediumDate'}}</p>
+            <p>{{comment.content}}</p>
+            <div class="reaction-container">
+                <img src="https://img.icons8.com/ios-filled/26/ffffff/topic.png" class="react-img" (click)="leaveResponse(comment)">
+                <img src="https://img.icons8.com/material-rounded/24/ffffff/facebook-like--v1.png" class="react-img"/>
+            </div>
+            <mat-expansion-panel *ngIf="comment.responseComments && comment.responseComments.length > 0" class="response-comment">
+                <mat-expansion-panel-header [collapsedHeight]="'30pt'" [expandedHeight]="'30pt'">
+                    <mat-panel-description collapsedHeight="'30pt'">
+                       View Responses
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <ng-container
+                    *ngTemplateOutlet="responseCommentList; context:{ $implicit: comment.responseComments }">
+                </ng-container>
+            </mat-expansion-panel>
+    
+            <hr *ngIf="numComment < comments.length - 1">
+        </div>
+    </ng-template>
 </div>
+

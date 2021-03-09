@@ -3,6 +3,15 @@ All changes made to this project will be documented in this file
 
 ## [RELEASED]
 ---------------------------------------------------------
+## [0.2.1] - 2021-03-09
+### Added
+- New frontend design for comments section
+- New Comment responding method added
+
+### Changed
+- Fixed Backend bugs in Comments feature
+
+---------------------------------------------------------
 ## [0.2.1] - 2021-03-07
 ### Added
 - Added Backend updates to store comments

@@ -1,11 +1,13 @@
 package com.somnus.server.backend.users.domain;
 
+import com.somnus.server.backend.articles.domain.Comment;
 import com.somnus.server.backend.config.DateHandler;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -49,6 +51,9 @@ public class User implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<RoleEntity> authorities;
 
+    @ManyToMany
+    private List<Comment> likedComments;
+
     @Column(name = "enabled")
     private final boolean enabled = true;
 
@@ -73,6 +78,7 @@ public class User implements UserDetails {
         this.firstName = firstName;
         this.lastName = lastName;
 //        this.authorities = adminRoles;
+        this.likedComments = new ArrayList<>();
         this.createdAt = DateHandler.now();
         this.role = role;
         this.photoURL = photoURL;
@@ -137,6 +143,10 @@ public class User implements UserDetails {
         return photoURL;
     }
 
+    public List<Comment> getLikedComments() {
+        return likedComments;
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return accountNonExpired;
@@ -179,5 +189,12 @@ public class User implements UserDetails {
 
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
+    }
+
+    public void addLikedComment(Comment comment) {
+        if(likedComments == null) {
+            this.likedComments = new ArrayList<>();
+        }
+        this.likedComments.add(comment);
     }
 }
