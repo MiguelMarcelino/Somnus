@@ -1,8 +1,10 @@
 package com.somnus.server.backend.users.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.somnus.server.backend.articles.dto.CommentDto;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class UserDto implements Serializable {
 
@@ -13,15 +15,19 @@ public class UserDto implements Serializable {
     private String firstName;
     @JsonProperty(value = "lastName")
     private String lastName;
+    @JsonProperty(value = "displayName")
     private String displayName;
     private String email;
     private String role;
+    @JsonProperty(value = "photoURL")
     private String photoURL;
+    @JsonProperty(value = "likedComments")
+    private List<CommentDto> likedComments;
 
     public UserDto() {}
 
     public UserDto(Integer id, String userId, String email, String displayName, String firstName,
-                   String lastName, String role, String photoURL) {
+                   String lastName, String role, String photoURL, List<CommentDto> likedComments) {
         this.id = id;
         this.userId = userId;
         this.email = email;

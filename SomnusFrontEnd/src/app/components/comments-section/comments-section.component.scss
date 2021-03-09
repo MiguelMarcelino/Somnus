@@ -1,3 +1,59 @@
-#comments-section {
-    
+
+mat-form-field {
+    width: 100%;
+    // float: l;
+}
+
+mat-expansion-panel{
+    background-color: rgb(48, 48, 48);
+    margin-top: 20pt;
+}
+
+hr{
+    background-color: rgb(100, 100, 100);
+    border-radius: 10pt;
+}
+
+#article-edit {
+    margin-bottom: 40pt;
+    transition: 0.5s ease-in-out;
+}
+
+.comments-section {
+    width: 100%;
+    height: auto;
+    margin-bottom: 30pt;
+}
+
+.response-comment{
+    padding-left: 20pt;
+    width: 90%;
+    height: auto;
+}
+
+.comment-date {
+    font-size: 10pt !important;
+    line-height: 0pt;
+    color: rgb(156, 156, 156);
+}
+
+.reaction-container {
+    display: flex;
+    transition: 0.5s all;
+}
+
+.react-img{
+    width: 20pt;
+    height: 20pt;
+    margin-right: 10pt;
+    transition: 0.5s ease-in-out;
+}
+
+.react-img:hover {
+    // transform: scale(1.02);
+    cursor: pointer;
+}
+
+.reply-text{
+    color: rgb(187, 187, 187);
 }

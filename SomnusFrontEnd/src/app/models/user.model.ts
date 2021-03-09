@@ -1,4 +1,6 @@
+import { UserController } from '../services/controllers/user-controller.service';
 import { Identifiable } from './identifiable';
+import { UserComment } from './user-comment.model';
 
 export interface UserModel extends Identifiable {
     userId: string;
@@ -7,5 +9,6 @@ export interface UserModel extends Identifiable {
     lastName: string;
     email: string;
     role: string;
-    pictureUrl: string;
+    photoURL: string;
+    likedComments?: UserComment[];
 }

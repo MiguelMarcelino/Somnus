@@ -14,13 +14,13 @@ import java.util.List;
 public class Comment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "article_id")
     private Integer articleId;
 
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     private User user;
 
     @Column(name = "published_at")
@@ -35,7 +35,7 @@ public class Comment {
     @Column(name = "num_likes")
     private Integer numLikes;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Comment> responseComments;
 
     public Comment() {}
