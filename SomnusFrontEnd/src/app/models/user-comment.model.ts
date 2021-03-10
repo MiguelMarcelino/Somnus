@@ -3,7 +3,8 @@ import { UserModel } from "./user.model";
 
 export interface UserComment extends Identifiable {
     articleId: string;
-    user?: UserModel;
+    username?: string;
+    userDisplayName?: string;
     publishedAt?: Date;
     editedAt?: Date;
     content: string;

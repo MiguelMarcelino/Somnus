@@ -34,7 +34,7 @@ export class CommentService extends TemplateControllerService<UserComment> {
         return this.http.post(url, comment);
     }
 
-    public addLike(commentId: number): Observable<any> {
+    public addLike(commentId: string): Observable<any> {
         let url = `${this.getApiUrlObject()}/add-like/${commentId}`;
         return this.http.get(url);
     }

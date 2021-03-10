@@ -19,7 +19,6 @@ export class CommentsSectionComponent implements OnInit {
 
   @Input()
   articleId: string;
-
   commentForm: FormGroup;
   userComments: UserComment[];
   currentSelectedComment: UserComment;
@@ -83,14 +82,11 @@ export class CommentsSectionComponent implements OnInit {
   insertChild(parentId: string, newComment: UserComment) {
     this.userComments.forEach(comment => {
       if(comment.id === parentId) {
-        if(comment.responseComments) {
-          comment.responseComments.push(newComment)
-          return;
-        } else {
+        if(!comment.responseComments) {
           comment.responseComments = [];
-          comment.responseComments.push(newComment);
-          return;
-        }
+        } 
+        comment.responseComments.push(newComment);
+        return;
       }
       if(comment.responseComments) {
         this.insertChild(parentId, newComment);
@@ -104,12 +100,28 @@ export class CommentsSectionComponent implements OnInit {
     this.navigateToCommentSection();
   }
 
-  addLike() {
-
+  likeComment(comment: UserComment) {
+    this.commentService.addLike(comment.id).subscribe(x => {
+      console.log("ola");
+      comment.numLikes++;
+      if(!this.currentUser.likedComments) {
+        this.currentUser.likedComments = [];
+      }
+      this.currentUser.likedComments.push(comment);
+    })
   }
 
   navigateToCommentSection() {
     document.querySelector('html').scrollTo({ top: document.getElementById("section").scrollHeight, behavior: 'smooth' });
+  }
+
+  isUserLikedComment(comment) {
+    if(this.currentUser) {
+      if(this.currentUser.likedComments) {
+        return this.currentUser.likedComments.includes(comment);
+      }
+      return false;
+    }
   }
 
 }

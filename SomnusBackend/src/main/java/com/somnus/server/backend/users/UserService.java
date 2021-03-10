@@ -154,9 +154,9 @@ public class UserService implements UserDetailsService {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private CommentDto createCommentDto(Comment comment) {
-        return new CommentDto(comment.getId(), comment.getArticleId(), getUserDto(comment.getUser()),
-                comment.getPublishedAt(), comment.getEditedAt(), comment.getContent(),
-                comment.getNumLikes());
+        return new CommentDto(comment.getId(), comment.getArticleId(), comment.getUsername(),
+                comment.getUserDisplayName(), comment.getPublishedAt(), comment.getEditedAt(),
+                comment.getContent(), comment.getNumLikes());
     }
 
     private UserDto getUserDto(User user) {

@@ -1,7 +1,6 @@
 package com.somnus.server.backend.articles.domain;
 
 import com.somnus.server.backend.config.DateHandler;
-import com.somnus.server.backend.users.domain.User;
 
 import javax.persistence.*;
 import java.nio.charset.StandardCharsets;
@@ -20,8 +19,11 @@ public class Comment {
     @Column(name = "article_id")
     private Integer articleId;
 
-    @ManyToOne(optional = false)
-    private User user;
+    @Column(name="username")
+    private String username;
+
+    @Column(name="user-display-name")
+    private String userDisplayName;
 
     @Column(name = "published_at")
     private LocalDateTime publishedAt;
@@ -43,13 +45,15 @@ public class Comment {
     /**
      * Constructor used to create a new comment
      * @param articleId - Article to which the comment belongs to
-     * @param user - User that published the comment
+     * @param username - Username of the user that published the comment
+     * @param userDisplayName - Display name of the user that published the comment
      * @param content - Content of the commend
      */
-    public Comment(Integer articleId, User user,
+    public Comment(Integer articleId, String username, String userDisplayName,
                    String content) {
         this.articleId = articleId;
-        this.user = user;
+        this.username = username;
+        this.userDisplayName = userDisplayName;
         this.publishedAt = DateHandler.now();
         this.editedAt = null;
         this.numLikes = 0;
@@ -65,8 +69,12 @@ public class Comment {
         return articleId;
     }
 
-    public User getUser() {
-        return user;
+    public String getUsername() {
+        return username;
+    }
+
+    public String getUserDisplayName() {
+        return userDisplayName;
     }
 
     public LocalDateTime getPublishedAt() {
