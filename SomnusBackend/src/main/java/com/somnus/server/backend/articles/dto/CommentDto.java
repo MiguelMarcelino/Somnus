@@ -1,7 +1,6 @@
 package com.somnus.server.backend.articles.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.somnus.server.backend.users.dto.UserDto;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -15,8 +14,11 @@ public class CommentDto implements Serializable {
     @JsonProperty("articleId")
     private Integer articleId;
 
-    @JsonProperty("user")
-    private UserDto user;
+    @JsonProperty("username")
+    private String username;
+
+    @JsonProperty("displayName")
+    private String userDisplayName;
 
     @JsonProperty("publishedAt")
     private String publishedAt;
@@ -39,11 +41,12 @@ public class CommentDto implements Serializable {
     public CommentDto() {
     }
 
-    public CommentDto(Integer id, Integer articleId, UserDto user, LocalDateTime publishedAt,
+    public CommentDto(Integer id, Integer articleId, String username, String userDisplayName, LocalDateTime publishedAt,
                       LocalDateTime editedAt, String content, Integer numLikes) {
         this.id = id;
         this.articleId = articleId;
-        this.user = user;
+        this.username = username;
+        this.userDisplayName = userDisplayName;
         this.publishedAt = publishedAt.format(DateTimeFormatter.ISO_DATE);
         if (editedAt != null) {
             this.editedAt = editedAt.format(DateTimeFormatter.ISO_DATE);

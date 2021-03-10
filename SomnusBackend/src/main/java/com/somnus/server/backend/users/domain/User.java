@@ -2,6 +2,8 @@ package com.somnus.server.backend.users.domain;
 
 import com.somnus.server.backend.articles.domain.Comment;
 import com.somnus.server.backend.config.DateHandler;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -48,10 +50,11 @@ public class User implements UserDetails {
     @Column(name = "picture_url")
     private String photoURL;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<RoleEntity> authorities;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Comment> likedComments;
 
     @Column(name = "enabled")

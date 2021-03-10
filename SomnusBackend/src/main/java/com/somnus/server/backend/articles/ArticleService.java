@@ -155,7 +155,7 @@ public class ArticleService {
         }
 
         List<Comment> comments = commentRepository.getCommentsByArticleId(articleId);
-        return parseResponseComments(comments);
+        return getCommentDtos(comments);
     }
 
     public CommentDto addCommentToArticle(User user, CommentDto commentDto) {
@@ -164,8 +164,8 @@ public class ArticleService {
             throw new SomnusException(ErrorMessage.NO_ARTICLE_FOUND);
         }
 
-        Comment comment = new Comment(commentDto.getArticleId(), user,
-                commentDto.getContent());
+        Comment comment = new Comment(commentDto.getArticleId(), user.getUsername(),
+                user.getDisplayName(), commentDto.getContent());
         commentRepository.save(comment);
 
         if (commentDto.getParentId() != null) {
@@ -178,11 +178,10 @@ public class ArticleService {
             commentRepository.save(parentComment);
         }
 
-        UserDto userDto = getUserDto(user);
         CommentDto resultComment = createCommentDto(comment);
 
         if (!comment.getResponseComments().isEmpty()) {
-            List<CommentDto> responseComments = parseResponseComments(comment.getResponseComments());
+            List<CommentDto> responseComments = getCommentDtos(comment.getResponseComments());
             resultComment.setResponseComments(responseComments);
         }
 
@@ -204,7 +203,7 @@ public class ArticleService {
         }
 
         Comment comment = optionalComment.get();
-        if (!comment.getUser().getUsername().equals(user.getUsername())) {
+        if (!comment.getUsername().equals(user.getUsername())) {
             throw new SomnusException(ErrorMessage.COMMENT_EDIT_NOT_ALLOWED);
         }
 
@@ -225,8 +224,8 @@ public class ArticleService {
 
         Comment comment = optionalComment.get();
         comment.setNumLikes(comment.getNumLikes() + 1);
-        commentRepository.save(comment);
         user.addLikedComment(comment);
+        commentRepository.save(comment);
         userRepository.save(user);
     }
 
@@ -241,9 +240,9 @@ public class ArticleService {
     }
 
     private CommentDto createCommentDto(Comment comment) {
-        return new CommentDto(comment.getId(), comment.getArticleId(), getUserDto(comment.getUser()),
-                comment.getPublishedAt(), comment.getEditedAt(), comment.getContent(),
-                comment.getNumLikes());
+        return new CommentDto(comment.getId(), comment.getArticleId(), comment.getUsername(),
+                comment.getUserDisplayName(), comment.getPublishedAt(), comment.getEditedAt(),
+                comment.getContent(), comment.getNumLikes());
     }
 
     private UserDto getUserDto(User user) {
@@ -255,13 +254,6 @@ public class ArticleService {
     private List<CommentDto> getCommentDtos(List<Comment> comments) {
         List<CommentDto> commentDtoList = new ArrayList<>();
         comments.forEach(comment -> commentDtoList.add(createCommentDto(comment)));
-        return commentDtoList;
-    }
-
-    private List<CommentDto> parseResponseComments(List<Comment> comments) {
-        List<CommentDto> commentDtoList = new ArrayList<>();
-        comments.forEach(comment ->
-                commentDtoList.add(createCommentDto(comment)));
         return commentDtoList;
     }
 }
