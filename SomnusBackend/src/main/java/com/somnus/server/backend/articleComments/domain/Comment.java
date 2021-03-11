@@ -1,6 +1,7 @@
-package com.somnus.server.backend.articles.domain;
+package com.somnus.server.backend.articleComments.domain;
 
 import com.somnus.server.backend.config.DateHandler;
+import com.somnus.server.backend.users.domain.User;
 
 import javax.persistence.*;
 import java.nio.charset.StandardCharsets;
@@ -19,10 +20,10 @@ public class Comment {
     @Column(name = "article_id")
     private Integer articleId;
 
-    @Column(name="username")
+    @Column(name = "username")
     private String username;
 
-    @Column(name="user-display-name")
+    @Column(name = "user_display_name")
     private String userDisplayName;
 
     @Column(name = "published_at")
@@ -37,17 +38,37 @@ public class Comment {
     @Column(name = "num_likes")
     private Integer numLikes;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "users_liked_comments",
+            joinColumns = {
+                    @JoinColumn(name = "comment_id")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "user_id")
+            }
+    )
+    private List<User> userLikes;
+
+    //    @JsonBackReference
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Comment.class)
+    @JoinColumn(name = "parent_id", referencedColumnName = "id")
+    private Comment parentComment;
+
+    @OneToMany(mappedBy = "parentComment",
+            cascade = {CascadeType.PERSIST, CascadeType.ALL},
+            fetch = FetchType.EAGER)
     private List<Comment> responseComments;
 
-    public Comment() {}
+    public Comment() {
+    }
 
     /**
      * Constructor used to create a new comment
-     * @param articleId - Article to which the comment belongs to
-     * @param username - Username of the user that published the comment
+     *
+     * @param articleId       - Article to which the comment belongs to
+     * @param username        - Username of the user that published the comment
      * @param userDisplayName - Display name of the user that published the comment
-     * @param content - Content of the commend
+     * @param content         - Content of the commend
      */
     public Comment(Integer articleId, String username, String userDisplayName,
                    String content) {
@@ -57,8 +78,10 @@ public class Comment {
         this.publishedAt = DateHandler.now();
         this.editedAt = null;
         this.numLikes = 0;
-        this.content = parseContent(content);
+        this.parentComment = null;
         this.responseComments = new ArrayList<>();
+        this.userLikes = new ArrayList<>();
+        this.content = parseContent(content);
     }
 
     public Integer getId() {
@@ -97,6 +120,14 @@ public class Comment {
         return responseComments;
     }
 
+    public Comment getParentComment() {
+        return parentComment;
+    }
+
+    public List<User> getUserLikes() {
+        return userLikes;
+    }
+
     public void setNumLikes(Integer numLikes) {
         this.numLikes = numLikes;
     }
@@ -109,11 +140,22 @@ public class Comment {
         this.content = parseContent(content);
     }
 
+    public void setParentComment(Comment parentComment) {
+        this.parentComment = parentComment;
+    }
+
     public void addResponseComment(Comment comment) {
-        if(responseComments == null) {
+        if (responseComments == null) {
             responseComments = new ArrayList<>();
         }
         responseComments.add(comment);
+    }
+
+    public void addUserLikes(User user) {
+        if (userLikes == null) {
+            userLikes = new ArrayList<>();
+        }
+        userLikes.add(user);
     }
 
     private byte[] parseContent(String content) {

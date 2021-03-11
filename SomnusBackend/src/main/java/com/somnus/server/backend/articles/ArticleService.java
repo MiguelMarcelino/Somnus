@@ -1,21 +1,16 @@
 package com.somnus.server.backend.articles;
 
+import com.somnus.server.backend.articleComments.CommentService;
 import com.somnus.server.backend.articles.domain.Article;
 import com.somnus.server.backend.articles.domain.ArticleTopic;
-import com.somnus.server.backend.articles.domain.Comment;
 import com.somnus.server.backend.articles.dto.ArticleDto;
-import com.somnus.server.backend.articles.dto.CommentDto;
 import com.somnus.server.backend.articles.repository.ArticleRepository;
-import com.somnus.server.backend.articles.repository.CommentRepository;
-import com.somnus.server.backend.config.DateHandler;
+import com.somnus.server.backend.articleComments.repository.CommentRepository;
 import com.somnus.server.backend.exceptions.ErrorMessage;
 import com.somnus.server.backend.exceptions.SomnusException;
-import com.somnus.server.backend.notifications.config.PusherInfo;
-import com.somnus.server.backend.notifications.handlers.NotificationHandler;
 import com.somnus.server.backend.users.RolesHandler;
 import com.somnus.server.backend.users.domain.Role;
 import com.somnus.server.backend.users.domain.User;
-import com.somnus.server.backend.users.dto.UserDto;
 import com.somnus.server.backend.users.repository.UserRepository;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,10 +38,10 @@ public class ArticleService {
     private RolesHandler rolesHandler;
 
     @Autowired
-    private NotificationHandler notificationHandler;
+    private UserRepository userRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private CommentService commentService;
 
     @Retryable(
             value = {SQLException.class},
@@ -145,91 +140,6 @@ public class ArticleService {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////// Article Comments /////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    public List<CommentDto> getCommentsFromArticle(Integer articleId) {
-        Optional<Article> optionalArticle = articleRepository.findById(articleId);
-        if (optionalArticle.isEmpty()) {
-            throw new SomnusException(ErrorMessage.NO_ARTICLE_FOUND);
-        }
-
-        List<Comment> comments = commentRepository.getCommentsByArticleId(articleId);
-        return getCommentDtos(comments);
-    }
-
-    public CommentDto addCommentToArticle(User user, CommentDto commentDto) {
-        Optional<Article> optionalArticle = articleRepository.findById(commentDto.getArticleId());
-        if (optionalArticle.isEmpty()) {
-            throw new SomnusException(ErrorMessage.NO_ARTICLE_FOUND);
-        }
-
-        Comment comment = new Comment(commentDto.getArticleId(), user.getUsername(),
-                user.getDisplayName(), commentDto.getContent());
-        commentRepository.save(comment);
-
-        if (commentDto.getParentId() != null) {
-            Optional<Comment> optionalComment = commentRepository.findById(commentDto.getParentId());
-            if (optionalComment.isEmpty()) {
-                throw new SomnusException(ErrorMessage.NO_COMMENT_FOUND);
-            }
-            Comment parentComment = optionalComment.get();
-            parentComment.addResponseComment(comment);
-            commentRepository.save(parentComment);
-        }
-
-        CommentDto resultComment = createCommentDto(comment);
-
-        if (!comment.getResponseComments().isEmpty()) {
-            List<CommentDto> responseComments = getCommentDtos(comment.getResponseComments());
-            resultComment.setResponseComments(responseComments);
-        }
-
-        this.notificationHandler.sendNotification(PusherInfo.ARTICLE_CHANNEL, PusherInfo.COMMENT_PUBLISHED_EVENT,
-                resultComment);
-
-        return resultComment;
-    }
-
-    public CommentDto updateComment(User user, CommentDto commentDto) {
-        Optional<Article> optionalArticle = articleRepository.findById(commentDto.getArticleId());
-        if (optionalArticle.isEmpty()) {
-            throw new SomnusException(ErrorMessage.NO_ARTICLE_FOUND);
-        }
-
-        Optional<Comment> optionalComment = commentRepository.findById(commentDto.getId());
-        if (optionalComment.isEmpty()) {
-            throw new SomnusException(ErrorMessage.NO_COMMENT_FOUND);
-        }
-
-        Comment comment = optionalComment.get();
-        if (!comment.getUsername().equals(user.getUsername())) {
-            throw new SomnusException(ErrorMessage.COMMENT_EDIT_NOT_ALLOWED);
-        }
-
-        // authorized, so allow editing
-        comment.setContent(commentDto.getContent());
-        comment.setEditedAt(DateHandler.now());
-        commentRepository.save(comment);
-
-        CommentDto editedComment = createCommentDto(comment);
-        return editedComment;
-    }
-
-    public void addCommentLike(User user, Integer commentId) {
-        Optional<Comment> optionalComment = commentRepository.findById(commentId);
-        if (optionalComment.isEmpty()) {
-            throw new SomnusException(ErrorMessage.NO_COMMENT_FOUND);
-        }
-
-        Comment comment = optionalComment.get();
-        comment.setNumLikes(comment.getNumLikes() + 1);
-        user.addLikedComment(comment);
-        commentRepository.save(comment);
-        userRepository.save(user);
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////// Private Methods ///////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -237,23 +147,5 @@ public class ArticleService {
         return new ArticleDto(String.valueOf(article.getId()), article.getArticleName(),
                 article.getAuthorUserName(), article.getAuthor().getUsername(), article.getDescription(),
                 article.getDatePublished(), article.getLastUpdate(), article.getTopic().name, article.getContent());
-    }
-
-    private CommentDto createCommentDto(Comment comment) {
-        return new CommentDto(comment.getId(), comment.getArticleId(), comment.getUsername(),
-                comment.getUserDisplayName(), comment.getPublishedAt(), comment.getEditedAt(),
-                comment.getContent(), comment.getNumLikes());
-    }
-
-    private UserDto getUserDto(User user) {
-        return new UserDto(user.getId(), user.getUsername(), user.getEmail(),
-                user.getDisplayName(), user.getFirstName(), user.getLastName(),
-                user.getRole().name, user.getPhotoURL(), getCommentDtos(user.getLikedComments()));
-    }
-
-    private List<CommentDto> getCommentDtos(List<Comment> comments) {
-        List<CommentDto> commentDtoList = new ArrayList<>();
-        comments.forEach(comment -> commentDtoList.add(createCommentDto(comment)));
-        return commentDtoList;
     }
 }

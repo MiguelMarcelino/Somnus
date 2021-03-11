@@ -1,7 +1,6 @@
 package com.somnus.server.backend.users;
 
-import com.somnus.server.backend.articles.domain.Comment;
-import com.somnus.server.backend.articles.dto.CommentDto;
+import com.somnus.server.backend.articleComments.CommentService;
 import com.somnus.server.backend.auth.firebase.FirebaseParser;
 import com.somnus.server.backend.auth.firebase.FirebaseTokenHolder;
 import com.somnus.server.backend.exceptions.ErrorMessage;
@@ -18,9 +17,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Service
 public class UserService implements UserDetailsService {
 
@@ -29,6 +25,9 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private RolesHandler rolesHandler;
+
+    @Autowired
+    private CommentService commentService;
 
     @Override
     public User loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -68,8 +67,7 @@ public class UserService implements UserDetailsService {
 
         // create new UserDto
         return new UserDto(user.getId(), user.getUsername(), user.getEmail(), user.getDisplayName(),
-                user.getFirstName(), user.getLastName(), user.getRole().name, user.getPhotoURL(),
-                getCommentDtos(user.getLikedComments()));
+                user.getFirstName(), user.getLastName(), user.getRole().name, user.getPhotoURL());
     }
 
     /**
@@ -121,7 +119,7 @@ public class UserService implements UserDetailsService {
         this.userRepository.save(userToModify);
 
         return new UserDto(userToModify.getId(), userToModify.getUsername(), email, displayName,
-                firstName, lastName, newUserRole.name, user.getPhotoURL(), getCommentDtos(user.getLikedComments()));
+                firstName, lastName, newUserRole.name, user.getPhotoURL());
     }
 
     /**
@@ -149,25 +147,4 @@ public class UserService implements UserDetailsService {
         return Pair.of(firstName, lastName);
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////// Private Methods ///////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    private CommentDto createCommentDto(Comment comment) {
-        return new CommentDto(comment.getId(), comment.getArticleId(), comment.getUsername(),
-                comment.getUserDisplayName(), comment.getPublishedAt(), comment.getEditedAt(),
-                comment.getContent(), comment.getNumLikes());
-    }
-
-    private UserDto getUserDto(User user) {
-        return new UserDto(user.getId(), user.getUsername(), user.getEmail(),
-                user.getDisplayName(), user.getFirstName(), user.getLastName(),
-                user.getRole().name, user.getPhotoURL(), getCommentDtos(user.getLikedComments()));
-    }
-
-    private List<CommentDto> getCommentDtos(List<Comment> comments) {
-        List<CommentDto> commentDtoList = new ArrayList<>();
-        comments.forEach(comment -> commentDtoList.add(createCommentDto(comment)));
-        return commentDtoList;
-    }
 }
