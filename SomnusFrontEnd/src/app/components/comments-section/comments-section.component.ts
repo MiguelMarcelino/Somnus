@@ -6,6 +6,7 @@ import { CommentService } from 'src/app/services/controllers/comment-controller.
 import { ArticleModel } from 'src/app/models/article.model';
 import { UserModel } from 'src/app/models/user.model';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
+import { UserController } from 'src/app/services/controllers/user-controller.service';
 
 @Component({
   selector: 'app-comments-section',
@@ -45,12 +46,26 @@ export class CommentsSectionComponent implements OnInit {
     this.authenticationService.getLoggedInUser()
       .subscribe (user => {
         this.user = user;
+        this.currentUser = this.authenticationService.getCurrentUser();
     });
   }
 
   getComments() {
     this.commentService.getCommentsFromArticle(this.articleId).subscribe(comments => {
-      this.userComments = comments;
+      this.buildCommentArray(comments);
+      console.log(comments);
+    })
+  }
+
+  buildCommentArray(comments: UserComment[]) {
+    this.userComments = comments;
+
+    this.userComments.forEach(comment => {
+      if(comment.parentId) {
+        let tempComment = comment;
+        this.userComments.splice(this.userComments.indexOf(comment), 1);
+        this.insertChild(tempComment.parentId, tempComment);
+      }
     })
   }
 
@@ -102,12 +117,8 @@ export class CommentsSectionComponent implements OnInit {
 
   likeComment(comment: UserComment) {
     this.commentService.addLike(comment.id).subscribe(x => {
-      console.log("ola");
       comment.numLikes++;
-      if(!this.currentUser.likedComments) {
-        this.currentUser.likedComments = [];
-      }
-      this.currentUser.likedComments.push(comment);
+      comment.isUserLikedComment=true;
     })
   }
 
@@ -115,12 +126,9 @@ export class CommentsSectionComponent implements OnInit {
     document.querySelector('html').scrollTo({ top: document.getElementById("section").scrollHeight, behavior: 'smooth' });
   }
 
-  isUserLikedComment(comment) {
+  isUserLikedComment(comment: UserComment) {
     if(this.currentUser) {
-      if(this.currentUser.likedComments) {
-        return this.currentUser.likedComments.includes(comment);
-      }
-      return false;
+      return comment.isUserLikedComment;
     }
   }
 

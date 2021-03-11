@@ -12,4 +12,5 @@ export interface UserComment extends Identifiable {
     //see how to display recursive data structures in angular
     responseComments?: UserComment[];
     parentId?: string;
+    isUserLikedComment?: boolean;
 }

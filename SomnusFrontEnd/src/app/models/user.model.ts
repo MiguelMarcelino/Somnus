@@ -10,5 +10,4 @@ export interface UserModel extends Identifiable {
     email: string;
     role: string;
     photoURL: string;
-    likedComments?: UserComment[];
 }

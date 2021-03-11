@@ -4,22 +4,12 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.somnus.server.backend.config.DateHandler;
-import com.somnus.server.backend.exceptions.ErrorMessage;
-import com.somnus.server.backend.exceptions.SomnusException;
 import com.somnus.server.backend.users.domain.User;
-import org.hibernate.SessionFactory;
 import org.hibernate.annotations.Proxy;
-import org.hibernate.ejb.HibernateEntityManagerFactory;
-import org.springframework.boot.context.properties.bind.DefaultValue;
-import org.springframework.context.annotation.Bean;
-import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.nio.charset.StandardCharsets;
-import java.sql.Blob;
-import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Table(name = "articles")

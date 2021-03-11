@@ -1,9 +1,7 @@
 package com.somnus.server.backend.users.domain;
 
-import com.somnus.server.backend.articles.domain.Comment;
+import com.somnus.server.backend.articleComments.domain.Comment;
 import com.somnus.server.backend.config.DateHandler;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -53,8 +51,8 @@ public class User implements UserDetails {
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<RoleEntity> authorities;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST,
+            mappedBy = "userLikes")
     private List<Comment> likedComments;
 
     @Column(name = "enabled")
@@ -81,8 +79,8 @@ public class User implements UserDetails {
         this.firstName = firstName;
         this.lastName = lastName;
 //        this.authorities = adminRoles;
-        this.likedComments = new ArrayList<>();
         this.createdAt = DateHandler.now();
+        this.likedComments = new ArrayList<>();
         this.role = role;
         this.photoURL = photoURL;
     }
@@ -92,6 +90,7 @@ public class User implements UserDetails {
         this.email = email;
         this.authorities = roles;
         this.createdAt = DateHandler.now();
+        this.likedComments = new ArrayList<>();
         this.role = role;
     }
 

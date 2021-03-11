@@ -1,4 +1,4 @@
-package com.somnus.server.backend.articles.dto;
+package com.somnus.server.backend.articleComments.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -17,7 +17,7 @@ public class CommentDto implements Serializable {
     @JsonProperty("username")
     private String username;
 
-    @JsonProperty("displayName")
+    @JsonProperty("userDisplayName")
     private String userDisplayName;
 
     @JsonProperty("publishedAt")
@@ -35,6 +35,9 @@ public class CommentDto implements Serializable {
     @JsonProperty("responseComments")
     private List<CommentDto> responseComments;
 
+    @JsonProperty("isUserLikedComment")
+    private boolean isUserLikedComment;
+
     @JsonProperty("parentId")
     private Integer parentId;
 
@@ -42,7 +45,7 @@ public class CommentDto implements Serializable {
     }
 
     public CommentDto(Integer id, Integer articleId, String username, String userDisplayName, LocalDateTime publishedAt,
-                      LocalDateTime editedAt, String content, Integer numLikes) {
+                      LocalDateTime editedAt, String content, Integer numLikes, Integer parentId) {
         this.id = id;
         this.articleId = articleId;
         this.username = username;
@@ -53,7 +56,7 @@ public class CommentDto implements Serializable {
         }
         this.content = content;
         this.numLikes = numLikes;
-        this.responseComments = responseComments;
+        this.parentId = parentId;
     }
 
     public Integer getId() {
@@ -74,5 +77,9 @@ public class CommentDto implements Serializable {
 
     public Integer getParentId() {
         return parentId;
+    }
+
+    public void setUserLikedComment(boolean userLikedComment) {
+        isUserLikedComment = userLikedComment;
     }
 }

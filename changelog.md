@@ -3,6 +3,12 @@ All changes made to this project will be documented in this file
 
 ## [RELEASED]
 ---------------------------------------------------------
+## [0.2.1] - 2021-03-11
+### Changed
+- Fixed bug in JPA
+- Comment addition and likes working
+
+---------------------------------------------------------
 ## [0.2.1] - 2021-03-09
 ### Added
 - New frontend design for comments section
