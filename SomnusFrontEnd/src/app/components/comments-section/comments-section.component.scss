@@ -14,7 +14,11 @@ hr{
     border-radius: 10pt;
 }
 
-#article-edit {
+a:hover{
+    text-decoration: none;
+}
+
+.article-edit {
     margin-bottom: 40pt;
     transition: 0.5s ease-in-out;
 }
@@ -54,10 +58,55 @@ hr{
     cursor: pointer;
 }
 
-.reply-text{
+.liked-comment-img {
+    // background-color: rgba(0, 102, 255, 0.87);
+    // filter: invert(0.5);
+    background-image:url("https://img.icons8.com/material-rounded/24/4a90e2/facebook-like--v1.png");
+    // filter: invert(0.5);
+}
+
+.non-liked-comment-img {
+    background-image:url("https://img.icons8.com/material-rounded/24/ffffff/facebook-like--v1.png");
+}
+
+.response-img {
+    background-image: url("https://img.icons8.com/ios-filled/26/ffffff/topic.png");
+}
+
+.edit-img {
+    background-image: url("https://img.icons8.com/material-rounded/24/ffffff/edit--v1.png");
+}
+
+.delete-img {
+    background-image: url("https://img.icons8.com/ios-glyphs/24/fa314a/trash--v1.png");
+}
+
+.react-button {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: 0pt;
+    margin-right: 10pt;
+    transition: 0.5s ease-in-out;
+    width: 20pt;
+    height: 20pt;
+}
+
+
+.reply-context  {
+    float: left;
+    margin-bottom: 20pt;
+}
+
+.reply-text {
+    margin-right: 30pt;
+    font-size: 12pt;
     color: rgb(187, 187, 187);
 }
 
-.liked-comment{
-    filter: invert(0.5);
+
+.remove-reply-button {
+    font-size: 12pt;
+    color: rgb(87, 140, 255);
+    background-color: transparent;
+    border: 0pt;
 }

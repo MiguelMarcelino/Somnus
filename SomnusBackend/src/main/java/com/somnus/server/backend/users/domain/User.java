@@ -7,9 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -51,9 +49,9 @@ public class User implements UserDetails {
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<RoleEntity> authorities;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST,
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST,
             mappedBy = "userLikes")
-    private List<Comment> likedComments;
+    private Map<Integer, Comment> likedComments;
 
     @Column(name = "enabled")
     private final boolean enabled = true;
@@ -80,7 +78,7 @@ public class User implements UserDetails {
         this.lastName = lastName;
 //        this.authorities = adminRoles;
         this.createdAt = DateHandler.now();
-        this.likedComments = new ArrayList<>();
+//        this.likedComments = new HashMap<>();
         this.role = role;
         this.photoURL = photoURL;
     }
@@ -90,7 +88,7 @@ public class User implements UserDetails {
         this.email = email;
         this.authorities = roles;
         this.createdAt = DateHandler.now();
-        this.likedComments = new ArrayList<>();
+        this.likedComments = new HashMap<>();
         this.role = role;
     }
 
@@ -145,7 +143,7 @@ public class User implements UserDetails {
         return photoURL;
     }
 
-    public List<Comment> getLikedComments() {
+    public Map<Integer, Comment> getLikedComments() {
         return likedComments;
     }
 
@@ -195,8 +193,8 @@ public class User implements UserDetails {
 
     public void addLikedComment(Comment comment) {
         if(likedComments == null) {
-            this.likedComments = new ArrayList<>();
+            this.likedComments = new HashMap<>();
         }
-        this.likedComments.add(comment);
+        this.likedComments.put(comment.getId(), comment);
     }
 }

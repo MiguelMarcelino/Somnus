@@ -3,6 +3,13 @@ All changes made to this project will be documented in this file
 
 ## [RELEASED]
 ---------------------------------------------------------
+## [0.2.1] - 2021-03-12
+### Changed
+- Finished comment section
+
+### Bugs
+- Can't delete child comments
+---------------------------------------------------------
 ## [0.2.1] - 2021-03-11
 ### Changed
 - Fixed bug in JPA

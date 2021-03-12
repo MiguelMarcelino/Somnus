@@ -48,3 +48,18 @@ mat-expansion-panel{
 #article-info {
     margin-bottom: 80pt;
 }
+
+.navigate-button-comments {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10;
+    transition: 0.5s ease;
+}
+
+.navigate-button-up {
+    position: fixed;
+    bottom: 85px;
+    right: 20px;
+    z-index: 10;
+}

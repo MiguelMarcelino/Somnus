@@ -37,11 +37,25 @@ public class CommentController {
         return commentService.updateComment(user, commentDto);
     }
 
+    @DeleteMapping(value = "/comment/delete/{commentId}")
+    public void removeComment(Principal principal, @PathVariable String commentId) {
+        User user = (User) ((Authentication) principal).getPrincipal();
+
+        commentService.removeComment(user, Integer.parseInt(commentId));
+    }
+
     @RequestMapping("/comment/add-like/{commentId}")
     public void addCommentLike(Principal principal, @PathVariable String commentId) {
         User user = (User) ((Authentication) principal).getPrincipal();
 
         commentService.addCommentLike(user, Integer.parseInt(commentId));
+    }
+
+    @RequestMapping("/comment/remove-like/{commentId}")
+    public void removeCommentLike(Principal principal, @PathVariable String commentId) {
+        User user = (User) ((Authentication) principal).getPrincipal();
+
+        commentService.removeCommentLike(user, Integer.parseInt(commentId));
     }
 
 }
