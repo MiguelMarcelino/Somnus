@@ -1,5 +1,6 @@
 package com.somnus.server.backend.articleComments.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.somnus.server.backend.config.DateHandler;
 import com.somnus.server.backend.users.domain.User;
 
@@ -51,13 +52,14 @@ public class Comment {
     )
     private Map<Integer, User> userLikes;
 
-    //    @JsonBackReference
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Comment.class)
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Comment.class,
+            cascade = CascadeType.MERGE)
+    @JsonBackReference
     @JoinColumn(name = "parent_id", referencedColumnName = "id")
     private Comment parentComment;
 
     @OneToMany(mappedBy = "parentComment",
-            cascade = {CascadeType.PERSIST, CascadeType.ALL},
+            cascade = CascadeType.ALL,
             fetch = FetchType.EAGER)
     private List<Comment> responseComments;
 
