@@ -17,4 +17,7 @@ public interface CommentRepository extends JpaRepository<Comment, Integer> {
 
     @Query("SELECT c FROM Comment c WHERE c.username = :username")
     List<Comment> getCommentsByUsername(String username);
+
+    @Query("SELECT c FROM Comment c WHERE c.parentComment = :comment")
+    List<Comment> getCommentsWithParentId(Comment comment);
 }

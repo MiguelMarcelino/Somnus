@@ -11,6 +11,7 @@ public enum ErrorMessage {
     NO_COMMENT_FOUND("No comment was found"),
     COMMENT_EDIT_NOT_ALLOWED("The current user cannot edit the given comment"),
     USERNAMES_DONT_MATCH("The usernames don't match"),
+    DELETE_COMMENT_NOT_ALLOWED("The current user is not the owner of the comment"),
 
     ACCESS_DENIED("You do not have permission to access the requested resource"),
     BAD_REQUEST("Malformed Request"),

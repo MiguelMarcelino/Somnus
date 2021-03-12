@@ -11,7 +11,7 @@
     </div>
 
     <!-- Comments Section -->
-    <app-comments-section [articleId]="article.id"></app-comments-section>
+    <app-comments-section [articleId]="article.id" id="c-section"></app-comments-section>
 
     <mat-expansion-panel *ngIf="isArticleOwnerOrAdmin()">
         <mat-expansion-panel-header [collapsedHeight]="'50pt'" [expandedHeight]="'50pt'">
@@ -31,3 +31,7 @@
     </mat-expansion-panel>
    
 </div>
+
+<button class="navigate-button-comments" mat-fab color="primary" (click)="navigateToCommentSection()" *ngIf="showCommentsSectionButton" [@enterAnimation]>
+    <mat-icon>comment</mat-icon>
+</button>

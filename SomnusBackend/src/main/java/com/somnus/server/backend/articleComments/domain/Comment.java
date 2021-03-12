@@ -7,7 +7,9 @@ import javax.persistence.*;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 @Table(name = "comments")
@@ -47,7 +49,7 @@ public class Comment {
                     @JoinColumn(name = "user_id")
             }
     )
-    private List<User> userLikes;
+    private Map<Integer, User> userLikes;
 
     //    @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Comment.class)
@@ -80,7 +82,7 @@ public class Comment {
         this.numLikes = 0;
         this.parentComment = null;
         this.responseComments = new ArrayList<>();
-        this.userLikes = new ArrayList<>();
+        this.userLikes = new HashMap<>();
         this.content = parseContent(content);
     }
 
@@ -124,7 +126,7 @@ public class Comment {
         return parentComment;
     }
 
-    public List<User> getUserLikes() {
+    public Map<Integer, User> getUserLikes() {
         return userLikes;
     }
 
@@ -151,15 +153,21 @@ public class Comment {
         responseComments.add(comment);
     }
 
-    public void addUserLikes(User user) {
-        if (userLikes == null) {
-            userLikes = new ArrayList<>();
-        }
-        userLikes.add(user);
-    }
-
     private byte[] parseContent(String content) {
         byte[] commentContent = content.getBytes(StandardCharsets.UTF_8);
         return commentContent;
+    }
+
+    public void addUserLikes(User user) {
+        if (userLikes == null) {
+            userLikes = new HashMap<>();
+        }
+        userLikes.put(user.getId(), user);
+    }
+
+    public void removeUserLike(User user) {
+        if (userLikes != null) {
+            userLikes.remove(user.getId());
+        }
     }
 }

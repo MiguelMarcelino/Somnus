@@ -10,12 +10,14 @@ import com.somnus.server.backend.exceptions.ErrorMessage;
 import com.somnus.server.backend.exceptions.SomnusException;
 import com.somnus.server.backend.notifications.config.PusherInfo;
 import com.somnus.server.backend.notifications.handlers.NotificationHandler;
+import com.somnus.server.backend.users.domain.Role;
 import com.somnus.server.backend.users.domain.User;
 import com.somnus.server.backend.users.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -111,22 +113,58 @@ public class CommentService {
         }
 
         Comment comment = optionalComment.get();
-        Optional<User> userOptional =
-                comment.getUserLikes()
-                        .stream()
-                        .filter(userLike -> userLike.getUsername().equals(user.getUsername()))
-                        .findFirst();
-        if (userOptional.isEmpty()) {
+        boolean userLike = comment.getUserLikes().containsKey(user.getId());
+        if (!userLike) {
             comment.setNumLikes(comment.getNumLikes() + 1);
             comment.addUserLikes(user);
             commentRepository.save(comment);
         }
     }
 
+    public void removeCommentLike(User user, Integer commentId) {
+        Optional<Comment> optionalComment = commentRepository.findById(commentId);
+        if (optionalComment.isEmpty()) {
+            throw new SomnusException(ErrorMessage.NO_COMMENT_FOUND);
+        }
+
+        Comment comment = optionalComment.get();
+        boolean userLike = comment.getUserLikes().containsKey(user.getId());
+        if (userLike) {
+            comment.setNumLikes(comment.getNumLikes() - 1);
+            comment.removeUserLike(user);
+            commentRepository.save(comment);
+        }
+    }
+
+    public void removeComment(User user, int commentId) {
+        Optional<Comment> optionalComment = commentRepository.findById(commentId);
+        if (optionalComment.isEmpty()) {
+            throw new SomnusException(ErrorMessage.NO_COMMENT_FOUND);
+        }
+        Comment comment = optionalComment.get();
+        if(!comment.getUsername().equals(user.getUsername()) && !user.getRole().equals(Role.ADMIN)) {
+            throw new SomnusException(ErrorMessage.DELETE_COMMENT_NOT_ALLOWED);
+        }
+
+        // authorized, so remove children of comment
+        removeCommentChildren(comment);
+        this.commentRepository.delete(comment);
+    }
+
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////// Private Methods ///////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    private void removeCommentChildren(Comment comment) {
+        List<Comment> commentsWithParent = this.commentRepository.getCommentsWithParentId(comment);
+        if(commentsWithParent != null && commentsWithParent.size() > 0) {
+            commentsWithParent.forEach(childComment -> {
+                removeCommentChildren(childComment);
+            });
+            this.commentRepository.deleteInBatch(commentsWithParent);
+        }
+    }
 
     private List<CommentDto> getCommentDtos(List<Comment> comments, User user) {
         List<CommentDto> commentDtoList = new ArrayList<>();
@@ -143,14 +181,16 @@ public class CommentService {
         CommentDto commentDto = new CommentDto(comment.getId(), comment.getArticleId(), comment.getUsername(),
                 comment.getUserDisplayName(), comment.getPublishedAt(), comment.getEditedAt(),
                 comment.getContent(), comment.getNumLikes(), parentId);
-        if (user != null) {
-            Optional<User> userOptional =
-                    comment.getUserLikes()
-                            .stream()
-                            .filter(userLike -> userLike.getUsername().equals(user.getUsername()))
-                            .findFirst();
-            commentDto.setUserLikedComment(userOptional.isPresent());
-        }
+
+//            Optional<User> userOptional =
+//                    comment.getUserLikes()
+//                            .stream()
+//                            .filter(userLike -> userLike.getUsername().equals(user.getUsername()))
+//                            .findFirst();
+        boolean userLike = comment.getUserLikes().containsKey(user.getId());
+        commentDto.setUserLikedComment(userLike);
+
         return commentDto;
     }
+
 }
