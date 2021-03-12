@@ -49,7 +49,7 @@ public class User implements UserDetails {
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<RoleEntity> authorities;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST,
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,
             mappedBy = "userLikes")
     private Map<Integer, Comment> likedComments;
 

@@ -16,6 +16,7 @@ import com.somnus.server.backend.users.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -55,6 +56,7 @@ public class CommentService {
         Comment comment = new Comment(commentDto.getArticleId(), user.getUsername(),
                 user.getDisplayName(), commentDto.getContent());
 
+        commentRepository.save(comment);
         if (commentDto.getParentId() != null) {
             Optional<Comment> optionalComment = commentRepository.findById(commentDto.getParentId());
             if (optionalComment.isEmpty()) {
@@ -63,10 +65,9 @@ public class CommentService {
             Comment parentComment = optionalComment.get();
             parentComment.addResponseComment(comment);
             comment.setParentComment(parentComment);
+            commentRepository.save(comment);
+            commentRepository.save(parentComment);
         }
-
-        // save the new comment
-        commentRepository.save(comment);
 
         CommentDto resultComment = createCommentDto(comment, user);
 
@@ -136,6 +137,7 @@ public class CommentService {
         }
     }
 
+    @Transactional
     public void removeComment(User user, int commentId) {
         Optional<Comment> optionalComment = commentRepository.findById(commentId);
         if (optionalComment.isEmpty()) {
@@ -146,8 +148,7 @@ public class CommentService {
             throw new SomnusException(ErrorMessage.DELETE_COMMENT_NOT_ALLOWED);
         }
 
-        // authorized, so remove children of comment
-        removeCommentChildren(comment);
+        // authorized, so remove comment and its children
         this.commentRepository.delete(comment);
     }
 
@@ -155,16 +156,6 @@ public class CommentService {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////// Private Methods ///////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    private void removeCommentChildren(Comment comment) {
-        List<Comment> commentsWithParent = this.commentRepository.getCommentsWithParentId(comment);
-        if(commentsWithParent != null && commentsWithParent.size() > 0) {
-            commentsWithParent.forEach(childComment -> {
-                removeCommentChildren(childComment);
-            });
-            this.commentRepository.deleteInBatch(commentsWithParent);
-        }
-    }
 
     private List<CommentDto> getCommentDtos(List<Comment> comments, User user) {
         List<CommentDto> commentDtoList = new ArrayList<>();
