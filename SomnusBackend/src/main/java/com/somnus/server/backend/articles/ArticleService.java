@@ -1,14 +1,17 @@
 package com.somnus.server.backend.articles;
 
+import com.somnus.server.backend.articleComments.CommentService;
 import com.somnus.server.backend.articles.domain.Article;
 import com.somnus.server.backend.articles.domain.ArticleTopic;
 import com.somnus.server.backend.articles.dto.ArticleDto;
 import com.somnus.server.backend.articles.repository.ArticleRepository;
+import com.somnus.server.backend.articleComments.repository.CommentRepository;
 import com.somnus.server.backend.exceptions.ErrorMessage;
 import com.somnus.server.backend.exceptions.SomnusException;
 import com.somnus.server.backend.users.RolesHandler;
 import com.somnus.server.backend.users.domain.Role;
 import com.somnus.server.backend.users.domain.User;
+import com.somnus.server.backend.users.repository.UserRepository;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.retry.annotation.Backoff;
@@ -29,7 +32,16 @@ public class ArticleService {
     private ArticleRepository articleRepository;
 
     @Autowired
+    private CommentRepository commentRepository;
+
+    @Autowired
     private RolesHandler rolesHandler;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private CommentService commentService;
 
     @Retryable(
             value = {SQLException.class},
@@ -59,7 +71,7 @@ public class ArticleService {
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public ArticleDto getArticle(Integer id) {
         Optional<Article> optionalArticle = articleRepository.findById(id);
-        if(!optionalArticle.isPresent()) {
+        if (optionalArticle.isEmpty()) {
             throw new SomnusException(ErrorMessage.NO_ARTICLE_FOUND);
         }
 
@@ -73,18 +85,23 @@ public class ArticleService {
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public void createOrUpdateArticle(User user, ArticleDto articleDto) {
         // Parse article Topic
-        if(Strings.isBlank(articleDto.getTopic())) {
+        if (Strings.isBlank(articleDto.getTopic())) {
             throw new SomnusException(ErrorMessage.NO_TOPIC_PROVIDED);
         }
 
         Article article = null;
-        if(articleDto.getId() != null) {
+        if (articleDto.getId() != null) {
             article = articleRepository.getOne(Integer.parseInt(articleDto.getId()));
+        }
+
+        if(!user.getRole().equals(Role.ADMIN) && !user.getRole().equals(Role.MANAGER) &&
+            !user.getRole().equals(Role.EDITOR)) {
+            throw new SomnusException(ErrorMessage.ROLE_NOT_ALLOWED);
         }
 
         ArticleTopic articleTopic = ArticleTopic.valueOf(articleDto.getTopic()
                 .replace(" ", "_").toUpperCase());
-        if(article == null) {
+        if (article == null) {
             article = new Article(user, articleDto.getArticleName(),
                     articleDto.getAuthorUserName(), articleDto.getDescription(),
                     articleTopic, articleDto.getContent());
@@ -106,8 +123,8 @@ public class ArticleService {
         Article article = articleRepository.getOne(id);
 
         // Article can only be deleted by the person who wrote it or the admin
-        if(!article.getAuthor().getUsername().equals(user.getUsername()) &&
-            !user.getRole().equals(Role.ADMIN)) {
+        if (!article.getAuthor().getUsername().equals(user.getUsername()) &&
+                !user.getRole().equals(Role.ADMIN)) {
             throw new SomnusException(ErrorMessage.DELETE_ARTICLE_NOT_ALLOWED);
         }
 
@@ -127,9 +144,13 @@ public class ArticleService {
         return articleDtos;
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////// Private Methods ///////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     private ArticleDto createArticleDto(Article article) {
         return new ArticleDto(String.valueOf(article.getId()), article.getArticleName(),
-                article.getAuthorUserName(), article.getAuthor().getUsername(), article.getDescription(), article.getDatePublished(),
-                article.getLastUpdate(), article.getTopic().name, article.getContent());
+                article.getAuthorUserName(), article.getAuthor().getUsername(), article.getDescription(),
+                article.getDatePublished(), article.getLastUpdate(), article.getTopic().name, article.getContent());
     }
 }

@@ -79,7 +79,7 @@ export class UpdateUserInfoComponent implements OnInit {
     let role = this.userUpdateForm.get('role').value;
 
     let updatedUser: UserModel = {"userId": id, "firstName": firstName, "lastName": lastName,
-      "email": email, "role": role};
+      "email": email, "role": role, "photoURL": null};
 
     this.userController.updateUser(updatedUser).subscribe((newUserInfo: UserModel) => {
 

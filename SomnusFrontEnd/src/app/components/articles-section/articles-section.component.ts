@@ -41,7 +41,7 @@ export class ArticlesSectionComponent implements OnInit {
         this.user = user;
         const currentUser = this.authenticationService.getCurrentUser();
         if(currentUser && currentUser.role) {
-          if(currentUser.role === Role.Admin || currentUser.role === Role.Editor) {
+          if(currentUser.role === Role.Admin || currentUser.role === Role.Editor || currentUser.role == Role.Manager) {
             this.canCreateArticles = true;
           }
         } 

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
 
 @Service
 public class UserDBInit {
@@ -32,7 +33,7 @@ public class UserDBInit {
         if (userRepository.count() == 0) {
             // username from firebase
             User admin = new User("wdhAh6fNpPQ6CDVeal7X8a6LnuP2", adminEmail, "Somnus Admin",
-                    "somnus", "admin", Role.ADMIN);
+                    "somnus", "admin", Role.ADMIN, null);
             userRepository.save(admin);
         }
     }

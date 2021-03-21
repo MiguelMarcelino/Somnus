@@ -15,7 +15,7 @@ import { HomePageComponent } from './components/home-page/home-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '../shared/material.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ServerStatsComponent } from './components/server-stats/server-stats.component';
+import { ServerStatsComponent } from './components/server-info/server-stats.component';
 import { TeamMemberPageComponent } from './components/team-member-page/team-member-page.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { ArticlesSectionComponent } from './components/articles-section/articles-section.component';
@@ -37,6 +37,7 @@ import { TempServerInfoComponent } from './components/temp-server-info/temp-serv
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { UpdateUserInfoComponent } from './components/update-user-info/update-user-info.component';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+import { CommentsSectionComponent } from './components/comments-section/comments-section.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
     GaugeChartComponent,
     TempServerInfoComponent,
     UserProfileComponent,
-    UpdateUserInfoComponent
+    UpdateUserInfoComponent,
+    CommentsSectionComponent
   ],
   imports: [
     BrowserModule,

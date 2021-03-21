@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ArticlesService } from 'src/app/services/controllers/articles-controller.service';
 import { ArticleModel } from 'src/app/models/article.model';
@@ -6,11 +6,26 @@ import { AuthenticationService } from 'src/app/services/authentication/authentic
 import { Role } from 'src/app/models/role.model';
 import { UserModel } from 'src/app/models/user.model';
 import { ErrorInterface } from 'src/handlers/error-interface';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-article-page',
   templateUrl: './article-page.component.html',
   styleUrls: ['./article-page.component.scss'],
+  animations: [
+    trigger(
+      'enterAnimation', [
+        transition(':enter', [
+          style({transform: 'translateX(100%)', opacity: 0}),
+          animate('200ms', style({transform: 'translateX(0)', opacity: 1}))
+        ]),
+        transition(':leave', [
+          style({transform: 'translateX(0)', opacity: 1}),
+          animate('200ms', style({transform: 'translateX(100%)', opacity: 0}))
+        ])
+      ]
+    )
+  ],
 })
 export class ArticlePageComponent implements OnInit {
 
@@ -18,6 +33,7 @@ export class ArticlePageComponent implements OnInit {
   user: firebase.default.User;
   private urlParams = {};
   article: ArticleModel;
+  showCommentsSectionButton: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -67,5 +83,17 @@ export class ArticlePageComponent implements OnInit {
   editArticle() {
     const id = this.route.snapshot.paramMap.get('id');
     this.router.navigate(["/createArticle"], {queryParams: {id: id}});
+  }
+
+  navigateToCommentSection() {
+    document.getElementById("c-section").scrollIntoView({ behavior: 'smooth' });
+  }
+
+  @HostListener("window:scroll", ["$event"])
+  showCommentsButton(event?) {
+    if(document.getElementById("c-section")) {
+      this.showCommentsSectionButton = this.user && (document.getElementById("c-section").offsetTop - event.srcElement.children[0].scrollTop) > 900 && 
+        (document.getElementById("c-section").offsetTop - event.srcElement.children[0].scrollTop) > 200;
+    }
   }
 }

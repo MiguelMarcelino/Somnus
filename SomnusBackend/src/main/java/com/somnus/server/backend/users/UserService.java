@@ -1,5 +1,6 @@
 package com.somnus.server.backend.users;
 
+import com.somnus.server.backend.articleComments.CommentService;
 import com.somnus.server.backend.auth.firebase.FirebaseParser;
 import com.somnus.server.backend.auth.firebase.FirebaseTokenHolder;
 import com.somnus.server.backend.exceptions.ErrorMessage;
@@ -24,6 +25,9 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private RolesHandler rolesHandler;
+
+    @Autowired
+    private CommentService commentService;
 
     @Override
     public User loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -53,7 +57,7 @@ public class UserService implements UserDetailsService {
             String firstName = firstAndLastName.getFirst();
             String lastName = firstAndLastName.getSecond();
             user = new User(firebaseTokenHolder.getUid(), firebaseTokenHolder.getEmail(),
-                    userDto.getDisplayName(), firstName, lastName, Role.USER);
+                    userDto.getDisplayName(), firstName, lastName, Role.USER, userDto.getPhotoURL());
             userRepository.save(user);
         }
 
@@ -63,7 +67,7 @@ public class UserService implements UserDetailsService {
 
         // create new UserDto
         return new UserDto(user.getId(), user.getUsername(), user.getEmail(), user.getDisplayName(),
-                user.getFirstName(), user.getLastName(), user.getRole().name);
+                user.getFirstName(), user.getLastName(), user.getRole().name, user.getPhotoURL());
     }
 
     /**
@@ -115,7 +119,7 @@ public class UserService implements UserDetailsService {
         this.userRepository.save(userToModify);
 
         return new UserDto(userToModify.getId(), userToModify.getUsername(), email, displayName,
-                firstName, lastName, newUserRole.name);
+                firstName, lastName, newUserRole.name, user.getPhotoURL());
     }
 
     /**
@@ -142,4 +146,5 @@ public class UserService implements UserDetailsService {
         }
         return Pair.of(firstName, lastName);
     }
+
 }
