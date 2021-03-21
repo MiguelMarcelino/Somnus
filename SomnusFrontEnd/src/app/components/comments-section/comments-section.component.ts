@@ -39,6 +39,7 @@ export class CommentsSectionComponent implements OnInit {
       parentId: new FormControl('')
     });
     this.getUser();
+    this.getComments();
   }
 
   getUser() {
@@ -46,11 +47,6 @@ export class CommentsSectionComponent implements OnInit {
       .subscribe (user => {
         this.user = user;
         this.currentUser = this.authenticationService.getCurrentUser();
-
-        // if there is a user, get the comments for the article
-        if(user) {
-          this.getComments();
-        }
     });
   }
 

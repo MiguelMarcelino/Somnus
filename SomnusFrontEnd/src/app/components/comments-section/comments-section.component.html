@@ -29,13 +29,15 @@
                 </div>
             </form>
         </div>
-    
+    </div>
+
+    <div>
         <ng-template #responseCommentList class="comments-section" let-comments [ngIf]="userComments">
             <div class="user-comment" *ngFor="let comment of comments; let numComment = index">
                 <p>{{comment.userDisplayName}}</p>
                 <p class="comment-date">{{comment.publishedAt | date:'mediumDate'}}</p>
                 <p>{{comment.content}}</p>
-                <div class="reaction-container">
+                <div class="reaction-container" *ngIf="user">
                     <!-- Respond button -->
                     <button class="react-button response-img" (click)="leaveResponse(comment)">
                     </button>
@@ -75,9 +77,9 @@
         </ng-template>
     </div>
     
-    <div class="article-edit" *ngIf="!user">
+    <!-- <div class="article-edit" *ngIf="!user">
         <p>Please login to see the comments</p>
-    </div>
+    </div> -->
 </div>
 
 

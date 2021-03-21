@@ -18,9 +18,12 @@ public class CommentController {
 
     @GetMapping(value = "/comments/{articleId}")
     public List<CommentDto> getCommentsFromArticle(Principal principal, @PathVariable String articleId) {
-        User user = (User) ((Authentication) principal).getPrincipal();
+        if(principal != null) {
+            User user = (User) ((Authentication) principal).getPrincipal();
+            return commentService.getCommentsFromArticle(user, Integer.parseInt(articleId));
+        }
+        return commentService.getCommentsFromArticle(null, Integer.parseInt(articleId));
 
-        return commentService.getCommentsFromArticle(user, Integer.parseInt(articleId));
     }
 
     @PostMapping(value = "/comment/create")

@@ -3,6 +3,13 @@ All changes made to this project will be documented in this file
 
 ## [RELEASED]
 ---------------------------------------------------------
+## [0.2.1] - 2021-03-21
+### Changed
+- Small UI tweaks for Managers
+- Fixed bug in Comments section when deleting comment with 
+a parent
+- Fixed bug of task scheduler
+---------------------------------------------------------
 ## [0.2.1] - 2021-03-12
 ### Changed
 - Finished comment section

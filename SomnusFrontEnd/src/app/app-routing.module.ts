@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { ContactsComponent } from './components/contacts/contacts.component';
-import { ServerStatsComponent } from './components/server-stats/server-stats.component';
+import { ServerStatsComponent } from './components/server-info/server-stats.component';
 import { TeamMemberPageComponent } from './components/team-member-page/team-member-page.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { CreateArticlesSectionComponent } from './components/create-articles-section/create-articles-section.component';
@@ -34,8 +34,10 @@ const routes: Routes = [
     component: ContactsComponent
   },
   {
-    path: 'server_stats',
-    component: ServerStatsComponent
+    path: 'server-info',
+    component: ServerStatsComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Admin, Role.Manager]}
   },
   {
     path: 'team',
@@ -62,11 +64,6 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent
-  },
-  {
-    path: 'games',
-    component: GamesPageComponent,
-    canActivate: [AuthGuard]
   },
   {
     path: "user-profile",

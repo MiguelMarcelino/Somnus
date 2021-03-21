@@ -14,9 +14,13 @@ import com.somnus.server.backend.users.domain.Role;
 import com.somnus.server.backend.users.domain.User;
 import com.somnus.server.backend.users.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -47,6 +51,10 @@ public class CommentService {
         return getCommentDtos(comments, user);
     }
 
+    @Retryable(
+            value = {SQLException.class},
+            backoff = @Backoff(delay = 5000))
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public CommentDto addCommentToArticle(User user, CommentDto commentDto) {
         Optional<Article> optionalArticle = articleRepository.findById(commentDto.getArticleId());
         if (optionalArticle.isEmpty()) {
@@ -82,6 +90,10 @@ public class CommentService {
         return resultComment;
     }
 
+    @Retryable(
+            value = {SQLException.class},
+            backoff = @Backoff(delay = 5000))
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public CommentDto updateComment(User user, CommentDto commentDto) {
         Optional<Article> optionalArticle = articleRepository.findById(commentDto.getArticleId());
         if (optionalArticle.isEmpty()) {
@@ -107,6 +119,10 @@ public class CommentService {
         return editedComment;
     }
 
+    @Retryable(
+            value = {SQLException.class},
+            backoff = @Backoff(delay = 5000))
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public void addCommentLike(User user, Integer commentId) {
         Optional<Comment> optionalComment = commentRepository.findById(commentId);
         if (optionalComment.isEmpty()) {
@@ -114,14 +130,20 @@ public class CommentService {
         }
 
         Comment comment = optionalComment.get();
+        // temporary fix
+        User commentUser = userRepository.findByUserName(user.getUsername());
         boolean userLike = comment.getUserLikes().containsKey(user.getId());
         if (!userLike) {
             comment.setNumLikes(comment.getNumLikes() + 1);
-            comment.addUserLikes(user);
+            comment.addUserLikes(commentUser);
             commentRepository.save(comment);
         }
     }
 
+    @Retryable(
+            value = {SQLException.class},
+            backoff = @Backoff(delay = 5000))
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public void removeCommentLike(User user, Integer commentId) {
         Optional<Comment> optionalComment = commentRepository.findById(commentId);
         if (optionalComment.isEmpty()) {
@@ -129,15 +151,20 @@ public class CommentService {
         }
 
         Comment comment = optionalComment.get();
+        // temporary fix
+        User commentUser = userRepository.findByUserName(user.getUsername());
         boolean userLike = comment.getUserLikes().containsKey(user.getId());
         if (userLike) {
             comment.setNumLikes(comment.getNumLikes() - 1);
-            comment.removeUserLike(user);
+            comment.removeUserLike(commentUser);
             commentRepository.save(comment);
         }
     }
 
-    @Transactional
+    @Retryable(
+            value = {SQLException.class},
+            backoff = @Backoff(delay = 5000))
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public void removeComment(User user, int commentId) {
         Optional<Comment> optionalComment = commentRepository.findById(commentId);
         if (optionalComment.isEmpty()) {
@@ -148,8 +175,9 @@ public class CommentService {
             throw new SomnusException(ErrorMessage.DELETE_COMMENT_NOT_ALLOWED);
         }
 
+        System.out.println(commentId);
         // authorized, so remove comment and its children
-        this.commentRepository.delete(comment);
+        this.commentRepository.removeCommentById(commentId);
     }
 
 
@@ -173,13 +201,10 @@ public class CommentService {
                 comment.getUserDisplayName(), comment.getPublishedAt(), comment.getEditedAt(),
                 comment.getContent(), comment.getNumLikes(), parentId);
 
-//            Optional<User> userOptional =
-//                    comment.getUserLikes()
-//                            .stream()
-//                            .filter(userLike -> userLike.getUsername().equals(user.getUsername()))
-//                            .findFirst();
-        boolean userLike = comment.getUserLikes().containsKey(user.getId());
-        commentDto.setUserLikedComment(userLike);
+        if(user != null) {
+            boolean userLike = comment.getUserLikes().containsKey(user.getId());
+            commentDto.setUserLikedComment(userLike);
+        }
 
         return commentDto;
     }
