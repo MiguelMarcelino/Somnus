@@ -3,6 +3,8 @@
     "apiArticlesEndPoint": "http://localhost:3000/articles-api/articles",
     "apiArticleEndPoint": "http://localhost:3000/articles-api/article",
     "apiArticleEndPointSearch": "http://localhost:3000/articles-api/article/search",
+    "apiCommentsEndPoint": "http://localhost:3000/comments-api/comments",
+    "apiCommentEndPoint": "http://localhost:3000/comments-api/comment",
     "apiTeamMembersEndPoint": "http://localhost:3000/team-member-api/team-members",
     "apiFeedbackEndpoint": "http://localhost:3000/feedback-api/feedback",
     "apiUsersEndPointAuth": "http://localhost:3000/user-api/authentication/authenticate-user",

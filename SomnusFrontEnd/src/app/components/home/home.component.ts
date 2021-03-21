@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AppSettings } from './../../appSettings';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
-import { Router } from '@angular/router';
+import { Router, ROUTER_CONFIGURATION } from '@angular/router';
 import * as firebase from 'firebase/app';
+import { UserModel } from 'src/app/models/user.model';
+import { Role } from 'src/app/models/role.model';
 
 @Component({
   selector: 'home',
@@ -13,6 +15,7 @@ export class HomeComponent implements OnInit {
 
   // app user
   user: firebase.default.User;
+  currentUser: UserModel;
   // app title
   title = AppSettings.SERVER_NAME;
   navbarCollapsed = false;
@@ -26,15 +29,8 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.authenticationService.getLoggedInUser()
       .subscribe (user => {
-        if(user) {
-          user.getIdTokenResult().then(token => {
-            let num: Number = Number.parseInt(token.expirationTime);
-            if(Date.now() > num){
-              this.authenticationService.logout();
-            }
-          });
-        }
         this.user = user;
+        this.currentUser = this.authenticationService.getCurrentUser();
     });
   }
 
@@ -48,5 +44,10 @@ export class HomeComponent implements OnInit {
 
   onEnter(value) {
     this.router.navigate(["/articles"], {queryParams: {value: value}});
+  }
+
+  isManagerOrAdmin() {
+    return this.user ? (this.currentUser.role == Role.Admin || 
+      this.currentUser.role === Role.Manager) : false;
   }
 }

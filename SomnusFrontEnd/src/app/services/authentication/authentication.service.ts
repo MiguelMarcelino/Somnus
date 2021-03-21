@@ -39,8 +39,10 @@ export class AuthenticationService  {
         // send user info to backend
         if(userCredential) {
           userCredential.user.getIdTokenResult(false).then(token => {
-            let user: UserModel = {'email': userCredential.user.email, 'userId': userCredential.user.uid, 
-            'displayName': userCredential.user.displayName,'firstName': "", 'lastName': "", 'role': "User"};
+            // let user: UserModel = {'email': userCredential.user.email, 'userId': userCredential.user.uid, 
+            // 'displayName': userCredential.user.displayName,'firstName': "", 'lastName': "", 'role': "User",
+            // 'pictureUrl': userCredential.user.photoURL};
+            let user = this.createNewUser(userCredential);
             this.sendUserInfoToBackend(token.token, user);
           })
         }
@@ -55,8 +57,9 @@ export class AuthenticationService  {
       .then ( userCredential => {
         if(userCredential) {
           userCredential.user.getIdTokenResult(false).then(token => {
-            let user: UserModel = {'email': userCredential.user.email, 'userId': userCredential.user.uid, 
-            'displayName': userCredential.user.displayName,'firstName': "", 'lastName': "", 'role': "User"};
+            // let user: UserModel = {'email': userCredential.user.email, 'userId': userCredential.user.uid, 
+            // 'displayName': userCredential.user.displayName,'firstName': "", 'lastName': "", 'role': "User"};
+            let user = this.createNewUser(userCredential);
             this.sendUserInfoToBackend(token.token, user);
           })
           this.router.navigate(['/']);
@@ -75,9 +78,11 @@ export class AuthenticationService  {
     this.angularFireAuth.createUserWithEmailAndPassword(email, password)
       .then( userCredential => {
         if(userCredential) {
+          // let user: UserModel = {"userId": userCredential.user.uid, 'email': email, 'displayName': userCredential.user.displayName,
+          // 'firstName': firstName, 'lastName': lastName, 'role': "User"};
+
           // send token and user info to backend
-          let user: UserModel = {"userId": userCredential.user.uid, 'email': email, 'displayName': userCredential.user.displayName,
-          'firstName': firstName, 'lastName': lastName, 'role': "User"};
+          let user = this.createNewUser(userCredential);
           userCredential.user.getIdTokenResult(false).then(token => {
             this.sendUserInfoToBackend(token.token, user);
           })
@@ -157,6 +162,12 @@ export class AuthenticationService  {
 
   public isLoggedIn() {
     return this.angularFireAuth.authState.pipe(first()).toPromise();
+  }
+
+  private createNewUser(userCredential: firebase.default.auth.UserCredential): UserModel {
+    return {'email': userCredential.user.email, 'userId': userCredential.user.uid, 
+            'displayName': userCredential.user.displayName,'firstName': "", 'lastName': "", 'role': "User",
+            'photoURL': userCredential.user.photoURL};
   }
 
   private sendUserInfoToBackend(token: string, user: UserModel) {

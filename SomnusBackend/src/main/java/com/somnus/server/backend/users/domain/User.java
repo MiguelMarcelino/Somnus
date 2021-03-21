@@ -1,13 +1,13 @@
 package com.somnus.server.backend.users.domain;
 
+import com.somnus.server.backend.articleComments.domain.Comment;
 import com.somnus.server.backend.config.DateHandler;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -43,8 +43,15 @@ public class User implements UserDetails {
     @Column(name = "role", nullable = false)
     private Role role;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @Column(name = "picture_url")
+    private String photoURL;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<RoleEntity> authorities;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,
+            mappedBy = "userLikes")
+    private Map<Integer, Comment> likedComments;
 
     @Column(name = "enabled")
     private final boolean enabled = true;
@@ -63,7 +70,7 @@ public class User implements UserDetails {
     }
 
     public User(String username, String email, String displayName, String firstName, String lastName,
-                Role role) {
+                Role role, String photoURL) {
         this.username = username;
         this.email = email;
         this.displayName = displayName;
@@ -71,7 +78,9 @@ public class User implements UserDetails {
         this.lastName = lastName;
 //        this.authorities = adminRoles;
         this.createdAt = DateHandler.now();
+//        this.likedComments = new HashMap<>();
         this.role = role;
+        this.photoURL = photoURL;
     }
 
     public User(String username, String email, List<RoleEntity> roles, Role role) {
@@ -79,6 +88,7 @@ public class User implements UserDetails {
         this.email = email;
         this.authorities = roles;
         this.createdAt = DateHandler.now();
+        this.likedComments = new HashMap<>();
         this.role = role;
     }
 
@@ -129,6 +139,14 @@ public class User implements UserDetails {
         return role;
     }
 
+    public String getPhotoURL() {
+        return photoURL;
+    }
+
+    public Map<Integer, Comment> getLikedComments() {
+        return likedComments;
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return accountNonExpired;
@@ -171,5 +189,12 @@ public class User implements UserDetails {
 
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
+    }
+
+    public void addLikedComment(Comment comment) {
+        if(likedComments == null) {
+            this.likedComments = new HashMap<>();
+        }
+        this.likedComments.put(comment.getId(), comment);
     }
 }

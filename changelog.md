@@ -3,6 +3,48 @@ All changes made to this project will be documented in this file
 
 ## [RELEASED]
 ---------------------------------------------------------
+## [0.2.1] - 2021-03-21
+### Changed
+- Small UI tweaks for Managers
+- Fixed bug in Comments section when deleting comment with 
+a parent
+- Fixed bug of task scheduler
+---------------------------------------------------------
+## [0.2.1] - 2021-03-12
+### Changed
+- Finished comment section
+
+### Bugs
+- Can't delete child comments
+---------------------------------------------------------
+## [0.2.1] - 2021-03-11
+### Changed
+- Fixed bug in JPA
+- Comment addition and likes working
+
+---------------------------------------------------------
+## [0.2.1] - 2021-03-09
+### Added
+- New frontend design for comments section
+- New Comment responding method added
+
+### Changed
+- Fixed Backend bugs in Comments feature
+
+---------------------------------------------------------
+## [0.2.1] - 2021-03-07
+### Added
+- Added Backend updates to store comments
+- Started integrating pusher into backend
+
+### Changed
+- Updated Frontend to incorporate new Backend changes
+---------------------------------------------------------
+## [0.2.1] - 2021-03-04
+### Added
+- Started working on article comment section
+
+---------------------------------------------------------
 ## [0.2.1] - 2021-03-02
 ### Changed
 - Added syntax highlighting

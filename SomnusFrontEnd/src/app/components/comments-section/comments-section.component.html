@@ -1,0 +1,85 @@
+<div id="section">
+    <div class="article-edit" *ngIf="user">
+        <div *ngIf="currentSelectedComment" class="reply-context">
+            <a class="reply-text">Currently replying to {{currentSelectedComment.userDisplayName}}</a>
+            <button class="remove-reply-button" (click)="removeReply()">
+                Write new comment instead
+            </button>
+        </div>
+    
+        <div *ngIf="currentlyEditingComment" class="reply-context">
+            <a class="reply-text">Currently editing your comment</a>
+            <button class="remove-reply-button" (click)="resetEditComment()">
+                Stop editing
+            </button>
+        </div>
+        <div class="comments-section">
+            <form [formGroup]="commentForm" (ngSubmit)="submitComment()" method="post">
+                <mat-form-field appearance="fill">
+                    <mat-label>Leave a Comment</mat-label>
+                    <input id="comment-box" type="text" matInput formControlName="comment" >
+                </mat-form-field>
+        
+                <div class="form-group" *ngIf="!currentlyEditingComment">
+                    <button type="submit" class="btn btn-primary">Publish your Comment</button>
+                </div>
+    
+                <div class="form-group" *ngIf="currentlyEditingComment">
+                    <button type="submit" class="btn btn-primary">Update your Comment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <ng-template #responseCommentList class="comments-section" let-comments [ngIf]="userComments">
+            <div class="user-comment" *ngFor="let comment of comments; let numComment = index">
+                <p>{{comment.userDisplayName}}</p>
+                <p class="comment-date">{{comment.publishedAt | date:'mediumDate'}}</p>
+                <p>{{comment.content}}</p>
+                <div class="reaction-container" *ngIf="user">
+                    <!-- Respond button -->
+                    <button class="react-button response-img" (click)="leaveResponse(comment)">
+                    </button>
+    
+                    <!-- Like button -->
+                    <button
+                        [ngClass]="{'liked-comment-img': isUserLikedComment(comment), 'non-liked-comment-img': !isUserLikedComment(comment)}" 
+                        class="react-button" 
+                        (click)="addOrRemoveCommentLike(comment)"> 
+                    </button>
+    
+                    <!-- Edit button -->
+                    <button class="react-button edit-img"
+                        *ngIf="isCommentOwner(comment)" 
+                        (click)="setEditComment(comment)">
+                    </button>
+
+                    <!-- Delete Comment -->
+                    <button class="react-button delete-img" 
+                        *ngIf="isCommentOwnerOrAdmin(comment)"
+                        (click)="deleteComment(comment)">
+                    </button>
+                </div>
+                <mat-expansion-panel *ngIf="comment.responseComments && comment.responseComments.length > 0" class="response-comment">
+                    <mat-expansion-panel-header [collapsedHeight]="'30pt'" [expandedHeight]="'30pt'">
+                        <mat-panel-description collapsedHeight="'30pt'">
+                           View Responses
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <ng-container
+                        *ngTemplateOutlet="responseCommentList; context:{ $implicit: comment.responseComments }">
+                    </ng-container>
+                </mat-expansion-panel>
+        
+                <hr *ngIf="numComment < comments.length - 1">
+            </div>
+        </ng-template>
+    </div>
+    
+    <!-- <div class="article-edit" *ngIf="!user">
+        <p>Please login to see the comments</p>
+    </div> -->
+</div>
+
+

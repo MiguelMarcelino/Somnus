@@ -23,21 +23,21 @@ export abstract class TemplateControllerService<T extends Identifiable> {
     protected abstract getApiUrlObject();
 
     getAll(): Observable<any> {
-        return this.http.get(this.getApiUrlAll(), this.httpOptions);
+        return this.http.get(this.getApiUrlAll());
     }
 
     getObject(id: string): Observable<any> {
         let url = `${this.getApiUrlObject()}/${id}`;
-        return this.http.get(url, this.httpOptions);
+        return this.http.get(url);
     }
 
     addObject(object: T): Observable<any> {
-        return this.http.post(`${this.getApiUrlObject()}/create`, object, this.httpOptions);
+        return this.http.post(`${this.getApiUrlObject()}/create`, object);
     }
 
     deleteObject(id: string): Observable<any> {
         let url = `${this.getApiUrlObject()}/delete/${id}`;
-        return this.http.delete(url, this.httpOptions);
+        return this.http.delete(url);
     }
 
 }
