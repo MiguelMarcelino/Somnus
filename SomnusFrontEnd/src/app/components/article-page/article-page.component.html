@@ -13,6 +13,7 @@
     <!-- Comments Section -->
     <app-comments-section [articleId]="article.id" id="c-section"></app-comments-section>
 
+    <br>
     <mat-expansion-panel *ngIf="isArticleOwnerOrAdmin()">
         <mat-expansion-panel-header [collapsedHeight]="'50pt'" [expandedHeight]="'50pt'">
             <mat-panel-description collapsedHeight="'50pt'">

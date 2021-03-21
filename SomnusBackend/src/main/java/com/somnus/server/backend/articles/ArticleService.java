@@ -94,6 +94,11 @@ public class ArticleService {
             article = articleRepository.getOne(Integer.parseInt(articleDto.getId()));
         }
 
+        if(!user.getRole().equals(Role.ADMIN) && !user.getRole().equals(Role.MANAGER) &&
+            !user.getRole().equals(Role.EDITOR)) {
+            throw new SomnusException(ErrorMessage.ROLE_NOT_ALLOWED);
+        }
+
         ArticleTopic articleTopic = ArticleTopic.valueOf(articleDto.getTopic()
                 .replace(" ", "_").toUpperCase());
         if (article == null) {

@@ -1,6 +1,7 @@
 <div class="content">
     <h2>Hosted Games Information</h2>
 
+    <br *ngIf="loading">
     <mat-progress-spinner *ngIf="loading" mode="indeterminate"></mat-progress-spinner>
 
     <mat-expansion-panel *ngIf="minecraftData" class="container">

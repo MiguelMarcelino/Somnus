@@ -15,7 +15,7 @@ import { HomePageComponent } from './components/home-page/home-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '../shared/material.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ServerStatsComponent } from './components/server-stats/server-stats.component';
+import { ServerStatsComponent } from './components/server-info/server-stats.component';
 import { TeamMemberPageComponent } from './components/team-member-page/team-member-page.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { ArticlesSectionComponent } from './components/articles-section/articles-section.component';

@@ -36,6 +36,7 @@ public class SomnusBackendApplication extends SpringBootServletInitializer imple
 
 	@Override
 	public void afterPropertiesSet() {
+		contributionService.updateContributionRepo();
 		teamMemberService.updateTeamMemberOldestCommit();
 		pusherConfig.createPusherConnection();
 	}
