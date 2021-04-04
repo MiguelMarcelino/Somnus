@@ -14,6 +14,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.annotation.PostConstruct;
+import java.util.TimeZone;
+
 @PropertySource({"classpath:application.properties"})
 @EnableJpaRepositories
 @EnableTransactionManagement
@@ -46,4 +49,8 @@ public class SomnusBackendApplication extends SpringBootServletInitializer imple
 		return application.sources(SomnusBackendApplication.class);
 	}
 
+	@PostConstruct
+	void started() {
+		TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+	}
 }
