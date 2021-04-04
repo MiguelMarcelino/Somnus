@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -94,8 +95,8 @@ public class ArticleService {
             article = articleRepository.getOne(Integer.parseInt(articleDto.getId()));
         }
 
-        if(!user.getRole().equals(Role.ADMIN) && !user.getRole().equals(Role.MANAGER) &&
-            !user.getRole().equals(Role.EDITOR)) {
+        if (!user.getRole().equals(Role.ADMIN) && !user.getRole().equals(Role.MANAGER) &&
+                !user.getRole().equals(Role.EDITOR)) {
             throw new SomnusException(ErrorMessage.ROLE_NOT_ALLOWED);
         }
 
@@ -150,7 +151,15 @@ public class ArticleService {
 
     private ArticleDto createArticleDto(Article article) {
         return new ArticleDto(String.valueOf(article.getId()), article.getArticleName(),
-                article.getAuthorUserName(), article.getAuthor().getUsername(), article.getDescription(),
-                article.getDatePublished(), article.getLastUpdate(), article.getTopic().name, article.getContent());
+                normalizeName(article.getArticleName()), article.getAuthorUserName(),
+                article.getAuthor().getUsername(), article.getDescription(), article.getDatePublished(),
+                article.getLastUpdate(), article.getTopic().name, normalizeName(article.getTopic().name),
+                article.getContent());
+    }
+
+    private String normalizeName(String articleName) {
+        return Arrays.stream(articleName.toLowerCase()
+                .split(" "))
+                .reduce((a, b) -> a.concat("-").concat(b)).get();
     }
 }
