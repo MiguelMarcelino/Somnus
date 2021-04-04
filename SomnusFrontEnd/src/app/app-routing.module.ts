@@ -58,7 +58,7 @@ const routes: Routes = [
     component: ArticlesSectionComponent
   },
   {
-    path: 'article/:id',
+    path: 'article/:id/:normalizedTopic/:normalizedName',
     component: ArticlePageComponent
   },
   {

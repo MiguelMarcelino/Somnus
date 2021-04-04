@@ -9,7 +9,7 @@
 
     <div *ngIf="articles">
         <div *ngFor="let article of articles" class="article-container" >
-            <div [routerLink]="['/article/',article.id]">
+            <div [routerLink]="['/article/',article.id,article.normalizedTopic,article.normalizedName]">
                 <div class="left-article-img">
                     <img src="../../../assets/icons/Document-lines.png" class="article-img">
                 </div>
