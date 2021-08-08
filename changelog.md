@@ -3,6 +3,11 @@ All changes made to this project will be documented in this file
 
 ## [RELEASED]
 ---------------------------------------------------------
+## [0.2.1] - 2021-08-08
+### Added
+- Added new files for Somnus Load Balancer 
+
+---------------------------------------------------------
 ## [0.2.1] - 2021-04-04
 ### Changed
 - Minor change in article name
