@@ -5,8 +5,8 @@ All changes made to this project will be documented in this file
 ---------------------------------------------------------
 ## [0.3.0] - 2021-08-13
 ### Added
-- Comparator to order the List or mirrors
-- CircularArray class to calculate average CPU and Memory 
+- Added Comparator to order the List or mirrors
+- Added CircularArray class to calculate average CPU and Memory 
 from Mirrors
 - Added new fields to Mirror entity
 - Added MirrorService
