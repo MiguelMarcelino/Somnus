@@ -1,6 +1,7 @@
 package com.somnus.server.somnuslb.mirrors.domain;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Mirror {
@@ -13,13 +14,32 @@ public class Mirror {
     private String ipAddress;
 
     @Column(name = "registration_timestamp_in_millis")
-    private String registrationTimestampInMillis;
+    private long registrationTimestampInMillis;
 
-    public Mirror() { }
+    @Column(name = "num_failed_requests")
+    private int numFailedRequests;
 
-    public Mirror(String ipAddress, String registrationTimestampInMillis) {
+    @Column(name = "average_request_response_time")
+    private long averageRequestResponseTime;
+
+    @Column(name = "requests_sent")
+    private int numSentRequests;
+
+    @Column(name = "request_response_time_sum")
+    private long requestResponseTimeSum;
+
+    // For logging purposes
+    @ElementCollection
+    private List<Long> responseTimeHistory;
+
+    public Mirror() {
+    }
+
+    public Mirror(String ipAddress, long registrationTimestampInMillis) {
         this.ipAddress = ipAddress;
         this.registrationTimestampInMillis = registrationTimestampInMillis;
+        this.numFailedRequests = 0;
+        this.averageRequestResponseTime = 0;
     }
 
     public Integer getId() {
@@ -30,7 +50,32 @@ public class Mirror {
         return ipAddress;
     }
 
-    public String getRegistrationTimestampInMillis() {
+    public long getRegistrationTimestampInMillis() {
         return registrationTimestampInMillis;
+    }
+
+    public int getNumFailedRequests() {
+        return numFailedRequests;
+    }
+
+    public long getAverageRequestResponseTime() {
+        return averageRequestResponseTime;
+    }
+
+    public void incFailedRequests(int amount) {
+        this.numFailedRequests += amount;
+    }
+
+    public void incNumSentRequests(int amount) {
+        this.numSentRequests += amount;
+    }
+
+    public void addResponseTime(long responseTime) {
+        responseTimeHistory.add(responseTime);
+        requestResponseTimeSum += responseTime;
+    }
+
+    public void updateAverageResponseTime() {
+        averageRequestResponseTime = requestResponseTimeSum/ numSentRequests;
     }
 }

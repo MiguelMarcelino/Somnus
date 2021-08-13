@@ -11,4 +11,7 @@ public class NewMirrorRegisterDTO implements Serializable {
     A token might also be necessary to register machines in a safe way.
      */
 
+    public String getIpAddress() {
+        return ipAddress;
+    }
 }

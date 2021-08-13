@@ -1,20 +1,24 @@
-package com.somnus.server.somnuslb.mirrorHealth;
+package com.somnus.server.somnuslb.mirrorStatus;
 
-import com.somnus.server.somnuslb.mirrorHealth.domain.MirrorInfo;
+import com.somnus.server.somnuslb.mirrorStatus.domain.MirrorInfo;
 import com.somnus.server.somnuslb.mirrors.domain.Mirror;
 import com.somnus.server.somnuslb.observer.Observer;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
-public class HealthCheckService implements Observer {
+public class MirrorStatusService implements Observer {
 
-    List<MirrorInfo> mirrors;
+    private List<MirrorInfo> mirrors;
 
-    public HealthCheckService() {
+    private MirrorStatusComparator mirrorStatusComparator;
+
+    public MirrorStatusService() {
         mirrors = new ArrayList<>();
+        mirrorStatusComparator = new MirrorStatusComparator();
     }
 
     /**
@@ -23,6 +27,14 @@ public class HealthCheckService implements Observer {
      */
     public void checkMirrorHealth() {
         // TODO
+    }
+
+    public List<MirrorInfo> getMirrors() {
+        return this.mirrors;
+    }
+
+    public void sortMirrorList() {
+        Collections.sort(this.mirrors, (o1, o2) -> mirrorStatusComparator.compare(o1, o2));
     }
 
     @Override
@@ -36,4 +48,5 @@ public class HealthCheckService implements Observer {
         if (o instanceof Mirror)
             mirrors.removeIf(x -> x.getMirror().getId().equals(((Mirror) o).getId()));
     }
+
 }

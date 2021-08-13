@@ -3,7 +3,16 @@ All changes made to this project will be documented in this file
 
 ## [RELEASED]
 ---------------------------------------------------------
-## [0.2.1] - 2021-08-13
+## [0.3.0] - 2021-08-13
+### Added
+- Comparator to order the List or mirrors
+- CircularArray class to calculate average CPU and Memory 
+from Mirrors
+- Added new fields to Mirror entity
+- Added MirrorService
+
+---------------------------------------------------------
+## [0.3.0] - 2021-08-13
 ### Added
 - Observer pattern to add MirrorInfo when a new Mirror 
 is discovered
@@ -12,7 +21,7 @@ is discovered
 - Added properties reader class
 
 ---------------------------------------------------------
-## [0.2.1] - 2021-08-08
+## [0.3.0] - 2021-08-08
 ### Added
 - Added new files for Somnus Load Balancer 
 

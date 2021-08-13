@@ -1,36 +1,26 @@
-package com.somnus.server.somnuslb.mirrorHealth.domain;
+package com.somnus.server.somnuslb.mirrorStatus.domain;
 
 import com.somnus.server.somnuslb.mirrors.domain.Mirror;
 
 public class MirrorInfo {
     private Mirror mirror;
     private MirrorState state;
-    private double averageCPUUsage;
-    private double[] measuredCPUUsages;
-    private double averageMemoryUsage;
-    private double[] measuredMemoryUsages;
+    private CircularArray cpuUsage;
+    private CircularArray memoryUsage;
     private double averageRequestResponseTimeInMillis;
-    private int numFailedRequests;
+    private int numFailedHealthChecks; // should it be numConsecutiveFailedHealthChecks?
     private int numConsecutiveSuccesses;
+    private int numTotalHealthChecks;
 
     public MirrorInfo(Mirror mirror) {
         this.mirror = mirror;
         this.state = MirrorState.NEW_MIRROR;
-        this.averageCPUUsage = 0.0;
-        this.measuredCPUUsages = new double[5]; // maybe add size to properties file
-        this.averageMemoryUsage = 0.0;
-        this.measuredMemoryUsages = new double[5]; // maybe add size to properties file
+        this.cpuUsage = new CircularArray();
+        this.memoryUsage = new CircularArray();
         this.averageRequestResponseTimeInMillis = 0.0;
-        this.numFailedRequests = 0;
+        this.numFailedHealthChecks = 0;
         this.numConsecutiveSuccesses = 0;
-    }
 
-    private static void calculateNewCPUAverage() {
-        // TODO
-    }
-
-    private static void calculateNewMemoryAverage() {
-        // TODO
     }
 
     public Mirror getMirror() {
@@ -42,22 +32,26 @@ public class MirrorInfo {
     }
 
     public double getAverageCPUUsage() {
-        return averageCPUUsage;
+        return cpuUsage.getAverage();
     }
 
     public double getAverageMemoryUsage() {
-        return averageMemoryUsage;
+        return memoryUsage.getAverage();
     }
 
     public double getAverageRequestResponseTimeInMillis() {
         return averageRequestResponseTimeInMillis;
     }
 
-    public int getNumFailedRequests() {
-        return numFailedRequests;
+    public int getNumFailedHealthChecks() {
+        return numFailedHealthChecks;
     }
 
     public int getNumConsecutiveSuccesses() {
         return numConsecutiveSuccesses;
+    }
+
+    public int getNumTotalHealthChecks() {
+        return numTotalHealthChecks;
     }
 }
