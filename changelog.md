@@ -3,6 +3,15 @@ All changes made to this project will be documented in this file
 
 ## [RELEASED]
 ---------------------------------------------------------
+## [0.2.1] - 2021-08-13
+### Added
+- Observer pattern to add MirrorInfo when a new Mirror 
+is discovered
+- Added mirrorHealth domain entities 
+- Added mirror domain entities and dto entities
+- Added properties reader class
+
+---------------------------------------------------------
 ## [0.2.1] - 2021-08-08
 ### Added
 - Added new files for Somnus Load Balancer 
