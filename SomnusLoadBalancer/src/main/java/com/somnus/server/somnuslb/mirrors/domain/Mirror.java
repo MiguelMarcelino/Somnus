@@ -35,9 +35,9 @@ public class Mirror {
     public Mirror() {
     }
 
-    public Mirror(String ipAddress, long registrationTimestampInMillis) {
+    public Mirror(String ipAddress) {
         this.ipAddress = ipAddress;
-        this.registrationTimestampInMillis = registrationTimestampInMillis;
+        this.registrationTimestampInMillis = System.currentTimeMillis();
         this.numFailedRequests = 0;
         this.averageRequestResponseTime = 0;
     }

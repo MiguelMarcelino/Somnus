@@ -9,21 +9,22 @@ import org.springframework.stereotype.Service;
 import java.util.logging.Logger;
 
 @Service
-public class MirrorService extends MirrorObservable {
+public class MirrorRegisterService extends MirrorObservable {
 
     private Logger logger = Logger.getLogger("MirrorInfoService");
 
     @Autowired
     private MirrorRepository mirrorRepository;
 
-    public MirrorService() {
+    public MirrorRegisterService() {
     }
 
     public void addMirror(NewMirrorRegisterDTO newMirror) {
-        if (!this.mirrorRepository.getMirrorWithIpAddress(newMirror.getIpAddress()).isPresent())
+        if (this.mirrorRepository.getMirrorWithIpAddress(newMirror.getIpAddress()).isPresent()) {
             logger.info("The mirror with the ip address: " + newMirror.getIpAddress() + " has already been registered.");
-
-        mirrorRepository.save(new Mirror(newMirror.getIpAddress(), System.currentTimeMillis()));
+        } else {
+            mirrorRepository.save(new Mirror(newMirror.getIpAddress()));
+        }
     }
 
 }

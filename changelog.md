@@ -2,6 +2,18 @@
 All changes made to this project will be documented in this file
 
 ## [RELEASED]
+## [0.3.0] - 2021-08-14
+### Added
+- Started preparing RequestService to redirect requests to 
+Mirrors
+- Added Task Scheduler to schedule Health checks
+- Added Health check method to check Mirror Health
+
+### Changed
+- Re-written Mirror compare method
+- Updated MirrorInfo entity
+- Updated types on MirrorInfoDTO
+
 ---------------------------------------------------------
 ## [0.3.0] - 2021-08-13
 ### Added

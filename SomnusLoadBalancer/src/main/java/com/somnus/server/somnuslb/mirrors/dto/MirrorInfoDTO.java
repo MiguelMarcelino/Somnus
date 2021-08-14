@@ -3,21 +3,21 @@ package com.somnus.server.somnuslb.mirrors.dto;
 import java.io.Serializable;
 
 public class MirrorInfoDTO implements Serializable {
-    private double measuredCPUUsage;
-    private double measuredMemoryUsage;
-    private double measuredSwapUsage;
+    private int measuredCPUUsage; // in percentage
+    private int measuredMemoryUsage; // in megabytes
+    private int measuredSwapUsage; // in megabytes
 
     public MirrorInfoDTO() { }
 
-    public double getMeasuredCPUUsage() {
+    public int getMeasuredCPUUsage() {
         return measuredCPUUsage;
     }
 
-    public double getMeasuredMemoryUsage() {
+    public int getMeasuredMemoryUsage() {
         return measuredMemoryUsage;
     }
 
-    public double getMeasuredSwapUsage() {
+    public int getMeasuredSwapUsage() {
         return measuredSwapUsage;
     }
 }
