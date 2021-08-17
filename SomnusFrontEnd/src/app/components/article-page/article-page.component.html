@@ -1,7 +1,7 @@
 
 <div class="content-wrapper" *ngIf="article">
     <div id="article-info">
-        <h2>{{article.articleName}}</h2>
+        <h2>{{article.postName}}</h2>
         <h3 class="article-author">Written by <span class="author-name">{{article.authorUserName}}</span></h3>
         <h3>Published on {{article.datePublished | date:'mediumDate'}}</h3>
         <h3 *ngIf="article.lastUpdate">Last Updated on {{article.lastUpdate | date:'mediumDate'}}</h3>
@@ -11,7 +11,7 @@
     </div>
 
     <!-- Comments Section -->
-    <app-comments-section [articleId]="article.id" id="c-section"></app-comments-section>
+    <app-comments-section [postId]="article.id" id="c-section"></app-comments-section>
 
     <br>
     <mat-expansion-panel *ngIf="isArticleOwnerOrAdmin()">

@@ -1,0 +1,65 @@
+@import "../../../shared/highlightjs_themes/dracula.scss";
+
+:host ::ng-deep h2 {
+    text-align: left;
+}
+
+
+:host ::ng-deep h3 {
+    text-align: left;
+}
+
+.author-name {
+    color: rgb(87, 140, 255);
+}
+
+.article-text {
+    padding-top: 20pt;
+    text-align: left;
+}
+
+.delete-button {
+    float: left;
+}
+
+:host ::ng-deep img {
+    height: auto;
+    width: 80%;
+}
+
+mat-expansion-panel{
+    width: 100%;
+    margin: 0 auto;
+    padding: 0%;
+}
+
+.article-options {
+    display: flex;
+    float: left;
+}
+
+.custom-button {
+    width:100pt;
+    padding: 5pt;
+    margin-right: 10pt;
+    text-align: center;
+}
+
+#article-info {
+    margin-bottom: 80pt;
+}
+
+.navigate-button-comments {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10;
+    transition: 0.5s ease;
+}
+
+.navigate-button-up {
+    position: fixed;
+    bottom: 85px;
+    right: 20px;
+    z-index: 10;
+}

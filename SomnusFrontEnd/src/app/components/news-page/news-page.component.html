@@ -1,0 +1,38 @@
+
+<div class="content-wrapper" *ngIf="newsPost">
+    <div id="article-info">
+        <h2>{{newsPost.postName}}</h2>
+        <h3 class="article-author">Written by <span class="author-name">{{newsPost.authorUserName}}</span></h3>
+        <h3>Published on {{newsPost.datePublished | date:'mediumDate'}}</h3>
+        <h3 *ngIf="newsPost.lastUpdate">Last Updated on {{newsPost.lastUpdate | date:'mediumDate'}}</h3>
+        <div class="article-text" [innerHTML]="newsPost.content">
+            <!-- <div [innerHTML]="article.content"></div> -->
+        </div>
+    </div>
+
+    <!-- Comments Section -->
+    <app-comments-section [postId]="newsPost.id" id="c-section"></app-comments-section>
+
+    <br>
+    <mat-expansion-panel *ngIf="isNewsPostOwnerOrAdmin()">
+        <mat-expansion-panel-header [collapsedHeight]="'50pt'" [expandedHeight]="'50pt'">
+            <mat-panel-description collapsedHeight="'50pt'">
+               News Post Edit options
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="article-options">
+            <button class="custom-button" mat-raised-button color="warn" *ngIf="isNewsPostOwnerOrAdmin()" (click)="deleteNewsPost()">
+                Delete News Post
+            </button>
+            <button class="custom-button" mat-raised-button color="primary" *ngIf="isNewsPostOwnerOrAdmin()" (click)="editNewsPost()">
+                Edit News Post
+            </button>
+        </div>
+    </mat-expansion-panel>
+   
+</div>
+
+<button class="navigate-button-comments" mat-fab color="primary" (click)="navigateToCommentSection()" *ngIf="showCommentsSectionButton" [@enterAnimation]>
+    <mat-icon>comment</mat-icon>
+</button>

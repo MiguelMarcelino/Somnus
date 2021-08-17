@@ -2,6 +2,7 @@ package com.somnus.server.backend.exceptions;
 
 public enum ErrorMessage {
     NO_ARTICLE_FOUND("No article found"),
+    NO_NEWS_POST_FOUND("No news post found"),
     NO_TEAMMEMBER_FOUND("No team member found."),
     NO_USER_FOUND("No user found in database"),
     NO_TOPIC_PROVIDED("There is no topic provided for the given article"),
@@ -19,6 +20,7 @@ public enum ErrorMessage {
 
     FIREBASE_USER_DOES_NOT_EXIST("Firebase user does not exist"),
     INVALID_AUTH_TOKEN("Invalid auth token");
+
 
     public final String message;
 

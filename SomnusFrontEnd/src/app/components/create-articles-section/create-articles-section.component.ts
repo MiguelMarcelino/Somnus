@@ -4,7 +4,7 @@ import { ArticlesService } from 'src/app/services/controllers/articles-controlle
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { ErrorInterface } from 'src/handlers/error-interface';
-import { ArticleModel } from 'src/app/models/article.model';
+import { ArticleModel } from 'src/app/models/post/article.model';
 
 @Component({
   selector: 'app-create-articles-section',
@@ -70,7 +70,7 @@ export class CreateArticlesSectionComponent implements OnInit {
     this.articleService.getObject(id).subscribe((article: ArticleModel) => {
       if (article) {
         this.article = article;
-        this.editorForm.get('article_name').setValue(article.articleName);
+        this.editorForm.get('article_name').setValue(article.postName);
         this.editorForm.get('description').setValue(article.description);
         this.editorForm.get('type').setValue(article.topic);
         this.setEditorContent(article.content);
@@ -138,12 +138,12 @@ export class CreateArticlesSectionComponent implements OnInit {
     let articleModel: ArticleModel;
     if (this.article) {
       articleModel = {
-        "id": this.article.id, "articleName": artName, "authorUserName": this.currentUser.displayName, "userId": this.currentUser.uid, "description": description,
+        "id": this.article.id, "postName": artName, "authorUserName": this.currentUser.displayName, "userId": this.currentUser.uid, "description": description,
         "datePublished": new Date(), "lastUpdate": new Date(), 'topic': topic, 'content': content
       };
     } else {
       articleModel = {
-        "articleName": artName, "authorUserName": this.currentUser.displayName, "userId": this.currentUser.uid, "description": description,
+        "postName": artName, "authorUserName": this.currentUser.displayName, "userId": this.currentUser.uid, "description": description,
         "datePublished": new Date(), "lastUpdate": new Date(), 'topic': topic, 'content': content
       };
     }

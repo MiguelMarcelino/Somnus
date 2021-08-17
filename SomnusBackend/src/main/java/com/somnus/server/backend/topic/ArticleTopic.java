@@ -1,5 +1,6 @@
-package com.somnus.server.backend.articles.domain;
+package com.somnus.server.backend.topic;
 
+// TODO: Needs to be stored in database for users to add more topics
 public enum ArticleTopic {
     COMPUTER_SCIENCE("Computer Science"),
     MATHEMATICS("Mathematics"),
