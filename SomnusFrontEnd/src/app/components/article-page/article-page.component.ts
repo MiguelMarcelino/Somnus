@@ -1,7 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ArticlesService } from 'src/app/services/controllers/articles-controller.service';
-import { ArticleModel } from 'src/app/models/article.model';
+import { ArticleModel } from 'src/app/models/post/article.model';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { Role } from 'src/app/models/role.model';
 import { UserModel } from 'src/app/models/user.model';

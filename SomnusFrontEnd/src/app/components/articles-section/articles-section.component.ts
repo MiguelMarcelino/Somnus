@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ArticleModel } from 'src/app/models/article.model';
+import { ArticleModel } from 'src/app/models/post/article.model';
 import { ArticlesService } from 'src/app/services/controllers/articles-controller.service';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { ActivatedRoute, Router } from '@angular/router';
