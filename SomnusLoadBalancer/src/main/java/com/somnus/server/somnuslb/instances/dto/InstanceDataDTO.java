@@ -1,13 +1,13 @@
-package com.somnus.server.somnuslb.mirrors.dto;
+package com.somnus.server.somnuslb.instances.dto;
 
 import java.io.Serializable;
 
-public class MirrorInfoDTO implements Serializable {
+public class InstanceDataDTO implements Serializable {
     private int measuredCPUUsage; // in percentage
     private int measuredMemoryUsage; // in megabytes
     private int measuredSwapUsage; // in megabytes
 
-    public MirrorInfoDTO() { }
+    public InstanceDataDTO() { }
 
     public int getMeasuredCPUUsage() {
         return measuredCPUUsage;

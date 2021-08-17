@@ -1,4 +1,4 @@
-package com.somnus.server.somnuslb.mirrorStatus.domain;
+package com.somnus.server.somnuslb.instances.domain;
 
 import java.util.Arrays;
 
@@ -26,7 +26,7 @@ public class CircularArray {
     public double getAverage() {
         int pos = currPos == 0 ? numMeasurements - 1 : currPos - 1;
         double average = 0.0;
-        for(int i = 0; i < numMeasurements; i++) {
+        for (int i = 0; i < numMeasurements; i++) {
             average = measurements[pos] * weights[i];
             pos += (pos + 1) % numMeasurements;
         }

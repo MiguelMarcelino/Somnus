@@ -2,6 +2,16 @@
 All changes made to this project will be documented in this file
 
 ## [RELEASED]
+---------------------------------------------------------
+## [0.3.0] - 2021-08-14
+### Added
+- New Zuul Server created
+
+### Changed
+- Changed project structure in favor of new project 
+direction: Now using Apache Zuul and Eureka
+
+---------------------------------------------------------
 ## [0.3.0] - 2021-08-14
 ### Added
 - Started preparing RequestService to redirect requests to 

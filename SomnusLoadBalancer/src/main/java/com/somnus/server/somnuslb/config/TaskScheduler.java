@@ -1,6 +1,6 @@
 package com.somnus.server.somnuslb.config;
 
-import com.somnus.server.somnuslb.mirrorStatus.MirrorStatusService;
+import com.somnus.server.somnuslb.instances.InstanceDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Async;
@@ -16,12 +16,17 @@ import org.springframework.stereotype.Component;
 public class TaskScheduler {
 
     @Autowired
-    private MirrorStatusService mirrorStatusService;
+    private InstanceDataService instanceDataService;
 
     @Async
     @Scheduled(cron = "*/30 * * * * *")
     public void performHealthCheck() {
-        mirrorStatusService.checkMirrorHealth();
-        mirrorStatusService.sortMirrorList();
+        instanceDataService.checkMirrorHealth();
+    }
+
+    @Async
+    @Scheduled(cron = "*/60 * * * * *")
+    public void updateInstanceInformation() {
+        instanceDataService.updateInstances();
     }
 }
