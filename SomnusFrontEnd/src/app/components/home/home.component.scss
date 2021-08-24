@@ -1,3 +1,7 @@
+.navbar {
+    height: 50pt;
+}
+
 .login-button {
     margin-right: 10pt;
     margin-left: 10pt;
@@ -5,16 +9,19 @@
 
 .user-button {
     margin-right: 10pt;
+    position: absolute;
+    right: 10pt;
     margin-left: 10pt;
     background-size: cover;
 }
 
-.navbar-toggler{
-    float: right;
-}
-
 .navbar-brand {
+    all:unset;
     transition: 0.5s ease;
+    position: absolute;
+    top: 5pt;
+    left: 50%;
+    margin-left: -20pt !important;
 }
 
 .navbar-brand:hover {
@@ -22,23 +29,106 @@
 }
 
 .somnus-img {
-    max-height: 30pt;
-    max-width: 30pt;
+    max-height: 40pt;
+    max-width: 40pt;
 }
 
+.left {
+    // all:unset;
+    position: absolute;
+    left: 35%;
+    // margin-left: -15pt !important;
+}
+
+.right {
+    // all:unset;
+    position: absolute;
+    right: 35%;
+    // margin-left: 15pt !important;
+}
+
+.search {
+    position: absolute;
+    display: block;
+    left: 20pt;
+}
+
+.form-control {
+    color: white;
+    background-color: transparent;
+}
+
+@media only screen and (min-width: 1500px) {
+    .left {
+        left: 40%;
+        
+    }
+    
+    .right {
+        right: 40%;
+    }
+
+}
+
+@media only screen and (max-width: 1000px) {
+    .left {
+        left: 30%;
+        
+    }
+    
+    .right {
+        right: 30%;
+    }
+
+}
+
+
+@media only screen and (max-width: 900px) {
+    .left {
+        left: 22%;
+        
+    }
+    
+    .right {
+        right: 22%;
+    }
+
+    .search {
+        width: 75pt;
+        // right: 2.5%;
+        margin: 0 auto;
+    }
+}
 
 
 @media only screen and (max-width: 575px) {
     .login-button {
-        margin-left: 0pt;
+        margin-left: -64px !important;
         margin-right: 0pt;
         width: 100%;
     }
 
     .user-button {
-        margin-left: 0pt;
-        margin-right: 0pt;
-        margin-right: 20pt;
+        position: static;
+        right: 5%;
     }
 
+    .left, .right {
+        position: unset;
+        display: unset;
+        width: unset;
+        margin: unset;
+        bottom: -10pt;
+    }
+
+    .navbar {
+        height: auto;
+    }
+
+    .search {
+        position: static;
+        top: auto;
+        right: auto;
+        width: 100%;
+    }
 }

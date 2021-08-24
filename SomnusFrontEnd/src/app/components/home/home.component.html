@@ -1,33 +1,36 @@
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
     <a class="navbar-brand" routerLink="/homePage">
         <img src="../../../assets/icons/Somnus.png" class="somnus-img">
     </a>
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+    <!-- Avatar Button -->
+    <button *ngIf="user" [matMenuTriggerFor]="avatarMenuDropDown" mat-mini-fab
+        [ngStyle]="{ 'background-image': 'url(' + user?.photoURL +')' }" class="user-button">
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-
-            <li class="nav-item" [ngClass]="{'active': isActive('/homePage')}">
-                <a class="nav-link" routerLink="/">Home</a>
-            </li>
+        <ul class="navbar-nav left"> <!-- mr-auto -->
             <li class="nav-item" [ngClass]="{'active': isActive('/articles')}">
                 <a class="nav-link" routerLink="articles">Articles</a>
             </li>
+            <li class="nav-item" [ngClass]="{'active': isActive('/news-posts')}">
+                <a class="nav-link" routerLink="news-posts">News</a>
+            </li>
+            <!-- <li class="nav-item" [ngClass]="{'active': isActive('/server-info')}" *ngIf="isManagerOrAdmin()">
+                <a class="nav-link" routerLink="server-info">Server Info</a>
+            </li> -->
+        </ul>
+        <ul class="navbar-nav right">
             <li class="nav-item" [ngClass]="{'active': isActive('/team')}">
                 <a class="nav-link" routerLink="team">Team</a>
             </li>
             <li class="nav-item" [ngClass]="{'active': isActive('/contacts')}">
                 <a class="nav-link" routerLink="contacts">Contacts</a>
-            </li>
-            <!-- <li *ngIf="user" class="nav-item" [ngClass]="{'active': isActive('/games')}">
-                <a class="nav-link" routerLink="/games">Games</a>
-            </li> -->
-            <li class="nav-item" [ngClass]="{'active': isActive('/server-info')}" *ngIf="isManagerOrAdmin()">
-                <a class="nav-link" routerLink="server-info">Server Info</a>
             </li>
         </ul>
 
@@ -39,10 +42,7 @@
             </div>
         </form>
 
-        <!-- Avatar Button -->
-        <button *ngIf="user" [matMenuTriggerFor]="avatarMenuDropDown" mat-mini-fab
-            [ngStyle]="{ 'background-image': 'url(' + user?.photoURL +')' }" class="user-button">
-        </button>
+        
         <!-- Avatar Menu -->
         <mat-menu #avatarMenuDropDown="matMenu">
             <mat-card>

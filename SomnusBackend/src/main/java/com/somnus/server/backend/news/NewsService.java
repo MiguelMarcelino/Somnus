@@ -1,6 +1,5 @@
 package com.somnus.server.backend.news;
 
-import com.somnus.server.backend.articles.domain.Article;
 import com.somnus.server.backend.exceptions.ErrorMessage;
 import com.somnus.server.backend.exceptions.SomnusException;
 import com.somnus.server.backend.news.domain.NewsPost;
@@ -40,7 +39,7 @@ public class NewsService {
 
     public NewsPostDTO getPostWithID(Integer id) {
         Optional<NewsPost> newsPostOpt = newsPostRepository.findById(id);
-        if(!newsPostOpt.isPresent()) {
+        if (!newsPostOpt.isPresent()) {
             throw new SomnusException(ErrorMessage.NO_NEWS_POST_FOUND);
         }
 
@@ -55,13 +54,38 @@ public class NewsService {
     public void deleteNewsPost(User user, Integer id) {
         NewsPost newsPost = newsPostRepository.getOne(id);
 
-        // Article can only be deleted by the person who wrote it or the admin
+        // News Post can only be deleted by the person who wrote it or the admin
         if (!newsPost.getAuthor().getUsername().equals(user.getUsername()) &&
                 !user.getRole().equals(Role.ADMIN)) {
             throw new SomnusException(ErrorMessage.DELETE_NEWS_POST_NOT_ALLOWED);
         }
 
         newsPostRepository.deleteById(id);
+    }
+
+    @Retryable(
+            value = {SQLException.class},
+            backoff = @Backoff(delay = 5000))
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+    public void createOrUpdateNewsPost(User user, NewsPostDTO newsPostDTO) {
+        NewsPost newsPost = null;
+        if (newsPostDTO.getId() != null) {
+            newsPost = newsPostRepository.getOne(Integer.parseInt(newsPostDTO.getId()));
+        }
+
+        postService.postCreateAuthCheck(user);
+
+        if (newsPost == null) {
+            newsPost = new NewsPost(user, newsPostDTO.getPostName(),
+                    newsPostDTO.getAuthorUserName(), newsPostDTO.getDescription(),
+                    newsPostDTO.getContent());
+        } else {
+            newsPost.setPostName(newsPostDTO.getPostName());
+            newsPost.setDescription(newsPostDTO.getDescription());
+            newsPost.setContent(newsPostDTO.getContent());
+            newsPost.updateLastUpdate();
+        }
+        newsPostRepository.save(newsPost);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

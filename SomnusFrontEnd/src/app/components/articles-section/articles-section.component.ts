@@ -5,11 +5,12 @@ import { AuthenticationService } from 'src/app/services/authentication/authentic
 import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorInterface } from 'src/handlers/error-interface';
 import { Role } from 'src/app/models/role.model';
+import { PostTypes } from 'src/app/models/post/post-types.enum';
 
 @Component({
   selector: 'app-articles-section',
   templateUrl: './articles-section.component.html',
-  styleUrls: ['./articles-section.component.scss']
+  styleUrls: ['../post/post-section.component.scss']
 })
 export class ArticlesSectionComponent implements OnInit {
 

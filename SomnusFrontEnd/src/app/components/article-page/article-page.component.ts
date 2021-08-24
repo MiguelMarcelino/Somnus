@@ -7,11 +7,12 @@ import { Role } from 'src/app/models/role.model';
 import { UserModel } from 'src/app/models/user.model';
 import { ErrorInterface } from 'src/handlers/error-interface';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { PostTypes } from 'src/app/models/post/post-types.enum';
 
 @Component({
   selector: 'app-article-page',
   templateUrl: './article-page.component.html',
-  styleUrls: ['./article-page.component.scss'],
+  styleUrls: ['../post/post-page.component.scss'],
   animations: [
     trigger(
       'enterAnimation', [

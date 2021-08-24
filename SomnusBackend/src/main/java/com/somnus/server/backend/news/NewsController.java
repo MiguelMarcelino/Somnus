@@ -4,16 +4,12 @@ import com.somnus.server.backend.news.dto.NewsPostDTO;
 import com.somnus.server.backend.users.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/news-api")
 public class NewsController {
 
@@ -30,11 +26,18 @@ public class NewsController {
         return newsService.getPostWithID(id);
     }
 
-    @DeleteMapping(value = "/article/delete/{id}")
+    @DeleteMapping(value = "/news-post/delete/{id}")
     public void deleteArticle(Principal principal, @PathVariable Integer id) {
         User user = (User) ((Authentication) principal).getPrincipal();
 
         newsService.deleteNewsPost(user, id);
+    }
+
+    @PostMapping(value = "/news-post/create")
+    public void createOrUpdateNewsPost(Principal principal, @RequestBody NewsPostDTO newsPostDTO) {
+        User user = (User) ((Authentication) principal).getPrincipal();
+
+        newsService.createOrUpdateNewsPost(user, newsPostDTO);
     }
 
 }
