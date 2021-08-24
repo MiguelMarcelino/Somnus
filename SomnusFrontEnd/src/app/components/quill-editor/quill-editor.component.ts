@@ -1,6 +1,6 @@
 import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { ArticleModel } from 'src/app/models/post/article.model';
+import { PostModel } from 'src/app/models/post/post.model';
 
 @Component({
   selector: 'app-quill-editor',
@@ -15,7 +15,7 @@ export class QuillEditorComponent implements OnInit {
   quillForm: FormGroup;
 
   @Input()
-  article: ArticleModel;
+  post: PostModel;
 
   editorStyle = {
     height: '700pt',
@@ -72,8 +72,8 @@ export class QuillEditorComponent implements OnInit {
       'editor': new FormControl(''),
     });
 
-    if(this.article) {
-      this.quillForm.get("editor").setValue(this.article.content);
+    if(this.post) {
+      this.quillForm.get("editor").setValue(this.post.content);
     }
   }
 

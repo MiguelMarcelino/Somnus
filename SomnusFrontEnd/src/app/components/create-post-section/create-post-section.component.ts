@@ -1,5 +1,5 @@
-import { Component, HostListener, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { ArticlesService } from 'src/app/services/controllers/articles-controller.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
@@ -7,13 +7,13 @@ import { ErrorInterface } from 'src/handlers/error-interface';
 import { ArticleModel } from 'src/app/models/post/article.model';
 import { PostModel } from 'src/app/models/post/post.model';
 import { NewsPostModel } from 'src/app/models/post/news-post.model';
-import { ProviderAstType } from '@angular/compiler';
 import { NewsPostService } from 'src/app/services/controllers/news-controller.service';
+import { PostTypes } from 'src/app/models/post/post-types.enum';
 
 @Component({
-  selector: 'app-create-articles-section',
-  templateUrl: './create-articles-section.component.html',
-  styleUrls: ['./create-articles-section.component.scss'],
+  selector: 'app-create-post-section',
+  templateUrl: './create-post-section.component.html',
+  styleUrls: ['./create-post-section.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class CreatePostSectionComponent implements OnInit {
@@ -32,10 +32,9 @@ export class CreatePostSectionComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private articleService: ArticlesService,
     private newsPostService: NewsPostService,
     private formBuilder: FormBuilder,
-    private articlesController: ArticlesService,
+    private articleService: ArticlesService,
     private authenticationService: AuthenticationService,
     private router: Router,
     private errorInterface: ErrorInterface
@@ -45,7 +44,7 @@ export class CreatePostSectionComponent implements OnInit {
     this.editorForm = this.formBuilder.group({
       'post_name': new FormControl(''),
       'description': new FormControl(''),
-      'type': new FormControl('')
+      'type': new FormControl('', Validators.minLength(0))
     });
 
     this.createArticleTypes();
@@ -110,6 +109,10 @@ export class CreatePostSectionComponent implements OnInit {
     return this.postType === PostTypes.article;
   }
 
+  isNewsPost(): boolean {
+    return this.postType === PostTypes.newsPost;
+  }
+
   // Temporary
   createArticleTypes(): void {
     this.articleTypes = [];
@@ -140,9 +143,9 @@ export class CreatePostSectionComponent implements OnInit {
   sendArticleData(): void {
     this.submitted = true;
 
-    if (this.editorForm.invalid) {
-      return;
-    }
+    // if (this.editorForm.invalid) {
+    //   return;
+    // }
 
     this.loading = true;
 
@@ -163,20 +166,20 @@ export class CreatePostSectionComponent implements OnInit {
       return;
     }
 
+    let postModel: PostModel = {
+      "postName": postName, "authorUserName": this.currentUser.displayName, "userId": this.currentUser.uid, "description": description,
+      "datePublished": new Date(), "lastUpdate": new Date(), 'content': content
+    };
+
+    // if it is an update, add the id
+    if (this.post) {
+      postModel.id = this.post.id;
+    }
+
     if(this.postType === PostTypes.article) {
-      let articleModel: ArticleModel;
-      if (this.post) {
-        articleModel = {
-          "id": this.post.id, "postName": postName, "authorUserName": this.currentUser.displayName, "userId": this.currentUser.uid, "description": description,
-          "datePublished": new Date(), "lastUpdate": new Date(), 'topic': topic, 'content': content
-        };
-      } else {
-        articleModel = {
-          "postName": postName, "authorUserName": this.currentUser.displayName, "userId": this.currentUser.uid, "description": description,
-          "datePublished": new Date(), "lastUpdate": new Date(), 'topic': topic, 'content': content
-        };
-      }
-      this.articlesController.addObject(articleModel).subscribe(id => {
+      let articleModel = postModel as ArticleModel;
+      articleModel.topic = topic;
+      this.articleService.addObject(articleModel).subscribe(id => {
         this.router.navigateByUrl("/articles");
         this.errorInterface.setSuccessMessage("Your Article has been successfully published!")
       },
@@ -185,7 +188,16 @@ export class CreatePostSectionComponent implements OnInit {
           this.errorInterface.setErrorMessage("There was an error publishing your article!");
         });
     } else if(this.postType === PostTypes.newsPost) {
-      // TODO
+      let newsPostModel = postModel as NewsPostModel;
+      
+      this.newsPostService.addObject(newsPostModel).subscribe(id => {
+        this.router.navigateByUrl("/news-posts");
+        this.errorInterface.setSuccessMessage("Your News Post has been successfully published!")
+      },
+        (error) => {
+          this.loading = false;
+          this.errorInterface.setErrorMessage("There was an error publishing your News Post!");
+        });
     }
     
   }

@@ -7,11 +7,12 @@ import { UserModel } from 'src/app/models/user.model';
 import { ErrorInterface } from 'src/handlers/error-interface';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { NewsPostService } from 'src/app/services/controllers/news-controller.service';
+import { PostTypes } from 'src/app/models/post/post-types.enum';
 
 @Component({
   selector: 'app-news-page',
   templateUrl: './news-page.component.html',
-  styleUrls: ['./news-page.component.scss'],
+  styleUrls: ['../post/post-page.component.scss'],
   animations: [
     trigger(
       'enterAnimation', [
@@ -33,7 +34,6 @@ export class NewsPageComponent implements OnInit {
   user: firebase.default.User;
   private urlParams = {};
   newsPost: NewsPostModel;
-  showCommentsSectionButton: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -56,9 +56,9 @@ export class NewsPageComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.urlParams = {...params};
     });
-    this.newsPostService.getObject(id).subscribe((article: NewsPostModel) =>{
-      if(article) {
-        this.newsPost = article;
+    this.newsPostService.getObject(id).subscribe((newsPost: NewsPostModel) =>{
+      if(newsPost) {
+        this.newsPost = newsPost;
       }
     })
   }
@@ -83,18 +83,6 @@ export class NewsPageComponent implements OnInit {
   editNewsPost() {
     const id = this.route.snapshot.paramMap.get('id');
     this.router.navigate(["/createPost"], {queryParams: {id: id, postType: PostTypes.newsPost}});
-  }
-
-  navigateToCommentSection() {
-    document.getElementById("c-section").scrollIntoView({ behavior: 'smooth' });
-  }
-
-  @HostListener("window:scroll", ["$event"])
-  showCommentsButton(event?) {
-    if(document.getElementById("c-section")) {
-      this.showCommentsSectionButton = this.user && (document.getElementById("c-section").offsetTop - event.srcElement.children[0].scrollTop) > 900 && 
-        (document.getElementById("c-section").offsetTop - event.srcElement.children[0].scrollTop) > 200;
-    }
   }
 
 }

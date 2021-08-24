@@ -1,6 +1,5 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
 import { NewsPostModel } from "src/app/models/post/news-post.model";
 import { AppRoutesService } from "../routes/app-routes.service";
 import { TemplateControllerService } from "./template-controller.service";

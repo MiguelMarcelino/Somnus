@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class PostDTO implements Serializable {
+public abstract class PostDTO implements Serializable {
     private String id;
     private String postName;
     private String normalizedName;

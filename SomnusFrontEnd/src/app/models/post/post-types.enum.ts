@@ -1,4 +1,4 @@
-enum PostTypes {
+export enum PostTypes {
     article = "Article",
     newsPost = "NewsPost"
 }

@@ -23,7 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -99,10 +98,7 @@ public class ArticleService {
             article = articleRepository.getOne(Integer.parseInt(articleDto.getId()));
         }
 
-        if (!user.getRole().equals(Role.ADMIN) && !user.getRole().equals(Role.MANAGER) &&
-                !user.getRole().equals(Role.EDITOR)) {
-            throw new SomnusException(ErrorMessage.ROLE_NOT_ALLOWED);
-        }
+        postService.postCreateAuthCheck(user);
 
         ArticleTopic articleTopic = ArticleTopic.valueOf(articleDto.getTopic()
                 .replace(" ", "_").toUpperCase());

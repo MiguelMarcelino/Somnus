@@ -1,14 +1,15 @@
 
-<h2>Start Writing your own Article</h2>
+<h2 *ngIf="isArticle()">Start Writing your own Article</h2>
+<h2 *ngIf="isNewsPost()">Start Writing your own News Post</h2>
 <div class="">
     <div>
         <form [formGroup]="editorForm" method="post">
             <mat-form-field appearance="fill">
-                <mat-label>Article Name</mat-label>
-                <input type="text" matInput formControlName="article_name" placeholder="Name of your Article">
+                <mat-label>Post Name</mat-label>
+                <input type="text" matInput formControlName="post_name" placeholder="Name of your Article">
             </mat-form-field>
             <mat-form-field appearance="fill">
-                <mat-label>Article Description</mat-label>
+                <mat-label>Post Description</mat-label>
                 <input type="text" class="description-input" matInput formControlName="description">
             </mat-form-field>
             <mat-form-field appearance="fill" *ngIf="isArticle()">
@@ -22,8 +23,8 @@
             <br>
             <!-- Editor content -->
             <div class="form-group">
-                <app-quill-editor *ngIf="!article" (onEditorContentChange)="setEditorContent($event)"></app-quill-editor>
-                <app-quill-editor *ngIf="article" (onEditorContentChange)="setEditorContent($event)" [article]="article"></app-quill-editor>
+                <app-quill-editor *ngIf="!post" (onEditorContentChange)="setEditorContent($event)"></app-quill-editor>
+                <app-quill-editor *ngIf="post" (onEditorContentChange)="setEditorContent($event)" [post]="post"></app-quill-editor>
             </div>
         </form>    
     </div>
@@ -36,7 +37,7 @@
             <h2>Here's the result</h2>
             <div id="article-container">
                 <h2>
-                    <b><i>{{editorForm.get('article_name').value}}</i></b>
+                    <b><i>{{editorForm.get('post_name').value}}</i></b>
                 </h2>
                 <div [innerHTML]="editorContent" class="show-content"></div>
             </div>
@@ -44,14 +45,16 @@
     </div>
 
     <!-- Publish -->
-    <div id="publish-button" class="publish-article" *ngIf="canPublish()">
+    <!-- *ngIf="canPublish()" -->
+    <div id="publish-button" class="publish-article" >
         <button class="btn btn-primary" (click)="sendArticleData()">
             <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
             Publish your article
         </button>
     </div>
 
-    <div class="publish-article" *ngIf="!canPublish()">
+    <!-- *ngIf="!canPublish()" -->
+    <div class="publish-article" >
         <h2>Please fill in all the fields before publishing the article.</h2>
     </div>
 
