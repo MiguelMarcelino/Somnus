@@ -8,6 +8,7 @@ public enum ErrorMessage {
     NO_TOPIC_PROVIDED("There is no topic provided for the given article"),
     ROLE_NOT_ALLOWED("This role is not allowed."),
     DELETE_ARTICLE_NOT_ALLOWED("The current user is not the owner of the article"),
+    DELETE_NEWS_POST_NOT_ALLOWED("The current user is not the owner of the news post"),
     CANNOT_PARSE_ARTICLE_DATA("Cannot parse Article data"),
     NO_COMMENT_FOUND("No comment was found"),
     COMMENT_EDIT_NOT_ALLOWED("The current user cannot edit the given comment"),

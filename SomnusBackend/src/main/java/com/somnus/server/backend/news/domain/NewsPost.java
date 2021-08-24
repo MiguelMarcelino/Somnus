@@ -2,12 +2,14 @@ package com.somnus.server.backend.news.domain;
 
 import com.somnus.server.backend.post.domain.Post;
 import com.somnus.server.backend.users.domain.User;
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "news_post")
+@Proxy(lazy = false)
 public class NewsPost extends Post {
 
     public NewsPost() {

@@ -1,6 +1,6 @@
 <div class="content">
     <h2>Check out our Articles</h2>
-    <button class="btn btn-primary" routerLink="/createArticle" *ngIf="canCreateArticles">
+    <button class="btn btn-primary" *ngIf="canCreateArticles" (click)="createArticle()">
         Create new article
     </button>
 
