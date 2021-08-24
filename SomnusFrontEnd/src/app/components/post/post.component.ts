@@ -66,7 +66,7 @@ export class PostComponent implements OnInit {
 
   // editnewsPost() {
   //   const id = this.route.snapshot.paramMap.get('id');
-  //   this.router.navigate(["/createArticle"], {queryParams: {id: id}});
+  //   this.router.navigate(["/createPost"], {queryParams: {id: id}});
   // }
 
   navigateToCommentSection() {

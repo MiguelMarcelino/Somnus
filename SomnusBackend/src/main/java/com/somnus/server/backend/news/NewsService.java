@@ -1,14 +1,22 @@
 package com.somnus.server.backend.news;
 
+import com.somnus.server.backend.articles.domain.Article;
 import com.somnus.server.backend.exceptions.ErrorMessage;
 import com.somnus.server.backend.exceptions.SomnusException;
 import com.somnus.server.backend.news.domain.NewsPost;
 import com.somnus.server.backend.news.dto.NewsPostDTO;
 import com.somnus.server.backend.news.repository.NewsPostRepository;
 import com.somnus.server.backend.post.PostService;
+import com.somnus.server.backend.users.domain.Role;
+import com.somnus.server.backend.users.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -38,6 +46,22 @@ public class NewsService {
 
         NewsPostDTO newsPostDTO = createNewsPostDTO(newsPostOpt.get());
         return newsPostDTO;
+    }
+
+    @Retryable(
+            value = {SQLException.class},
+            backoff = @Backoff(delay = 5000))
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+    public void deleteNewsPost(User user, Integer id) {
+        NewsPost newsPost = newsPostRepository.getOne(id);
+
+        // Article can only be deleted by the person who wrote it or the admin
+        if (!newsPost.getAuthor().getUsername().equals(user.getUsername()) &&
+                !user.getRole().equals(Role.ADMIN)) {
+            throw new SomnusException(ErrorMessage.DELETE_NEWS_POST_NOT_ALLOWED);
+        }
+
+        newsPostRepository.deleteById(id);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

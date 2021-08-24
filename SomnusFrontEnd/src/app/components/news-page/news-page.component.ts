@@ -74,15 +74,15 @@ export class NewsPageComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.urlParams = {...params};
     });
-    // this.articleService.deleteObject(id).subscribe(article => {
-    //   this.router.navigateByUrl("/articles");
-    //   this.errorInterface.setSuccessMessage("Successfully deleted Article!")
-    // });
+    this.newsPostService.deleteObject(id).subscribe(newsPost => {
+      this.router.navigateByUrl("/news-posts");
+      this.errorInterface.setSuccessMessage("Successfully deleted News Post!");
+    });
   }
 
   editNewsPost() {
     const id = this.route.snapshot.paramMap.get('id');
-    this.router.navigate(["/createArticle"], {queryParams: {id: id}});
+    this.router.navigate(["/createPost"], {queryParams: {id: id, postType: PostTypes.newsPost}});
   }
 
   navigateToCommentSection() {

@@ -12,8 +12,8 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 
 @Entity
-@Inheritance
-public class Post implements Serializable {
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class Post implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;

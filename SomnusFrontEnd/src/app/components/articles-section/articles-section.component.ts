@@ -26,6 +26,7 @@ export class ArticlesSectionComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private route: ActivatedRoute,
     private errorInterface: ErrorInterface,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -76,6 +77,10 @@ export class ArticlesSectionComponent implements OnInit {
 
   getArticleLink(article: ArticleModel) {
     return "/article/" + article.id;
-  }  
+  }
+
+  createArticle() {
+    this.router.navigate(["/createPost"], {queryParams: {postType: PostTypes.article}});
+  }
 
 }
