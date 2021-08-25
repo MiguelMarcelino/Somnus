@@ -1,6 +1,8 @@
-
-.wrapper {
+.page-style {
     margin-bottom: 130pt;
+    margin: 0 auto;
+    display: inline-block;
+    height: max-content !important;
 }
 
 mat-form-field.mat-form-field {
@@ -25,7 +27,7 @@ mat-form-field.mat-form-field {
     height: 200pt;
 }
 
-.img-left{
+.img-left {
     float: left;
     width: 20%;
 }
@@ -40,39 +42,20 @@ mat-form-field.mat-form-field {
     text-align: center;
 }
 
-.centered-text{
+.centered-text {
     text-align: center;
 }
 
 @media only screen and (max-width:800px) {
-    .img-left{
+    .img-left {
         margin: 0 auto;
         width: 100%;
     }
-
-    
     .description-right {
         margin: 0 auto;
         width: 100%;
     }
-    
     .contact-form {
         width: 100%;
-    }
-
-    .wrapper {
-        margin-bottom: 300pt;
-    }
-}
-
-@media only screen and (max-width:500px) {
-    .wrapper {
-        margin-bottom: 400pt;
-    }
-}
-
-@media only screen and (max-width:300px) {
-    .wrapper {
-        margin-bottom: 500pt;
     }
 }
