@@ -16,7 +16,7 @@
 }
 
 .navbar-brand {
-    all:unset;
+    all: unset;
     transition: 0.5s ease;
     position: absolute;
     top: 5pt;
@@ -61,38 +61,28 @@
 @media only screen and (min-width: 1500px) {
     .left {
         left: 40%;
-        
     }
-    
     .right {
         right: 40%;
     }
-
 }
 
 @media only screen and (max-width: 1000px) {
     .left {
         left: 30%;
-        
     }
-    
     .right {
         right: 30%;
     }
-
 }
-
 
 @media only screen and (max-width: 900px) {
     .left {
         left: 22%;
-        
     }
-    
     .right {
         right: 22%;
     }
-
     .search {
         width: 75pt;
         // right: 2.5%;
@@ -100,31 +90,27 @@
     }
 }
 
-
 @media only screen and (max-width: 575px) {
     .login-button {
         margin-left: -64px !important;
         margin-right: 0pt;
         width: 100%;
     }
-
     .user-button {
         position: static;
         right: 5%;
     }
-
-    .left, .right {
+    .left,
+    .right {
         position: unset;
         display: unset;
         width: unset;
         margin: unset;
         bottom: -10pt;
     }
-
     .navbar {
         height: auto;
     }
-
     .search {
         position: static;
         top: auto;

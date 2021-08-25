@@ -1,101 +1,115 @@
 .site-options {
-  text-align: center;
-  color: white;
-  font-size: 15pt;
-  line-height: 25pt;
+    text-align: center;
+    color: white;
+    font-size: 15pt;
+    line-height: 25pt;
+}
+
+.bg {
+    background: url("../../../assets/icons/circuit.png") no-repeat center center;
+    background-size: cover;
+    height: 100%;
+}
+
+.view {
+    margin-top: -40pt;
+    height: 100vh !important;
+}
+
+.intro-header {
+    height: unset !important;
 }
 
 #headline {
-  color: #ffffff;
-  font-family: "Raleway", sans-serif;
-  font-weight: 800;
-  line-height: 72px;
-  font-size: 25pt;
+    color: #ffffff;
+    font-family: "Raleway", sans-serif;
+    font-weight: 800;
+    line-height: 72px;
+    font-size: 25pt;
 }
 
-#intro-text {
-  margin-top: 30pt;
-  margin-bottom: 100pt;
-  max-height: 40pt;
-}
-
+// #intro-text {
+//   margin-top: 30pt;
+//   margin-bottom: 100pt;
+//   max-height: 40pt;
+// }
 .grid-container {
-  width: 100%;
-  height: max-content;
-  margin-bottom: 200pt;
-  margin: 0 auto;
+    width: 100%;
+    height: max-content;
+    margin-bottom: 200pt;
+    margin: 0 auto;
 }
 
 .grid-element {
-  float: left;
-  /* float: inline-start;  */ /*Not supported on Chrome*/
-  text-align: center;
-  width: 20%;
-  height: 250pt;
-  margin: 0% 2.5% auto;
-  border-radius: 4pt;
-  transition: 0.5s ease;
+    float: left;
+    /* float: inline-start;  */
+    /*Not supported on Chrome*/
+    text-align: center;
+    width: 20%;
+    height: 250pt;
+    margin: 0% 2.5% auto;
+    border-radius: 4pt;
+    transition: 0.5s ease;
 }
 
 .grid-element:hover {
-  transform: scale(1.02, 1.02);
+    transform: scale(1.02, 1.02);
 }
 
 .photo-above {
-  max-width: 150pt;
-  max-height: 150pt;
-  margin: 0 auto;
+    max-width: 150pt;
+    max-height: 150pt;
+    margin: 0 auto;
 }
 
 .content-below {
-  margin-top: 20pt;
+    margin-top: 20pt;
 }
 
 .section-photo {
-  max-height: 11vw;
-  max-width: 11vw;
+    max-height: 11vw;
+    max-width: 11vw;
 }
 
 #about-section {
-  margin-top: 100pt;
-  padding-top: 200pt;
-  /* padding-bottom: 200pt; */
+    margin-top: 100pt;
+    padding-top: 200pt;
+    /* padding-bottom: 200pt; */
 }
 
 .about-content {
-  padding-left: 5%;
-  padding-right: 5%;
-  padding-top: 40pt;
-  text-align: justify;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 40pt;
+    text-align: justify;
 }
+
 
 /* Typewriter animation */
 
 .typed {
-  display: inline;
+    display: inline;
 }
 
 .typed-cursor {
-  opacity: 0;
-  display: none;
+    opacity: 0;
+    display: none;
 }
 
-
 @media only screen and (max-width: 1500px) {
-  .section-photo {
-    max-height: 15vw;
-    max-width: 15vw;
-  }
+    .section-photo {
+        max-height: 15vw;
+        max-width: 15vw;
+    }
 }
 
 @media only screen and (max-width: 1000px) {
-  .grid-element {
-    width: 50%;
-    margin: 0% 0% auto;
-  }
-
-  .section-photo {
-    max-height: 20vw;
-    max-width: 20vw;
-  }
+    .grid-element {
+        width: 50%;
+        margin: 0% 0% auto;
+    }
+    .section-photo {
+        max-height: 20vw;
+        max-width: 20vw;
+    }
 }
