@@ -1,4 +1,4 @@
-<div class="content">
+<div class="content wrapper">
     <!-- <h2>Check out our Articles</h2> -->
     <button class="btn btn-primary" *ngIf="canCreateArticles" (click)="createArticle()">
         Create new article
@@ -8,7 +8,7 @@
     <mat-progress-spinner *ngIf="loading" mode="indeterminate"></mat-progress-spinner>
 
     <div *ngIf="articles">
-        <div *ngFor="let article of articles" class="article-container" >
+        <div *ngFor="let article of articles" class="article-container">
             <div [routerLink]="['/article/',article.id,article.normalizedTopic,article.normalizedName]">
                 <div class="left-article-img">
                     <img src="../../../assets/icons/Document-lines.png" class="article-img">

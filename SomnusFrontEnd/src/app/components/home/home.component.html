@@ -1,6 +1,5 @@
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -9,12 +8,12 @@
     </a>
 
     <!-- Avatar Button -->
-    <button *ngIf="user" [matMenuTriggerFor]="avatarMenuDropDown" mat-mini-fab
-        [ngStyle]="{ 'background-image': 'url(' + user?.photoURL +')' }" class="user-button">
+    <button *ngIf="user" [matMenuTriggerFor]="avatarMenuDropDown" mat-mini-fab [ngStyle]="{ 'background-image': 'url(' + user?.photoURL +')' }" class="user-button">
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav left"> <!-- mr-auto -->
+        <ul class="navbar-nav left">
+            <!-- mr-auto -->
             <li class="nav-item" [ngClass]="{'active': isActive('/articles')}">
                 <a class="nav-link" routerLink="articles">Articles</a>
             </li>
@@ -37,12 +36,11 @@
         <form class="my-2 my-lg-0 search">
             <!-- Search -->
             <div class="md-form my-0">
-                <input (keyup.enter)="onEnter(inputValue.value)" #inputValue class="form-control" type="text"
-                    placeholder="Search for articles" aria-label="Search">
+                <input (keyup.enter)="onEnter(inputValue.value)" #inputValue class="form-control" type="text" placeholder="Search for articles" aria-label="Search">
             </div>
         </form>
 
-        
+
         <!-- Avatar Menu -->
         <mat-menu #avatarMenuDropDown="matMenu">
             <mat-card>
@@ -54,6 +52,10 @@
             <button mat-menu-item routerLink="/user-profile">
                 <mat-icon>person</mat-icon>
                 <span>User Profile</span>
+            </button>
+            <button mat-menu-item routerLink="/server-info">
+                <mat-icon>storage</mat-icon>
+                <span>Server Status</span>
             </button>
             <button mat-menu-item (click)="logout()">
                 <mat-icon>exit_to_app</mat-icon>

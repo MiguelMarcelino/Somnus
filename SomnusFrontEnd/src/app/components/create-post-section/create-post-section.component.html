@@ -1,7 +1,7 @@
-
-<h2 *ngIf="isArticle()">Start Writing your own Article</h2>
+<h2 *ngIf="isArticle()">
+    Start Writing your own Article</h2>
 <h2 *ngIf="isNewsPost()">Start Writing your own News Post</h2>
-<div class="">
+<div class="wrapper">
     <div>
         <form [formGroup]="editorForm" method="post">
             <mat-form-field appearance="fill">
@@ -15,9 +15,9 @@
             <mat-form-field appearance="fill" *ngIf="isArticle()">
                 <mat-label>Select Article Type</mat-label>
                 <mat-select formControlName="type">
-                  <mat-option *ngFor="let type of articleTypes" [value]="type">
-                    {{type}}
-                  </mat-option>
+                    <mat-option *ngFor="let type of articleTypes" [value]="type">
+                        {{type}}
+                    </mat-option>
                 </mat-select>
             </mat-form-field>
             <br>
@@ -26,7 +26,7 @@
                 <app-quill-editor *ngIf="!post" (onEditorContentChange)="setEditorContent($event)"></app-quill-editor>
                 <app-quill-editor *ngIf="post" (onEditorContentChange)="setEditorContent($event)" [post]="post"></app-quill-editor>
             </div>
-        </form>    
+        </form>
     </div>
 
     <div>
@@ -46,7 +46,7 @@
 
     <!-- Publish -->
     <!-- *ngIf="canPublish()" -->
-    <div id="publish-button" class="publish-article" >
+    <div id="publish-button" class="publish-article">
         <button class="btn btn-primary" (click)="sendArticleData()">
             <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
             Publish your article
@@ -54,7 +54,7 @@
     </div>
 
     <!-- *ngIf="!canPublish()" -->
-    <div class="publish-article" >
+    <div class="publish-article">
         <h2>Please fill in all the fields before publishing the article.</h2>
     </div>
 

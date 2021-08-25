@@ -1,4 +1,4 @@
-<div class="content">
+<div class="content wrapper">
     <!-- <h2>Posted News</h2> -->
     <button class="btn btn-primary" *ngIf="canCreateNewsPosts" (click)="createNewsPost()">
         Post some News!
@@ -8,7 +8,7 @@
     <mat-progress-spinner *ngIf="loading" mode="indeterminate"></mat-progress-spinner>
 
     <div *ngIf="newsPosts">
-        <div *ngFor="let newsPost of newsPosts" class="article-container" >
+        <div *ngFor="let newsPost of newsPosts" class="article-container">
             <div [routerLink]="['/news-post/',newsPost.id,newsPost.normalizedName]">
                 <div class="left-article-img">
                     <img src="../../../assets/icons/tech-lines.png" class="news-img">

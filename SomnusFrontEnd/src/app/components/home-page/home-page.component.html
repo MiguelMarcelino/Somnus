@@ -1,69 +1,47 @@
-<div class="wrapper">
+<div>
     <section class="view bg">
         <div class="container flex-center">
-            <div class="row flex-center pt-5 mt-3">
-                <div class="col-md-6 text-center text-md-left margins">
-                    <h1 id="headline">Publish about your <span class="typed"></span></h1>
-                    <div class="white-text">
-                        <hr class="hr-light wow fadeInLeft" data-wow-delay="0.3s">
-                        <h6 class="wow fadeInLeft" data-wow-delay="0.3s">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem repellendus quasi fuga nesciunt dolorum nulla magnam veniam sapiente, fugiat! Commodi sequi non animi ea dolor molestiae iste.</h6>
-                        <br>
-                        <a mdbBtn color="white" outline="true" class="wow fadeInLeft" data-wow-delay="0.3s">Learn
-                                    more</a>
-                        <a mdbBtn color="white" outline="true" class="wow fadeInLeft" data-wow-delay="0.3s">Download
-                                    <i class="fab fa-android left right" aria-hidden="true"></i>
-                                    <i class="fab faapple left" aria-hidden="true"></i>
-                                    <i class="fab fawindows" aria-hidden="true"></i>
-                                </a>
+            <div id="intro-text">
+                <h1 id="headline">Write about your <span class="typed"></span></h1>
+            </div>
+
+            <div class="grid-container">
+                <div class="grid-element">
+                    <div class="photo-above">
+                        <img class="section-photo" src="../../../assets/icons/code.gif" id="code">
+                    </div>
+
+                    <div class="content-below">
+                        <div class="site-options">Code</div>
                     </div>
                 </div>
 
-                <div class="col-md-6 wow fadeInRight d-flex justify-content-center" data-wow-delay="0.3s">
-                    <!-- Todo change image -->
-                    <img src="https://mdbootstrap.com/img/Mockups/Transparent/Small/iphone-admin.png" alt="" class="img-responsive">
+                <div class="grid-element">
+                    <div class="photo-above">
+                        <img class="color-inverted-img section-photo" src="../../../assets/icons/rocket.gif" id="rocket">
+                    </div>
+                    <div class="content-below">
+                        <div class="site-options">Deploy</div>
+                    </div>
+                </div>
+
+                <div class="grid-element">
+                    <div class="photo-above">
+                        <img class="color-inverted-img section-photo" src="../../../assets/icons/share.png" id="airplane">
+                    </div>
+                    <div class="content-below">
+                        <div class="site-options">Share</div>
+                    </div>
                 </div>
             </div>
         </div>
+        <!-- <button id="arrow-right" mat-fab color="transparent"> -->
+        <mat-icon id="arrow-right">chevron_right</mat-icon>
+        <!-- </button> -->
+        <!-- <button id="arrow-left" mat-fab color="transparent"> -->
+        <mat-icon id="arrow-left">chevron_left</mat-icon>
+        <!-- </button> -->
     </section>
-
-    <div class="grid-container">
-        <div class="grid-element">
-            <div class="photo-above">
-                <img class="color-inverted-img section-photo" src="../../../assets/icons/Articles.png">
-            </div>
-            <div class="content-below">
-                <div class="site-options">Write new Articles</div>
-            </div>
-        </div>
-
-        <div class="grid-element">
-            <div class="photo-above">
-                <img class="color-inverted-img section-photo" src="../../../assets/icons/Projects.png">
-            </div>
-            <div class="content-below">
-                <div class="site-options">Share your Projects</div>
-            </div>
-        </div>
-
-        <div class="grid-element">
-            <div class="photo-above">
-                <img class="color-inverted-img section-photo" src="../../../assets/icons/code.png">
-            </div>
-
-            <div class="content-below">
-                <div class="site-options">Code with us</div>
-            </div>
-        </div>
-
-        <div class="grid-element">
-            <div class="photo-above">
-                <img class="color-inverted-img section-photo" src="../../../assets/icons/Community.png">
-            </div>
-            <div class="content-below">
-                <div class="site-options">Build the Community</div>
-            </div>
-        </div>
-    </div>
 
     <div id="about-section">
         <div class="about-content">
@@ -73,16 +51,41 @@
                 done. This name is a tribute to all those developers that give up their sleep to achieve a better quality product.
             </p>
         </div>
+        <hr>
 
         <div class="about-content">
-            <h2>How about the state of {{title}}?</h2>
-            <p> The {{title}} is all about offering services to a small community of programmers and at the same time provide them with a platform where they can test new Software and publish their findings in the form of articles.
+            <h2>Services offered by {{title}}</h2>
+            <p> The {{title}} is all about offering services to a small community of programmers and at the same time provide them with a platform where they can test new Software and publish their findings in the form of articles. But besided that, we also
+                offer other kinds of services to our community.
             </p>
+            <div class="offered-services">
+                <div class="img-left">
+                    <img class="color-inverted-img img-service" src="../../../assets/icons/moodle.png">
+                </div>
+                <div class="description-right">
+                    <p>
+                        We host a moodle website where we post all kinds of contents. The main purpose is to provide a platform where each person can publish various types of courses so that others can take those courses.
+                    </p>
+                </div>
+            </div>
+            <br>
+            <div class="offered-services">
+                <div class="img-left">
+                    <img class="color-inverted-img img-service" src="../../../assets/icons/nextcloud.png">
+                </div>
+                <div class="description-right">
+                    <p>
+                        We currently host a Nextcloud service for our users. This allows our users to save files at any time. Managers get premium access with unlimited storage.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <hr>
+
+        <div class="about-content">
+            <h2>Questions & +Info</h2>
             <p>
-                This server is currently in beta, so please be patient if you find bugs and feel free to report them through our contacts section.
-            </p>
-            <p>
-                You can also report any problems you might be having related to the {{title}} website. So let us know if there is anything we can do to improve on our website.
+                Any problems you are having related to the {{title}} website, please report them over on the contacts page.
             </p>
             <p>
                 If you want to learn more about our team feel free to head over to the
@@ -90,8 +93,6 @@
             </p>
         </div>
     </div>
-
-
 
 
     <!-- <div class="floating_div">
@@ -134,4 +135,5 @@
     </div>
     </p>
     </div> -->
+
 </div>

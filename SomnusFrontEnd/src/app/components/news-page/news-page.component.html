@@ -1,5 +1,4 @@
-
-<div class="content-wrapper" *ngIf="newsPost">
+<div class="wrapper" *ngIf="newsPost">
     <div id="article-info">
         <h2>{{newsPost.postName}}</h2>
         <h3 class="article-author">Written by <span class="author-name">{{newsPost.authorUserName}}</span></h3>
@@ -17,7 +16,7 @@
     <mat-expansion-panel *ngIf="isNewsPostOwnerOrAdmin()">
         <mat-expansion-panel-header [collapsedHeight]="'50pt'" [expandedHeight]="'50pt'">
             <mat-panel-description collapsedHeight="'50pt'">
-               News Post Edit options
+                News Post Edit options
             </mat-panel-description>
         </mat-expansion-panel-header>
 
@@ -30,6 +29,5 @@
             </button>
         </div>
     </mat-expansion-panel>
-   
-</div>
 
+</div>

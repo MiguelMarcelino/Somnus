@@ -1,11 +1,10 @@
-
-h3{
+h3 {
     text-align: left;
 }
 
-.content{
-    width: 100%;
+.content {
     color: white;
+    margin: 0 auto;
 }
 
 .article-container {
@@ -36,7 +35,7 @@ h3{
     height: 200pt;
 }
 
-.left-article-img{
+.left-article-img {
     overflow: hidden;
     float: left;
     width: 20%;
@@ -49,7 +48,7 @@ h3{
     padding-left: 20pt;
 }
 
-.article-info{
+.article-info {
     padding-top: 10pt;
 }
 
@@ -57,19 +56,19 @@ h3{
     color: rgb(87, 140, 255);
 }
 
-.description{
+.description {
     font-size: 14pt;
     padding-top: 10pt;
     text-align: justify;
     max-height: inherit;
 }
 
-.article-author{
+.article-author {
     font-size: 15pt;
     text-align: justify;
 }
 
-mat-progress-spinner{
+mat-progress-spinner {
     padding-top: 100pt;
     margin: 0 auto;
 }
