@@ -28,7 +28,7 @@ hr {
     width: 100pt;
 }
 
-.grid-container {
+.grid-array {
     width: 100%;
     height: max-content;
     margin: 0 auto;
@@ -42,12 +42,6 @@ hr {
     height: fit-content;
     text-align: center;
     border-radius: 10pt;
-    transition: 0.5s ease;
-}
-
-.grid-element:hover {
-    background-color: rgb(63, 63, 63);
-    cursor: pointer;
 }
 
 .info-div {
@@ -87,13 +81,13 @@ mat-progress-spinner {
         max-height: 18vw;
         max-width: 18vw;
     }
-    .grid-container {
+    .grid-array {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media only screen and (max-width: 600px) {
-    .grid-container {
+    .grid-array {
         grid-template-columns: repeat(1, 1fr);
     }
     .team-member-photo {

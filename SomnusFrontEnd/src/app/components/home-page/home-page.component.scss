@@ -6,7 +6,7 @@
 }
 
 .bg {
-    background: url("../../../assets/icons/circuit.png") no-repeat center center, radial-gradient(transparent, black);
+    background: url("../../../assets/icons/circuit.png") no-repeat center center, radial-gradient(rgb(8, 8, 8), black);
     background-size: auto cover;
 }
 
@@ -33,7 +33,7 @@
     padding-top: 20pt;
 }
 
-.grid-container {
+.grid-array {
     width: 100%;
     height: fit-content;
     margin-top: 160pt;
@@ -50,7 +50,7 @@
 }
 
 .grid-element:hover {
-    transform: scale(1.02, 1.02);
+    transform: scale(1.05, 1.05);
 }
 
 .section-photo {
@@ -114,15 +114,17 @@
 }
 
 .img-left {
-    display: inline-block;
+    // display: inline-block;
     width: 20%;
+    margin: 0 auto;
 }
 
 .img-service {
-    height: 50pt;
-    width: auto;
-    margin: 0 auto 0 auto;
-    filter: grayscale(1.0);
+    display: block;
+    height: auto;
+    width: 50pt;
+    margin: 0 auto;
+    // filter: grayscale(1.0);
 }
 
 .description-right {
@@ -199,7 +201,7 @@ hr {
     //     width: 50%;
     //     margin: 0% 0% auto;
     // }
-    .grid-container {
+    .grid-array {
         margin: 0 auto;
         margin-top: 120pt;
         -webkit-overflow-scrolling: touch;
@@ -216,10 +218,10 @@ hr {
         scrollbar-width: none;
         width: 90%;
     }
-    .grid-container::-webkit-scrollbar {
+    .grid-array::-webkit-scrollbar {
         display: none;
     }
-    .grid-container>div {
+    .grid-array>div {
         scroll-snap-align: start;
     }
     .grid-element {
@@ -269,7 +271,7 @@ hr {
     #headline {
         font-size: 25pt;
     }
-    .grid-container {
+    .grid-array {
         margin-top: 150pt;
     }
     .photo-above {

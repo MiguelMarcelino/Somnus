@@ -42,7 +42,7 @@
     "rxjs-compat": "^6.6.3",
     "tslib": "^1.14.1",
     "typed.js": "^2.0.11",
-    "zone.js": "~0.10.2"
+    "zone.js": "^0.11.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^12.2.2",
