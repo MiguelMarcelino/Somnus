@@ -11,7 +11,14 @@
     <button *ngIf="user" [matMenuTriggerFor]="avatarMenuDropDown" mat-mini-fab [ngStyle]="{ 'background-image': 'url(' + user?.photoURL +')' }" class="user-button">
     </button>
 
+    <!-- Login Button -->
+    <button *ngIf="!user" mat-button class="login-button btn btn-primary" routerLink="/login">
+        <a> Login</a>
+    </button>
+
+    <!-- Collapsable menu -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <!-- Navbar items -->
         <ul class="navbar-nav left">
             <!-- mr-auto -->
             <li class="nav-item" [ngClass]="{'active': isActive('/articles')}">
@@ -20,9 +27,6 @@
             <li class="nav-item" [ngClass]="{'active': isActive('/news-posts')}">
                 <a class="nav-link" routerLink="news-posts">News</a>
             </li>
-            <!-- <li class="nav-item" [ngClass]="{'active': isActive('/server-info')}" *ngIf="isManagerOrAdmin()">
-                <a class="nav-link" routerLink="server-info">Server Info</a>
-            </li> -->
         </ul>
         <ul class="navbar-nav right">
             <li class="nav-item" [ngClass]="{'active': isActive('/team')}">
@@ -33,8 +37,8 @@
             </li>
         </ul>
 
+        <!-- Search -->
         <form class="my-2 my-lg-0 search">
-            <!-- Search -->
             <div class="md-form my-0">
                 <input (keyup.enter)="onEnter(inputValue.value)" #inputValue class="form-control" type="text" placeholder="Search for articles" aria-label="Search">
             </div>
@@ -53,7 +57,7 @@
                 <mat-icon>person</mat-icon>
                 <span>User Profile</span>
             </button>
-            <button mat-menu-item routerLink="/server-info">
+            <button mat-menu-item routerLink="/server-info" *ngIf="isManagerOrAdmin()">
                 <mat-icon>storage</mat-icon>
                 <span>Server Status</span>
             </button>
@@ -62,13 +66,6 @@
                 <span>Sign out</span>
             </button>
         </mat-menu>
-
-        <!-- Login Button -->
-        <button *ngIf="!user" mat-button class="login-button btn btn-primary" routerLink="/login">
-            <a> Login</a>
-        </button>
     </div>
-
-
 
 </nav>

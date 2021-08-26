@@ -8,16 +8,9 @@ h3 {
 }
 
 .article-container {
-    transition: 0.5s ease;
-    border-radius: 4pt;
     margin-top: 20pt;
     height: 200pt;
     overflow: hidden;
-    background-color: rgb(71, 71, 71);
-}
-
-.article-container:hover {
-    cursor: pointer;
 }
 
 .article-img {

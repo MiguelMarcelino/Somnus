@@ -3,8 +3,8 @@
 
     <mat-progress-spinner *ngIf="loading" mode="indeterminate"></mat-progress-spinner>
 
-    <div class="grid-container" *ngIf="teamMembers">
-        <div class="grid-element" *ngFor="let teamMember of teamMembers">
+    <div class="grid-array" *ngIf="teamMembers">
+        <div class="grid-container" *ngFor="let teamMember of teamMembers">
             <div class="photo-above">
                 <img class="team-member-photo color-inverted-img" src="../../../assets/icons/git-img.png">
             </div>
@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    <div class="grid-container" *ngIf="!teamMembers && !loading">
+    <div class="grid-container grid-element" *ngIf="!teamMembers && !loading">
         <h3>Currently there are no team members</h3>
     </div>
 

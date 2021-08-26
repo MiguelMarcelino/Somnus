@@ -12,15 +12,13 @@
 }
 
 .login-button {
-    margin-right: 10pt;
-    margin-left: 10pt;
+    position: absolute;
+    right: 20pt;
 }
 
 .user-button {
-    margin-right: 10pt;
     position: absolute;
-    right: 10pt;
-    margin-left: 10pt;
+    right: 20pt;
     background-size: cover;
 }
 
@@ -42,24 +40,25 @@
     max-width: 40pt;
 }
 
-.left {
-    // all:unset;
+.left, .right {
     position: absolute;
-    left: 35%;
-    // margin-left: -15pt !important;
+}
+
+.left {
+    left: 50%;
+    margin-left: -150pt;
 }
 
 .right {
-    // all:unset;
-    position: absolute;
-    right: 35%;
-    // margin-left: 15pt !important;
+    right: 50%;
+    margin-right: -150pt;
 }
 
 .search {
     position: absolute;
     display: block;
     left: 20pt;
+    width: 140pt;
 }
 
 .form-control {
@@ -67,45 +66,22 @@
     background-color: transparent;
 }
 
-@media only screen and (min-width: 1500px) {
-    .left {
-        left: 40%;
-    }
-    .right {
-        right: 40%;
-    }
-}
-
-@media only screen and (max-width: 1000px) {
-    .left {
-        left: 30%;
-    }
-    .right {
-        right: 30%;
-    }
-}
 
 @media only screen and (max-width: 900px) {
-    .left {
-        left: 22%;
-    }
-    .right {
-        right: 22%;
-    }
     .search {
         width: 75pt;
-        // right: 2.5%;
         margin: 0 auto;
+    }
+    .left {
+        margin-left: -120pt;
+    }
+    .right {
+        margin-right: -120pt;
     }
 }
 
 @media only screen and (max-width: 575px) {
-    .login-button {
-        margin-left: -64px !important;
-        margin-right: 0pt;
-        width: 100%;
-    }
-    .user-button {
+    .user-button, .login-button {
         position: static;
         right: 5%;
     }
@@ -116,6 +92,9 @@
         width: unset;
         margin: unset;
         bottom: -10pt;
+    }
+    .navbar-brand {
+        top: 0pt;
     }
     .navbar {
         height: auto;
