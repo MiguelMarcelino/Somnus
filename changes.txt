@@ -1,0 +1,13 @@
+Important Changes
+- Comment class: changed userLikes from Map<Integer, User> to List<Integer>
+
+-----------------------------------
+
+Particularities
+- CommentController: getCommentsFromArticle needs to have the use set to null in case no user is logged in
+
+-----------------------------------
+
+Check
+- Post entity what is authorUserName
+- Should Users be in a separeate service or in Gateway (Check book: Microservice Patterns)

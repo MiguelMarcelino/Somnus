@@ -2,6 +2,14 @@
 All changes made to this project will be documented in this file
 
 ## [RELEASED]
+---------------------------------------------------------
+## [0.4.0] - 2021-09-12
+### Changed
+- Created Post Microservice
+- Changed User instances to userID
+- Added firebase generated id to Post
+
+---------------------------------------------------------
 ## [0.3.0] - 2021-08-26
 ### Changed
 - Changes deployed

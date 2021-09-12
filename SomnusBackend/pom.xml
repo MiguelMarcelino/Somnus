@@ -151,6 +151,13 @@
 			<artifactId>pusher-http-java</artifactId>
 			<version>1.0.0</version>
 		</dependency>
+
+		<!-- Retryable -->
+		<dependency>
+			<groupId>org.springframework.retry</groupId>
+			<artifactId>spring-retry</artifactId>
+			<version>1.3.1</version>
+		</dependency>
 	</dependencies>
 
 	<build>

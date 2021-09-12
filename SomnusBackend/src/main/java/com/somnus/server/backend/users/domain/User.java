@@ -1,13 +1,13 @@
 package com.somnus.server.backend.users.domain;
 
-import com.somnus.server.backend.articleComments.domain.Comment;
 import com.somnus.server.backend.config.DateHandler;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -49,9 +49,9 @@ public class User implements UserDetails {
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<RoleEntity> authorities;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,
-            mappedBy = "userLikes")
-    private Map<Integer, Comment> likedComments;
+//    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,
+//            mappedBy = "userLikes")
+//    private Map<Integer, Comment> likedComments;
 
     @Column(name = "enabled")
     private final boolean enabled = true;
@@ -88,7 +88,7 @@ public class User implements UserDetails {
         this.email = email;
         this.authorities = roles;
         this.createdAt = DateHandler.now();
-        this.likedComments = new HashMap<>();
+//        this.likedComments = new HashMap<>();
         this.role = role;
     }
 
@@ -143,9 +143,9 @@ public class User implements UserDetails {
         return photoURL;
     }
 
-    public Map<Integer, Comment> getLikedComments() {
-        return likedComments;
-    }
+//    public Map<Integer, Comment> getLikedComments() {
+//        return likedComments;
+//    }
 
     @Override
     public boolean isAccountNonExpired() {
@@ -191,10 +191,10 @@ public class User implements UserDetails {
         this.displayName = displayName;
     }
 
-    public void addLikedComment(Comment comment) {
-        if(likedComments == null) {
-            this.likedComments = new HashMap<>();
-        }
-        this.likedComments.put(comment.getId(), comment);
-    }
+//    public void addLikedComment(Comment comment) {
+//        if(likedComments == null) {
+//            this.likedComments = new HashMap<>();
+//        }
+//        this.likedComments.put(comment.getId(), comment);
+//    }
 }
