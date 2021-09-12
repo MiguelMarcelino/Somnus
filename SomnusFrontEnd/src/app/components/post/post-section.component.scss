@@ -1,0 +1,67 @@
+h3 {
+    text-align: left;
+}
+
+.content {
+    color: white;
+    margin: 0 auto;
+}
+
+.article-container {
+    margin-top: 20pt;
+    height: 200pt;
+    overflow: hidden;
+}
+
+.article-img {
+    filter: invert(1);
+    margin: 0 auto;
+    max-width: 200%;
+    height: 200pt;
+}
+
+.news-img {
+    filter: invert(1);
+    margin: 0 auto;
+    object-fit: cover;
+    max-width: 200%;
+    height: 200pt;
+}
+
+.left-article-img {
+    overflow: hidden;
+    float: left;
+    width: 20%;
+}
+
+.right-article-data {
+    float: right;
+    width: 80%;
+    overflow: hidden;
+    padding-left: 20pt;
+}
+
+.article-info {
+    padding-top: 10pt;
+}
+
+.author-name {
+    color: rgb(87, 140, 255);
+}
+
+.description {
+    font-size: 14pt;
+    padding-top: 10pt;
+    text-align: justify;
+    max-height: inherit;
+}
+
+.article-author {
+    font-size: 15pt;
+    text-align: justify;
+}
+
+mat-progress-spinner {
+    padding-top: 100pt;
+    margin: 0 auto;
+}

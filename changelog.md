@@ -2,6 +2,27 @@
 All changes made to this project will be documented in this file
 
 ## [RELEASED]
+## [0.3.0] - 2021-08-26
+### Changed
+- Changes deployed
+- Minor bug, fixes
+
+---------------------------------------------------------
+
+## [0.3.0] - 2021-08-25
+### Changed
+- Finished News Page
+- Finished new home page interface
+- Fixed UI scaling bugs
+
+---------------------------------------------------------
+## [0.3.0] - 2021-08-24
+### Added
+- UI changes
+- News page completed
+- News backend completed
+- Articles and News are both a Post
+
 ---------------------------------------------------------
 ## [0.3.0] - 2021-08-14
 ### Added

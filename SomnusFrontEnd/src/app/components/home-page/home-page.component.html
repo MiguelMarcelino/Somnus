@@ -1,87 +1,100 @@
-
-
-<div class="wrapper">
-    <div id="intro-text">
-        <h1 id="headline">Publish about your <span class="typed"></span></h1>
-    </div>
-
-    <div class="grid-container">
-        <div class="grid-element">
-            <div class="photo-above">
-                <img class="color-inverted-img section-photo" src="../../../assets/icons/Articles.png">
+<div>
+    <section class="view bg">
+        <div class="container flex-center">
+            <div id="intro-text">
+                <h1 id="headline">Write about your <span class="typed"></span></h1>
             </div>
-            <div class="content-below">
-                <div class="site-options">Write new Articles</div>
+
+            <div class="grid-array">
+                <div class="grid-element">
+                    <div class="photo-above">
+                        <img class="section-photo" src="../../../assets/icons/code.gif" id="code">
+                    </div>
+
+                    <div class="content-below">
+                        <div class="site-options">Code</div>
+                    </div>
+                </div>
+
+                <div class="grid-element">
+                    <div class="photo-above">
+                        <img class="color-inverted-img section-photo" src="../../../assets/icons/rocket.gif" id="rocket">
+                    </div>
+                    <div class="content-below">
+                        <div class="site-options">Deploy</div>
+                    </div>
+                </div>
+
+                <div class="grid-element">
+                    <div class="photo-above">
+                        <img class="color-inverted-img section-photo" src="../../../assets/icons/share.png" id="airplane">
+                    </div>
+                    <div class="content-below">
+                        <div class="site-options">Share</div>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <div class="grid-element">
-            <div class="photo-above">
-                <img class="color-inverted-img section-photo" src="../../../assets/icons/Projects.png">
-            </div>
-            <div class="content-below">
-                <div class="site-options">Share your Projects</div>
-            </div>
-        </div>
-
-        <div class="grid-element">
-            <div class="photo-above">
-                <img class="color-inverted-img section-photo" src="../../../assets/icons/code.png">
-            </div>
-           
-            <div class="content-below">
-                <div class="site-options">Code with us</div>
-            </div>
-        </div>
-
-        <div class="grid-element">
-            <div class="photo-above">
-                <img class="color-inverted-img section-photo" src="../../../assets/icons/Community.png">
-            </div>
-            <div class="content-below">
-                <div class="site-options">Build the Community</div>
-            </div>
-        </div>
-    </div>    
+        <!-- <button id="arrow-right" mat-fab color="transparent"> -->
+        <mat-icon id="arrow-right">chevron_right</mat-icon>
+        <!-- </button> -->
+        <!-- <button id="arrow-left" mat-fab color="transparent"> -->
+        <mat-icon id="arrow-left">chevron_left</mat-icon>
+        <!-- </button> -->
+    </section>
 
     <div id="about-section">
         <div class="about-content">
             <h2>Why {{title}}?</h2>
             <p>
-                The name <i>{{title}}</i> in the roman mythology is the personification 
-                of <i>sleep</i>.  This name was chosen because sometimes, to achieve 
-                something great, a developer has to give up his sleep and code through 
-                the night to get the job done. This name is a tribute to all those developers 
-                that give up their sleep to achieve a better quality product.
+                The name <i>{{title}}</i> in the roman mythology is the personification of <i>sleep</i>. This name was chosen because sometimes, to achieve something great, a developer has to give up his sleep and code through the night to get the job
+                done. This name is a tribute to all those developers that give up their sleep to achieve a better quality product.
             </p>
-         </div>
-         
-         <div class="about-content">
-             <h2>How about the state of {{title}}?</h2>
-             <p> The {{title}} is all about offering services to a small community of programmers 
-                 and at the same time provide them with a platform where they can test new Software 
-                 and publish their findings in the form of articles.
-             </p>
-             <p>
-                 This server is currently in beta, so please be patient if you find bugs and feel 
-                 free to report them through our contacts section.
-             </p>
-             <p>
-                 You can also report any problems you might be having related to the {{title}} 
-                 website. So let us know if there is anything we can do to improve on
-                 our website.
-             </p>
-             <p>
-                 If you want to learn more about our team feel free to head over to the 
-                 <a routerLink="/team">Team</a> page or check out some of our publications
-                 in our Articles Section.
-             </p>
-         </div>
-    </div>
-    
+        </div>
+        <hr>
 
-    
-    
+        <div class="about-content">
+            <h2>Services offered by {{title}}</h2>
+            <p> The {{title}} is all about offering services to a small community of programmers and at the same time provide them with a platform where they can test new Software and publish their findings in the form of articles. But besided that, we also
+                offer other kinds of services to our community.
+            </p>
+            <div class="offered-services">
+                <div class="img-left">
+                    <img class="color-inverted-img img-service" src="../../../assets/icons/moodle.png">
+                </div>
+                <div class="description-right">
+                    <p>
+                        We host a moodle website where we post all kinds of contents. The main purpose is to provide a platform where each person can publish various types of courses so that others can take those courses.
+                    </p>
+                </div>
+            </div>
+            <br>
+            <div class="offered-services">
+                <div class="img-left">
+                    <img class="color-inverted-img img-service" src="../../../assets/icons/nextcloud.png">
+                </div>
+                <div class="description-right">
+                    <p>
+                        We currently host a Nextcloud service for our users. This allows our users to save files at any time. Managers get premium access with unlimited storage.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <hr>
+
+        <div class="about-content">
+            <h2>Questions & +Info</h2>
+            <p>
+                Any problems you are having related to the {{title}} website, please report them over on the contacts page.
+            </p>
+            <p>
+                If you want to learn more about our team feel free to head over to the
+                <a routerLink="/team">Team</a> page or check out some of our publications in our Articles Section.
+            </p>
+        </div>
+    </div>
+
+
     <!-- <div class="floating_div">
         <h2>“Before software can be reusable it first has to be usable.” - Ralph Johnson</h2>
         <p>
@@ -118,5 +131,9 @@
         <p>
             <b>Click here</b> to explore our most recent constructions!
         </p>
+    </div>
+    </div>
+    </p>
     </div> -->
+
 </div>

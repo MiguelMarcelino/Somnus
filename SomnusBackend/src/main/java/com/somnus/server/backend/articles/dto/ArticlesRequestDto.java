@@ -1,6 +1,6 @@
 package com.somnus.server.backend.articles.dto;
 
-import com.somnus.server.backend.articles.domain.ArticleTopic;
+import com.somnus.server.backend.topic.ArticleTopic;
 
 import java.io.Serializable;
 

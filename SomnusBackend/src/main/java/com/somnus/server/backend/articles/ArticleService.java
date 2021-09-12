@@ -2,7 +2,8 @@ package com.somnus.server.backend.articles;
 
 import com.somnus.server.backend.articleComments.CommentService;
 import com.somnus.server.backend.articles.domain.Article;
-import com.somnus.server.backend.articles.domain.ArticleTopic;
+import com.somnus.server.backend.post.PostService;
+import com.somnus.server.backend.topic.ArticleTopic;
 import com.somnus.server.backend.articles.dto.ArticleDto;
 import com.somnus.server.backend.articles.repository.ArticleRepository;
 import com.somnus.server.backend.articleComments.repository.CommentRepository;
@@ -22,7 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,6 +43,9 @@ public class ArticleService {
 
     @Autowired
     private CommentService commentService;
+
+    @Autowired
+    private PostService postService;
 
     @Retryable(
             value = {SQLException.class},
@@ -95,19 +98,16 @@ public class ArticleService {
             article = articleRepository.getOne(Integer.parseInt(articleDto.getId()));
         }
 
-        if (!user.getRole().equals(Role.ADMIN) && !user.getRole().equals(Role.MANAGER) &&
-                !user.getRole().equals(Role.EDITOR)) {
-            throw new SomnusException(ErrorMessage.ROLE_NOT_ALLOWED);
-        }
+        postService.postCreateAuthCheck(user);
 
         ArticleTopic articleTopic = ArticleTopic.valueOf(articleDto.getTopic()
                 .replace(" ", "_").toUpperCase());
         if (article == null) {
-            article = new Article(user, articleDto.getArticleName(),
+            article = new Article(user, articleDto.getPostName(),
                     articleDto.getAuthorUserName(), articleDto.getDescription(),
                     articleTopic, articleDto.getContent());
         } else {
-            article.setArticleName(articleDto.getArticleName());
+            article.setPostName(articleDto.getPostName());
             article.setDescription(articleDto.getDescription());
             article.setTopic(articleTopic);
             article.setContent(articleDto.getContent());
@@ -150,16 +150,12 @@ public class ArticleService {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private ArticleDto createArticleDto(Article article) {
-        return new ArticleDto(String.valueOf(article.getId()), article.getArticleName(),
-                normalizeName(article.getArticleName()), article.getAuthorUserName(),
+        return new ArticleDto(String.valueOf(article.getId()), article.getPostName(),
+                postService.normalizeName(article.getPostName()), article.getAuthorUserName(),
                 article.getAuthor().getUsername(), article.getDescription(), article.getDatePublished(),
-                article.getLastUpdate(), article.getTopic().name, normalizeName(article.getTopic().name),
+                article.getLastUpdate(), article.getTopic().name, postService.normalizeName(article.getTopic().name),
                 article.getContent());
     }
 
-    private String normalizeName(String articleName) {
-        return Arrays.stream(articleName.toLowerCase()
-                .split(" "))
-                .reduce((a, b) -> a.concat("-").concat(b)).get();
-    }
+
 }

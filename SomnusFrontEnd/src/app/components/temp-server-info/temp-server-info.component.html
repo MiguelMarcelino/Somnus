@@ -1,6 +1,6 @@
 
 
-<div class="grid-container" *ngIf="!loading && user">
+<div class="grid-array" *ngIf="!loading && user">
     <mat-progress-spinner *ngIf="loading" mode="indeterminate"></mat-progress-spinner>
     <div class="grid-element">
         <ngx-gauge [type]="gaugeType"
