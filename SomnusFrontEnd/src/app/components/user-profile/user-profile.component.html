@@ -46,6 +46,7 @@
         <h3>Deleted Articles</h3>
         <div *ngFor="let article of deletedArticles" class="grid-container">
             <div [routerLink]="['/article/',article.id,article.normalizedTopic,article.normalizedName]">
+                <p>{{article.topic}}</p>
                 <app-post-box-component 
                     [imgSource]="'../../../assets/icons/Document-lines.png'"
                     [post]="article">

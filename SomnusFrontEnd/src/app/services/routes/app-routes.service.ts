@@ -43,6 +43,11 @@ export class AppRoutesService {
         return this.appRoutes.apiArticleEndPointSearch;
     }
 
+    get apiArticles(): string {
+        this.isLoaded();
+        return this.appRoutes.apiArticles;
+    }
+
     // Article Comments
     get apiCommentsEndPoint(): string {
         this.isLoaded();
@@ -63,6 +68,11 @@ export class AppRoutesService {
     get apiNewsPostEndPoint(): string {
         this.isLoaded();
         return this.appRoutes.apiNewsPostEndPoint;
+    }
+
+    get apiNewsPosts(): string {
+        this.isLoaded();
+        return this.appRoutes.apiNewsPosts;
     }
 
     // Team Members
