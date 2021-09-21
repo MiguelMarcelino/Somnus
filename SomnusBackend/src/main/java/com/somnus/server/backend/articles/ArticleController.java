@@ -22,6 +22,20 @@ public class ArticleController {
         return articleService.getAllArticles();
     }
 
+    @GetMapping(value = "/deleted-articles")
+    public List<ArticleDto> getDeletedArticles(Principal principal) {
+        User user = (User) ((Authentication) principal).getPrincipal();
+
+        return articleService.getDeletedArticles(user);
+    }
+
+    @GetMapping(value = "/restore-article/{id}")
+    public void restoreArticle(Principal principal, @PathVariable Integer id) {
+        User user = (User) ((Authentication) principal).getPrincipal();
+
+        articleService.restoreArticle(user, id);
+    }
+
     @PostMapping(value = "/topic-articles")
     public List<ArticleDto> getArticlesOfTopic(@RequestBody ArticlesRequestDto articlesRequest) {
         return articleService.getArticlesOfTopic(articlesRequest.articleTopic);

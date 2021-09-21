@@ -1,0 +1,17 @@
+<div class="article-container">
+    <div class="left-post-img">
+        <img [src]="imgSource" class="post-img">
+    </div>
+    <div class="right-post-data">
+        <div class="post-info">
+            <h3>{{post.postName}}</h3>
+            <h3>Published on {{post.datePublished | date:'medium'}}</h3>
+            <h3 *ngIf="post.lastUpdate">Last Updated on {{post.lastUpdate | date:'medium'}}</h3>
+            <p class="post-author">Written by <span class="author-name">{{post.authorUserName}}</span></p>
+            <!-- <p *ngIf="hasTopic()">{{post.topic}}</p> -->
+        </div>
+        <div class="description">
+            {{post.description}}
+        </div>
+    </div>
+</div>
