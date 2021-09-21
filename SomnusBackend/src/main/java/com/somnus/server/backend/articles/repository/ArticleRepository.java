@@ -13,9 +13,16 @@ import java.util.List;
 @Transactional
 public interface ArticleRepository extends JpaRepository<Article, Integer> {
 
-    @Query("SELECT a FROM Article a WHERE a.topic = :topic")
+    @Query("SELECT a FROM Article a WHERE a.isDeleted = false")
+    List<Article> findAllNonDeletedArticles();
+
+    @Query("SELECT a FROM Article a WHERE a.topic = :topic AND a.isDeleted = false")
     List<Article> getArticlesMatchingTopic(String topic);
 
-    @Query("SELECT a FROM Article a WHERE a.postName LIKE :nameContent")
+    @Query("SELECT a FROM Article a WHERE a.postName LIKE :nameContent AND a.isDeleted = false")
     List<Article> getAllArticlesContainingSubstring(String nameContent);
+
+    @Query("SELECT a FROM Article a WHERE a.isDeleted = true AND a.author.username LIKE :authorUserName")
+    List<Article> getAllDeletedArticlesFromAuthorUsername(String authorUserName);
+
 }

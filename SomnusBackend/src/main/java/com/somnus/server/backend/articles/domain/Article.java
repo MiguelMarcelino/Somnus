@@ -5,14 +5,12 @@ import com.somnus.server.backend.topic.ArticleTopic;
 import com.somnus.server.backend.users.domain.User;
 import org.hibernate.annotations.Proxy;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "articles")
 @Proxy(lazy = false)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Article extends Post {
 
     @Enumerated(EnumType.STRING)

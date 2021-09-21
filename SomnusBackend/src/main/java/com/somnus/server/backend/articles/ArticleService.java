@@ -3,7 +3,6 @@ package com.somnus.server.backend.articles;
 import com.somnus.server.backend.articles.domain.Article;
 import com.somnus.server.backend.articles.dto.ArticleDto;
 import com.somnus.server.backend.articles.repository.ArticleRepository;
-import com.somnus.server.backend.articles.repository.DeletedArticleRepository;
 import com.somnus.server.backend.exceptions.ErrorMessage;
 import com.somnus.server.backend.exceptions.SomnusException;
 import com.somnus.server.backend.post.PostService;
@@ -31,9 +30,6 @@ public class ArticleService {
     private ArticleRepository articleRepository;
 
     @Autowired
-    private DeletedArticleRepository deletedArticleRepository;
-
-    @Autowired
     private PostService postService;
 
     @Retryable(
@@ -42,7 +38,7 @@ public class ArticleService {
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public List<ArticleDto> getAllArticles() {
         List<ArticleDto> articleDtos = new ArrayList<>();
-        articleRepository.findAll().forEach(article -> articleDtos.add(
+        articleRepository.findAllNonDeletedArticles().forEach(article -> articleDtos.add(
                 createArticleDto(article)));
         return articleDtos;
     }
@@ -51,11 +47,8 @@ public class ArticleService {
             value = {SQLException.class},
             backoff = @Backoff(delay = 5000))
     @Transactional(isolation = Isolation.READ_COMMITTED)
-    public  List<ArticleDto> getDeletedArticles(User user) {
-        List<Article> articles = deletedArticleRepository.getAllDeletedArticlesFromAuthorUsername(user.getUsername());
-        if (!articles.isEmpty()) {
-            throw new SomnusException(ErrorMessage.NO_NEWS_POST_FOUND);
-        }
+    public List<ArticleDto> getDeletedArticles(User user) {
+        List<Article> articles = articleRepository.getAllDeletedArticlesFromAuthorUsername(user.getUsername());
 
         List<ArticleDto> articleDtos = new ArrayList<>();
         articles.forEach(post -> articleDtos.add(createArticleDto(post)));
@@ -67,15 +60,15 @@ public class ArticleService {
             backoff = @Backoff(delay = 5000))
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public void restoreArticle(User user, Integer id) {
-        Optional<Article> optionalArticle = deletedArticleRepository.findById(id);
+        Optional<Article> optionalArticle = articleRepository.findById(id);
         if (optionalArticle.isEmpty()) {
             throw new SomnusException(ErrorMessage.NO_ARTICLE_FOUND);
         }
         Article article = optionalArticle.get();
 
         postService.postCreateAuthCheck(user);
+        article.setIsDeleted(false);
         articleRepository.save(article);
-        deletedArticleRepository.delete(article);
     }
 
     @Retryable(
@@ -98,6 +91,8 @@ public class ArticleService {
         if (optionalArticle.isEmpty()) {
             throw new SomnusException(ErrorMessage.NO_ARTICLE_FOUND);
         }
+
+        // TODO: In case they are deleted, only owner or admin can access
 
         Article article = optionalArticle.get();
         return createArticleDto(article);
@@ -149,8 +144,8 @@ public class ArticleService {
             throw new SomnusException(ErrorMessage.DELETE_ARTICLE_NOT_ALLOWED);
         }
 
-        deletedArticleRepository.save(article);
-        articleRepository.deleteById(id);
+        article.setIsDeleted(true);
+        articleRepository.save(article);
     }
 
     @Retryable(

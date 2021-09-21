@@ -42,6 +42,8 @@ public abstract class Post implements Serializable {
     @JsonFormat(pattern = "dd/MM/yyyy hh:mm")
     private LocalDateTime datePublished;
 
+    private boolean isDeleted;
+
     @Lob
     private byte[] content;
 
@@ -115,8 +117,18 @@ public abstract class Post implements Serializable {
         writeData(content);
     }
 
+    public boolean getIsDeleted(){
+        return isDeleted;
+    }
+
+    public void setIsDeleted(boolean isDeleted) {
+        this.isDeleted = isDeleted;
+    }
+
     private void writeData(String content) {
         byte[] contentData = content.getBytes(StandardCharsets.UTF_8);
         this.content = contentData;
     }
+
+
 }

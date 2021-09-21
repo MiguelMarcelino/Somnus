@@ -1,6 +1,5 @@
 package com.somnus.server.backend.news;
 
-import com.somnus.server.backend.articles.dto.ArticleDto;
 import com.somnus.server.backend.news.dto.NewsPostDTO;
 import com.somnus.server.backend.users.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,7 @@ public class NewsController {
 
     @GetMapping("/news-posts")
     public List<NewsPostDTO> getNewsPosts() {
-        return newsService.getAllNews();
+        return newsService.getAllNonDeletedNews();
     }
 
     @GetMapping(value = "/deleted-news-posts")

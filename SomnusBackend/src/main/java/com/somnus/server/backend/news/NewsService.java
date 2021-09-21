@@ -1,11 +1,9 @@
 package com.somnus.server.backend.news;
 
-import com.somnus.server.backend.articles.domain.Article;
 import com.somnus.server.backend.exceptions.ErrorMessage;
 import com.somnus.server.backend.exceptions.SomnusException;
 import com.somnus.server.backend.news.domain.NewsPost;
 import com.somnus.server.backend.news.dto.NewsPostDTO;
-import com.somnus.server.backend.news.repository.DeletedNewsPostRepository;
 import com.somnus.server.backend.news.repository.NewsPostRepository;
 import com.somnus.server.backend.post.PostService;
 import com.somnus.server.backend.users.domain.Role;
@@ -31,11 +29,8 @@ public class NewsService {
     @Autowired
     private PostService postService;
 
-    @Autowired
-    private DeletedNewsPostRepository deletedNewsPostRepository;
-
-    public List<NewsPostDTO> getAllNews() {
-        List<NewsPost> newsPosts = newsPostRepository.findAll();
+    public List<NewsPostDTO> getAllNonDeletedNews() {
+        List<NewsPost> newsPosts = newsPostRepository.findAllNonDeletedNewsPosts();
         List<NewsPostDTO> newsPostDTOS = new ArrayList<>();
         newsPosts.forEach(post -> newsPostDTOS.add(createNewsPostDTO(post)));
         return newsPostDTOS;
@@ -46,11 +41,7 @@ public class NewsService {
             backoff = @Backoff(delay = 5000))
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public List<NewsPostDTO> getDeletedNewsPosts(User user) {
-        List<NewsPost> newsPosts = deletedNewsPostRepository.getAllDeletedNewsPostsFromAuthorUsername(user.getUsername());
-        System.out.println(user.getUsername());
-        if (!newsPosts.isEmpty()) {
-            throw new SomnusException(ErrorMessage.NO_NEWS_POST_FOUND);
-        }
+        List<NewsPost> newsPosts = newsPostRepository.getAllDeletedNewsPostsFromAuthorUsername(user.getUsername());
 
         List<NewsPostDTO> newsPostDTOs = new ArrayList<>();
         newsPosts.forEach(post -> newsPostDTOs.add(createNewsPostDTO(post)));
@@ -62,15 +53,15 @@ public class NewsService {
             backoff = @Backoff(delay = 5000))
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public void restoreNewsPost(User user, Integer id) {
-        Optional<NewsPost> optionalNewsPost = deletedNewsPostRepository.findById(id);
+        Optional<NewsPost> optionalNewsPost = newsPostRepository.findById(id);
         if (optionalNewsPost.isEmpty()) {
             throw new SomnusException(ErrorMessage.NO_ARTICLE_FOUND);
         }
         NewsPost newsPost = optionalNewsPost.get();
 
         postService.postCreateAuthCheck(user);
+        newsPost.setIsDeleted(false);
         newsPostRepository.save(newsPost);
-        deletedNewsPostRepository.delete(newsPost);
     }
 
     public NewsPostDTO getPostWithID(Integer id) {
@@ -78,6 +69,8 @@ public class NewsService {
         if (!newsPostOpt.isPresent()) {
             throw new SomnusException(ErrorMessage.NO_NEWS_POST_FOUND);
         }
+
+        // TODO: In case they are deleted, only owner or admin can access
 
         NewsPostDTO newsPostDTO = createNewsPostDTO(newsPostOpt.get());
         return newsPostDTO;
@@ -96,8 +89,8 @@ public class NewsService {
             throw new SomnusException(ErrorMessage.DELETE_NEWS_POST_NOT_ALLOWED);
         }
 
-        deletedNewsPostRepository.save(newsPost);
-        newsPostRepository.deleteById(id);
+        newsPost.setIsDeleted(true);
+        newsPostRepository.save(newsPost);
     }
 
     @Retryable(
