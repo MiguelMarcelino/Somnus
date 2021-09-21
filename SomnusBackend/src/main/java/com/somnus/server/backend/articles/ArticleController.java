@@ -18,8 +18,8 @@ public class ArticleController {
     private ArticleService articleService;
 
     @GetMapping(value = "/articles")
-    public List<ArticleDto> getAllArticles() {
-        return articleService.getAllArticles();
+    public List<ArticleDto> getAllNonDeletedArticles() {
+        return articleService.getAllNonDeletedArticles();
     }
 
     @GetMapping(value = "/deleted-articles")
@@ -42,8 +42,15 @@ public class ArticleController {
     }
 
     @GetMapping(value = "/article/{id}")
-    public ArticleDto getArticle(@PathVariable Integer id) {
-        return articleService.getArticle(id);
+    public ArticleDto getNonDeletedArticle(@PathVariable Integer id) {
+        return articleService.getNonDeletedArticle(id);
+    }
+
+    @GetMapping(value = "/deleted-article/{id}")
+    public ArticleDto getDeletedArticle(Principal principal, @PathVariable Integer id) {
+        User user = (User) ((Authentication) principal).getPrincipal();
+
+        return articleService.getDeletedArticle(user, id);
     }
 
     @PostMapping(value = "/article/create")

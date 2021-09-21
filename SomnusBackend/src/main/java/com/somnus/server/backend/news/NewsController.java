@@ -40,6 +40,13 @@ public class NewsController {
         return newsService.getPostWithID(id);
     }
 
+    @GetMapping(value = "/deleted-news-post/{id}")
+    public NewsPostDTO getDeletedNewsPost(Principal principal, @PathVariable Integer id) {
+        User user = (User) ((Authentication) principal).getPrincipal();
+
+        return newsService.getDeletedNewsPost(user, id);
+    }
+
     @DeleteMapping(value = "/news-post/delete/{id}")
     public void deleteArticle(Principal principal, @PathVariable Integer id) {
         User user = (User) ((Authentication) principal).getPrincipal();

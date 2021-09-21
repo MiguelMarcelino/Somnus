@@ -36,5 +36,9 @@ export class ArticlesService extends TemplateControllerService<ArticleModel> {
     restoreArticle(id: string): Observable<any> {
         return this.http.get(`${this.appRoutes.apiArticles}/restore-article/${id}`);
     }
+
+    getDeletedArticle(id: string): Observable<any> {
+        return this.http.get(`${this.appRoutes.apiArticles}/deleted-article/${id}`);
+    }
     
 }

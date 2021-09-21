@@ -54,14 +54,24 @@ export class ArticlePageComponent implements OnInit {
 
   getArticle(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParamMap.subscribe((params: any) => {
+      if(!params.params.isDeleted){
+        this.articleService.getObject(id).subscribe((article: ArticleModel) =>{
+          if(article) {
+            this.article = article;
+            this.article.isDeleted = false;
+          }
+        })
+      } else {
+        this.articleService.getDeletedArticle(id).subscribe((article: ArticleModel) =>{
+          if(article) {
+            this.article = article;
+            this.article.isDeleted = true;
+          }
+        })
+      }
       this.urlParams = {...params};
     });
-    this.articleService.getObject(id).subscribe((article: ArticleModel) =>{
-      if(article) {
-        this.article = article;
-      }
-    })
   }
 
   isArticleOwnerOrAdmin() {
@@ -84,6 +94,12 @@ export class ArticlePageComponent implements OnInit {
   editArticle() {
     const id = this.route.snapshot.paramMap.get('id');
     this.router.navigate(["/createPost"], {queryParams: {id: id, postType: PostTypes.article}});
+  }
+
+  restoreArticle() {
+    this.articleService.restoreArticle(this.article.id).subscribe(post => {
+      this.router.navigateByUrl("/user-profile");
+    });
   }
 
   navigateToCommentSection() {
