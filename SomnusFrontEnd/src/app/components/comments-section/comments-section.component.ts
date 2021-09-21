@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { UserComment } from 'src/app/models/user-comment.model';
 import { ErrorInterface } from 'src/handlers/error-interface';
 import { CommentService } from 'src/app/services/controllers/comment-controller.service';
-import { ArticleModel } from 'src/app/models/article.model';
+import { PostModel } from 'src/app/models/post/post.model';
 import { UserModel } from 'src/app/models/user.model';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { UserController } from 'src/app/services/controllers/user-controller.service';
@@ -20,7 +20,7 @@ export class CommentsSectionComponent implements OnInit {
   currentUser: UserModel;
 
   @Input()
-  articleId: string;
+  postId: string;
   commentForm: FormGroup;
   userComments: UserComment[];
   currentSelectedComment: UserComment;
@@ -51,7 +51,7 @@ export class CommentsSectionComponent implements OnInit {
   }
 
   getComments() {
-    this.commentService.getCommentsFromArticle(this.articleId).subscribe(comments => {
+    this.commentService.getCommentsFromArticle(this.postId).subscribe(comments => {
       this.buildCommentArray(comments);
     })
   }
@@ -78,7 +78,7 @@ export class CommentsSectionComponent implements OnInit {
       this.errorInterface.setErrorMessage("You cannot submit an empty comment!");
     }
 
-    let comment: UserComment = {"articleId": this.articleId, 
+    let comment: UserComment = {"articleId": this.postId, 
       "content": content};
 
     if(parentId) {

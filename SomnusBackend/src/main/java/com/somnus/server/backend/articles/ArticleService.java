@@ -1,10 +1,6 @@
 package com.somnus.server.backend.articles;
 
 import com.somnus.server.backend.articles.domain.Article;
-<<<<<<< Updated upstream
-import com.somnus.server.backend.articles.domain.ArticleTopic;
-=======
->>>>>>> Stashed changes
 import com.somnus.server.backend.articles.dto.ArticleDto;
 import com.somnus.server.backend.articles.repository.ArticleRepository;
 import com.somnus.server.backend.articles.repository.DeletedArticleRepository;
@@ -36,6 +32,9 @@ public class ArticleService {
 
     @Autowired
     private DeletedArticleRepository deletedArticleRepository;
+
+    @Autowired
+    private PostService postService;
 
     @Retryable(
             value = {SQLException.class},
@@ -119,19 +118,16 @@ public class ArticleService {
             article = articleRepository.getOne(Integer.parseInt(articleDto.getId()));
         }
 
-        if (!user.getRole().equals(Role.ADMIN) && !user.getRole().equals(Role.MANAGER) &&
-                !user.getRole().equals(Role.EDITOR)) {
-            throw new SomnusException(ErrorMessage.ROLE_NOT_ALLOWED);
-        }
+        postService.postCreateAuthCheck(user);
 
         ArticleTopic articleTopic = ArticleTopic.valueOf(articleDto.getTopic()
                 .replace(" ", "_").toUpperCase());
         if (article == null) {
-            article = new Article(user, articleDto.getArticleName(),
+            article = new Article(user, articleDto.getPostName(),
                     articleDto.getAuthorUserName(), articleDto.getDescription(),
                     articleTopic, articleDto.getContent());
         } else {
-            article.setArticleName(articleDto.getArticleName());
+            article.setPostName(articleDto.getPostName());
             article.setDescription(articleDto.getDescription());
             article.setTopic(articleTopic);
             article.setContent(articleDto.getContent());
@@ -175,19 +171,18 @@ public class ArticleService {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private ArticleDto createArticleDto(Article article) {
-        return new ArticleDto(String.valueOf(article.getId()), article.getArticleName(),
-                normalizeName(article.getArticleName()), article.getAuthorUserName(),
+        return new ArticleDto(String.valueOf(article.getId()), article.getPostName(),
+                postService.normalizeName(article.getPostName()), article.getAuthorUserName(),
                 article.getAuthor().getUsername(), article.getDescription(), article.getDatePublished(),
-                article.getLastUpdate(), article.getTopic().name, normalizeName(article.getTopic().name),
+                article.getLastUpdate(), article.getTopic().name, postService.normalizeName(article.getTopic().name),
                 article.getContent());
     }
-<<<<<<< Updated upstream
+
 
     private String normalizeName(String articleName) {
         return Arrays.stream(articleName.toLowerCase()
                 .split(" "))
                 .reduce((a, b) -> a.concat("-").concat(b)).get();
     }
-=======
->>>>>>> Stashed changes
+
 }

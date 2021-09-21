@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { ArticleModel } from 'src/app/models/article.model';
+import { ArticleModel } from 'src/app/models/post/article.model';
 import { ArticlesService } from 'src/app/services/controllers/articles-controller.service';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorInterface } from 'src/handlers/error-interface';
 import { Role } from 'src/app/models/role.model';
+import { PostTypes } from 'src/app/models/post/post-types.enum';
 
 @Component({
   selector: 'app-articles-section',
   templateUrl: './articles-section.component.html',
-  styleUrls: ['./articles-section.component.scss']
+  styleUrls: ['../post/post-section.component.scss']
 })
 export class ArticlesSectionComponent implements OnInit {
 
@@ -26,6 +27,7 @@ export class ArticlesSectionComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private route: ActivatedRoute,
     private errorInterface: ErrorInterface,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -76,6 +78,10 @@ export class ArticlesSectionComponent implements OnInit {
 
   getArticleLink(article: ArticleModel) {
     return "/article/" + article.id;
-  }  
+  }
+
+  createArticle() {
+    this.router.navigate(["/createPost"], {queryParams: {postType: PostTypes.article}});
+  }
 
 }
