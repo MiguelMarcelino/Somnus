@@ -36,6 +36,58 @@ public class NewsService {
         return newsPostDTOS;
     }
 
+    public NewsPostDTO getPostWithID(Integer id) {
+        Optional<NewsPost> newsPostOpt = newsPostRepository.findByIdAndIsDeletedNot(id);
+        if (!newsPostOpt.isPresent()) {
+            throw new SomnusException(ErrorMessage.NO_NEWS_POST_FOUND);
+        }
+
+        NewsPostDTO newsPostDTO = createNewsPostDTO(newsPostOpt.get());
+        return newsPostDTO;
+    }
+
+    @Retryable(
+            value = {SQLException.class},
+            backoff = @Backoff(delay = 5000))
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+    public void createOrUpdateNewsPost(User user, NewsPostDTO newsPostDTO) {
+        NewsPost newsPost = null;
+        if (newsPostDTO.getId() != null) {
+            newsPost = newsPostRepository.getOne(Integer.parseInt(newsPostDTO.getId()));
+        }
+
+        postService.postCreateAuthCheck(user);
+
+        if (newsPost == null) {
+            newsPost = new NewsPost(user, newsPostDTO.getPostName(),
+                    newsPostDTO.getAuthorUserName(), newsPostDTO.getDescription(),
+                    newsPostDTO.getContent());
+        } else {
+            newsPost.setPostName(newsPostDTO.getPostName());
+            newsPost.setDescription(newsPostDTO.getDescription());
+            newsPost.setContent(newsPostDTO.getContent());
+            newsPost.updateLastUpdate();
+        }
+        newsPostRepository.save(newsPost);
+    }
+
+    @Retryable(
+            value = {SQLException.class},
+            backoff = @Backoff(delay = 5000))
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+    public void deleteNewsPost(User user, Integer id) {
+        NewsPost newsPost = newsPostRepository.getOne(id);
+
+        // News Post can only be deleted by the person who wrote it or the admin
+        if (!newsPost.getAuthor().getUsername().equals(user.getUsername()) &&
+                !user.getRole().equals(Role.ADMIN)) {
+            throw new SomnusException(ErrorMessage.DELETE_NEWS_POST_NOT_ALLOWED);
+        }
+
+        newsPost.setIsDeleted(true);
+        newsPostRepository.save(newsPost);
+    }
+
     @Retryable(
             value = {SQLException.class},
             backoff = @Backoff(delay = 5000))
@@ -64,58 +116,22 @@ public class NewsService {
         newsPostRepository.save(newsPost);
     }
 
-    public NewsPostDTO getPostWithID(Integer id) {
-        Optional<NewsPost> newsPostOpt = newsPostRepository.findById(id);
-        if (!newsPostOpt.isPresent()) {
-            throw new SomnusException(ErrorMessage.NO_NEWS_POST_FOUND);
+    @Retryable(
+            value = {SQLException.class},
+            backoff = @Backoff(delay = 5000))
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+    public NewsPostDTO getDeletedNewsPost(User user, Integer id) {
+        Optional<NewsPost> optionalArticle = newsPostRepository.findByIdAndIsDeleted(id);
+        if(!optionalArticle.isPresent()) {
+            throw new SomnusException(ErrorMessage.NO_ARTICLE_FOUND);
         }
 
-        // TODO: In case they are deleted, only owner or admin can access
-
-        NewsPostDTO newsPostDTO = createNewsPostDTO(newsPostOpt.get());
+        NewsPost newsPost = optionalArticle.get();
+        if(user.getId() != newsPost.getAuthor().getId()) {
+            throw new SomnusException(ErrorMessage.ARTICLE_GET_NOT_AUTHORIZED);
+        }
+        NewsPostDTO newsPostDTO = createNewsPostDTO(newsPost);
         return newsPostDTO;
-    }
-
-    @Retryable(
-            value = {SQLException.class},
-            backoff = @Backoff(delay = 5000))
-    @Transactional(isolation = Isolation.READ_COMMITTED)
-    public void deleteNewsPost(User user, Integer id) {
-        NewsPost newsPost = newsPostRepository.getOne(id);
-
-        // News Post can only be deleted by the person who wrote it or the admin
-        if (!newsPost.getAuthor().getUsername().equals(user.getUsername()) &&
-                !user.getRole().equals(Role.ADMIN)) {
-            throw new SomnusException(ErrorMessage.DELETE_NEWS_POST_NOT_ALLOWED);
-        }
-
-        newsPost.setIsDeleted(true);
-        newsPostRepository.save(newsPost);
-    }
-
-    @Retryable(
-            value = {SQLException.class},
-            backoff = @Backoff(delay = 5000))
-    @Transactional(isolation = Isolation.READ_COMMITTED)
-    public void createOrUpdateNewsPost(User user, NewsPostDTO newsPostDTO) {
-        NewsPost newsPost = null;
-        if (newsPostDTO.getId() != null) {
-            newsPost = newsPostRepository.getOne(Integer.parseInt(newsPostDTO.getId()));
-        }
-
-        postService.postCreateAuthCheck(user);
-
-        if (newsPost == null) {
-            newsPost = new NewsPost(user, newsPostDTO.getPostName(),
-                    newsPostDTO.getAuthorUserName(), newsPostDTO.getDescription(),
-                    newsPostDTO.getContent());
-        } else {
-            newsPost.setPostName(newsPostDTO.getPostName());
-            newsPost.setDescription(newsPostDTO.getDescription());
-            newsPost.setContent(newsPostDTO.getContent());
-            newsPost.updateLastUpdate();
-        }
-        newsPostRepository.save(newsPost);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -126,6 +142,6 @@ public class NewsService {
         return new NewsPostDTO(String.valueOf(newsPost.getId()), newsPost.getPostName(),
                 postService.normalizeName(newsPost.getPostName()), newsPost.getAuthorUserName(),
                 newsPost.getAuthor().getUsername(), newsPost.getDescription(), newsPost.getDatePublished(),
-                newsPost.getLastUpdate(), newsPost.getContent());
+                newsPost.getLastUpdate(), newsPost.getIsDeleted(), newsPost.getContent());
     }
 }

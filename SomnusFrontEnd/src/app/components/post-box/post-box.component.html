@@ -7,8 +7,10 @@
             <h3>{{post.postName}}</h3>
             <h3>Published on {{post.datePublished | date:'medium'}}</h3>
             <h3 *ngIf="post.lastUpdate">Last Updated on {{post.lastUpdate | date:'medium'}}</h3>
-            <p class="post-author">Written by <span class="author-name">{{post.authorUserName}}</span></p>
-            <!-- <p *ngIf="hasTopic()">{{post.topic}}</p> -->
+            <p class="post-author">Written by 
+                <span class="author-name">{{post.authorUserName}}</span>
+                <span *ngIf="hasTopic()"> on {{topic}}</span>
+            </p>
         </div>
         <div class="description">
             {{post.description}}

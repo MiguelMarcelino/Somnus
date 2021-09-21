@@ -20,6 +20,8 @@ export class UserProfileComponent implements OnInit {
   userInfo: UserModel;
   deletedArticles: ArticleModel[];
   deletedNewsPosts: NewsPostModel[];
+  noDeletedArticles: boolean = false;
+  noDeletedNewsPosts: boolean = false;
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -48,25 +50,27 @@ export class UserProfileComponent implements OnInit {
   getDeletedArticles(): void {
     this.articleService.getDeletedArticles().subscribe(allArticles => {
       this.deletedArticles = allArticles;
-    });
-  }
-
-  restoreArticle(id: string) {
-    this.articleService.restoreArticle(id).subscribe(post => {
-      this.router.navigateByUrl("/user-profile");
+      if(!allArticles || (allArticles && allArticles.length == 0)) {
+        this.noDeletedArticles = true;
+      }
     });
   }
 
   getDeletedNewsPosts(): void {
     this.newsPostService.getDeletedNewsPosts().subscribe(allNewsPosts => {
       this.deletedNewsPosts = allNewsPosts;
+      if(!allNewsPosts || (allNewsPosts && allNewsPosts.length == 0)) {
+        this.noDeletedNewsPosts = true;
+      }
     });
   }
 
-  restoreNewsPost(id: string) {
-    this.newsPostService.restoreNewsPost(id).subscribe(post => {
-      this.router.navigateByUrl("/user-profile");
-    });
+  navigateNewsPostWithIsDeletedInfo(deletedArticleId, normalizedName) {
+    this.router.navigate(["/news-post/" + deletedArticleId + "/" + normalizedName], {queryParams: {isDeleted: "true"}});
+  }
+
+  navigateArticlesWithIsDeletedInfo(deletedArticleId, normalizedTopic, normalizedName) {
+    this.router.navigate(["/article/" + deletedArticleId + "/" + normalizedTopic + "/" +  normalizedName], {queryParams: {isDeleted: "true"}});
   }
 
 }

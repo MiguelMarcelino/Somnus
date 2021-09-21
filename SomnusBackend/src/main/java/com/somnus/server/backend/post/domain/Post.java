@@ -66,6 +66,7 @@ public abstract class Post implements Serializable {
         this.description = description;
         this.datePublished = DateHandler.now();
         this.lastUpdate = DateHandler.now();
+        this.isDeleted = false;
         writeData(content);
     }
 

@@ -27,6 +27,9 @@
             <button class="custom-button" mat-raised-button color="primary" *ngIf="isArticleOwnerOrAdmin()" (click)="editArticle()">
                 Edit Article
             </button>
+            <button class="custom-button" mat-raised-button color="primary" *ngIf="article.isDeleted" (click)="restoreArticle()">
+                Restore Article
+            </button>
         </div>
     </mat-expansion-panel>
 

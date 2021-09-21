@@ -32,5 +32,9 @@ export class NewsPostService extends TemplateControllerService<NewsPostModel> {
     restoreNewsPost(id: string): Observable<any> {
         return this.http.get(`${this.appRoutes.apiNewsPosts}/restore-news-post/${id}`);
     }
+
+    getDeletedNewsPost(id: string): Observable<any> {
+        return this.http.get(`${this.appRoutes.apiNewsPosts}/deleted-news-post/${id}`);
+    }
     
 }
