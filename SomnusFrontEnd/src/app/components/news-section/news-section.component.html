@@ -1,0 +1,24 @@
+<div class="content wrapper">
+    <!-- <h2>Posted News</h2> -->
+    <button class="btn btn-primary" *ngIf="canCreateNewsPosts" (click)="createNewsPost()">
+        Post some News!
+    </button>
+
+    <br>
+    <mat-progress-spinner *ngIf="loading" mode="indeterminate"></mat-progress-spinner>
+
+    <div *ngIf="newsPosts">
+        <div *ngFor="let newsPost of newsPosts" class="grid-container">
+            <div [routerLink]="['/news-post/',newsPost.id,newsPost.normalizedName]">
+                <app-post-box-component
+                    [imgSource]="'../../../assets/icons/tech-lines.png'"
+                    [post]="newsPost">
+                </app-post-box-component>
+            </div>
+        </div>
+    </div>
+
+    <div class="not-found-section" *ngIf="noNewsPosts && !loading">
+        <app-not-found-page></app-not-found-page>
+    </div>
+</div>

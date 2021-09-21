@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="14fffd3e-76b9-4e8e-9064-0b455cdbcb70" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/somnus/server/somnuslb/instances/InstanceDataService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/somnus/server/somnuslb/instances/domain/CircularArray.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/somnus/server/somnuslb/instances/domain/InstanceData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/somnus/server/somnuslb/instances/dto/StoredDataInfoDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/somnus/server/somnuslb/SomnuslbApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/somnus/server/somnuslb/SomnuslbApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/somnus/server/somnuslb/config/TaskScheduler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/somnus/server/somnuslb/config/TaskScheduler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/somnus/server/somnuslb/mirrorStatus/MirrorStatusComparator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/somnus/server/somnuslb/mirrorStatus/MirrorStatusService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/somnus/server/somnuslb/mirrorStatus/domain/CircularArray.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/somnus/server/somnuslb/mirrorStatus/domain/MirrorInfo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/somnus/server/somnuslb/mirrorStatus/domain/MirrorState.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/somnus/server/somnuslb/mirrors/MirrorObservable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/somnus/server/somnuslb/mirrors/MirrorRegisterController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/somnus/server/somnuslb/mirrors/MirrorRegisterService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/somnus/server/somnuslb/mirrors/domain/Mirror.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/somnus/server/somnuslb/mirrors/dto/MirrorInfoDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/somnus/server/somnuslb/instances/dto/InstanceDataDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/somnus/server/somnuslb/mirrors/dto/NewMirrorRegisterDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/somnus/server/somnuslb/mirrors/repository/MirrorRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/somnus/server/somnuslb/observer/Observable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/somnus/server/somnuslb/observer/Observer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/somnus/server/somnuslb/requestHandler/RequestController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/somnus/server/somnuslb/requestHandler/RequestService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="JpbToolWindowState">
+    <option name="myId2FirstActivated">
+      <map>
+        <entry key="JPA Inspector" value="true" />
+        <entry key="JPA Palette" value="true" />
+        <entry key="JPA Structure" value="true" />
+      </map>
+    </option>
+    <option name="myId2Visible">
+      <map>
+        <entry key="JPA Inspector" value="false" />
+        <entry key="JPA Palette" value="false" />
+        <entry key="JPA Structure" value="false" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectId" id="1wS5DmNyrlUIajEvoDcjHv24daJ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="extract.method.default.visibility" value="private" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.somnus.server.somnuslb.mirrors" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="SomnuslbApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="somnuslb" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.somnus.server.somnuslb.SomnuslbApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="14fffd3e-76b9-4e8e-9064-0b455cdbcb70" name="Default Changelist" comment="" />
+      <created>1628439031873</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1628439031873</updated>
+      <workItem from="1628439033083" duration="1962000" />
+      <workItem from="1628606269737" duration="1208000" />
+      <workItem from="1628699098031" duration="1694000" />
+      <workItem from="1628851879815" duration="7004000" />
+      <workItem from="1628863131736" duration="92000" />
+      <workItem from="1628869235841" duration="11907000" />
+      <workItem from="1628881991001" duration="6000" />
+      <workItem from="1628948220062" duration="13827000" />
+      <workItem from="1629109973206" duration="6202000" />
+      <workItem from="1629141631458" duration="3426000" />
+      <workItem from="1629198342356" duration="1269000" />
+      <workItem from="1629199999046" duration="5939000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+</project>

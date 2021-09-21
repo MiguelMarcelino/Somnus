@@ -40,5 +40,36 @@
 
         <app-update-user-info></app-update-user-info>
     </mat-expansion-panel>
-    
+
+    <hr>
+    <div *ngIf="deletedArticles">
+        <h3>Deleted Articles</h3>
+        <div *ngFor="let article of deletedArticles" class="grid-container">
+            <div [routerLink]="['/article/',article.id,article.normalizedTopic,article.normalizedName]">
+                <app-post-box-component 
+                    [imgSource]="'../../../assets/icons/Document-lines.png'"
+                    [post]="article">
+                </app-post-box-component>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="!deletedArticles">
+        <p>You have no deleted Articles</p>
+    </div>
+
+    <hr>
+    <div *ngIf="deletedNewsPosts">
+        <h3>Deleted News Posts</h3>
+        <div *ngFor="let newsPost of deletedNewsPosts" class="grid-container">
+            <div [routerLink]="['/news-post/',newsPost.id,newsPost.normalizedName]">
+                <app-post-box-component
+                    [imgSource]="'../../../assets/icons/tech-lines.png'"
+                    [post]="newsPost">
+                </app-post-box-component>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="!deletedNewsPosts">
+        <p>You have no deleted News Posts</p>
+    </div>
 </div>

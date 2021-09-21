@@ -1,0 +1,68 @@
+h3 {
+    text-align: left;
+}
+
+.article-container {
+    height: 200pt;
+    overflow: hidden;
+}
+
+.post-img {
+    filter: invert(1);
+    margin: 0 auto;
+    object-fit: cover;
+    max-width: 200%;
+    height: 200pt;
+}
+
+.left-post-img {
+    overflow: hidden;
+    float: left;
+    width: 25%;
+}
+
+.right-post-data {
+    float: right;
+    width: 75%;
+    overflow: hidden;
+    padding-left: 20pt;
+}
+
+.post-info {
+    padding-top: 10pt;
+}
+
+.author-name {
+    color: rgb(87, 140, 255);
+}
+
+.description {
+    font-size: 14pt;
+    padding-top: 10pt;
+    text-align: justify;
+    max-height: inherit;
+}
+
+.post-author {
+    font-size: 15pt;
+    text-align: justify;
+}
+
+@media only screen and (max-width: 700px) {
+    .article-container {
+        height: 350pt;
+    }    
+    
+    .left-post-img {
+        float: unset;
+        width: 100%;
+        height: 150pt;
+    }
+    
+    .right-post-data {
+        float: unset;
+        width: 100%;
+        height: 200pt;
+    }
+    
+}

@@ -8,6 +8,7 @@
     <mat-progress-spinner *ngIf="loading" mode="indeterminate"></mat-progress-spinner>
 
     <div *ngIf="articles">
+<<<<<<< Updated upstream
         <div *ngFor="let article of articles" class="article-container" >
             <div [routerLink]="['/article/',article.id,article.normalizedTopic,article.normalizedName]">
                 <div class="left-article-img">
@@ -24,6 +25,14 @@
                         {{article.description}}
                     </div>
                 </div>
+=======
+        <div *ngFor="let article of articles" class="grid-container">
+            <div [routerLink]="['/article/',article.id,article.normalizedTopic,article.normalizedName]">
+                <app-post-box-component 
+                    [imgSource]="'../../../assets/icons/Document-lines.png'"
+                    [post]="article">
+                </app-post-box-component>
+>>>>>>> Stashed changes
             </div>
         </div>
     </div>

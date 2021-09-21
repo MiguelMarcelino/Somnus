@@ -119,9 +119,9 @@ public class ContributionService {
             String response = this.webClient.get()
                     .uri(uriBuilder -> uriBuilder
                             .path("/commits")
-                            .queryParam("access_token", auth_token)
                             .queryParam("page", currPage)
                             .build())
+                            .header("Authorization","Bearer " + auth_token)
                     .retrieve().bodyToMono(String.class).block();
 
             // Parse the response string into a JSON format, in this case an array
@@ -155,9 +155,9 @@ public class ContributionService {
                     .uri(uriBuilder -> uriBuilder
                             .path("/commits")
                             .queryParam("since", sinceDate)
-                            .queryParam("access_token", auth_token)
                             .queryParam("page", currPage)
                             .build())
+                            .header("Authorization","Bearer " + auth_token)
                     .retrieve().bodyToMono(String.class).block(); // Get the response and convert it to a String object
 
             // Parse the response string into a JSON format, in this case an array

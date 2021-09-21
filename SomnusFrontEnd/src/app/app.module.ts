@@ -38,6 +38,12 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { UpdateUserInfoComponent } from './components/update-user-info/update-user-info.component';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { CommentsSectionComponent } from './components/comments-section/comments-section.component';
+<<<<<<< Updated upstream
+=======
+import { NewsSectionComponent } from './components/news-section/news-section.component';
+import { NewsPageComponent } from './components/news-page/news-page.component';
+import { PostBoxComponentComponent } from './components/post-box/post-box.component';
+>>>>>>> Stashed changes
 
 @NgModule({
   declarations: [
@@ -62,7 +68,14 @@ import { CommentsSectionComponent } from './components/comments-section/comments
     TempServerInfoComponent,
     UserProfileComponent,
     UpdateUserInfoComponent,
+<<<<<<< Updated upstream
     CommentsSectionComponent
+=======
+    CommentsSectionComponent,
+    NewsSectionComponent,
+    NewsPageComponent,
+    PostBoxComponentComponent
+>>>>>>> Stashed changes
   ],
   imports: [
     BrowserModule,
