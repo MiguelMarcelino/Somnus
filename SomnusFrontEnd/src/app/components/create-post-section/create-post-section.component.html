@@ -1,0 +1,68 @@
+<h2 *ngIf="isArticle()">
+    Start Writing your own Article</h2>
+<h2 *ngIf="isNewsPost()">Start Writing your own News Post</h2>
+<div class="wrapper">
+    <div>
+        <form [formGroup]="editorForm" method="post">
+            <mat-form-field appearance="fill">
+                <mat-label>Post Name</mat-label>
+                <input type="text" matInput formControlName="post_name" placeholder="Name of your Article">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Post Description</mat-label>
+                <input type="text" class="description-input" matInput formControlName="description">
+            </mat-form-field>
+            <mat-form-field appearance="fill" *ngIf="isArticle()">
+                <mat-label>Select Article Type</mat-label>
+                <mat-select formControlName="type">
+                    <mat-option *ngFor="let type of articleTypes" [value]="type">
+                        {{type}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <br>
+            <!-- Editor content -->
+            <div class="form-group">
+                <app-quill-editor *ngIf="!post" (onEditorContentChange)="setEditorContent($event)"></app-quill-editor>
+                <app-quill-editor *ngIf="post" (onEditorContentChange)="setEditorContent($event)" [post]="post"></app-quill-editor>
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <div *ngIf="!checkContent()">
+            <h2>Start writing to get a preview of your article!</h2>
+        </div>
+        <div *ngIf="checkContent()">
+            <h2>Here's the result</h2>
+            <div id="article-container">
+                <h2>
+                    <b><i>{{editorForm.get('post_name').value}}</i></b>
+                </h2>
+                <div [innerHTML]="editorContent" class="show-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Publish -->
+    <!-- *ngIf="canPublish()" -->
+    <div id="publish-button" class="publish-article">
+        <button class="btn btn-primary" (click)="sendArticleData()">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Publish your article
+        </button>
+    </div>
+
+    <!-- *ngIf="!canPublish()" -->
+    <div class="publish-article">
+        <h2>Please fill in all the fields before publishing the article.</h2>
+    </div>
+
+    <button class="navigate-button-up" mat-fab color="primary" (click)="navigateUp()">
+        <mat-icon>arrow_circle_up</mat-icon>
+    </button>
+    <button class="navigate-button-down" mat-fab color="primary" (click)="navigateDown()">
+        <mat-icon>arrow_circle_down</mat-icon>
+    </button>
+
+</div>

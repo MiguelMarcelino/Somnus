@@ -16,6 +16,6 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
     @Query("SELECT a FROM Article a WHERE a.topic = :topic")
     List<Article> getArticlesMatchingTopic(String topic);
 
-    @Query("SELECT a FROM Article a WHERE a.articleName LIKE :nameContent")
+    @Query("SELECT a FROM Article a WHERE a.postName LIKE :nameContent")
     List<Article> getAllArticlesContainingSubstring(String nameContent);
 }

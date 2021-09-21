@@ -1,84 +1,119 @@
-
 /* You can add global styles to this file, and also import other style files */
-html, body { 
-    height: 100%; 
+
+html,
+body {
+    height: 100%;
 }
 
-body { 
-    margin: 0; 
+body {
+    margin: 0;
     font-family: 'Montserrat', sans-serif;
-    background-color: rgb(41, 41, 41); 
+    background-color: rgb(41, 41, 41);
 }
 
-h2{
-  font-size: 20pt !important;
-  text-align: center;
-  color: white;
+.wrapper {
+    width: 90%;
+    margin: 0 auto;
+}
+
+h2 {
+    font-size: 20pt !important;
+    text-align: center;
+    color: white;
 }
 
 h3 {
-  font-size: 17pt !important;
-  text-align: center;
-  color: white;
+    font-size: 17pt !important;
+    text-align: center;
+    color: white;
 }
 
 p {
-  color: white;
-  font-size: 15pt !important;
-  line-height: 30pt;
-  text-align: justify;
+    color: white;
+    font-size: 15pt !important;
+    line-height: 30pt;
+    text-align: justify;
 }
 
 .ql-syntax {
-  background-color: #505050;
-  border-radius: 6pt;
-  color: white;
-  overflow: visible;
-  max-width: 100%;
-  overflow-y: hidden;
-  padding: 5pt;
+    background-color: #505050;
+    border-radius: 6pt;
+    color: white;
+    overflow: visible;
+    max-width: 100%;
+    overflow-y: hidden;
+    padding: 5pt;
 }
 
 body::-webkit-scrollbar {
-  width: 12px;
+    width: 12px;
 }
 
 body::-webkit-scrollbar-track {
-  background: gray;
+    background: gray;
 }
 
 body::-webkit-scrollbar-thumb {
-  background-color: #505050;
-  border-radius: 20px;
-  border: 0px;
+    background-color: #505050;
+    border-radius: 20px;
+    border: 0px;
 }
 
 .content-wrapper {
-  color: white;
+    color: white;
 }
 
 .color-inverted-img {
-  filter: invert(1);
+    filter: invert(1);
 }
 
+.grid-container {
+    transition: 0.5s ease;
+    opacity: 0.85;
+
+    /* From https://css.glass */
+    background: rgba(71, 71, 71, 0.29);
+    border: 1pt solid rgba(71, 71, 71, 0.29);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(11.2px);
+    -webkit-backdrop-filter: blur(11.2px);
+    
+    background: -webkit-linear-gradient(#353535,#272727);  
+    background: -moz-linear-gradient(#353535,#272727);  
+    background: -o-linear-gradient(#353535,#272727);  
+    background: linear-gradient(#353535,#272727);
+}
+
+.grid-container:hover {
+    opacity: 1;
+    transform: scale(1.01, 1.01);
+    border: 1pt solid rgba(110, 110, 110, 0.8);
+    cursor: pointer;
+}
+
+
 /* Hide scrollbar for Chrome, Safari and Opera */
+
+
 /* html::-webkit-scrollbar {
   display: none;
 } */
 
+
 /* Hide scrollbar for IE and Edge */
+
+
 /* html {
   -ms-overflow-style: none;
 } */
 
 h1 {
-  color: white;
+    color: white;
 }
 
 @media only screen and (max-width: 1000px) {
-  h3 {
-    font-size: 16pt !important;
-  }
+    h3 {
+        font-size: 16pt !important;
+    }
 }
-
-

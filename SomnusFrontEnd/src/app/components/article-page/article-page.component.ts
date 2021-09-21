@@ -1,17 +1,18 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ArticlesService } from 'src/app/services/controllers/articles-controller.service';
-import { ArticleModel } from 'src/app/models/article.model';
+import { ArticleModel } from 'src/app/models/post/article.model';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { Role } from 'src/app/models/role.model';
 import { UserModel } from 'src/app/models/user.model';
 import { ErrorInterface } from 'src/handlers/error-interface';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { PostTypes } from 'src/app/models/post/post-types.enum';
 
 @Component({
   selector: 'app-article-page',
   templateUrl: './article-page.component.html',
-  styleUrls: ['./article-page.component.scss'],
+  styleUrls: ['../post/post-page.component.scss'],
   animations: [
     trigger(
       'enterAnimation', [
@@ -82,7 +83,7 @@ export class ArticlePageComponent implements OnInit {
 
   editArticle() {
     const id = this.route.snapshot.paramMap.get('id');
-    this.router.navigate(["/createArticle"], {queryParams: {id: id}});
+    this.router.navigate(["/createPost"], {queryParams: {id: id, postType: PostTypes.article}});
   }
 
   navigateToCommentSection() {

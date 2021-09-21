@@ -19,7 +19,7 @@ import { ServerStatsComponent } from './components/server-info/server-stats.comp
 import { TeamMemberPageComponent } from './components/team-member-page/team-member-page.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { ArticlesSectionComponent } from './components/articles-section/articles-section.component';
-import { CreateArticlesSectionComponent } from './components/create-articles-section/create-articles-section.component';
+import { CreatePostSectionComponent } from './components/create-post-section/create-post-section.component';
 import { AppRoutesService } from './services/routes/app-routes.service';
 import { ArticlePageComponent } from './components/article-page/article-page.component';
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
@@ -38,12 +38,9 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { UpdateUserInfoComponent } from './components/update-user-info/update-user-info.component';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { CommentsSectionComponent } from './components/comments-section/comments-section.component';
-<<<<<<< Updated upstream
-=======
+import { PostBoxComponentComponent } from './components/post-box/post-box.component';
 import { NewsSectionComponent } from './components/news-section/news-section.component';
 import { NewsPageComponent } from './components/news-page/news-page.component';
-import { PostBoxComponentComponent } from './components/post-box/post-box.component';
->>>>>>> Stashed changes
 
 @NgModule({
   declarations: [
@@ -55,7 +52,7 @@ import { PostBoxComponentComponent } from './components/post-box/post-box.compon
     TeamMemberPageComponent,
     LoginPageComponent,
     ArticlesSectionComponent,
-    CreateArticlesSectionComponent,
+    CreatePostSectionComponent,
     ArticlePageComponent,
     NotFoundPageComponent,
     RegisterComponent,
@@ -68,14 +65,10 @@ import { PostBoxComponentComponent } from './components/post-box/post-box.compon
     TempServerInfoComponent,
     UserProfileComponent,
     UpdateUserInfoComponent,
-<<<<<<< Updated upstream
-    CommentsSectionComponent
-=======
     CommentsSectionComponent,
     NewsSectionComponent,
     NewsPageComponent,
     PostBoxComponentComponent
->>>>>>> Stashed changes
   ],
   imports: [
     BrowserModule,

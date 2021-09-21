@@ -1,5 +1,5 @@
 import { TemplateControllerService } from './template-controller.service';
-import { ArticleModel } from 'src/app/models/article.model';
+import { ArticleModel } from 'src/app/models/post/article.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Injector } from '@angular/core';
 import { AppRoutesService } from '../routes/app-routes.service';

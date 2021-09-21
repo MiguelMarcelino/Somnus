@@ -2,6 +2,27 @@
 All changes made to this project will be documented in this file
 
 ## [RELEASED]
+## [0.3.0] - 2021-08-26
+### Changed
+- Changes deployed
+- Minor bug, fixes
+
+---------------------------------------------------------
+
+## [0.3.0] - 2021-08-25
+### Changed
+- Finished News Page
+- Finished new home page interface
+- Fixed UI scaling bugs
+
+---------------------------------------------------------
+## [0.3.0] - 2021-08-24
+### Added
+- UI changes
+- News page completed
+- News backend completed
+- Articles and News are both a Post
+
 ---------------------------------------------------------
 ## [0.2.1] - 2021-04-04
 ### Changed
@@ -85,20 +106,27 @@ a parent
 ---------------------------------------------------------
 ## [0.2.1] - 2021-02-22
 ### Changed
-- Fixed minor bug in firebase tokens
-
+- Corrected Minecraft Api error
+- Fixed Apache reload problem
 ---------------------------------------------------------
 ## [0.2.1] - 2021-02-21
 ### Added
-- New user page
-
-### Changed
-- Corrected Apache refresh error
-- Fixed interface bugs
-- New backend interface for changing users
+- New User profile page
+- User roles for website
+- User login component now sending userDto to backend
 
 ---------------------------------------------------------
 ## [0.2.1] - 2021-02-20
+### Added
+- New server stats component added for temporary demonstration
+- New Crafatar image for Minecraft in frontend based on
+players uuids
+
+### Changed
+- Minor interface bugs fixed
+
+---------------------------------------------------------
+## [0.2.1] - 2021-02-19
 ### Added
 - Properties for security
 - Release info

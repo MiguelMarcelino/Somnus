@@ -1,5 +1,5 @@
 
-.grid-container {
+.grid-array {
     width: 100% !important;
     min-height: 10pt;
     margin: 0 auto;
@@ -34,7 +34,7 @@ ngx-gauge-label {
 
 
 @media only screen and (max-width: 1600px) {
-    .grid-container {
+    .grid-array {
         display: inline-block;
     }
 
@@ -48,7 +48,7 @@ ngx-gauge-label {
 
 
 @media only screen and (max-width: 1000px) {
-    .grid-container {
+    .grid-array {
         display: grid;
     }
 

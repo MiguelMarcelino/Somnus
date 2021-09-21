@@ -1,6 +1,4 @@
-
-<div class="wrapper">
-    
+<div class="wrapper page-style">
     <h2>Feel Free to contact us!</h2>
     <div class="contact-form" *ngIf="user">
         <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" method="post">
@@ -8,34 +6,32 @@
                 <mat-label>Feedback Title</mat-label>
                 <input type="text" matInput formControlName="feedbackTitle" placeholder="Give a title to your feedback">
             </mat-form-field>
-    
+
             <mat-form-field appearance="fill">
                 <mat-label>Feedback</mat-label>
                 <input id="feedback" type="text" matInput formControlName="feedback" placeholder="Leave some Feedback here!">
             </mat-form-field>
-    
+
             <div class="form-group">
                 <!-- Send Feedback Button -->
                 <button type="submit" class="btn btn-primary">Send Feedback</button>
             </div>
         </form>
     </div>
-    
+
     <div class="not-logged-in-message" *ngIf="!user">
         <p class="centered-text">If you want to send some feedback, please Login first and try again!</p>
     </div>
-    
+
     <h2>Join our platforms</h2>
     <div class="img-left">
         <a class="link" href="{{inviteLink}}">
-            <img class="color-inverted-img" src="../../../assets/icons/discord.png"> 
+            <img class="color-inverted-img" src="../../../assets/icons/discord.png">
         </a>
     </div>
     <div class="description-right">
         <p>
-            Feel free to join our discord channel. There you can see what services are available and also
-            receive notifications when updates to the website are made. You can become part of a very small community
-            of programmers and also share your knowledge with them.
+            Feel free to join our discord channel. There you can see what services are available and also receive notifications when updates to the website are made. You can become part of a very small community of programmers and also share your knowledge with them.
         </p>
     </div>
 </div>
