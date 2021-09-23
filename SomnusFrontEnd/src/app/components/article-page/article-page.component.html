@@ -1,11 +1,23 @@
-<div class="wrapper" *ngIf="article">
-    <div id="article-info">
-        <h2>{{article.postName}}</h2>
-        <h3 class="article-author">Written by <span class="author-name">{{article.authorUserName}}</span></h3>
-        <h3>Published on {{article.datePublished | date:'mediumDate'}}</h3>
-        <h3 *ngIf="article.lastUpdate">Last Updated on {{article.lastUpdate | date:'mediumDate'}}</h3>
-        <div class="article-text" [innerHTML]="article.content">
-            <!-- <div [innerHTML]="article.content"></div> -->
+<div class="post-frame" *ngIf="article">
+    <div class="post">
+        <div id="article-info">
+            <h2 class="title">{{article.postName}}</h2>
+            <div class="metadata">
+                <h3 class="article-author">Written by <span class="author-name">{{article.authorUserName}}</span></h3>
+                <h3>Published on {{article.datePublished | date:'mediumDate'}}</h3>
+                <h3 *ngIf="article.lastUpdate">Last Updated on {{article.lastUpdate | date:'mediumDate'}}</h3>
+            </div>
+            <div class="article-text text" [innerHTML]="article.content">
+                <!-- <div [innerHTML]="article.content"></div> -->
+            </div>
+        </div>
+    </div>
+    <div class="news">
+        <div [routerLink]="['/news-post/',newsPost.id,newsPost.normalizedName]">
+            <app-post-box-component
+                [imgSource]="'../../../assets/icons/tech-lines.png'"
+                [post]="newsPost">
+            </app-post-box-component>
         </div>
     </div>
 
