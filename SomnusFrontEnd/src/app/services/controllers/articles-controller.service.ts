@@ -25,6 +25,19 @@ export class ArticlesService extends TemplateControllerService<ArticleModel> {
         return this.appRoutes.apiArticleEndPoint;
     }
 
+    // for debug only without server
+
+    public getDebugArticle(): Observable<any> {
+        let url = `https://somnus.ddns.net:3000/articles-api/article/5`;
+        return this.http.get(url);
+    }
+
+    public getDebugNews(): Observable<any> {
+        let url = `https://somnus.ddns.net:3000/news-api/news-post/4`;
+        return this.http.get(url);
+    }
+    //
+
     searchArticles(articleName: string): Observable<any> {
         return this.http.get(`${this.appRoutes.apiArticleEndPointSearch}/${articleName}`);
     }

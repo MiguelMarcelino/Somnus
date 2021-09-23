@@ -63,3 +63,49 @@ mat-expansion-panel{
     right: 20px;
     z-index: 10;
 }
+
+// diogo new interface classes
+.post-frame{
+    display: grid;
+    grid-template-columns: auto 20%;
+    grid-template-areas: "post news";
+}
+
+.post{
+    grid-area: post;
+    padding: 0px 40px;
+    padding-left: 16%;
+
+    .title{
+        font-size: 2.4rem !important;
+    }
+
+    .metadata{
+        display: flex;
+        flex-direction: row;
+        margin-left: 1rem;
+
+        h3{
+            font-size: 0.8rem !important;
+        }
+
+        * + *:before{
+            content: "|";
+            margin: 0px 12.5px;
+        }
+    }
+
+    .description{
+
+    }
+
+    .text{
+        margin-left: 2rem;
+    }
+}
+
+.news{
+    grid-area: news;
+    border-left: 1px lightgray solid;
+}
+//
