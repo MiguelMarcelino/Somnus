@@ -8,7 +8,7 @@
     <mat-progress-spinner *ngIf="loading" mode="indeterminate"></mat-progress-spinner>
 
     <div *ngIf="articles">
-        <div *ngFor="let article of articles" class="grid-container">
+        <div *ngFor="let article of articles" class="mt-5">
             <div [routerLink]="['/article/',article.id,article.normalizedTopic,article.normalizedName]">
                 <app-post-box-component 
                     [imgSource]="'../../../assets/icons/Document-lines.png'"

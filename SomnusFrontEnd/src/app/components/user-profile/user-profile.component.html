@@ -41,37 +41,39 @@
         <app-update-user-info></app-update-user-info>
     </mat-expansion-panel>
 
-    <hr>
-    <div *ngIf="!noDeletedArticles">
-        <h3>Deleted Articles</h3>
-        <div *ngFor="let article of deletedArticles" class="grid-container">
-            <!-- [routerLink]="['/article/',article.id,article.normalizedTopic,article.normalizedName]" -->
-            <div (click)="navigateArticlesWithIsDeletedInfo(article.id, article.normalizedTopic, article.normalizedName)">
-                <app-post-box-component 
-                    [imgSource]="'../../../assets/icons/Document-lines.png'"
-                    [post]="article">
-                </app-post-box-component>
+    <div *ngIf="canCreateArticles">
+        <hr>
+        <div *ngIf="!noDeletedArticles">
+            <h3>Deleted Articles</h3>
+            <div *ngFor="let article of deletedArticles" class="mt-5">
+                <!-- [routerLink]="['/article/',article.id,article.normalizedTopic,article.normalizedName]" -->
+                <div (click)="navigateArticlesWithIsDeletedInfo(article.id, article.normalizedTopic, article.normalizedName)">
+                    <app-post-box-component 
+                        [imgSource]="'../../../assets/icons/Document-lines.png'"
+                        [post]="article">
+                    </app-post-box-component>
+                </div>
             </div>
         </div>
-    </div>
-    <div *ngIf="noDeletedArticles">
-        <p>You have no deleted Articles</p>
-    </div>
-
-    <hr>
-    <div *ngIf="!noDeletedNewsPosts">
-        <h3>Deleted News Posts</h3>
-        <div *ngFor="let newsPost of deletedNewsPosts" class="grid-container">
-            <!-- [routerLink]="['/news-post/',newsPost.id,newsPost.normalizedName]" -->
-            <div (click)="navigateNewsPostWithIsDeletedInfo(newsPost.id, newsPost.normalizedName)">
-                <app-post-box-component
-                    [imgSource]="'../../../assets/icons/tech-lines.png'"
-                    [post]="newsPost">
-                </app-post-box-component>
+        <div *ngIf="noDeletedArticles">
+            <p>You have no deleted Articles</p>
+        </div>
+    
+        <hr>
+        <div *ngIf="!noDeletedNewsPosts">
+            <h3>Deleted News Posts</h3>
+            <div *ngFor="let newsPost of deletedNewsPosts" class="mt-5">
+                <!-- [routerLink]="['/news-post/',newsPost.id,newsPost.normalizedName]" -->
+                <div (click)="navigateNewsPostWithIsDeletedInfo(newsPost.id, newsPost.normalizedName)">
+                    <app-post-box-component
+                        [imgSource]="'../../../assets/icons/tech-lines.png'"
+                        [post]="newsPost">
+                    </app-post-box-component>
+                </div>
             </div>
         </div>
-    </div>
-    <div *ngIf="noDeletedNewsPosts">
-        <p>You have no deleted News Posts</p>
+        <div *ngIf="noDeletedNewsPosts">
+            <p>You have no deleted News Posts</p>
+        </div>
     </div>
 </div>

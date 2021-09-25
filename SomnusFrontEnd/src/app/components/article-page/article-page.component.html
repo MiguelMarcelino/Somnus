@@ -1,4 +1,7 @@
 <div class="post-frame" *ngIf="article">
+    <div class="annotations">
+
+    </div>
     <div class="post">
         <div id="article-info">
             <h2 class="title">{{article.postName}}</h2>
@@ -7,12 +10,36 @@
                 <h3>Published on {{article.datePublished | date:'mediumDate'}}</h3>
                 <h3 *ngIf="article.lastUpdate">Last Updated on {{article.lastUpdate | date:'mediumDate'}}</h3>
             </div>
-            <div class="article-text text" [innerHTML]="article.content">
+            <div class="article-text" [innerHTML]="article.content">
                 <!-- <div [innerHTML]="article.content"></div> -->
             </div>
         </div>
+
+        <!-- Comments Section -->
+        <app-comments-section [postId]="article.id" id="c-section"></app-comments-section>
+
+        <br>
+        <mat-expansion-panel *ngIf="isArticleOwnerOrAdmin()">
+            <mat-expansion-panel-header [collapsedHeight]="'50pt'" [expandedHeight]="'50pt'">
+                <mat-panel-description collapsedHeight="'50pt'">
+                    Article Edit options
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <div class="article-options">
+                <button class="custom-button" mat-raised-button color="warn" *ngIf="isArticleOwnerOrAdmin() && !article.isDeleted" (click)="deleteArticle()">
+                    Delete Article
+                </button>
+                <button class="custom-button" mat-raised-button color="primary" *ngIf="isArticleOwnerOrAdmin()" (click)="editArticle()">
+                    Edit Article
+                </button>
+                <button class="custom-button" mat-raised-button color="primary" *ngIf="article.isDeleted" (click)="restoreArticle()">
+                    Restore Article
+                </button>
+            </div>
+        </mat-expansion-panel>
     </div>
-    <div class="news">
+    <div class="news" *ngFor="let newsPost of newsPosts">
         <div [routerLink]="['/news-post/',newsPost.id,newsPost.normalizedName]">
             <app-post-box-component
                 [imgSource]="'../../../assets/icons/tech-lines.png'"
@@ -20,30 +47,6 @@
             </app-post-box-component>
         </div>
     </div>
-
-    <!-- Comments Section -->
-    <app-comments-section [postId]="article.id" id="c-section"></app-comments-section>
-
-    <br>
-    <mat-expansion-panel *ngIf="isArticleOwnerOrAdmin()">
-        <mat-expansion-panel-header [collapsedHeight]="'50pt'" [expandedHeight]="'50pt'">
-            <mat-panel-description collapsedHeight="'50pt'">
-                Article Edit options
-            </mat-panel-description>
-        </mat-expansion-panel-header>
-
-        <div class="article-options">
-            <button class="custom-button" mat-raised-button color="warn" *ngIf="isArticleOwnerOrAdmin()" (click)="deleteArticle()">
-                Delete Article
-            </button>
-            <button class="custom-button" mat-raised-button color="primary" *ngIf="isArticleOwnerOrAdmin()" (click)="editArticle()">
-                Edit Article
-            </button>
-            <button class="custom-button" mat-raised-button color="primary" *ngIf="article.isDeleted" (click)="restoreArticle()">
-                Restore Article
-            </button>
-        </div>
-    </mat-expansion-panel>
 
 </div>
 

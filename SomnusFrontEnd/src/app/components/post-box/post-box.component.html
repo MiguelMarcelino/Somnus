@@ -1,8 +1,8 @@
-<div class="article-container" onresize="responsive()">
-    <div class="left-post-img">
+<div class="article-container grid-container" onresize="responsive()">
+    <div class="post-img-cont">
         <img [src]="imgSource" class="post-img">
     </div>
-    <div class="right-post-data">
+    <div class="post-data-cont">
         <div class="post-info">
             <h3>{{post.postName}}</h3>
             <h3>Published on {{post.datePublished | date:'medium'}}</h3>

@@ -65,16 +65,21 @@ mat-expansion-panel{
 }
 
 // diogo new interface classes
-.post-frame{
+.post-frame {
     display: grid;
-    grid-template-columns: auto 20%;
-    grid-template-areas: "post news";
+    grid-template-columns: 25% 50% 25%;
+    grid-template-areas: "annotations post news";
+}
+
+.annotations {
+    grid-area: annotations;
+    width: 100%;
 }
 
 .post{
     grid-area: post;
     padding: 0px 40px;
-    padding-left: 16%;
+    // padding-left: 16%;
 
     .title{
         font-size: 2.4rem !important;
@@ -83,7 +88,6 @@ mat-expansion-panel{
     .metadata{
         display: flex;
         flex-direction: row;
-        margin-left: 1rem;
 
         h3{
             font-size: 0.8rem !important;
@@ -94,18 +98,17 @@ mat-expansion-panel{
             margin: 0px 12.5px;
         }
     }
-
-    .description{
-
-    }
-
-    .text{
-        margin-left: 2rem;
-    }
 }
 
 .news{
     grid-area: news;
-    border-left: 1px lightgray solid;
+    padding: 5pt;
 }
-//
+
+@media only screen and (max-width: 1100px) {
+    .post-frame{
+        grid-template-columns: 0% 100% 0%;
+        grid-template-areas: "annotations post news";
+    }
+    
+}

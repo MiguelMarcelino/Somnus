@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { ArticleModel } from 'src/app/models/post/article.model';
 import { PostModel } from 'src/app/models/post/post.model';
 @Component({
@@ -17,10 +17,16 @@ export class PostBoxComponentComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    var component = this;
-    window.addEventListener('resize', function(event){
-      component.responsive();
-    });
+    // For some reason this results in "offsetWidth" being undefined
+    // var component = this;
+    // window.addEventListener('resize', function(event){
+    //   component.responsive();
+    // });
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.responsive();
   }
 
   ngAfterContentInit(){
@@ -30,36 +36,36 @@ export class PostBoxComponentComponent implements OnInit {
   responsive(){
     if(this.isSmall){
       var container = document.getElementsByClassName('article-container-resp')[0] as HTMLElement;
-      var img = document.getElementsByClassName('left-post-img-resp')[0];
-      var data = document.getElementsByClassName('right-post-data-resp')[0];
+      var img_cont = document.getElementsByClassName('post-img-cont-resp')[0];
+      var data = document.getElementsByClassName('post-data-cont-resp')[0];
       var width = container.offsetWidth;
 
       if(width > 700 ){
         container.classList.remove("article-container-resp");
-        img.classList.remove("left-post-img-resp");
-        data.classList.remove("right-post-data-resp");
+        img_cont.classList.remove("post-img-cont-resp");
+        data.classList.remove("post-data-cont-resp");
 
         container.classList.add("article-container");
-        img.classList.add("left-post-img");
-        data.classList.add("right-post-data");
+        img_cont.classList.add("post-img-cont");
+        data.classList.add("post-data-cont");
 
         this.isSmall = false;
       }
 
-    } else{
+    } else {
       var container = document.getElementsByClassName('article-container')[0] as HTMLElement;
-      var img = document.getElementsByClassName('left-post-img')[0];
-      var data = document.getElementsByClassName('right-post-data')[0];
+      var img_cont = document.getElementsByClassName('post-img-cont')[0];
+      var data = document.getElementsByClassName('post-data-cont')[0];
       var width = container.offsetWidth;
 
       if(width < 700 ){
         container.classList.remove("article-container");
-        img.classList.remove("left-post-img");
-        data.classList.remove("right-post-data");
+        img_cont.classList.remove("post-img-cont");
+        data.classList.remove("post-data-cont");
   
         container.classList.add("article-container-resp");
-        img.classList.add("left-post-img-resp");
-        data.classList.add("right-post-data-resp");
+        img_cont.classList.add("post-img-cont-resp");
+        data.classList.add("post-data-cont-resp");
         this.isSmall = true;
       }
     }
