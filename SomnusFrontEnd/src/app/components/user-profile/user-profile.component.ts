@@ -22,6 +22,7 @@ export class UserProfileComponent implements OnInit {
   deletedNewsPosts: NewsPostModel[];
   noDeletedArticles: boolean = false;
   noDeletedNewsPosts: boolean = false;
+  canCreateArticles: boolean = false;
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -34,6 +35,12 @@ export class UserProfileComponent implements OnInit {
     this.authenticationService.getLoggedInUser()
       .subscribe (user => {
         this.user = user;
+        const currentUser = this.authenticationService.getCurrentUser();
+        if(currentUser && currentUser.role) {
+          if(currentUser.role === Role.Admin || currentUser.role === Role.Editor || currentUser.role == Role.Manager) {
+            this.canCreateArticles = true;
+          }
+        } 
     });
     this.userInfo = this.authenticationService.getCurrentUser();
     this.getDeletedArticles();

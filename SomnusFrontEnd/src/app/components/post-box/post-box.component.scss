@@ -15,13 +15,13 @@ h3 {
     height: 200pt;
 }
 
-.left-post-img {
+.post-img-cont {
     overflow: hidden;
     float: left;
     width: 25%;
 }
 
-.right-post-data {
+.post-data-cont {
     float: right;
     width: 75%;
     overflow: hidden;
@@ -49,38 +49,42 @@ h3 {
     text-align: justify;
 }
 
-@media only screen and (max-width: 700px) {
-    .article-container {
-        height: 350pt;
-    }    
+// @media only screen and (max-width: 700px) {
+//     .article-container {
+//         height: 350pt;
+//     }    
     
-    .left-post-img {
-        float: unset;
-        width: 100%;
-        height: 150pt;
-    }
+//     .post-img-cont {
+//         float: unset;
+//         width: 100%;
+//         height: 150pt;
+//     }
     
-    .right-post-data {
-        float: unset;
-        width: 100%;
-        height: 200pt;
-    }
+//     .post-data-cont {
+//         float: unset;
+//         width: 100%;
+//         height: 200pt;
+//         padding: 5pt;
+//     }
     
-}
+// }
 
 // responsive box
 .article-container-resp {
     height: 350pt;
 }    
 
-.left-post-img-resp {
+.post-img-cont-resp {
+    overflow: hidden;
     float: unset;
     width: 100%;
     height: 150pt;
 }
 
-.right-post-data-resp {
+.post-data-cont-resp {
+    overflow: hidden;
     float: unset;
     width: 100%;
     height: 200pt;
+    padding: 5pt;
 }

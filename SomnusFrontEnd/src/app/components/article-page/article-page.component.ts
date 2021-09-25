@@ -9,6 +9,7 @@ import { ErrorInterface } from 'src/handlers/error-interface';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { PostTypes } from 'src/app/models/post/post-types.enum';
 import { NewsPostModel } from 'src/app/models/post/news-post.model';
+import { NewsPostService } from 'src/app/services/controllers/news-controller.service';
 
 @Component({
   selector: 'app-article-page',
@@ -35,47 +36,48 @@ export class ArticlePageComponent implements OnInit {
   user: firebase.default.User;
   private urlParams = {};
   article: ArticleModel;
-
-  newsPost: NewsPostModel;
+  newsPosts: NewsPostModel[];
   
   showCommentsSectionButton: boolean;
 
   constructor(
     private route: ActivatedRoute,
     private articleService: ArticlesService,
+    private newsService: NewsPostService,
     private authenticationService: AuthenticationService,
     private router: Router,
     private errorInterface: ErrorInterface,
   ) { }
 
   ngOnInit(): void {
-    this.getDebugArticle();
-    this.getDebugNews();
-    // this.getArticle();
-    // this.authenticationService.getLoggedInUser()
-    //   .subscribe (user => {
-    //     this.user = user;
-    // });
+    // this.getDebugArticle();
+    // this.getDebugNews();
+    this.getArticle();
+    this.getNews();
+    this.authenticationService.getLoggedInUser()
+      .subscribe (user => {
+        this.user = user;
+    });
   }
 
   // for debug only without server
-  getDebugArticle():void{
-    this.articleService.getDebugArticle().subscribe((article: ArticleModel) =>{
-      if(article) {
-        this.article = article;
-        this.article.isDeleted = false;
-      }
-    })
-  }
+  // getDebugArticle():void{
+  //   this.articleService.getDebugArticle().subscribe((article: ArticleModel) =>{
+  //     if(article) {
+  //       this.article = article;
+  //       this.article.isDeleted = false;
+  //     }
+  //   })
+  // }
 
-  getDebugNews():void{
-    this.articleService.getDebugNews().subscribe((news: NewsPostModel) =>{
-      if(news) {
-        this.newsPost = news;
-        this.newsPost.isDeleted = false;
-      }
-    })
-  }
+  // getDebugNews():void{
+  //   this.articleService.getDebugNews().subscribe((news: NewsPostModel) =>{
+  //     if(news) {
+  //       this.newsPost = news;
+  //       this.newsPost.isDeleted = false;
+  //     }
+  //   })
+  // }
   //
 
   getArticle(): void {
@@ -97,6 +99,12 @@ export class ArticlePageComponent implements OnInit {
         })
       }
       this.urlParams = {...params};
+    });
+  }
+
+  getNews() {
+    this.newsService.getAll().subscribe((allNews: NewsPostModel[]) => {
+      this.newsPosts = allNews;
     });
   }
 
