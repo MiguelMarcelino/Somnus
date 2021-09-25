@@ -10,6 +10,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { PostTypes } from 'src/app/models/post/post-types.enum';
 import { NewsPostModel } from 'src/app/models/post/news-post.model';
 import { NewsPostService } from 'src/app/services/controllers/news-controller.service';
+import { PostComponent } from '../post/post.component';
 
 @Component({
   selector: 'app-article-page',
@@ -30,24 +31,26 @@ import { NewsPostService } from 'src/app/services/controllers/news-controller.se
     )
   ],
 })
-export class ArticlePageComponent implements OnInit {
+export class ArticlePageComponent extends PostComponent implements OnInit {
 
   // app user
   user: firebase.default.User;
-  private urlParams = {};
+  urlParams = {};
   article: ArticleModel;
-  newsPosts: NewsPostModel[];
-  
+  newsPosts: NewsPostModel[] = [];
+  publishedNews: boolean = false;
   showCommentsSectionButton: boolean;
 
   constructor(
+    private authenticationService: AuthenticationService,
     private route: ActivatedRoute,
+    private errorInterface: ErrorInterface,
+    private router: Router,
     private articleService: ArticlesService,
     private newsService: NewsPostService,
-    private authenticationService: AuthenticationService,
-    private router: Router,
-    private errorInterface: ErrorInterface,
-  ) { }
+  ) { 
+    super(authenticationService, route, errorInterface, router);
+  }
 
   ngOnInit(): void {
     // this.getDebugArticle();
@@ -104,7 +107,16 @@ export class ArticlePageComponent implements OnInit {
 
   getNews() {
     this.newsService.getAll().subscribe((allNews: NewsPostModel[]) => {
-      this.newsPosts = allNews;
+      var tempNewsPosts = allNews;
+      if(allNews && allNews.length != 0) {
+        this.publishedNews = true;
+        tempNewsPosts.sort((a,b) => this.compareDate(a.datePublished,b.datePublished))
+        // Small hack before optimizing get from database (not a problem since there aren't many News posts)
+        var lengthPosts = tempNewsPosts.length > 4 ? 4 : tempNewsPosts.length;
+        for(var i = 0; i < lengthPosts; i++) {
+          this.newsPosts.push(tempNewsPosts[i]);
+        }
+      }
     });
   }
 
