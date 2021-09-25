@@ -15,8 +15,8 @@
 
 .article-text {
     padding-top: 20pt;
+    padding-right: 10pt;
     text-align: left;
-    float: left;
     overflow-wrap: break-word;
 }
 
@@ -100,7 +100,7 @@ mat-expansion-panel{
 
 .post{
     grid-area: post;
-    padding: 0px 40px;
+    // padding: 0px 40px;
     // padding-left: 16%;
 
     .title{
@@ -138,7 +138,16 @@ mat-expansion-panel{
     .post-frame{
         grid-template-columns: 0% 100% 0%;
         grid-template-areas: "annotations post news";
-    }    
+        padding: 20pt;
+    }
+
+    .annotations {
+        display: none;
+    }
+
+    .news{
+        display: none;
+    }
 }
 
 @media only screen and (max-width: 600px) {
