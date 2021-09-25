@@ -10,6 +10,9 @@
                 <h3>Published on {{article.datePublished | date:'mediumDate'}}</h3>
                 <h3 *ngIf="article.lastUpdate">Last Updated on {{article.lastUpdate | date:'mediumDate'}}</h3>
             </div>
+            <div id="post-description-cont">
+                <p id="post-description">{{article.description}}</p>
+            </div>
             <div class="article-text" [innerHTML]="article.content">
                 <!-- <div [innerHTML]="article.content"></div> -->
             </div>
@@ -39,12 +42,17 @@
             </div>
         </mat-expansion-panel>
     </div>
-    <div class="news" *ngFor="let newsPost of newsPosts">
-        <div [routerLink]="['/news-post/',newsPost.id,newsPost.normalizedName]">
-            <app-post-box-component
-                [imgSource]="'../../../assets/icons/tech-lines.png'"
-                [post]="newsPost">
-            </app-post-box-component>
+    <div class="news">
+        <div *ngIf="publishedNews">
+            <h3>Latest News</h3>
+            <div *ngFor="let newsPost of newsPosts">
+                <div [routerLink]="['/news-post/',newsPost.id,newsPost.normalizedName]">
+                    <app-post-box-component
+                        [imgSource]="'../../../assets/icons/tech-lines.png'"
+                        [post]="newsPost">
+                    </app-post-box-component>
+                </div>
+            </div>
         </div>
     </div>
 

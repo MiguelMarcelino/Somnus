@@ -6,13 +6,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorInterface } from 'src/handlers/error-interface';
 import { Role } from 'src/app/models/role.model';
 import { PostTypes } from 'src/app/models/post/post-types.enum';
+import { PostComponent } from '../post/post.component';
 
 @Component({
   selector: 'app-articles-section',
   templateUrl: './articles-section.component.html',
   styleUrls: ['../post/post-section.component.scss']
 })
-export class ArticlesSectionComponent implements OnInit {
+export class ArticlesSectionComponent extends PostComponent implements OnInit {
 
   // app user
   user: firebase.default.User;
@@ -28,7 +29,9 @@ export class ArticlesSectionComponent implements OnInit {
     private route: ActivatedRoute,
     private errorInterface: ErrorInterface,
     private router: Router
-  ) { }
+  ) {
+    super(authenticationService,route, errorInterface,router);
+   }
 
   ngOnInit(): void {
     this.route.queryParamMap.subscribe((params: any) => {
@@ -56,6 +59,8 @@ export class ArticlesSectionComponent implements OnInit {
       this.loading = false;
       if(!allArticles || allArticles.length == 0) {
         this.noArticles = true;
+      } else {
+        this.articles.sort((a,b) => this.compareDate(a.datePublished, b.datePublished));
       }
     },
     (error)=>{
