@@ -16,18 +16,33 @@ public class ArticleController {
     private ArticleService articleService;
 
     @GetMapping(value = "/articles")
-    public List<ArticleDto> getAllArticles() {
-        return articleService.getAllArticles();
+    public List<ArticleDto> getAllNonDeletedArticles() {
+        return articleService.getAllNonDeletedArticles();
+    }
+
+    @GetMapping(value = "/deleted-articles")
+    public List<ArticleDto> getDeletedArticles(@RequestBody User user) {
+        return articleService.getDeletedArticles(user);
+    }
+
+    @GetMapping(value = "/restore-article/{id}")
+    public void restoreArticle(@RequestBody User user, @PathVariable Integer id) {
+        articleService.restoreArticle(user, id);
+    }
+
+    @GetMapping(value = "/article/{id}")
+    public ArticleDto getNonDeletedArticle(@PathVariable Integer id) {
+        return articleService.getNonDeletedArticle(id);
+    }
+
+    @GetMapping(value = "/deleted-article/{id}")
+    public ArticleDto getDeletedArticle(@RequestBody User user, @PathVariable Integer id) {
+        return articleService.getDeletedArticle(user, id);
     }
 
     @PostMapping(value = "/topic-articles")
     public List<ArticleDto> getArticlesOfTopic(@RequestBody ArticlesRequestDto articlesRequest) {
         return articleService.getArticlesOfTopic(articlesRequest.articleTopic);
-    }
-
-    @GetMapping(value = "/article/{id}")
-    public ArticleDto getArticle(@PathVariable Integer id) {
-        return articleService.getArticle(id);
     }
 
     @PostMapping(value = "/article/create")

@@ -21,22 +21,33 @@ public class NewsController {
         return newsService.getAllNews();
     }
 
+    @GetMapping(value = "/deleted-news-posts")
+    public List<NewsPostDTO> getDeletedNewsPosts(@RequestBody User user) {
+        return newsService.getDeletedNewsPosts(user);
+    }
+
+    @GetMapping(value = "/restore-news-post/{id}")
+    public void restoreNewsPost(@RequestBody User user, @PathVariable Integer id) {
+        newsService.restoreNewsPost(user, id);
+    }
+
     @GetMapping(value = "/news-post/{id}")
     public NewsPostDTO getNewsPostById(@PathVariable Integer id) {
         return newsService.getPostWithID(id);
     }
 
-    @DeleteMapping(value = "/news-post/delete/{id}")
-    public void deleteArticle(Principal principal, @PathVariable Integer id) {
-        User user = (User) ((Authentication) principal).getPrincipal();
+    @GetMapping(value = "/deleted-news-post/{id}")
+    public NewsPostDTO getDeletedNewsPost(@RequestBody User user, @PathVariable Integer id) {
+        return newsService.getDeletedNewsPost(user, id);
+    }
 
+    @DeleteMapping(value = "/news-post/delete/{id}")
+    public void deleteNewsPost(@RequestBody User user, @PathVariable Integer id) {
         newsService.deleteNewsPost(user, id);
     }
 
     @PostMapping(value = "/news-post/create")
-    public void createOrUpdateNewsPost(Principal principal, @RequestBody NewsPostDTO newsPostDTO) {
-        User user = (User) ((Authentication) principal).getPrincipal();
-
+    public void createOrUpdateNewsPost(@RequestBody User user, @RequestBody NewsPostDTO newsPostDTO) {
         newsService.createOrUpdateNewsPost(user, newsPostDTO);
     }
 

@@ -20,6 +20,7 @@ public enum ErrorMessage {
     INTERNAL_SERVER_ERROR("Server error"),
 
     FIREBASE_USER_DOES_NOT_EXIST("Firebase user does not exist"),
+    ARTICLE_GET_NOT_AUTHORIZED("User not authorized to get this article"),
     INVALID_AUTH_TOKEN("Invalid auth token");
 
 

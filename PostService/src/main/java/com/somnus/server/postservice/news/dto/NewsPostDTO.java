@@ -12,9 +12,9 @@ public class NewsPostDTO extends PostDTO implements Serializable {
     }
 
     public NewsPostDTO(String id, String newsPostName, String normalizedName, String authorUserName, String firebaseGeneratedUsername, String description,
-                       LocalDateTime datePublished, LocalDateTime lastUpdate, String content) {
+                       LocalDateTime datePublished, LocalDateTime lastUpdate, boolean isDeleted, String content) {
         super(id, newsPostName, normalizedName, authorUserName, firebaseGeneratedUsername, description, datePublished, lastUpdate,
-                content);
+                isDeleted, content);
     }
 
 }

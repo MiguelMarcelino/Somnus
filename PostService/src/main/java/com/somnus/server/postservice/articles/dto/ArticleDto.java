@@ -14,8 +14,8 @@ public class ArticleDto extends PostDTO implements Serializable {
     }
 
     public ArticleDto(String id, String articleName, String normalizedName, String authorUserName, String firebaseGeneratedUserID, String description,
-                      LocalDateTime datePublished, LocalDateTime lastUpdate, String topic, String normalizedTopic, String content) {
-        super(id, articleName, normalizedName, authorUserName, firebaseGeneratedUserID, description, datePublished, lastUpdate,
+                      LocalDateTime datePublished, LocalDateTime lastUpdate, String topic, String normalizedTopic, boolean isDeleted, String content) {
+        super(id, articleName, normalizedName, authorUserName, firebaseGeneratedUserID, description, datePublished, lastUpdate, isDeleted,
                 content);
         this.topic = topic;
         this.normalizedTopic = normalizedTopic;

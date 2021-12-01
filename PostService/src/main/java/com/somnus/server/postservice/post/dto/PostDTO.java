@@ -14,11 +14,12 @@ public abstract class PostDTO implements Serializable {
     private String datePublished;
     private String lastUpdate;
     private String content;
+    private boolean isDeleted;
 
     public PostDTO() {}
 
     public PostDTO(String id, String postName, String normalizedName, String authorUserName, String userId, String description,
-                      LocalDateTime datePublished, LocalDateTime lastUpdate, String content) {
+                    LocalDateTime datePublished, LocalDateTime lastUpdate, boolean isDeleted, String content) {
         this.id = id;
         this.postName = postName;
         this.normalizedName = normalizedName;
@@ -30,6 +31,7 @@ public abstract class PostDTO implements Serializable {
             this.lastUpdate = lastUpdate.format(DateTimeFormatter.ISO_DATE);
         }
         this.content = content;
+        this.isDeleted = isDeleted;
     }
 
     public String getId() {
@@ -66,5 +68,9 @@ public abstract class PostDTO implements Serializable {
 
     public String getContent() {
         return content;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
     }
 }

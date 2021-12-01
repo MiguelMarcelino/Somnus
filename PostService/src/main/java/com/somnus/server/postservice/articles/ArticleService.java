@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -35,9 +36,9 @@ public class ArticleService {
             value = {SQLException.class},
             backoff = @Backoff(delay = 5000))
     @Transactional(isolation = Isolation.READ_COMMITTED)
-    public List<ArticleDto> getAllArticles() {
+    public List<ArticleDto> getAllNonDeletedArticles() {
         List<ArticleDto> articleDtos = new ArrayList<>();
-        articleRepository.findAll().forEach(article -> articleDtos.add(
+        articleRepository.findAllNonDeletedArticles().forEach(article -> articleDtos.add(
                 createArticleDto(article)));
         return articleDtos;
     }
@@ -57,8 +58,8 @@ public class ArticleService {
             value = {SQLException.class},
             backoff = @Backoff(delay = 5000))
     @Transactional(isolation = Isolation.READ_COMMITTED)
-    public ArticleDto getArticle(Integer id) {
-        Optional<Article> optionalArticle = articleRepository.findById(id);
+    public ArticleDto getNonDeletedArticle(Integer id) {
+        Optional<Article> optionalArticle = articleRepository.findByIdAndIsDeletedNot(id);
         if (optionalArticle.isEmpty()) {
             throw new SomnusException(ErrorMessage.NO_ARTICLE_FOUND);
         }
@@ -79,7 +80,7 @@ public class ArticleService {
 
         Article article = null;
         if (articleDto.getId() != null) {
-            article = articleRepository.getOne(Integer.parseInt(articleDto.getId()));
+            article = articleRepository.getById(Integer.parseInt(articleDto.getId()));
         }
 
         postService.postCreateAuthCheck(user);
@@ -97,6 +98,7 @@ public class ArticleService {
             article.setContent(articleDto.getContent());
             article.updateLastUpdate();
         }
+        article.setIsDeleted(articleDto.isDeleted());
         articleRepository.save(article);
     }
 
@@ -105,7 +107,7 @@ public class ArticleService {
             backoff = @Backoff(delay = 5000))
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public void deleteArticle(User user, Integer id) {
-        Article article = articleRepository.getOne(id);
+        Article article = articleRepository.getById(id);
 
         // Article can only be deleted by the person who wrote it or the admin
         if (!article.getAuthorUserName().equals(user.getFirebaseGeneratedUserID()) &&
@@ -113,7 +115,8 @@ public class ArticleService {
             throw new SomnusException(ErrorMessage.DELETE_ARTICLE_NOT_ALLOWED);
         }
 
-        articleRepository.deleteById(id);
+        article.setIsDeleted(true);
+        articleRepository.save(article);
     }
 
     @Retryable(
@@ -129,6 +132,52 @@ public class ArticleService {
         return articleDtos;
     }
 
+    @Retryable(
+            value = {SQLException.class},
+            backoff = @Backoff(delay = 5000))
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+    public List<ArticleDto> getDeletedArticles(User user) {
+        List<Article> articles = articleRepository
+                .getAllDeletedArticlesFromAuthorUsername(user.getFirebaseGeneratedUserID());
+
+        List<ArticleDto> articleDtos = new ArrayList<>();
+        articles.forEach(post -> articleDtos.add(createArticleDto(post)));
+        return articleDtos;
+    }
+
+    @Retryable(
+            value = {SQLException.class},
+            backoff = @Backoff(delay = 5000))
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+    public void restoreArticle(User user, Integer id) {
+        Optional<Article> optionalArticle = articleRepository.findById(id);
+        if (optionalArticle.isEmpty()) {
+            throw new SomnusException(ErrorMessage.NO_ARTICLE_FOUND);
+        }
+        Article article = optionalArticle.get();
+
+        postService.postCreateAuthCheck(user);
+        article.setIsDeleted(false);
+        articleRepository.save(article);
+    }
+
+    @Retryable(
+            value = {SQLException.class},
+            backoff = @Backoff(delay = 5000))
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+    public ArticleDto getDeletedArticle(User user, Integer id) {
+        Optional<Article> optionalArticle = articleRepository.findByIdAndIsDeleted(id);
+        if(optionalArticle.isEmpty()) {
+            throw new SomnusException(ErrorMessage.NO_ARTICLE_FOUND);
+        }
+
+        Article article = optionalArticle.get();
+        if(!Objects.equals(user.getId(), article.getAuthorId())) {
+            throw new SomnusException(ErrorMessage.ARTICLE_GET_NOT_AUTHORIZED);
+        }
+        return createArticleDto(article);
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////// Private Methods ///////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -138,8 +187,7 @@ public class ArticleService {
                 postService.normalizeName(article.getPostName()), article.getAuthorUserName(),
                 article.getFirebaseGeneratedUserID(), article.getDescription(), article.getDatePublished(),
                 article.getLastUpdate(), article.getTopic().name, postService.normalizeName(article.getTopic().name),
-                article.getContent());
+                article.getIsDeleted(), article.getContent());
     }
-
 
 }

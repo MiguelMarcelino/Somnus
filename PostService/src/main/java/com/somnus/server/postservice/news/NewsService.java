@@ -38,7 +38,7 @@ public class NewsService {
 
 
     public NewsPostDTO getPostWithID(Integer id) {
-        Optional<NewsPost> newsPostOpt = newsPostRepository.findById(id);
+        Optional<NewsPost> newsPostOpt = newsPostRepository.findByIdAndIsDeletedNot(id);
         if (!newsPostOpt.isPresent()) {
             throw new SomnusException(ErrorMessage.NO_NEWS_POST_FOUND);
         }
@@ -60,7 +60,55 @@ public class NewsService {
             throw new SomnusException(ErrorMessage.DELETE_NEWS_POST_NOT_ALLOWED);
         }
 
-        newsPostRepository.deleteById(id);
+        newsPost.setIsDeleted(true);
+        newsPostRepository.save(newsPost);
+    }
+
+    @Retryable(
+            value = {SQLException.class},
+            backoff = @Backoff(delay = 5000))
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+    public List<NewsPostDTO> getDeletedNewsPosts(User user) {
+        List<NewsPost> newsPosts = newsPostRepository.
+                getAllDeletedNewsPostsFromAuthorUsername(user.getFirebaseGeneratedUserID());
+
+        List<NewsPostDTO> newsPostDTOs = new ArrayList<>();
+        newsPosts.forEach(post -> newsPostDTOs.add(createNewsPostDTO(post)));
+        return newsPostDTOs;
+    }
+
+    @Retryable(
+            value = {SQLException.class},
+            backoff = @Backoff(delay = 5000))
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+    public void restoreNewsPost(User user, Integer id) {
+        Optional<NewsPost> optionalNewsPost = newsPostRepository.findById(id);
+        if (optionalNewsPost.isEmpty()) {
+            throw new SomnusException(ErrorMessage.NO_ARTICLE_FOUND);
+        }
+        NewsPost newsPost = optionalNewsPost.get();
+
+        postService.postCreateAuthCheck(user);
+        newsPost.setIsDeleted(false);
+        newsPostRepository.save(newsPost);
+    }
+
+    @Retryable(
+            value = {SQLException.class},
+            backoff = @Backoff(delay = 5000))
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+    public NewsPostDTO getDeletedNewsPost(User user, Integer id) {
+        Optional<NewsPost> optionalArticle = newsPostRepository.findByIdAndIsDeleted(id);
+        if(!optionalArticle.isPresent()) {
+            throw new SomnusException(ErrorMessage.NO_ARTICLE_FOUND);
+        }
+
+        NewsPost newsPost = optionalArticle.get();
+        if(user.getId() != newsPost.getAuthorId()) {
+            throw new SomnusException(ErrorMessage.ARTICLE_GET_NOT_AUTHORIZED);
+        }
+        NewsPostDTO newsPostDTO = createNewsPostDTO(newsPost);
+        return newsPostDTO;
     }
 
     @Retryable(
@@ -85,6 +133,7 @@ public class NewsService {
             newsPost.setContent(newsPostDTO.getContent());
             newsPost.updateLastUpdate();
         }
+        newsPost.setIsDeleted(newsPostDTO.isDeleted());
         newsPostRepository.save(newsPost);
     }
 
@@ -96,6 +145,6 @@ public class NewsService {
         return new NewsPostDTO(String.valueOf(newsPost.getId()), newsPost.getPostName(),
                 postService.normalizeName(newsPost.getPostName()), newsPost.getAuthorUserName(),
                 newsPost.getAuthorUserName(), newsPost.getDescription(), newsPost.getDatePublished(),
-                newsPost.getLastUpdate(), newsPost.getContent());
+                newsPost.getLastUpdate(), newsPost.getIsDeleted(), newsPost.getContent());
     }
 }
