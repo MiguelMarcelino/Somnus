@@ -1,0 +1,19 @@
+<div class="article-container grid-container" onresize="responsive()">
+    <div class="post-img-cont">
+        <img [src]="imgSource" class="post-img">
+    </div>
+    <div class="post-data-cont">
+        <div class="post-info">
+            <h3>{{post.postName}}</h3>
+            <h3>Published on {{post.datePublished | date:'mediumDate'}}</h3>
+            <h3 *ngIf="post.lastUpdate">Last Updated on {{post.lastUpdate | date:'mediumDate'}}</h3>
+            <p class="post-author">Written by 
+                <span class="author-name">{{post.authorUserName}}</span>
+                <span *ngIf="hasTopic()"> on {{topic}}</span>
+            </p>
+        </div>
+        <div class="description">
+            {{post.description}}
+        </div>
+    </div>
+</div>

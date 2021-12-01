@@ -34,7 +34,8 @@ mat-form-field.mat-form-field {
 
 #article-container img{
     height: auto;
-    width: 80%;
+    max-width: 400pt;
+    margin: 0 auto;
 }
 
 #article-container h3,

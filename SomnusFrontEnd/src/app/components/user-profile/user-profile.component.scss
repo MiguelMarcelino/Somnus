@@ -1,4 +1,13 @@
 
+// Custom separation
+hr {
+    margin-top: 20pt;
+    color: white;
+    background-color: rgb(136, 136, 136);
+    border-width: 1pt;
+    width: 100%;
+}
+
 .page-content {
     display: grid;
     margin-top: 30pt;

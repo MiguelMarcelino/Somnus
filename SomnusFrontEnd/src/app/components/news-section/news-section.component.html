@@ -8,22 +8,12 @@
     <mat-progress-spinner *ngIf="loading" mode="indeterminate"></mat-progress-spinner>
 
     <div *ngIf="newsPosts">
-        <div *ngFor="let newsPost of newsPosts" class="article-container grid-container">
+        <div *ngFor="let newsPost of newsPosts" class="mt-5">
             <div [routerLink]="['/news-post/',newsPost.id,newsPost.normalizedName]">
-                <div class="left-article-img">
-                    <img src="../../../assets/icons/tech-lines.png" class="news-img">
-                </div>
-                <div class="right-article-data">
-                    <div class="article-info">
-                        <h3>{{newsPost.postName}}</h3>
-                        <h3>Published on {{newsPost.datePublished | date:'medium'}}</h3>
-                        <h3 *ngIf="newsPost.lastUpdate">Last Updated on {{newsPost.lastUpdate | date:'medium'}}</h3>
-                        <p class="article-author">Written by <span class="author-name">{{newsPost.authorUserName}}</span></p>
-                    </div>
-                    <div class="description">
-                        {{newsPost.description}}
-                    </div>
-                </div>
+                <app-post-box-component
+                    [imgSource]="'../../../assets/icons/tech-lines.png'"
+                    [post]="newsPost">
+                </app-post-box-component>
             </div>
         </div>
     </div>

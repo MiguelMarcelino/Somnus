@@ -1,34 +1,60 @@
-<div class="wrapper" *ngIf="article">
-    <div id="article-info">
-        <h2>{{article.postName}}</h2>
-        <h3 class="article-author">Written by <span class="author-name">{{article.authorUserName}}</span></h3>
-        <h3>Published on {{article.datePublished | date:'mediumDate'}}</h3>
-        <h3 *ngIf="article.lastUpdate">Last Updated on {{article.lastUpdate | date:'mediumDate'}}</h3>
-        <div class="article-text" [innerHTML]="article.content">
-            <!-- <div [innerHTML]="article.content"></div> -->
+<div class="post-frame" *ngIf="article">
+    <div class="annotations">
+
+    </div>
+    <div class="post">
+        <div id="article-info">
+            <h2 class="title">{{article.postName}}</h2>
+            <div class="metadata">
+                <h3 class="article-author">Written by <span class="author-name">{{article.authorUserName}}</span></h3>
+                <h3>Published on {{article.datePublished | date:'mediumDate'}}</h3>
+                <h3 *ngIf="article.lastUpdate">Last Updated on {{article.lastUpdate | date:'mediumDate'}}</h3>
+            </div>
+            <div id="post-description-cont">
+                <p id="post-description">{{article.description}}</p>
+            </div>
+            <div class="article-text" [innerHTML]="article.content">
+                <!-- <div [innerHTML]="article.content"></div> -->
+            </div>
+        </div>
+
+        <!-- Comments Section -->
+        <app-comments-section [postId]="article.id" id="c-section"></app-comments-section>
+
+        <br>
+        <mat-expansion-panel *ngIf="isArticleOwnerOrAdmin()">
+            <mat-expansion-panel-header [collapsedHeight]="'50pt'" [expandedHeight]="'50pt'">
+                <mat-panel-description collapsedHeight="'50pt'">
+                    Article Edit options
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <div class="article-options">
+                <button class="custom-button" mat-raised-button color="warn" *ngIf="isArticleOwnerOrAdmin() && !article.isDeleted" (click)="deleteArticle()">
+                    Delete Article
+                </button>
+                <button class="custom-button" mat-raised-button color="primary" *ngIf="isArticleOwnerOrAdmin()" (click)="editArticle()">
+                    Edit Article
+                </button>
+                <button class="custom-button" mat-raised-button color="primary" *ngIf="article.isDeleted" (click)="restoreArticle()">
+                    Restore Article
+                </button>
+            </div>
+        </mat-expansion-panel>
+    </div>
+    <div class="news">
+        <div *ngIf="publishedNews">
+            <h3>Latest News</h3>
+            <div *ngFor="let newsPost of newsPosts">
+                <div [routerLink]="['/news-post/',newsPost.id,newsPost.normalizedName]">
+                    <app-post-box-component
+                        [imgSource]="'../../../assets/icons/tech-lines.png'"
+                        [post]="newsPost">
+                    </app-post-box-component>
+                </div>
+            </div>
         </div>
     </div>
-
-    <!-- Comments Section -->
-    <app-comments-section [postId]="article.id" id="c-section"></app-comments-section>
-
-    <br>
-    <mat-expansion-panel *ngIf="isArticleOwnerOrAdmin()">
-        <mat-expansion-panel-header [collapsedHeight]="'50pt'" [expandedHeight]="'50pt'">
-            <mat-panel-description collapsedHeight="'50pt'">
-                Article Edit options
-            </mat-panel-description>
-        </mat-expansion-panel-header>
-
-        <div class="article-options">
-            <button class="custom-button" mat-raised-button color="warn" *ngIf="isArticleOwnerOrAdmin()" (click)="deleteArticle()">
-                Delete Article
-            </button>
-            <button class="custom-button" mat-raised-button color="primary" *ngIf="isArticleOwnerOrAdmin()" (click)="editArticle()">
-                Edit Article
-            </button>
-        </div>
-    </mat-expansion-panel>
 
 </div>
 

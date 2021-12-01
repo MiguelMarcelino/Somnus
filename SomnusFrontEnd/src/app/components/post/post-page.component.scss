@@ -15,7 +15,13 @@
 
 .article-text {
     padding-top: 20pt;
+    padding-right: 10pt;
     text-align: left;
+    overflow-wrap: break-word;
+}
+
+:host ::ng-deep p{
+    overflow-wrap: break-word;
 }
 
 .delete-button {
@@ -23,8 +29,10 @@
 }
 
 :host ::ng-deep img {
+    display: block;
     height: auto;
     width: 80%;
+    margin: 0 auto;
 }
 
 mat-expansion-panel{
@@ -46,7 +54,7 @@ mat-expansion-panel{
 }
 
 #article-info {
-    margin-bottom: 80pt;
+    margin-bottom: 100pt;
 }
 
 .navigate-button-comments {
@@ -63,3 +71,88 @@ mat-expansion-panel{
     right: 20px;
     z-index: 10;
 }
+
+#post-description-cont {
+    min-height: 30pt;
+    margin-top: 5pt;
+    margin-bottom: 5pt;
+}
+
+#post-description {
+    font-size: 15pt;
+    line-height: 30pt;
+    text-align: left;
+    float: left;
+    color: rgb(153, 153, 153);
+}
+
+// diogo new interface classes
+.post-frame {
+    display: grid;
+    grid-template-columns: 25% 50% 25%;
+    grid-template-areas: "annotations post news";
+}
+
+.annotations {
+    grid-area: annotations;
+    width: 100%;
+}
+
+.post{
+    grid-area: post;
+    // padding: 0px 40px;
+    // padding-left: 16%;
+
+    .title{
+        font-size: 2.4rem !important;
+    }
+
+    .metadata{
+        display: flex;
+        flex-direction: row;
+
+        h3{
+            font-size: 0.8rem !important;
+        }
+
+        * + *:before{
+            content: "|";
+            margin: 0px 12.5px;
+        }
+    }
+}
+
+.news{
+    grid-area: news;
+    padding: 5pt;
+    padding-right: 10pt;
+}
+
+@media only screen and (min-width: 1500px) {
+    :host ::ng-deep img {
+        width: 500pt;
+    }
+}
+
+@media only screen and (max-width: 1100px) {
+    .post-frame{
+        grid-template-columns: 0% 100% 0%;
+        grid-template-areas: "annotations post news";
+        padding: 20pt;
+    }
+
+    .annotations {
+        display: none;
+    }
+
+    .news{
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    :host ::ng-deep img {
+        width: 100%;
+    }  
+}
+

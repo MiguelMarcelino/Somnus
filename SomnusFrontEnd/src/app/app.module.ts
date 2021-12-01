@@ -38,6 +38,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { UpdateUserInfoComponent } from './components/update-user-info/update-user-info.component';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { CommentsSectionComponent } from './components/comments-section/comments-section.component';
+import { PostBoxComponentComponent } from './components/post-box/post-box.component';
 import { NewsSectionComponent } from './components/news-section/news-section.component';
 import { NewsPageComponent } from './components/news-page/news-page.component';
 
@@ -66,7 +67,8 @@ import { NewsPageComponent } from './components/news-page/news-page.component';
     UpdateUserInfoComponent,
     CommentsSectionComponent,
     NewsSectionComponent,
-    NewsPageComponent
+    NewsPageComponent,
+    PostBoxComponentComponent
   ],
   imports: [
     BrowserModule,

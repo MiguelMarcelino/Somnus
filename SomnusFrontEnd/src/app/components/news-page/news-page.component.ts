@@ -53,14 +53,24 @@ export class NewsPageComponent implements OnInit {
 
   getNewsPost(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParamMap.subscribe((params: any) => {
+      if(!params.params.isDeleted){
+        this.newsPostService.getObject(id).subscribe((newsPost: NewsPostModel) =>{
+          if(newsPost) {
+            this.newsPost = newsPost;
+            this.newsPost.isDeleted = false;
+          }
+        })
+      } else {
+        this.newsPostService.getDeletedNewsPost(id).subscribe((newsPost: NewsPostModel) =>{
+          if(newsPost) {
+            this.newsPost = newsPost;
+            this.newsPost.isDeleted = true;
+          }
+        })
+      }
       this.urlParams = {...params};
     });
-    this.newsPostService.getObject(id).subscribe((newsPost: NewsPostModel) =>{
-      if(newsPost) {
-        this.newsPost = newsPost;
-      }
-    })
   }
 
   isNewsPostOwnerOrAdmin() {
@@ -83,6 +93,12 @@ export class NewsPageComponent implements OnInit {
   editNewsPost() {
     const id = this.route.snapshot.paramMap.get('id');
     this.router.navigate(["/createPost"], {queryParams: {id: id, postType: PostTypes.newsPost}});
+  }
+
+  restoreNewsPost() {
+    this.newsPostService.restoreNewsPost(this.newsPost.id).subscribe(post => {
+      this.router.navigateByUrl("/user-profile");
+    });
   }
 
 }

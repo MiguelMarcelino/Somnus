@@ -8,6 +8,9 @@ import { UserModel } from 'src/app/models/user.model';
 import { ErrorInterface } from 'src/handlers/error-interface';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { PostTypes } from 'src/app/models/post/post-types.enum';
+import { NewsPostModel } from 'src/app/models/post/news-post.model';
+import { NewsPostService } from 'src/app/services/controllers/news-controller.service';
+import { PostComponent } from '../post/post.component';
 
 @Component({
   selector: 'app-article-page',
@@ -28,40 +31,93 @@ import { PostTypes } from 'src/app/models/post/post-types.enum';
     )
   ],
 })
-export class ArticlePageComponent implements OnInit {
+export class ArticlePageComponent extends PostComponent implements OnInit {
 
   // app user
   user: firebase.default.User;
-  private urlParams = {};
+  urlParams = {};
   article: ArticleModel;
+  newsPosts: NewsPostModel[] = [];
+  publishedNews: boolean = false;
   showCommentsSectionButton: boolean;
 
   constructor(
-    private route: ActivatedRoute,
-    private articleService: ArticlesService,
     private authenticationService: AuthenticationService,
-    private router: Router,
+    private route: ActivatedRoute,
     private errorInterface: ErrorInterface,
-  ) { }
+    private router: Router,
+    private articleService: ArticlesService,
+    private newsService: NewsPostService,
+  ) { 
+    super(authenticationService, route, errorInterface, router);
+  }
 
   ngOnInit(): void {
+    // this.getDebugArticle();
+    // this.getDebugNews();
     this.getArticle();
+    this.getNews();
     this.authenticationService.getLoggedInUser()
       .subscribe (user => {
         this.user = user;
     });
   }
 
+  // for debug only without server
+  // getDebugArticle():void{
+  //   this.articleService.getDebugArticle().subscribe((article: ArticleModel) =>{
+  //     if(article) {
+  //       this.article = article;
+  //       this.article.isDeleted = false;
+  //     }
+  //   })
+  // }
+
+  // getDebugNews():void{
+  //   this.articleService.getDebugNews().subscribe((news: NewsPostModel) =>{
+  //     if(news) {
+  //       this.newsPost = news;
+  //       this.newsPost.isDeleted = false;
+  //     }
+  //   })
+  // }
+  //
+
   getArticle(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParamMap.subscribe((params: any) => {
+      if(!params.params.isDeleted){
+        this.articleService.getObject(id).subscribe((article: ArticleModel) =>{
+          if(article) {
+            this.article = article;
+            this.article.isDeleted = false;
+          }
+        })
+      } else {
+        this.articleService.getDeletedArticle(id).subscribe((article: ArticleModel) =>{
+          if(article) {
+            this.article = article;
+            this.article.isDeleted = true;
+          }
+        })
+      }
       this.urlParams = {...params};
     });
-    this.articleService.getObject(id).subscribe((article: ArticleModel) =>{
-      if(article) {
-        this.article = article;
+  }
+
+  getNews() {
+    this.newsService.getAll().subscribe((allNews: NewsPostModel[]) => {
+      var tempNewsPosts = allNews;
+      if(allNews && allNews.length != 0) {
+        this.publishedNews = true;
+        tempNewsPosts.sort((a,b) => this.compareDate(a.datePublished,b.datePublished))
+        // Small hack before optimizing get from database (not a problem since there aren't many News posts)
+        var lengthPosts = tempNewsPosts.length > 4 ? 4 : tempNewsPosts.length;
+        for(var i = 0; i < lengthPosts; i++) {
+          this.newsPosts.push(tempNewsPosts[i]);
+        }
       }
-    })
+    });
   }
 
   isArticleOwnerOrAdmin() {
@@ -84,6 +140,12 @@ export class ArticlePageComponent implements OnInit {
   editArticle() {
     const id = this.route.snapshot.paramMap.get('id');
     this.router.navigate(["/createPost"], {queryParams: {id: id, postType: PostTypes.article}});
+  }
+
+  restoreArticle() {
+    this.articleService.restoreArticle(this.article.id).subscribe(post => {
+      this.router.navigateByUrl("/user-profile");
+    });
   }
 
   navigateToCommentSection() {

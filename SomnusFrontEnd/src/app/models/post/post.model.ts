@@ -9,4 +9,5 @@ export interface PostModel extends Identifiable {
     datePublished: Date;
     lastUpdate: Date;
     content: any;
+    isDeleted?: boolean;
 }

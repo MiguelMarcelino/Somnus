@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
 import { NewsPostModel } from "src/app/models/post/news-post.model";
 import { AppRoutesService } from "../routes/app-routes.service";
 import { TemplateControllerService } from "./template-controller.service";
@@ -22,6 +23,18 @@ export class NewsPostService extends TemplateControllerService<NewsPostModel> {
 
     protected getApiUrlObject() {
         return this.appRoutes.apiNewsPostEndPoint;
+    }
+
+    getDeletedNewsPosts(): Observable<any> {
+        return this.http.get(`${this.appRoutes.apiNewsPosts}/deleted-news-posts`);
+    }
+
+    restoreNewsPost(id: string): Observable<any> {
+        return this.http.get(`${this.appRoutes.apiNewsPosts}/restore-news-post/${id}`);
+    }
+
+    getDeletedNewsPost(id: string): Observable<any> {
+        return this.http.get(`${this.appRoutes.apiNewsPosts}/deleted-news-post/${id}`);
     }
     
 }
