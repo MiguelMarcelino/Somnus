@@ -1,10 +1,12 @@
-package com.somnus.server.postservice;
+package com.somnus.server.backend.teamMemberService;
 
-import com.somnus.server.postservice.notifications.config.PusherConfig;
+import com.somnus.server.backend.teamMemberService.teammembers.ContributionService;
+import com.somnus.server.backend.teamMemberService.teammembers.TeamMemberService;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -17,18 +19,27 @@ import java.util.TimeZone;
 @EnableJpaRepositories
 @EnableTransactionManagement
 @EnableJpaAuditing
-public class PostServiceApplication extends SpringBootServletInitializer implements InitializingBean {
+public class TeamMemberServiceApplication extends SpringBootServletInitializer implements InitializingBean {
 
 	@Autowired
-	private PusherConfig pusherConfig;
+	private ContributionService contributionService;
+
+	@Autowired
+	private TeamMemberService teamMemberService;
 
 	public static void main(String[] args) {
-		SpringApplication.run(PostServiceApplication.class, args);
+		SpringApplication.run(TeamMemberServiceApplication.class, args);
 	}
 
 	@Override
 	public void afterPropertiesSet() {
-		pusherConfig.createPusherConnection();
+		contributionService.updateContributionRepo();
+		teamMemberService.updateTeamMemberOldestCommit();
+	}
+
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(TeamMemberServiceApplication.class);
 	}
 
 	@PostConstruct

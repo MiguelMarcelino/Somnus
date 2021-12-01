@@ -2,6 +2,12 @@
 All changes made to this project will be documented in this file
 
 ## [RELEASED]
+## [0.4.0] - 2021-12-01
+### Changed
+- Created Feedback Microservice
+- Created Auth Microservice
+- Updated Post Microservice with latest changes from main
+- Created Team Member Service
 ---------------------------------------------------------
 ## [0.4.0] - 2021-09-12
 ### Changed
