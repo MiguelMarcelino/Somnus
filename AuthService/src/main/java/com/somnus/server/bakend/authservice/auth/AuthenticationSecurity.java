@@ -1,6 +1,6 @@
-package com.somnus.server.backend.auth;
+package com.somnus.server.bakend.authservice.auth;
 
-import com.somnus.server.backend.auth.firebase.FirebaseAuthenticationProvider;
+import com.somnus.server.bakend.authservice.auth.firebase.FirebaseAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;

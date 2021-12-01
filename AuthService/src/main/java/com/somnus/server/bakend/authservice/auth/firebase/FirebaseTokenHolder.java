@@ -1,4 +1,4 @@
-package com.somnus.server.backend.auth.firebase;
+package com.somnus.server.bakend.authservice.auth.firebase;
 
 import com.google.api.client.util.ArrayMap;
 import com.google.firebase.auth.FirebaseToken;

@@ -1,4 +1,4 @@
-package com.somnus.server.backend.auth.firebase;
+package com.somnus.server.bakend.authservice.auth.firebase;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;

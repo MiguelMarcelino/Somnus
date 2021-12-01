@@ -1,4 +1,4 @@
-package com.somnus.server.backend.auth.firebase;
+package com.somnus.server.bakend.authservice.auth.firebase;
 
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;

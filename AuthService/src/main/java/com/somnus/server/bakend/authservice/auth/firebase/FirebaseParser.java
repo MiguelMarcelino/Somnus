@@ -1,9 +1,9 @@
-package com.somnus.server.backend.auth.firebase;
+package com.somnus.server.bakend.authservice.auth.firebase;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseToken;
-import com.somnus.server.backend.exceptions.ErrorMessage;
-import com.somnus.server.backend.exceptions.SomnusException;
+import com.somnus.server.bakend.authservice.exceptions.ErrorMessage;
+import com.somnus.server.bakend.authservice.exceptions.SomnusException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 

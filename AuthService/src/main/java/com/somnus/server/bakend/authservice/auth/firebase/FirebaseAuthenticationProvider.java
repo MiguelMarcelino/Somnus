@@ -1,8 +1,8 @@
-package com.somnus.server.backend.auth.firebase;
+package com.somnus.server.bakend.authservice.auth.firebase;
 
-import com.somnus.server.backend.exceptions.ErrorMessage;
-import com.somnus.server.backend.exceptions.SomnusException;
-import com.somnus.server.backend.users.UserService;
+import com.somnus.server.bakend.authservice.exceptions.ErrorMessage;
+import com.somnus.server.bakend.authservice.exceptions.SomnusException;
+import com.somnus.server.bakend.authservice.users.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
