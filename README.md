@@ -1,7 +1,7 @@
 
 <div>
     <div align="center">
-        <h1>Somnus Server</h1>
+        <h1>Somnus</h1>
         <img src="https://drive.google.com/thumbnail?id=1qt9so1vEwYIKRboanCCEfbGqxpCz3n3p" style="filter: invert(1); height: 100pt;">
         <h4 style="width: 80%; margin: 0 auto">This is the GitHub repository for the Somnus website. Head over to our website to see more of our content.</h4>
     </div>
