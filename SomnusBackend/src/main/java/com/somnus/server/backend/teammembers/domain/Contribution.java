@@ -14,7 +14,7 @@ public class Contribution {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "title")
+    @Column(name = "title", length=512)
     private String title;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = true)

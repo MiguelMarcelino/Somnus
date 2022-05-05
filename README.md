@@ -68,6 +68,11 @@ To create this file, you will need the following:
 
 If you want to deploy the Somnus backend, it is recommended that you create an `application-production.properties` file.
 
+#### Building for production
+To build the backend for production, execute the script `create_backend_executable.sh`
+If you open the script, you will notice that it uses the production environment, requiring you to create the `application-production.properties` file with the corresponding production properties. 
+This will test the project and create an executable jar file, which you can use to deploy the server.
+
 ### Frontend
 To test the frontend, just jun `npm start` to start the server locally. This will open the server on port 4200.
 To deploy the frontend you can go to the SomnusFrontEnd folder and run
