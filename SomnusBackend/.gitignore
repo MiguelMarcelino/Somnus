@@ -35,4 +35,5 @@ build/
 ### VS Code ###
 .vscode/
 
-src/main/resources
+src/main/resources/firebase
+src/main/resources/application-production.properties
