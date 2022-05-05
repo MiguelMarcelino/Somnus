@@ -1,20 +1,26 @@
 import { HttpClient } from '@angular/common/http';
-import { OnInit, Injectable } from '@angular/core';
-import { MatGridTileHeaderCssMatStyler } from '@angular/material/grid-list';
+import { Injectable } from '@angular/core';
+import { isDevMode } from '@angular/core';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AppRoutesService {
     private appRoutes: any;
-    private ROUTES_FILE_PATH: string = "/assets/routes/appRoutes.json";
+    private routes_path: string ;
 
     constructor(
         private http: HttpClient
-    ) { }
+    ) { 
+        if (isDevMode()) {
+            this.routes_path = "/assets/routes/appRoutes.json"
+        } else {
+            this.routes_path = "/assets/routes/appRoutes_prod.json"
+        }
+    }
 
     loadAppConfig(): Promise<void> {
-        return this.http.get(this.ROUTES_FILE_PATH)
+        return this.http.get(this.routes_path)
             .toPromise()
             .then(data => {
                 this.appRoutes = data;
