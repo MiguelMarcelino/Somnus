@@ -43,7 +43,7 @@ public class ContributionService {
 
     // Create a Web Client pointing to the repository
     private static final WebClient webClient =
-            WebClient.create("https://api.github.com/repos/MiguelMarcelino/SomnusWebsite");
+            WebClient.create(githubApiUrl);
 
     @Retryable(
             value = {SQLException.class},
