@@ -1,11 +1,7 @@
 
 <div>
     <div align="center">
-<<<<<<< HEAD
-        <h1>Somnus Server</h1>
-=======
         <h1>Somnus</h1>
->>>>>>> f9987bc051a8ac6e953321d086a1102e98dd751e
         <img src="https://drive.google.com/thumbnail?id=1qt9so1vEwYIKRboanCCEfbGqxpCz3n3p" style="filter: invert(1); height: 100pt;">
         <h4 style="width: 80%; margin: 0 auto">This is the GitHub repository for the Somnus website. Head over to our website to see more of our content.</h4>
     </div>
