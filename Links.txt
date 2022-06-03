@@ -56,3 +56,5 @@ https://stackoverflow.com/questions/58625642/how-to-fix-typeerror-cannot-read-pr
 Syntax highlighting
 https://quilljs.com/docs/modules/syntax/
 
+Setting up ssh
+https://phoenixnap.com/kb/ssh-with-key

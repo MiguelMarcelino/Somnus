@@ -7,17 +7,22 @@
         </a>
         <h4 style="width: 80%; margin: 0 auto">This is the GitHub repository for the Somnus website. Head over to our website to see more of our content.</h4>
     </div>
-    <hr>
 </div>
 
-## Backend and Frontend
+<hr>
 
-### Backend
-To deploy the backend just run the script `create_backend_executable.sh`. 
-This will create a jar file in the folder SomnusBackend/ that can be used to run the backend application. When running th application please make sure that the folder deploy is placed in the same directory as the  jar file. If you want to change this configuration please go the the
-`application-production.properties` and change the 
-`firebase.service.account.file.path` variable
+## Dependencies
+- Java 11 (soon to be 17)
+- Angular 12
+- Node 16
+- npm 8.9
 
+<hr>
+
+## Backend
+To deploy the backend just run the script `exp_backend_prod.sh`.
+If you open the script, you will notice that it uses the production environment, requiring you to create the `application-production.properties` file with the corresponding production properties. 
+This will test the project and create an executable jar file, which you can use to deploy the server.
 You will also need to create a application-dev.properties to run Somnus. Here is a sample of what you need:
 ```
 ## Datasource
@@ -66,18 +71,12 @@ To create this file, you will need the following:
 - Configure an email for testing
 - Get a github token to test the github functionalities. 
 
-If you want to deploy the Somnus backend, it is recommended that you create an `application-production.properties` file.
 
-#### Building for production
-To build the backend for production, execute the script `create_backend_executable.sh`
-If you open the script, you will notice that it uses the production environment, requiring you to create the `application-production.properties` file with the corresponding production properties. 
-This will test the project and create an executable jar file, which you can use to deploy the server.
-
-### Frontend
+## Frontend
 To test the frontend, just jun `npm start` to start the server locally. This will open the server on port 4200.
-To deploy the frontend you can go to the SomnusFrontEnd folder and run
-`ng build --prod` to build the angular project for production. This will
-create a `/dist` folder containing all the necessary files for deployment. 
+To deploy the frontend you can run the 
+`exp_frontend_prod` script to build the angular project for production. This will
+create a `/SomnusFrontEnd/dist` folder containing all the necessary files for deployment. 
 
 <hr>
 
