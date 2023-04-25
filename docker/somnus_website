@@ -1,0 +1,12 @@
+FROM node:19.8.1 as build
+WORKDIR /app
+
+RUN npm install -g @angular/cli
+
+COPY ./package.json .
+RUN npm install
+COPY . .
+RUN ng build
+
+FROM nginx as runtime
+COPY --from=build /app/dist/Somnus /usr/share/nginx/html
