@@ -1,6 +1,11 @@
 # Changelog
 All changes made to this project will be documented in this file
 
+## [0.4.0] - 2023-04-25
+### Changed
+- Bumped Angular dependencies
+- Bumped Java dependencies
+
 ## [RELEASED]
 ## [0.3.0] - 2021-08-26
 ### Changed

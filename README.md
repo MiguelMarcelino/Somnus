@@ -12,18 +12,15 @@
 <hr>
 
 ## Dependencies
-- Java 11 (soon to be 17)
-- Angular 12
-- Node 16
-- npm 8.9
+- Java 17
+- Angular 15
+- Node 19
+- npm 9.6
 
 <hr>
 
-## Backend
-To deploy the backend just run the script `exp_backend_prod.sh`.
-If you open the script, you will notice that it uses the production environment, requiring you to create the `application-production.properties` file with the corresponding production properties. 
-This will test the project and create an executable jar file, which you can use to deploy the server.
-You will also need to create a application-dev.properties to run Somnus. Here is a sample of what you need:
+## Running the backend locally
+You will need to create a `application-dev.properties` to run Somnus. Here is a sample of what you need:
 ```
 ## Datasource
 spring.datasource.url=<db_link>
@@ -72,7 +69,7 @@ To create this file, you will need the following:
 - Get a github token to test the github functionalities. 
 
 
-## Frontend
+## Running the frontend locally
 To test the frontend, just jun `npm start` to start the server locally. This will open the server on port 4200.
 To deploy the frontend you can run the 
 `exp_frontend_prod` script to build the angular project for production. This will
@@ -83,14 +80,14 @@ create a `/SomnusFrontEnd/dist` folder containing all the necessary files for de
 ## Testing environment
 
 ### Using Database (MySQL)
-- Create a new user on the mysql database: CREATE USER 'testuser'@'localhost' IDENTIFIED BY 'yourpassword';
-- Give permissions to new user: GRANT ALL PRIVILEGES ON *.* TO 'testuser'@'localhost' WITH GRANT OPTION;
-- Flush mysql privileges: FLUSH PRIVILEGES;
-- Create Database: CREATE DB somnustestdb;
-- Dont forget to change the password in the <i>application-dev.properties </i> file
+- Create a new user on the mysql database: `CREATE USER 'testuser'@'localhost' IDENTIFIED BY 'yourpassword'`;
+- Give permissions to new user: `GRANT ALL PRIVILEGES ON *.* TO 'testuser'@'localhost' WITH GRANT OPTION`;
+- Flush mysql privileges: `FLUSH PRIVILEGES`;
+- Create Database: `CREATE DB somnustestdb`;
+- Dont forget to change the password in the `application-dev.properties` file
 
 ### Running Backend
-- Run using the created bash script file: run_backend_testing.sh
+- You can run the Java backend using the created bash script file: `run_backend_testing.sh`
 
 
 <div align="center">
