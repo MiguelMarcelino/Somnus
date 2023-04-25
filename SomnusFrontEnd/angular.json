@@ -142,5 +142,8 @@
       "style": "scss"
     }
   },
-  "defaultProject": "ServerWebsite"
+  "defaultProject": "ServerWebsite",
+  "cli": {
+    "analytics": false
+  }
 }
