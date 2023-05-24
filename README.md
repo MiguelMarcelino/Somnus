@@ -12,6 +12,7 @@
 <hr>
 
 ## Dependencies
+- party
 - Java 17
 - Angular 15
 - Node 19
