@@ -11,6 +11,8 @@
 
 <hr>
 
+<hr>
+
 ## Dependencies
 - Java 17
 - Angular 15
