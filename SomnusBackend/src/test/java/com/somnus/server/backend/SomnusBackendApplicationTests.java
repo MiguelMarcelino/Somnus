@@ -10,4 +10,7 @@ class SomnusBackendApplicationTests {
 	void contextLoads() {
 	}
 
+	void whateeee() {
+	}
+
 }
