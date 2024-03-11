@@ -11,6 +11,7 @@ class SomnusBackendApplicationTests {
 	}
 
 	void whateeee() {
+		println("Whateeee");
 	}
 
 }
